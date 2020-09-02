@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <BorderPane prefHeight="398.0" prefWidth="598.0">
+         <top>
+            <Label prefHeight="49.0" prefWidth="185.0" text="Show store details" BorderPane.alignment="CENTER" />
+         </top>
+         <left>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MenuButton mnemonicParsing="false" text="Choose store">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                  </MenuButton>
+               </children>
+            </HBox>
+         </left>
+         <bottom>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <TableView prefHeight="244.0" prefWidth="374.0">
+                          <columns>
+                            <TableColumn prefWidth="89.79998779296875" text="Name" />
+                            <TableColumn prefWidth="37.20001220703125" text="ID" />
+                              <TableColumn prefWidth="64.20001220703125" text="Price" />
+                              <TableColumn prefWidth="111.20001220703125" text="Purchase category" />
+                              <TableColumn prefWidth="103.79998779296875" text="Amount sold" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </bottom>
+         <center>
+            <GridPane prefHeight="149.0" prefWidth="398.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.5999755859375" minWidth="10.0" prefWidth="120.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="349.0" minWidth="10.0" prefWidth="278.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Name" />
+                  <Label text="ID" GridPane.rowIndex="1" />
+                  <Label text="PPK" GridPane.rowIndex="2" />
+                  <Label text="Label" GridPane.columnIndex="1" />
+                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Payment for deliveries" GridPane.rowIndex="3" />
+                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+         </center>
+      </BorderPane>
+   </content>
+</ScrollPane>
