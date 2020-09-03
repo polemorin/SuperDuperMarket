@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 import java.time.*;
+import ProductTypes.*;
 
 public class StoreLevelOrder {
     private static int OrderIDGenerator = 1000;

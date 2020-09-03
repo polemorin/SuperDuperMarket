@@ -5,11 +5,16 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.awt.*;
 import java.io.*;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
+
+import ProductTypes.*;
+import ProductTypes.Product;
+import ProductTypes.ProductCategory;
+import ProductTypes.StoreProduct;
+import SDMExceptions.*;
+import SDMSale.Sale;
 import jaxb.generated.*;
 
 public class SuperDuperMarket {
@@ -25,7 +30,6 @@ public class SuperDuperMarket {
         users = new HashMap<Integer, User>();
         stores = new HashMap<Integer, Store>();
         orderHistory = new HashMap<Integer, CustomerLevelOrder>();
-        users.put(0, new User("Admin", 0));
     }
 
     //------------------------Menu Option 3------------------------------
@@ -214,7 +218,7 @@ public class SuperDuperMarket {
         String xmlPath;
         Map<Integer,Store> tempStoreMap;
         Map<Integer,Product> tempProductMap;
-
+        Map<Integer,User> tempUserMap;
         xmlPath = scanner.nextLine();
         File f = new File(xmlPath);
         if (f.exists()) {
@@ -222,7 +226,7 @@ public class SuperDuperMarket {
 
                 tempStoreMap = createStoresMapFromXml(f.toPath().getFileName().toString());
                 tempProductMap = createProductMapFromXml(f.toPath().getFileName().toString(),tempStoreMap);
-
+                tempUserMap = createUserMapFromXML(f.toPath().getFileName().toString(),tempStoreMap);
                 xmlLoaded = true;
             } else {
                 throw new Exception("File doesn't end with .xml");
@@ -236,6 +240,46 @@ public class SuperDuperMarket {
 
         stores = tempStoreMap;
         products = tempProductMap;
+        users = tempUserMap;
+    }
+
+    private Map<Integer,User> createUserMapFromXML(String xmlName,Map<Integer,Store> tempStoreMap) throws Exception {
+        Map<Integer,User> userMapToAdd = new HashMap<>();
+        InputStream inputStream = SuperDuperMarket.class.getResourceAsStream(xmlName);
+        SuperDuperMarketDescriptor descriptor = deserializeFrom(inputStream);
+        SDMCustomers customersFromXML = descriptor.getSDMCustomers();
+        Point location;
+        for (SDMCustomer customer:customersFromXML.getSDMCustomer()) {
+            validateSDMCustomers(customer,userMapToAdd,tempStoreMap);
+            location = new Point(customer.getLocation().getX(),customer.getLocation().getY());
+            userMapToAdd.put(customer.getId(),new User(customer.getName(),customer.getId(),location));
+        }
+
+        return userMapToAdd;
+    }
+
+    private void validateSDMCustomers(SDMCustomer customer, Map<Integer,User> userMapToAdd, Map<Integer,Store> tempStoreMap) throws Exception{
+        if(userMapToAdd.containsKey(customer.getId())){
+            throw new Exception("User with this ID: "+customer.getId() + ", already exists");
+        }
+        Point location = new Point(customer.getLocation().getX(),customer.getLocation().getY());
+        if(!isValidLocationInSDM(location)){
+            throw new Exception("Location out of range, location: "+customer.getLocation().getX()+","+customer.getLocation().getY());
+        }
+        isLocationAvailableFromXMLInput(location,userMapToAdd,tempStoreMap);
+    }
+
+    private void isLocationAvailableFromXMLInput(Point location, Map<Integer,User> userMap, Map<Integer,Store> tempStoreMap)throws Exception {
+        for (Map.Entry<Integer,User> user: userMap.entrySet()) {
+            if(user.getValue().getLocation().equals(location)){
+                throw new Exception("More then one user in location, location:" +location.x+","+location.y );
+            }
+        }
+        for (Map.Entry<Integer,Store> storesToCheck:tempStoreMap.entrySet()) {
+            if(storesToCheck.getValue().getLocation().equals(location)){
+                throw new Exception("both user and store share this location: "+location.x+","+location.y);
+            }
+        }
     }
 
     private final static String JAXB_XML_GAME_PACKAGE_NAME = "jaxb.generated";
@@ -274,14 +318,125 @@ public class SuperDuperMarket {
                 throw new XmlMultipleStoresShareIDException("Multiple Stores with the same ID.", store.getId());
             } else {
                 storeToAdd = new Store(store.getName(), p, store.getId(), createStoreProductMap(store, descriptor.getSDMItems()), store.getDeliveryPpk());
+                storeToAdd.initSalesFromXML(generateSalesFromXml(store,descriptor));
                 storesMap.put(storeToAdd.getID(), storeToAdd);
             }
         }
-
-
         inputStream.close();
         return storesMap;
     }
+
+    private Map<String, Sale> generateSalesFromXml(SDMStore store,SuperDuperMarketDescriptor descriptor)throws Exception {
+        Map<String,Sale> sales = new HashMap<String, Sale>();
+        SDMDiscounts discounts =store.getSDMDiscounts();
+        Sale saleToAdd;
+        if(discounts != null){
+            for (SDMDiscount discount: discounts.getSDMDiscount()) {
+
+                doesMarketSellXmlDiscountItems(discount,descriptor);
+                validateSDMDiscountItems(store, discount.getIfYouBuy(), discount.getThenYouGet(),descriptor);
+                validateSDMDiscountName(store, discount.getName());
+
+                saleToAdd = new Sale(discount.getName(),discount.getIfYouBuy(),discount.getThenYouGet());
+                sales.put(saleToAdd.getName(),saleToAdd);
+            }
+        }
+        return sales;
+    }
+
+    private void validateSDMDiscountItems(SDMStore store, IfYouBuy ifYouBuy, ThenYouGet thenYouGet,SuperDuperMarketDescriptor descriptor) throws Exception{
+        boolean foundIfYouBuyItemIDInStore = false;
+        boolean foundThenYouGetItemIDInStore = false;
+
+        for (SDMSell itemToCheck : store.getSDMPrices().getSDMSell()) { // search for If You Buy Item ID in items
+            if(itemToCheck.getItemId() == ifYouBuy.getItemId()){
+                foundIfYouBuyItemIDInStore = true;
+            }
+        }
+        if(!foundIfYouBuyItemIDInStore){
+            throw new Exception("Store doesn't sell ifYouBuy product.Product ID: "+ ifYouBuy.getItemId());
+        }
+        if(ifYouBuy.getQuantity() <= 0){
+            throw new Exception("If you buy item quantity is a non positive number.");
+        }
+
+        for (SDMOffer offerToCheck: thenYouGet.getSDMOffer()) {//search all the offer's ID in store and checke quantity and for addiotnal is positive
+            for (SDMSell itemToCheck:store.getSDMPrices().getSDMSell()) {
+                if(itemToCheck.getItemId() == offerToCheck.getItemId()){
+                    foundThenYouGetItemIDInStore = true;
+                }
+                if(offerToCheck.getQuantity() <= 0){
+                    throw new Exception("If you buy item quantity is a non positive number.");
+                }
+                if(offerToCheck.getForAdditional() < 0){
+                    throw new Exception("Invalid sale \"for additional\" is negative.");
+                }
+            }
+            if(!foundThenYouGetItemIDInStore){
+                throw new Exception("Store doesn't sell \"Then you get\" product");
+            }
+        }
+
+        for (SDMItem item: descriptor.getSDMItems().getSDMItem()){// check category match with quantity in sale.
+            if(item.getId() == ifYouBuy.getItemId() && item.getPurchaseCategory().compareToIgnoreCase("Quantity") == 0 &&
+
+                    ifYouBuy.getQuantity() != Math.floor(ifYouBuy.getQuantity())){
+                throw new Exception("Quantity should be int and is a double.");
+            }
+        }
+        for (SDMOffer offer:thenYouGet.getSDMOffer()) {// check category match with quantity in sale.
+            for (SDMItem item: descriptor.getSDMItems().getSDMItem()) {
+                if(offer.getItemId() == item.getId() &&
+
+                        item.getPurchaseCategory().compareToIgnoreCase("Quantity") == 0 &&
+
+                        offer.getQuantity() != Math.floor(offer.getQuantity())){
+
+                    throw new Exception("Quantity should be int and is a double.");
+                }
+            }
+        }
+    }
+
+    private void doesMarketSellXmlDiscountItems(SDMDiscount discount,SuperDuperMarketDescriptor descriptor) throws Exception{
+       boolean foundIDinMarket = false;
+        boolean foundIfYouBuyIDinMarket = false;
+        for (SDMOffer offerToCheck:discount.getThenYouGet().getSDMOffer()) {
+            for (SDMItem itemToCheck:descriptor.getSDMItems().getSDMItem()) {
+                if(itemToCheck.getId() == offerToCheck.getItemId()){
+                    foundIDinMarket = true;
+                }
+            }
+            if(!foundIDinMarket){
+                throw new Exception("Market does not sell \"then you get\" item");
+            }
+            foundIDinMarket = false;
+        }
+        for (SDMItem itemToCheck:descriptor.getSDMItems().getSDMItem()) {
+            if(discount.getIfYouBuy().getItemId() == itemToCheck.getId())
+            {
+                foundIfYouBuyIDinMarket = true;
+            }
+        }
+        if(!foundIfYouBuyIDinMarket){
+            throw new Exception("Market does not sell \"if you buy \" item.");
+        }
+    }
+
+    private void validateSDMDiscountName(SDMStore store, String saleName)throws Exception {
+        String trimedSaleName = saleName.trim();
+        int counter = 0;
+        for (SDMDiscount discount : store.getSDMDiscounts().getSDMDiscount()) {
+            if(discount.getName().trim().compareToIgnoreCase(trimedSaleName) == 0){
+                counter++;
+            }
+        }
+        if(counter != 1)
+        {
+            throw new Exception("Sale already exists in store.");
+        }
+    }
+
 
     private boolean doesStoreExistInLocation(Map<Integer, Store> stores, Point p) {
         for (Map.Entry<Integer, Store> store : stores.entrySet()) {
