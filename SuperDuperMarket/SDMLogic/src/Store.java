@@ -1,3 +1,6 @@
+import ProductTypes.*;
+import SDMSale.Sale;
+
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -8,10 +11,12 @@ public class Store {
     private final String name;
     private final Point location;
     private final int ID;
-    private Map<Integer,StoreProduct> products;
+    private Map<Integer, StoreProduct> products;
     private List<StoreLevelOrder> storeOrderHistory;
     private final double deliveryPPK;
     private double totalDeliveryPayment;
+    private Map<String, Sale> sales;
+
 
     public Store(String name, Point location, int ID, Map<Integer,StoreProduct> productSet, double PPK){
         this.name= name;
@@ -124,5 +129,25 @@ public class Store {
 
     public void clearOrderHistory() {
         storeOrderHistory.clear();
+    }
+
+    public boolean doesSaleProductCategoryMatchQuantity(ProductCategory productCategory, double quantity) {
+        if(productCategory.toString().equals("Quantity") && Math.floor(quantity) != quantity){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean doesSaleNameExistInStore(String saleName) {
+        for (Map.Entry<String,Sale> sale:sales.entrySet()) {
+            if(sale.getKey().compareToIgnoreCase(saleName) == 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void initSalesFromXML(Map<String, Sale> generateSalesFromXml) {
+        sales = generateSalesFromXml;
     }
 }

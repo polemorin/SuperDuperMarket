@@ -10,10 +10,11 @@ public class User {
     private final int ID;
     private Point location;
 
-    public User(String name, int ID) {
+    public User(String name, int ID,Point location) {
         this.orderHistory = new ArrayList<CustomerLevelOrder>();
         this.name = name;
         this.ID = ID;
+        this.location = location;
     }
 
     public User(User other){

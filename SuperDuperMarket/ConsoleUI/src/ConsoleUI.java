@@ -7,6 +7,8 @@ import java.text.ParseException;
 import java.util.*;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import SDMExceptions.*;
+import ProductTypes.*;
 
 public class ConsoleUI {
     //hello the
@@ -67,7 +69,7 @@ public class ConsoleUI {
                 }
 
             }catch(XmlLocationOutOfBoundsException e){
-                System.out.println(e.errorMsg);
+                System.out.println(e.getErrorMsg());
                 System.out.println("File was not loaded");
             }
             catch (XmlMultipleStoresShareLocationException e){

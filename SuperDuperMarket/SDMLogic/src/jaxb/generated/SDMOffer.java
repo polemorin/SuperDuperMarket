@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 @XmlRootElement(name = "SDM-offer")
-public class SDMOffer {
+public class    SDMOffer {
 
     @XmlAttribute(name = "quantity", required = true)
     protected double quantity;
