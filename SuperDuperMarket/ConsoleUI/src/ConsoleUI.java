@@ -9,8 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class ConsoleUI {
+    //hello the
     SuperDuperMarket SDM;
-
     public void run() {
         boolean exitSystem = false;
         int userInput;
