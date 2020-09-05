@@ -31,7 +31,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button id="OrderHistoryButton" fx:id="orderHistoryButton" mnemonicParsing="false" onAction="#loadXmlFileAction" prefHeight="25.0" prefWidth="133.0" text="Order History" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button id="OrderHistoryButton" fx:id="orderHistoryButton" mnemonicParsing="false" onAction="#orderHistoryAction" prefHeight="25.0" prefWidth="133.0" text="Order History" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button id="ShowStoreDetailsButton" fx:id="storeDetailsButton" mnemonicParsing="false" onAction="#storeDetailsAction" prefHeight="25.0" prefWidth="133.0" text="Store details" GridPane.rowIndex="2" />
             <Button id="AddNewProduct" fx:id="addNewProductButton" mnemonicParsing="false" onAction="#addNewProductAction" prefHeight="25.0" prefWidth="133.0" text="Add new product" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Button fx:id="productDetailsButton" mnemonicParsing="false" onAction="#productDetailsAction" prefHeight="25.0" prefWidth="133.0" text="Product details" GridPane.rowIndex="3" />

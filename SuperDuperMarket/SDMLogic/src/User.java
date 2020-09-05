@@ -47,6 +47,32 @@ public class User {
         this.location = location;
     }
 
+
+    public int getAmountOfOrders(){
+        return orderHistory.size();
+    }
+    public double getAverageProductCostFromOrders(){
+        if(orderHistory.size() == 0)
+        {
+            return 0;
+        }
+        double sum= 0;
+        for (CustomerLevelOrder order: orderHistory) {
+            sum+=order.getTotalProductPrice();
+        }
+        return sum/orderHistory.size();
+    }
+    public double getAverageDeliveryCostFromOrders(){
+        if(orderHistory.size() == 0)
+        {
+            return 0;
+        }
+        double sum= 0;
+        for (CustomerLevelOrder order: orderHistory) {
+            sum+=order.getDeliveryPrice();
+        }
+        return sum/orderHistory.size();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,5 +88,10 @@ public class User {
         res = 31 * res + ID;
         res = 31 * res + name.hashCode();
         return res;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

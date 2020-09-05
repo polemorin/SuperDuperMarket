@@ -150,4 +150,9 @@ public class Store {
     public void initSalesFromXML(Map<String, Sale> generateSalesFromXml) {
         sales = generateSalesFromXml;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -3,14 +3,18 @@
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 public class mainWindowController {
 
@@ -18,6 +22,9 @@ public class mainWindowController {
     private SimpleBooleanProperty isXmlFileLoaded;
     private Stage primaryStage;
     private SuperDuperMarket SDM;
+    private Stage customerDetailsStage;
+    private Stage productDetailsStage;
+    private Stage updateProductStage;
     @FXML
     private Button orderHistoryButton;
 
@@ -127,7 +134,10 @@ public class mainWindowController {
             return;
         }
     }
+    @FXML
+    void orderHistoryAction(ActionEvent event){
 
+    }
     @FXML
     void placeAnOrderAction(ActionEvent event) {
 
@@ -135,7 +145,25 @@ public class mainWindowController {
 
     @FXML
     void productDetailsAction(ActionEvent event) {
-
+        if(productDetailsStage == null){
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("ProductDetails.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(),600,400);
+                productDetailsStage = new Stage();
+                productDetailsStage.setTitle("ProductDetails");
+                productDetailsStage.setScene(scene);
+                productDetailsStage.setAlwaysOnTop(true);
+                productDetailsStage.initOwner(primaryStage);
+                productDetailsStage.initModality(Modality.WINDOW_MODAL);
+                ProductDetailsController productDetailsController = fxmlLoader.getController();
+                productDetailsController.setProductMap(SDM.getProducts());
+                productDetailsController.setSDM(SDM);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        productDetailsStage.showAndWait();
     }
 
     @FXML
@@ -150,12 +178,49 @@ public class mainWindowController {
 
     @FXML
     void updateStoreProductAction(ActionEvent event) {
-
+        if(updateProductStage == null){
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("UpdateStoreProduct.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(),600,400);
+                updateProductStage = new Stage();
+                updateProductStage.setTitle("UpdateStoreProduct");
+                updateProductStage.setScene(scene);
+                updateProductStage.setAlwaysOnTop(true);
+                updateProductStage.initOwner(primaryStage);
+                updateProductStage.initModality(Modality.WINDOW_MODAL);
+                UpdateStoreProductController updateStoreProductController = fxmlLoader.getController();
+                updateStoreProductController.setSDM(SDM);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+        updateProductStage.showAndWait();
     }
 
     @FXML
     void userDetailsAction(ActionEvent event) {
-
+        if(customerDetailsStage == null){
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("CustomerDetails.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(),600,400);
+                customerDetailsStage = new Stage();
+                customerDetailsStage.setTitle("CustomerDetails");
+                customerDetailsStage.setScene(scene);
+                customerDetailsStage.setAlwaysOnTop(true);
+                customerDetailsStage.initOwner(primaryStage);
+                customerDetailsStage.initModality(Modality.WINDOW_MODAL);
+                CustomerDetailsController customerDetailsController = fxmlLoader.getController();
+                customerDetailsController.setUserMap(SDM.getUsers());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        customerDetailsStage.showAndWait();
     }
 
 }
