@@ -212,6 +212,33 @@ public class SuperDuperMarket {
         }
         return cheapestStoreID;
     }
+    public void loadXmlFileFromFileChooser(File selectedFile) throws Exception {
+        Map<Integer,Store> tempStoreMap;
+        Map<Integer,Product> tempProductMap;
+        Map<Integer,User> tempUserMap;
+        if (selectedFile.exists()) {
+            if (selectedFile.getPath().endsWith("xml")) {
+
+                tempStoreMap = createStoresMapFromXml(selectedFile.getAbsolutePath().toString());
+                tempProductMap = createProductMapFromXml(selectedFile.getAbsolutePath().toString(),tempStoreMap);
+                tempUserMap = createUserMapFromXML(selectedFile.getAbsolutePath().toString(),tempStoreMap);
+                xmlLoaded = true;
+            } else {
+                throw new Exception("File doesn't end with .xml");
+            }
+        } else {
+            throw new Exception("File doesnt exist.");
+        }
+        orderHistory.clear();
+        stores.clear();
+        products.clear();
+
+        stores = tempStoreMap;
+        products = tempProductMap;
+        users = tempUserMap;
+    }
+
+
 
     public void loadXmlFile() throws Exception{
         Scanner scanner = new Scanner(System.in);

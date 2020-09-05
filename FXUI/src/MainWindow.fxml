@@ -4,42 +4,48 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
-  <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.66665649414062" minWidth="10.0" prefWidth="129.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.3333740234375" minWidth="10.0" prefWidth="136.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.3333740234375" minWidth="10.0" prefWidth="34.33331298828125" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Button id="OrderHistoryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Order History" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button id="ShowStoreDetailsButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Store details" GridPane.rowIndex="2" />
-      <Button id="AddNewProduct" mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Add new product" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Product details" GridPane.rowIndex="3" />
-      <Button id="UserDetailsButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="User details" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Button id="AddNewSaleButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Add new sale" GridPane.rowIndex="4" />
-      <Button id="LoadXMLButton" mnemonicParsing="false" text="Load XML file" GridPane.columnIndex="3" />
-      <Button id="NewStoreButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Add new store" GridPane.rowIndex="5" />
-      <Button id="UpdateStoreProductButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Update store product" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <Button id="PlaceOrderButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="266.0" text="Place an order" GridPane.columnSpan="2" GridPane.rowIndex="6" />
-      <Label id="StyleLable" text="Style" />
-      <ComboBox id="StyleComboBox" prefWidth="150.0" GridPane.columnIndex="1" />
-      <CheckBox id="AnimationsCheckBox" mnemonicParsing="false" text="Animations" GridPane.columnIndex="5" />
-      <Label id="SDMLable" prefHeight="49.0" prefWidth="257.0" text="SUPER DUPER MARKET" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-   </children>
-</GridPane>
+
+<ScrollPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainWindowController">
+   <content>
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.66665649414062" minWidth="10.0" prefWidth="129.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.3333740234375" minWidth="10.0" prefWidth="136.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.3333740234375" minWidth="10.0" prefWidth="34.33331298828125" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button id="OrderHistoryButton" fx:id="orderHistoryButton" mnemonicParsing="false" onAction="#loadXmlFileAction" prefHeight="25.0" prefWidth="133.0" text="Order History" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button id="ShowStoreDetailsButton" fx:id="storeDetailsButton" mnemonicParsing="false" onAction="#storeDetailsAction" prefHeight="25.0" prefWidth="133.0" text="Store details" GridPane.rowIndex="2" />
+            <Button id="AddNewProduct" fx:id="addNewProductButton" mnemonicParsing="false" onAction="#addNewProductAction" prefHeight="25.0" prefWidth="133.0" text="Add new product" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button fx:id="productDetailsButton" mnemonicParsing="false" onAction="#productDetailsAction" prefHeight="25.0" prefWidth="133.0" text="Product details" GridPane.rowIndex="3" />
+            <Button id="UserDetailsButton" fx:id="userDetailsButton" mnemonicParsing="false" onAction="#userDetailsAction" prefHeight="25.0" prefWidth="133.0" text="User details" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button id="AddNewSaleButton" fx:id="addNewSaleButton" mnemonicParsing="false" onAction="#addNewSaleAction" prefHeight="25.0" prefWidth="133.0" text="Add new sale" GridPane.rowIndex="4" />
+            <Button id="LoadXMLButton" fx:id="loadXmlFileButton" mnemonicParsing="false" onAction="#loadXmlFileAction" text="Load XML file" GridPane.columnIndex="3" />
+            <Button id="NewStoreButton" fx:id="addNewStoreButton" mnemonicParsing="false" onAction="#addNewStoreAction" prefHeight="25.0" prefWidth="133.0" text="Add new store" GridPane.rowIndex="5" />
+            <Button id="UpdateStoreProductButton" fx:id="updateStoreProductButton" mnemonicParsing="false" onAction="#updateStoreProductAction" prefHeight="25.0" prefWidth="133.0" text="Update store product" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button id="PlaceOrderButton" fx:id="placeAnOrderButton" mnemonicParsing="false" onAction="#placeAnOrderAction" prefHeight="25.0" prefWidth="266.0" text="Place an order" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+            <Label id="StyleLable" text="Style" />
+            <ComboBox id="StyleComboBox" fx:id="styleComboBox" onAction="#styleComboBoxAction" prefWidth="150.0" GridPane.columnIndex="1" />
+            <CheckBox id="AnimationsCheckBox" fx:id="animationCheckBox" mnemonicParsing="false" onAction="#animationChecked" text="Animations" GridPane.columnIndex="5" />
+            <Label id="SDMLable" prefHeight="49.0" prefWidth="257.0" text="SUPER DUPER MARKET" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+   </content>
+</ScrollPane>
