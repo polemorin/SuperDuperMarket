@@ -219,9 +219,9 @@ public class SuperDuperMarket {
         if (selectedFile.exists()) {
             if (selectedFile.getPath().endsWith("xml")) {
 
-                tempStoreMap = createStoresMapFromXml(selectedFile.getAbsolutePath().toString());
-                tempProductMap = createProductMapFromXml(selectedFile.getAbsolutePath().toString(),tempStoreMap);
-                tempUserMap = createUserMapFromXML(selectedFile.getAbsolutePath().toString(),tempStoreMap);
+                tempStoreMap = createStoresMapFromXml(selectedFile.getAbsolutePath());
+                tempProductMap = createProductMapFromXml(selectedFile.getAbsolutePath(),tempStoreMap);
+                tempUserMap = createUserMapFromXML(selectedFile.getAbsolutePath(),tempStoreMap);
                 xmlLoaded = true;
             } else {
                 throw new Exception("File doesn't end with .xml");
@@ -272,7 +272,7 @@ public class SuperDuperMarket {
 
     private Map<Integer,User> createUserMapFromXML(String xmlName,Map<Integer,Store> tempStoreMap) throws Exception {
         Map<Integer,User> userMapToAdd = new HashMap<>();
-        InputStream inputStream = SuperDuperMarket.class.getResourceAsStream(xmlName);
+        InputStream inputStream = new FileInputStream(xmlName);
         SuperDuperMarketDescriptor descriptor = deserializeFrom(inputStream);
         SDMCustomers customersFromXML = descriptor.getSDMCustomers();
         Point location;
@@ -326,7 +326,7 @@ public class SuperDuperMarket {
     }
 
     public Map<Integer,Store> createStoresMapFromXml(String xmlName) throws JAXBException,XmlStoreSellProductNotInMarketException, XmlStoreSellsMultipleProductsWithSameIDException, XmlProductCategoryNotRecognizedException, XmlLocationOutOfBoundsException, XmlMultipleStoresShareLocationException, XmlMultipleStoresShareIDException,Exception {
-        InputStream inputStream = SuperDuperMarket.class.getResourceAsStream(xmlName);
+        InputStream inputStream = new FileInputStream(xmlName);
         Map<Integer, Store> storesMap = new HashMap<Integer, Store>();
         SuperDuperMarketDescriptor descriptor = deserializeFrom(inputStream);
         SDMStores shops = descriptor.getSDMStores();
@@ -509,8 +509,8 @@ public class SuperDuperMarket {
         return products;
     }
 
-    private Map<Integer,Product> createProductMapFromXml(String xmlName, Map<Integer,Store> tempStoreMap ) throws JAXBException, XmlProductsShareIDException, XmlProductCategoryNotRecognizedException, XmlProductIsntSoldByStoresException {
-        InputStream inputStream = SuperDuperMarket.class.getResourceAsStream(xmlName);
+    private Map<Integer,Product> createProductMapFromXml(String xmlName, Map<Integer,Store> tempStoreMap ) throws JAXBException, XmlProductsShareIDException, XmlProductCategoryNotRecognizedException, XmlProductIsntSoldByStoresException, FileNotFoundException {
+        InputStream inputStream = new FileInputStream(xmlName);
         Map<Integer, Product> productMap = new HashMap<Integer, Product>();
         SuperDuperMarketDescriptor descriptor = deserializeFrom(inputStream);
         SDMItems items = descriptor.getSDMItems();

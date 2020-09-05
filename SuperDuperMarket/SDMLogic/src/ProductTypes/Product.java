@@ -3,9 +3,9 @@ package ProductTypes;
 import java.util.Objects;
 
 public class Product {
-   private final int id;
-   private final String name;
-   private final ProductCategory category;
+    private final int id;
+    private final String name;
+    private final ProductCategory category;
 
     public Product(int id, String name, ProductCategory cat){
         this.id = id;
@@ -28,9 +28,6 @@ public class Product {
     public ProductCategory getProductCategory()
     {
         return category;
-    }
-    public String getProductCategoryString(){
-        return category.toString();
     }
 
     @Override

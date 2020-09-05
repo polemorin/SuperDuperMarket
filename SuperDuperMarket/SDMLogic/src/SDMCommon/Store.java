@@ -1,5 +1,3 @@
-package SDMCommon;
-
 import ProductTypes.*;
 import SDMSale.Sale;
 
@@ -15,27 +13,19 @@ public class Store {
     private final int ID;
     private Map<Integer, StoreProduct> products;
     private List<StoreLevelOrder> storeOrderHistory;
-    private List<Feedback> storeFeedBacks = new ArrayList<>();
     private final double deliveryPPK;
-    private double totalProductsRevenue;
-    private int amountOfOrdersFromStore;
     private double totalDeliveryPayment;
     private Map<String, Sale> sales;
-    private String ownerName;
 
 
-    public Store(String name, Point location, int ID, Map<Integer,StoreProduct> productSet, double PPK,String creatorName){
+    public Store(String name, Point location, int ID, Map<Integer,StoreProduct> productSet, double PPK){
         this.name= name;
         this.location = location;
         this.ID = ID;
         deliveryPPK = PPK;
         this.products = productSet;
         storeOrderHistory = new ArrayList<StoreLevelOrder>();
-        sales = new HashMap<>();
         totalDeliveryPayment = 0;
-        amountOfOrdersFromStore = storeOrderHistory.size();
-        totalProductsRevenue = 0;
-        ownerName = creatorName;
     }
 
     public Store(Store other){
@@ -52,23 +42,15 @@ public class Store {
         for (StoreLevelOrder itr2:other.storeOrderHistory) {
             this.storeOrderHistory.add(new StoreLevelOrder(itr2));
         }
-        amountOfOrdersFromStore = storeOrderHistory.size();
-        this.totalProductsRevenue = other.totalProductsRevenue;
     }
 
-
-    public Map<String, Sale> getSales() {
-        return sales;
-    }
     public double getProductPrice(Product product){
+        //////////////////////////////////////////////////////////EXCEPTION INSTEAD OF RETURN
         double price = -1;
         if(products.containsKey(product.getProductID())){
             return products.get(product.getProductID()).getPrice();
         }
         return price;
-    }
-    public void addFeedBackToStore(Feedback feedbackToAdd){
-        storeFeedBacks.add(feedbackToAdd);
     }
     public void addOrderToOrderHistory(StoreLevelOrder orderToAdd){
         storeOrderHistory.add(orderToAdd);
@@ -113,8 +95,7 @@ public class Store {
         storeOrderHistory.add(order);
         totalDeliveryPayment += order.getDeliveryPrice();
         order.getSoldProducts().forEach(this::updateProductSoldAmount);
-        totalProductsRevenue += order.getTotalProductsPrice();
-        amountOfOrdersFromStore = storeOrderHistory.size();
+
     }
     private void updateProductSoldAmount(SoldProduct product){
         StoreProduct p = products.get(product.getProductID());
@@ -170,57 +151,8 @@ public class Store {
         sales = generateSalesFromXml;
     }
 
-    public boolean isProductPartOfStoreSale(StoreProduct product){
-        for (Map.Entry<String,Sale> sale:sales.entrySet()) {
-            if(sale.getValue().isProductPartOfSale(product)){
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Override
     public String toString() {
         return name;
-    }
-
-    public void removeSaleByStoreProduct(StoreProduct chosenStoreProduct) {
-        for (Map.Entry<String,Sale> sale:sales.entrySet()) {
-            if(sale.getValue().isProductPartOfSale(chosenStoreProduct)){
-                sales.remove(sale.getKey());
-            }
-        }
-    }
-
-    public List<Sale> getMySales(Map<Integer, Double> productsByIdAndAmount) {
-        List<Sale> userEligibleSales = new ArrayList<>();
-        int ifYouGetItemID;
-        double ifYouGetItemQuantity;
-        for (Map.Entry<String,Sale> sale: sales.entrySet()) {
-            ifYouGetItemID = sale.getValue().getIfYouBuy().getItemID();
-            ifYouGetItemQuantity = sale.getValue().getIfYouBuy().getQuantity();
-            if(productsByIdAndAmount.containsKey(ifYouGetItemID)){
-                if(productsByIdAndAmount.get(ifYouGetItemID)>= ifYouGetItemQuantity){
-                    userEligibleSales.add(sale.getValue());
-                }
-            }
-        }
-        return userEligibleSales;
-    }
-
-    public void addSale(Sale saleToAdd) {
-        sales.put(saleToAdd.getName(),saleToAdd);
-    }
-
-    public double getTotalProductsRevenue() {
-        return totalProductsRevenue;
-    }
-
-    public int getAmountOfOrdersFromStore() {
-        return amountOfOrdersFromStore;
-    }
-
-    public String getOwnerName() {
-        return ownerName;
     }
 }
