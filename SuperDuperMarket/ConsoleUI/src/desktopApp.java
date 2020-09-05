@@ -8,7 +8,7 @@
 //    @Override
 //    public void start(Stage primaryStage) throws Exception {
 //        primaryStage.setTitle("Super Duper Market");
-//        Parent load = FXMLLoader.load(getClass().getResource("mainWindow.fxml"));
+//        Parent load = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
 //        Scene scene = new Scene(load, 600,400);
 //
 //        primaryStage.setScene(scene);

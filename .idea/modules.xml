@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SuperDuperMarket/ConsoleUI/ConsoleUI.iml" filepath="$PROJECT_DIR$/SuperDuperMarket/ConsoleUI/ConsoleUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FXUI/FXUI.iml" filepath="$PROJECT_DIR$/FXUI/FXUI.iml" />
       <module fileurl="file://$PROJECT_DIR$/SuperDuperMarket/SDMLogic/SDMLogic.iml" filepath="$PROJECT_DIR$/SuperDuperMarket/SDMLogic/SDMLogic.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/SuperDuperMarket.iml" filepath="$PROJECT_DIR$/.idea/SuperDuperMarket.iml" />
     </modules>
