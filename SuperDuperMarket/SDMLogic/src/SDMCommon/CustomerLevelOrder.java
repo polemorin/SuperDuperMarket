@@ -1,26 +1,24 @@
-package SDMCommon;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 
-import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
-import java.util.List;
-
 import ProductTypes.*;
 
 public class CustomerLevelOrder {
-    private List<StoreLevelOrder> orders;
-    private double totalProductPrice;
-    private int totalProductTypeAmount;
-    private int totalProductPurchased;
-    private final double deliveryPrice;
-    private final LocalDate date;
-    protected static int OrderIDGenerator = 1000;
-    private final int OrderID;
-    private final Point orderLocation;
 
-    public CustomerLevelOrder(List<StoreLevelOrder> storeOrders,Point orderLocation){
+
+
+    private List<StoreLevelOrder> orders;
+    private final double totalProductPrice;
+    private final int totalProductTypeAmount;
+    private final int totalProductPurchased;
+    private final double deliveryPrice;
+    private final Date date;
+    private static int OrderIDGenerator = 1000;
+    private final int OrderID;
+
+    public CustomerLevelOrder(List<StoreLevelOrder> storeOrders){
        orders = storeOrders;
        totalProductPrice = storeOrders.stream().mapToDouble(StoreLevelOrder::getTotalProductsPrice).sum();
        totalProductTypeAmount = storeOrders.stream().mapToInt(StoreLevelOrder::getAmountOfProductTypes).sum();
@@ -28,10 +26,9 @@ public class CustomerLevelOrder {
        deliveryPrice = storeOrders.stream().mapToDouble(StoreLevelOrder::getDeliveryPrice).sum();
        date = storeOrders.get(0).getDate();
        OrderID = OrderIDGenerator++;
-       this.orderLocation = orderLocation;
     }
 
-    public CustomerLevelOrder(List<StoreLevelOrder> storeOrders, int orderID,Point orderLocation){
+    public CustomerLevelOrder(List<StoreLevelOrder> storeOrders,int orderID){
         orders = storeOrders;
         totalProductPrice = storeOrders.stream().mapToDouble(StoreLevelOrder::getTotalProductsPrice).sum();
         totalProductTypeAmount = storeOrders.stream().mapToInt(StoreLevelOrder::getAmountOfProductTypes).sum();
@@ -42,39 +39,23 @@ public class CustomerLevelOrder {
         if(OrderIDGenerator <= OrderID){
             OrderIDGenerator = OrderID;
         }
-        this.orderLocation = orderLocation;
     }
 
-    public void updatePrices(){
-        double totalProductPriceFromStore = 0;
-        int totalAmountOfProducts = 0;
-        Map<Integer,Product> uniqProductList = new HashMap<>();
-        for (StoreLevelOrder storeLevelOrder: orders) {
-            totalProductPriceFromStore+= storeLevelOrder.getTotalProductsPrice();
-            totalAmountOfProducts+=storeLevelOrder.getAmountOfProducts();
-            for (SoldProduct soldProduct: storeLevelOrder.getSoldProducts()) {
-                if(!uniqProductList.containsKey(soldProduct.getProductID())){
-                    uniqProductList.put(soldProduct.getProductID(),soldProduct);
-                }
-            }
-            if(storeLevelOrder.getProductSoldOnSale() != null) {
-                for (SaleProduct saleProduct : storeLevelOrder.getProductSoldOnSale()) {
-                    if (!uniqProductList.containsKey(saleProduct.getProductID())) {
-                        uniqProductList.put(saleProduct.getProductID(), saleProduct);
-                    }
-                }
-            }
-        }
-        this.totalProductTypeAmount = uniqProductList.size();
-        this.totalProductPrice = totalProductPriceFromStore;
-        this.totalProductPurchased = totalAmountOfProducts;
+    public CustomerLevelOrder(double totalProductPrice, int totalProductTypeAmount, int totalProductPurchased, double deliveryPrice, Date date) {
+        this.totalProductPrice = totalProductPrice;
+        this.totalProductTypeAmount = totalProductTypeAmount;
+        this.totalProductPurchased = totalProductPurchased;
+        this.deliveryPrice = deliveryPrice;
+        this.date = date;
+        OrderID = OrderIDGenerator++;
+        orders = new ArrayList<StoreLevelOrder>();
     }
     public static int getNextOrderID(){
-        return OrderIDGenerator;
+        return OrderIDGenerator + 1;
     }
     public CustomerLevelOrder(CustomerLevelOrder other){
         this.OrderID = other.OrderID;
-        this.date = other.date;
+        this.date = (Date) other.date.clone();
         this.deliveryPrice = other.deliveryPrice;
         this.totalProductPrice = other.totalProductPrice;
         this.totalProductTypeAmount = other.totalProductTypeAmount;
@@ -83,7 +64,6 @@ public class CustomerLevelOrder {
         for (StoreLevelOrder itr:other.orders) {
             this.orders.add(new StoreLevelOrder(itr));
         }
-        this.orderLocation = other.orderLocation;
     }
 
     public List<String> getCustomerLevelOrderStringListToFile(){
@@ -136,7 +116,7 @@ public class CustomerLevelOrder {
             nextStoreAmountOfProducts = Integer.parseInt(orderDetails.get(counterNextLineToRead));
             }
         }
-        return null;
+        return new CustomerLevelOrder(storeOrdersToAdd,orderIDFromFile);
     }
 
     public boolean isProductSoldInCustomerLevelOrder(Product product){
@@ -166,7 +146,7 @@ public class CustomerLevelOrder {
         return deliveryPrice;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
     public int getOrderID() {
@@ -185,10 +165,7 @@ public class CustomerLevelOrder {
     public int hashCode() {
         return 31 * 17 + OrderID;
     }
-    @Override
-    public String toString(){
-        return Integer.toString(this.OrderID);
-    }
+
     public double amountOfTimesSoldInOrder(Product product) {
         double sumAmountSoldInOrder = 0;
         for (StoreLevelOrder order:orders) {
@@ -199,6 +176,4 @@ public class CustomerLevelOrder {
         }
         return sumAmountSoldInOrder;
     }
-
-
 }

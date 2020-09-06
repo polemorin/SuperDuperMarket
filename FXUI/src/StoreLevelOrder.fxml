@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StoreLevelOrderController">
+   <children>
+      <Label fx:id="StoreDetailsLable" text="Store details" />
+      <TableView fx:id="StoreDetailsTable" prefHeight="91.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="StoreIDColumn" prefWidth="75.0" text="Store ID" />
+          <TableColumn fx:id="StoreNameColumn" prefWidth="94.33334350585938" text="Store Name" />
+            <TableColumn fx:id="PPKColumn" prefWidth="99.66665649414062" text="PPK" />
+            <TableColumn fx:id="DistanceColumn" prefWidth="137.0" text="Distance to customer" />
+            <TableColumn fx:id="DeliveryCostColumn" prefWidth="193.0" text="Delivery cost" />
+        </columns>
+      </TableView>
+      <Label fx:id="ProductLable" text="Products in order" />
+      <TableView fx:id="ProductTable" prefHeight="277.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="ProductIDColumn" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="ProductNameColumn" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="ProductCategoryColumn" prefWidth="75.0" text="Category" />
+            <TableColumn fx:id="ProductAmountColumn" prefWidth="75.0" text="Amount" />
+            <TableColumn fx:id="ProductPricePerUnitColumn" prefWidth="92.33331298828125" text="Price" />
+            <TableColumn fx:id="ProductTotalPriceColumn" prefWidth="100.66668701171875" text="Total price" />
+            <TableColumn fx:id="ProductWasSaleColumn" prefWidth="103.0" text="Sale" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>

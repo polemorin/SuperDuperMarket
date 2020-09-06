@@ -1,22 +1,14 @@
-import ProductTypes.Product;
-import ProductTypes.ProductCategory;
-import ProductTypes.SoldProduct;
-import ProductTypes.StoreProduct;
-import SDMCommon.CustomerLevelOrder;
-import SDMCommon.Store;
-import SDMCommon.StoreLevelOrder;
-import SDMCommon.SuperDuperMarket;
-import SDMExceptions.*;
-
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import SDMExceptions.*;
+import ProductTypes.*;
 
 public class ConsoleUI {
     //hello the
@@ -406,7 +398,7 @@ public class ConsoleUI {
         if(SDM.getOrderHistory().size() == 0){
             throw new NoOrdersInSystemException("Option unavailable. No orders were made in system.");
         }
-        for (Map.Entry<Integer, CustomerLevelOrder> order: SDM.getOrderHistory().entrySet()) {
+        for (Map.Entry<Integer,CustomerLevelOrder> order: SDM.getOrderHistory().entrySet()) {
             printCustomerLevelOrder(order.getValue());
         }
     }
@@ -609,7 +601,7 @@ public class ConsoleUI {
     }
 
     private CustomerLevelOrder makeNewDynamicOrder(){
-        LocalDate date = getValidDateFromConsole();
+        Date date = getValidDateFromConsole();
         Point location = getValidDifferentFromStoresLocations();
         SDM.getUsers().get(0).setLocation(location);
         Integer productID = null;
@@ -685,8 +677,44 @@ public class ConsoleUI {
     }
 
     private CustomerLevelOrder makeNewStaticOrder(){
-
-        return null;
+        Store chosenStore = getChosenStoreFromUser();
+        Date date = getValidDateFromConsole();
+        Point location = getValidDifferentFromStoresLocations();
+        SDM.getUsers().get(0).setLocation(location);
+        Scanner scanner = new Scanner(System.in);
+        Integer productID;
+        boolean finishedOrder = false;
+        StoreLevelOrder order = new StoreLevelOrder(chosenStore,1,date,location,0);
+        Double productAmount = null;
+        do{
+            printProductsForStaticOrder(chosenStore);
+            productID = getStoreProductIDOrQ(chosenStore);
+            if(productID == null){
+                finishedOrder = true;
+            }
+            else{
+                productAmount = getStoreProductAmountFromUser(
+                        chosenStore.getProducts().get(productID).getProductCategory());
+                if(productAmount == null) {
+                    finishedOrder = true;
+                }
+            }
+            if(!finishedOrder)
+            {
+                order.addProductToOrder(new SoldProduct(chosenStore.getProducts().get(productID),productAmount));
+                System.out.println("Product was added to order successfully.");
+            }
+        }while(!finishedOrder);
+        if(order.getAmountOfProducts() == 0)
+        {
+            System.out.println("No products selected, order was not made.");
+            return null;
+        }
+        else{
+            List<StoreLevelOrder> storeOrder = new ArrayList<StoreLevelOrder>();
+            storeOrder.add(order);
+            return new CustomerLevelOrder(storeOrder);
+        }
     }
 
     private Double getStoreProductAmountFromUser(ProductCategory category){
@@ -829,7 +857,7 @@ public class ConsoleUI {
         return  userLocation;
     }
 
-    private LocalDate getValidDateFromConsole(){
+    private Date getValidDateFromConsole(){
         Scanner scanner = new Scanner(System.in);
         SimpleDateFormat simpleDate = null;
         Date date = null;
@@ -848,7 +876,7 @@ public class ConsoleUI {
             }
         }while (!(validDateFromConsole));
 
-        return  null;
+        return  date;
     }
     //--------------option 7-----------------------
     private void    writeOrderHistoryToFile() throws XmlFileNotLoadedException,Exception{

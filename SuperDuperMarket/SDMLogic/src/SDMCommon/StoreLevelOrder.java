@@ -1,42 +1,26 @@
-package SDMCommon;
-
 import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
 
 import ProductTypes.*;
 
 public class StoreLevelOrder {
-    public static int OrderIDGenerator = 1000;
-
-    public Integer getOrderID() {
-        return OrderID;
-    }
-
+    private static int OrderIDGenerator = 1000;
     private final Integer OrderID;
     private List<SoldProduct> soldProducts;
-    private List<SaleProduct> productsSoldOnSale = null;
     private int amountOfProducts;
     private double totalProductsPrice;
     private final int storeID;
     private final int customerID;
     private final double deliveryPrice;
-    private final LocalDate date;
+    private final Date date;
     private final String storeName;
     private int amountOfProductTypes;
-    private String customerName;
-    private Point customerLocation;
-
-    public int getCustomerLevelOrderID() {
-        return customerLevelOrderID;
-    }
-
     private final int customerLevelOrderID;
 
-    public StoreLevelOrder(Store store, int customerID, LocalDate date, Point customerLocation, int customerLevelID,String customerName){
+    public StoreLevelOrder(Store store, int customerID, Date date,  Point customerLocation, int customerLevelID ){
         this.storeID = store.getID();
         this.customerID = customerID;
         this.date = date;
@@ -48,8 +32,6 @@ public class StoreLevelOrder {
         amountOfProducts = 0;
         amountOfProductTypes = 0;
         customerLevelOrderID = customerLevelID;
-        this.customerName = customerName;
-        this.customerLocation = customerLocation;
     }
 
 
@@ -57,7 +39,7 @@ public class StoreLevelOrder {
         this.OrderID = other.OrderID;
         this.totalProductsPrice = other.totalProductsPrice;
         this.storeName = other.storeName;
-        this.date = other.date;
+        this.date = (Date) other.date.clone();
         this.customerID = other.customerID;
         this.storeID = other.storeID;
         this.deliveryPrice = other.deliveryPrice;
@@ -68,7 +50,7 @@ public class StoreLevelOrder {
         this.customerLevelOrderID = other.customerLevelOrderID;
     }
 
-    public StoreLevelOrder(Integer orderID, List<SoldProduct> soldProducts, int amountOfProducts, double totalProductsPrice, int storeID, int customerID, double deliveryPrice, LocalDate date, String storeName,int customerLevelID,String customerName, Point customerLocation) {
+    public StoreLevelOrder(Integer orderID, List<SoldProduct> soldProducts, int amountOfProducts, double totalProductsPrice, int storeID, int customerID, double deliveryPrice, Date date, String storeName,int customerLevelID) {
         OrderID = orderID;
         if(OrderIDGenerator < OrderID){
             OrderIDGenerator = OrderID + 1;
@@ -83,57 +65,6 @@ public class StoreLevelOrder {
         this.storeName = storeName;
         amountOfProductTypes = this.soldProducts.size();
         customerLevelOrderID = customerLevelID;
-        this.customerName = customerName;
-        this.customerLocation = customerLocation;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public Point getCustomerLocation() {
-        return customerLocation;
-    }
-
-    public void setProductSoldOnSale(SaleProduct productSoldOnSale){
-        boolean found = false;
-        if(productsSoldOnSale == null){
-            productsSoldOnSale= new ArrayList<SaleProduct>();
-        }
-        productsSoldOnSale.add(productSoldOnSale);
-        for (SoldProduct soldProduct:soldProducts) {
-            if (soldProduct.getProductID() == productSoldOnSale.getProductID()) {
-                found = true;
-                break;
-            }
-        }
-        amountOfProducts += productSoldOnSale.getAmountBought();
-        totalProductsPrice += productSoldOnSale.getTotalPrice();
-        if(!found){
-            amountOfProductTypes++;
-        }
-    }
-    public void setProductSoldOnSale(List<SaleProduct> productSoldOnSale) {
-        boolean found = false;
-        this.productsSoldOnSale = productSoldOnSale;
-        for (SaleProduct saleProduct: productSoldOnSale) {
-            for (SoldProduct soldProduct:soldProducts) {
-                if (soldProduct.getProductID() == saleProduct.getProductID()) {
-                    found = true;
-                    break;
-                }
-            }
-            amountOfProducts += saleProduct.getAmountBought();
-            totalProductsPrice += saleProduct.getTotalPrice();
-            if(!found){
-                amountOfProductTypes++;
-            }
-            found = false;
-        }
-    }
-
-    public List<SaleProduct> getProductSoldOnSale() {
-        return productsSoldOnSale;
     }
 
     public List<String> getStoreStringListToFile(){
@@ -157,35 +88,35 @@ public class StoreLevelOrder {
     }
     public static StoreLevelOrder getStoreLevelOrderFromTxtFile(List<String> storeOrderDetails)throws ParseException {
 
-     //   int productFieldAmount = SoldProduct.class.getDeclaredFields().length+
-     //           PricedProduct.class.getDeclaredFields().length+
-     //           Product.class.getDeclaredFields().length;
-     //   int amountOfTypes = Integer.parseInt(storeOrderDetails.get(0));
-     //   int amountOfProducts = Integer.parseInt(storeOrderDetails.get(1));
-     //   Integer orderID = Integer.parseInt(storeOrderDetails.get(2));
-     //   double productPrice = Double.parseDouble(storeOrderDetails.get(3));
-     //   int storeOrderID = Integer.parseInt(storeOrderDetails.get(4));
-     //   int customerOrderID = Integer.parseInt(storeOrderDetails.get(5));
-     //   double deliveryCost = Double.parseDouble(storeOrderDetails.get(6));
-     //   Date orderDate=new SimpleDateFormat("dd/MM-HH:mm").parse(storeOrderDetails.get(7));
-     //   String storeOrderName = storeOrderDetails.get(8);
-//
-     //   List<SoldProduct> productsSoldInOrder = new ArrayList<SoldProduct>();
-     //   List<String> productDetails = new ArrayList<String>();
-     //   int counterNextLineToRead = 9;
-//
-     //   for(int i = 0; i < amountOfTypes; i++){
-     //       for(int j = 0; j < productFieldAmount; j++){
-     //           productDetails.add(storeOrderDetails.get(counterNextLineToRead++));
-     //       }
-     //       productsSoldInOrder.add(SoldProduct.getSoldProductFromTxtFile(productDetails));
-     //       productDetails.clear();
-     //   }
-     //   return new StoreLevelOrder(orderID,productsSoldInOrder,amountOfProducts,productPrice,storeOrderID,customerOrderID,deliveryCost,orderDate,storeOrderName,customerOrderID);
-        return null;
+        int productFieldAmount = SoldProduct.class.getDeclaredFields().length+
+                PricedProduct.class.getDeclaredFields().length+
+                Product.class.getDeclaredFields().length;
+        int amountOfTypes = Integer.parseInt(storeOrderDetails.get(0));
+        int amountOfProducts = Integer.parseInt(storeOrderDetails.get(1));
+        Integer orderID = Integer.parseInt(storeOrderDetails.get(2));
+        double productPrice = Double.parseDouble(storeOrderDetails.get(3));
+        int storeOrderID = Integer.parseInt(storeOrderDetails.get(4));
+        int customerOrderID = Integer.parseInt(storeOrderDetails.get(5));
+        double deliveryCost = Double.parseDouble(storeOrderDetails.get(6));
+        Date orderDate=new SimpleDateFormat("dd/MM-HH:mm").parse(storeOrderDetails.get(7));
+        String storeOrderName = storeOrderDetails.get(8);
+
+        List<SoldProduct> productsSoldInOrder = new ArrayList<SoldProduct>();
+        List<String> productDetails = new ArrayList<String>();
+        int counterNextLineToRead = 9;
+
+        for(int i = 0; i < amountOfTypes; i++){
+            for(int j = 0; j < productFieldAmount; j++){
+                productDetails.add(storeOrderDetails.get(counterNextLineToRead++));
+            }
+            productsSoldInOrder.add(SoldProduct.getSoldProductFromTxtFile(productDetails));
+            productDetails.clear();
+        }
+        return new StoreLevelOrder(orderID,productsSoldInOrder,amountOfProducts,productPrice,storeOrderID,customerOrderID,deliveryCost,orderDate,storeOrderName,customerOrderID);
+
     }
 
-    public static double getDistanceFromCustomerToStore(Point store,Point customer){
+    public double getDistanceFromCustomerToStore(Point store,Point customer){
         double a,b;
         a = store.x - customer.x;
         b= store.y - customer.y;
@@ -198,13 +129,6 @@ public class StoreLevelOrder {
             if(sp.getProductID() == product.getProductID())
                 return true;
         }
-        if(productsSoldOnSale!=null){
-            for(SaleProduct saleProduct : productsSoldOnSale){
-                if(saleProduct.getProductID() == product.getProductID())
-                    return true;
-            }
-        }
-
         return false;
     }
     private void addToTotalProductsPrice(double price)
@@ -257,17 +181,14 @@ public class StoreLevelOrder {
         return deliveryPrice;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
     public String getStoreName() {
         return storeName;
     }
-    @Override
-    public String toString(){
-        return Integer.toString(OrderID);
-    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -296,14 +217,6 @@ public class StoreLevelOrder {
                 return sp.getAmountSoldInOrder();
             }
         }
-        if(productsSoldOnSale!=null) {
-            for (SaleProduct saleProduct : productsSoldOnSale) {
-                if (saleProduct.getProductID() == product.getProductID()) {
-                    return saleProduct.getAmountSoldInOrder();
-                }
-            }
-        }
-
         return 0;
     }
 }

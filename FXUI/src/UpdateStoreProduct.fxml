@@ -27,8 +27,10 @@
             <ComboBox fx:id="UpdatePriceComboBox" layoutX="429.0" layoutY="204.0" onAction="#UpdatePriceComboBoxAction" prefHeight="25.0" prefWidth="145.0" promptText="Choose product" />
             <Button fx:id="UpdatePriceButton" layoutX="429.0" layoutY="293.0" mnemonicParsing="false" onAction="#UpdatePriceButtonAction" prefHeight="25.0" prefWidth="145.0" text="Update price" />
             <Label layoutX="429.0" layoutY="255.0" prefHeight="17.0" prefWidth="66.0" text="New price:" />
-            <TextField fx:id="newPriceTextBox" layoutX="517.0" layoutY="251.0" prefHeight="25.0" prefWidth="57.0" />
-            <Label fx:id="ResultLable" layoutX="191.0" layoutY="367.0" prefHeight="56.0" prefWidth="224.0" />
+            <TextField fx:id="newPriceTextBox" layoutX="517.0" layoutY="251.0" onKeyReleased="#PriceUpdateTextBoxAction" prefHeight="25.0" prefWidth="57.0" />
+            <Label fx:id="ResultLable" layoutX="177.0" layoutY="367.0" prefHeight="56.0" prefWidth="407.0" />
+            <Label fx:id="SetPriceLable" layoutX="232.0" layoutY="255.0" prefHeight="17.0" prefWidth="66.0" text="Set price:" />
+            <TextField fx:id="SetPriceAddTextBox" layoutX="320.0" layoutY="251.0" onAction="#PriceAddTextBoxAction" onKeyReleased="#PriceAddTextBoxAction" prefHeight="25.0" prefWidth="57.0" />
          </children>
       </Pane>
   </content>
