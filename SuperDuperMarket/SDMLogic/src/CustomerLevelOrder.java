@@ -37,7 +37,7 @@ public class CustomerLevelOrder {
         date = storeOrders.get(0).getDate();
         OrderID = orderID;
         if(OrderIDGenerator <= OrderID){
-            OrderIDGenerator = OrderID + 1;
+            OrderIDGenerator = OrderID;
         }
     }
 
@@ -50,7 +50,9 @@ public class CustomerLevelOrder {
         OrderID = OrderIDGenerator++;
         orders = new ArrayList<StoreLevelOrder>();
     }
-
+    public static int getNextOrderID(){
+        return OrderIDGenerator + 1;
+    }
     public CustomerLevelOrder(CustomerLevelOrder other){
         this.OrderID = other.OrderID;
         this.date = (Date) other.date.clone();

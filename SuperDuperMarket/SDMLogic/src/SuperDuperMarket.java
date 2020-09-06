@@ -190,7 +190,7 @@ public class SuperDuperMarket {
                 }
             }
             if (!storeAlreadyInList) {
-                storeOrderToAdd = new StoreLevelOrder(stores.get(storeID), customerID, date, location);
+                storeOrderToAdd = new StoreLevelOrder(stores.get(storeID), customerID, date, location,CustomerLevelOrder.getNextOrderID());
                 storeOrderToAdd.addProductToOrder(productToAdd);
                 storeListForOrder.add(storeOrderToAdd);
             }
@@ -312,10 +312,7 @@ public class SuperDuperMarket {
     private final static String JAXB_XML_GAME_PACKAGE_NAME = "jaxb.generated";
 
     public static <K, V> Set<K> getSetOfDictionary(Map<K, V> mapToCreateSetFrom) {
-        Set<K> setOfKeys = new HashSet<K>();
-        for (K key : mapToCreateSetFrom.keySet()) {
-            setOfKeys.add(key);
-        }
+        Set<K> setOfKeys = new HashSet<K>(mapToCreateSetFrom.keySet());
         return setOfKeys;
     }
 

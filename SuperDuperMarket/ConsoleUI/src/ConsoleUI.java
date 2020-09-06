@@ -684,7 +684,7 @@ public class ConsoleUI {
         Scanner scanner = new Scanner(System.in);
         Integer productID;
         boolean finishedOrder = false;
-        StoreLevelOrder order = new StoreLevelOrder(chosenStore,1,date,location);
+        StoreLevelOrder order = new StoreLevelOrder(chosenStore,1,date,location,0);
         Double productAmount = null;
         do{
             printProductsForStaticOrder(chosenStore);
