@@ -1,12 +1,9 @@
-import com.sun.org.apache.xpath.internal.operations.Or;
-
 import java.awt.*;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
-import java.time.*;
+
 import ProductTypes.*;
 
 public class StoreLevelOrder {
@@ -21,8 +18,9 @@ public class StoreLevelOrder {
     private final Date date;
     private final String storeName;
     private int amountOfProductTypes;
+    private final int customerLevelOrderID;
 
-    public StoreLevelOrder(Store store, int customerID, Date date,  Point customerLocation ){
+    public StoreLevelOrder(Store store, int customerID, Date date,  Point customerLocation, int customerLevelID ){
         this.storeID = store.getID();
         this.customerID = customerID;
         this.date = date;
@@ -33,6 +31,7 @@ public class StoreLevelOrder {
         soldProducts = new ArrayList<SoldProduct>();
         amountOfProducts = 0;
         amountOfProductTypes = 0;
+        customerLevelOrderID = customerLevelID;
     }
 
 
@@ -48,9 +47,10 @@ public class StoreLevelOrder {
         for (SoldProduct itr:other.soldProducts) {
             this.soldProducts.add(new SoldProduct(itr));
         }
+        this.customerLevelOrderID = other.customerLevelOrderID;
     }
 
-    public StoreLevelOrder(Integer orderID, List<SoldProduct> soldProducts, int amountOfProducts, double totalProductsPrice, int storeID, int customerID, double deliveryPrice, Date date, String storeName) {
+    public StoreLevelOrder(Integer orderID, List<SoldProduct> soldProducts, int amountOfProducts, double totalProductsPrice, int storeID, int customerID, double deliveryPrice, Date date, String storeName,int customerLevelID) {
         OrderID = orderID;
         if(OrderIDGenerator < OrderID){
             OrderIDGenerator = OrderID + 1;
@@ -64,6 +64,7 @@ public class StoreLevelOrder {
         this.date = date;
         this.storeName = storeName;
         amountOfProductTypes = this.soldProducts.size();
+        customerLevelOrderID = customerLevelID;
     }
 
     public List<String> getStoreStringListToFile(){
@@ -111,7 +112,7 @@ public class StoreLevelOrder {
             productsSoldInOrder.add(SoldProduct.getSoldProductFromTxtFile(productDetails));
             productDetails.clear();
         }
-        return new StoreLevelOrder(orderID,productsSoldInOrder,amountOfProducts,productPrice,storeOrderID,customerOrderID,deliveryCost,orderDate,storeOrderName);
+        return new StoreLevelOrder(orderID,productsSoldInOrder,amountOfProducts,productPrice,storeOrderID,customerOrderID,deliveryCost,orderDate,storeOrderName,customerOrderID);
 
     }
 
