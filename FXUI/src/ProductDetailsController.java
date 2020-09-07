@@ -52,26 +52,30 @@ public class ProductDetailsController {
     @FXML
     void BackButtonAction(ActionEvent event) {
         Stage s = (Stage)(BackButton.getScene().getWindow());
-        ProductComboBox.valueProperty().setValue(null);
-        NameLableShow.setText("");
-        IDLableShow.setText("");
-        CategoryLableShow.setText("");
-        SoldByStoresLable.setText("");
-        ProductPriceShowLable.setText("");
-        AmountOfTimesSoldLable.setText("");
+        onClose();
         s.close();
     }
 
     @FXML
     void ProductComboBoxAction(ActionEvent event) {
         Product chosenProduct = ProductComboBox.getValue();
-        IDLableShow.setText(Integer.toString(chosenProduct.getProductID()));
-        NameLableShow.setText(chosenProduct.getProductName());
-        CategoryLableShow.setText(chosenProduct.getProductCategory().toString());
-        SoldByStoresLable.setText(Integer.toString(SDM.countHowManyStoresSellProduct(chosenProduct.getProductID()))+" stores");
-        ProductPriceShowLable.setText(String.format("%.2f",SDM.getAveragePriceForProduct(chosenProduct)));
-        AmountOfTimesSoldLable.setText(String.format("%.2f",SDM.totalAmountSoldInMarket(chosenProduct)));
-
+        if(chosenProduct != null) {
+            IDLableShow.setText(Integer.toString(chosenProduct.getProductID()));
+            NameLableShow.setText(chosenProduct.getProductName());
+            CategoryLableShow.setText(chosenProduct.getProductCategory().toString());
+            SoldByStoresLable.setText(Integer.toString(SDM.countHowManyStoresSellProduct(chosenProduct.getProductID())) + " stores");
+            ProductPriceShowLable.setText(String.format("%.2f", SDM.getAveragePriceForProduct(chosenProduct)));
+            AmountOfTimesSoldLable.setText(String.format("%.2f", SDM.totalAmountSoldInMarket(chosenProduct)));
+        }
+    }
+    public void onClose(){
+        ProductComboBox.setValue(null);
+        NameLableShow.setText("");
+        IDLableShow.setText("");
+        CategoryLableShow.setText("");
+        SoldByStoresLable.setText("");
+        ProductPriceShowLable.setText("");
+        AmountOfTimesSoldLable.setText("");
     }
 
 }

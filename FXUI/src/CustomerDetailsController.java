@@ -61,6 +61,24 @@ public class CustomerDetailsController {
     @FXML
     void BackButtonAction(ActionEvent event) {
         Stage s = (Stage)(BackButton.getScene().getWindow());
+        onClose();
+        s.close();
+    }
+
+    @FXML
+    void ChooseCustomerAction(ActionEvent event) {
+        User chosenCustomer = CustomerComboBox.getValue();
+        if (chosenCustomer != null) {
+            NameLableShow.setText(chosenCustomer.getName());
+            IDLableShow.setText(Integer.toString(chosenCustomer.getID()));
+            LocationShowLable.setText("[" + chosenCustomer.getLocation().x + "," + chosenCustomer.getLocation().y + "]");
+            OrderAmountShowLable.setText(Integer.toString(chosenCustomer.getAmountOfOrders()));
+            ProductCostShowLable.setText(String.format("%.2f", chosenCustomer.getAverageProductCostFromOrders()));
+            DeliveryCostLable.setText(String.format("%.2f", chosenCustomer.getAverageDeliveryCostFromOrders()));
+        }
+    }
+
+    public void onClose() {
         CustomerComboBox.valueProperty().setValue(null);
         NameLableShow.setText("");
         IDLableShow.setText("");
@@ -68,18 +86,5 @@ public class CustomerDetailsController {
         OrderAmountShowLable.setText("");
         ProductCostShowLable.setText("");
         DeliveryCostLable.setText("");
-        s.close();
     }
-
-    @FXML
-    void ChooseCustomerAction(ActionEvent event) {
-        User chosenCustomer = CustomerComboBox.getValue();
-        NameLableShow.setText(chosenCustomer.getName());
-        IDLableShow.setText(Integer.toString(chosenCustomer.getID()));
-        LocationShowLable.setText("["+chosenCustomer.getLocation().x+","+chosenCustomer.getLocation().y+"]");
-        OrderAmountShowLable.setText(Integer.toString(chosenCustomer.getAmountOfOrders()));
-        ProductCostShowLable.setText(String.format("%.2f",chosenCustomer.getAverageProductCostFromOrders()));
-        DeliveryCostLable.setText(String.format("%.2f",chosenCustomer.getAverageDeliveryCostFromOrders()));
-    }
-
 }
