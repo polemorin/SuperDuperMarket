@@ -155,11 +155,13 @@ public class mainWindowController {
                 placeOrderStage.initModality(Modality.WINDOW_MODAL);
                 PlaceOrderHomeController placeOrderHomeController = fxmlLoader.getController();
                 placeOrderHomeController.setSDM(SDM);
+                placeOrderStage.onCloseRequestProperty().setValue(we->placeOrderHomeController.onClose());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         placeOrderStage.showAndWait();
+
 
 
     }
@@ -180,6 +182,7 @@ public class mainWindowController {
                 ProductDetailsController productDetailsController = fxmlLoader.getController();
                 productDetailsController.setProductMap(SDM.getProducts());
                 productDetailsController.setSDM(SDM);
+                productDetailsStage.setOnCloseRequest(we -> productDetailsController.onClose());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -212,6 +215,7 @@ public class mainWindowController {
                 updateProductStage.initModality(Modality.WINDOW_MODAL);
                 UpdateStoreProductController updateStoreProductController = fxmlLoader.getController();
                 updateStoreProductController.setSDM(SDM);
+                updateProductStage.setOnCloseRequest(we -> updateStoreProductController.onClose());
             } catch (IOException e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
@@ -237,6 +241,7 @@ public class mainWindowController {
                 customerDetailsStage.initModality(Modality.WINDOW_MODAL);
                 CustomerDetailsController customerDetailsController = fxmlLoader.getController();
                 customerDetailsController.setUserMap(SDM.getUsers());
+                customerDetailsStage.setOnCloseRequest(we -> customerDetailsController.onClose());
             } catch (IOException e) {
                 e.printStackTrace();
             }

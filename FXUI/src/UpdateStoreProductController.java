@@ -152,24 +152,7 @@ public class UpdateStoreProductController {
 
     @FXML
     void BackButtonAction(ActionEvent event) {
-
-        ChooseStoreComboBox.setValue(null);
-        isStoreChosen.setValue(false);
-        isProductAddChosen.setValue(false);
-        isProductUpdateChosen.setValue(false);
-        isAddPriceValid.setValue(false);
-        isUpdatePriceValid.setValue(false);
-        isProductRemoveChosen.setValue(false);
-
-
-        RemoveProductComboBox.setValue(null);
-        AddProductComboBox.setValue(null);
-        UpdatePriceComboBox.setValue(null);
-
-        SetPriceAddTextBox.setText("");
-        newPriceTextBox.setText("");
-        ResultLable.setText("");
-
+        onClose();
         Stage s = (Stage)(BackButton.getScene().getWindow());
         s.close();
     }
@@ -287,5 +270,24 @@ public class UpdateStoreProductController {
         if(!productAdded){
             AddProductComboBox.setPromptText("No more items");
         }
+    }
+
+    public void onClose() {
+        ChooseStoreComboBox.setValue(null);
+        isStoreChosen.setValue(false);
+        isProductAddChosen.setValue(false);
+        isProductUpdateChosen.setValue(false);
+        isAddPriceValid.setValue(false);
+        isUpdatePriceValid.setValue(false);
+        isProductRemoveChosen.setValue(false);
+
+
+        RemoveProductComboBox.setValue(null);
+        AddProductComboBox.setValue(null);
+        UpdatePriceComboBox.setValue(null);
+
+        SetPriceAddTextBox.setText("");
+        newPriceTextBox.setText("");
+        ResultLable.setText("");
     }
 }

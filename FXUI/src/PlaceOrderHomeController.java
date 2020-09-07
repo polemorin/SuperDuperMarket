@@ -1,5 +1,6 @@
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -58,7 +60,6 @@ public class PlaceOrderHomeController {
         isCustomerChosen = false;
         isStoreChosen = false;
         isDynamicOrderTypeChosen = false;
-
     }
 
     @FXML
@@ -68,8 +69,28 @@ public class PlaceOrderHomeController {
       DeliveryPriceLabel.visibleProperty().bind(isStaticOrderType);
       NextButton.disableProperty().bind(isAllDetailsFilled.not());
 
+
    }
-   private void CheckAllDataFilled(){
+
+
+    public void onClose(){
+       isAllDetailsFilled.setValue(false);
+       isStaticOrderType.setValue(false);
+       isDateChosen = false;
+       isCustomerChosen = false;
+       isStoreChosen = false;
+       isDynamicOrderTypeChosen = false;
+
+       CustomerComboBox.setValue(null);
+       StoreComboBox.setValue(null);
+       StaticRadio.selectedProperty().setValue(false);
+       DynamicRadio.scaleShapeProperty().setValue(false);
+       DeliveryDatePicker.setValue(null);
+
+
+   }
+
+    private void CheckAllDataFilled(){
         if(isCustomerChosen && isDateChosen ){
             if(isDynamicOrderTypeChosen)
                 isAllDetailsFilled.setValue(true);
@@ -156,6 +177,7 @@ public class PlaceOrderHomeController {
         }
         Stage s = (Stage)(NextButton.getScene().getWindow());
         s.close();
+        onClose();
         placeOrderProductsStage.showAndWait();
     }
 
