@@ -32,6 +32,7 @@ public class UI extends Application {
         primaryStage.show();
 
 
+
       //primaryStage.setTitle("Super Duper Market");
       //Parent load = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
       //

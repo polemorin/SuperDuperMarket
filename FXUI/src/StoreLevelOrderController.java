@@ -1,57 +1,48 @@
-import ProductTypes.SoldProduct;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class StoreLevelOrderController {
+public class StoreLevelOrderController  {
 
     @FXML
-    private Label StoreDetailsLable;
+    private Label NameLabel;
 
     @FXML
-    private TableView<StoreLevelOrder> StoreDetailsTable;
+    private Label IDLabel;
 
     @FXML
-    private TableColumn<?, ?> StoreIDColumn;
+    private Label PPKLabel;
 
     @FXML
-    private TableColumn<?, ?> StoreNameColumn;
+    private Label DistanceLabel;
 
     @FXML
-    private TableColumn<?, ?> PPKColumn;
+    private Label DeliveryPriceLabel;
 
     @FXML
-    private TableColumn<?, ?> DistanceColumn;
+    private TableView<?> ProductsTabelView;
 
     @FXML
-    private TableColumn<?, ?> DeliveryCostColumn;
+    private TableColumn<?, ?> NameColumn;
 
     @FXML
-    private Label ProductLable;
+    private TableColumn<?, ?> IDColumn;
 
     @FXML
-    private TableView<SoldProduct> ProductTable;
+    private TableColumn<?, ?> SoldByColumn;
 
     @FXML
-    private TableColumn<?, ?> ProductIDColumn;
+    private TableColumn<?, ?> AmountCoulmn;
 
     @FXML
-    private TableColumn<?, ?> ProductNameColumn;
+    private TableColumn<?, ?> PriceColumn;
 
     @FXML
-    private TableColumn<?, ?> ProductCategoryColumn;
+    private TableColumn<?, ?> TotalColumn;
 
     @FXML
-    private TableColumn<?, ?> ProductAmountColumn;
-
-    @FXML
-    private TableColumn<?, ?> ProductPricePerUnitColumn;
-
-    @FXML
-    private TableColumn<?, ?> ProductTotalPriceColumn;
-
-    @FXML
-    private TableColumn<?, ?> ProductWasSaleColumn;
+    private TableColumn<?, ?> PurchasedOnSaleColumn;
 
 }

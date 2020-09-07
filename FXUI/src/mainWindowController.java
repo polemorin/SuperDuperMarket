@@ -25,6 +25,7 @@ public class mainWindowController {
     private Stage customerDetailsStage;
     private Stage productDetailsStage;
     private Stage updateProductStage;
+    private Stage placeOrderStage;
     @FXML
     private Button orderHistoryButton;
 
@@ -140,6 +141,26 @@ public class mainWindowController {
     }
     @FXML
     void placeAnOrderAction(ActionEvent event) {
+
+        if(placeOrderStage == null){
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("PlaceOrderHome.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                placeOrderStage = new Stage();
+                placeOrderStage.setTitle("Place Order");
+                placeOrderStage.setScene(scene);
+               // placeOrderStage.setAlwaysOnTop(true);
+                placeOrderStage.initOwner(primaryStage);
+                placeOrderStage.initModality(Modality.WINDOW_MODAL);
+                PlaceOrderHomeController placeOrderHomeController = fxmlLoader.getController();
+                placeOrderHomeController.setSDM(SDM);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        placeOrderStage.showAndWait();
+
 
     }
 

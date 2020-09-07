@@ -73,6 +73,11 @@ public class User {
         }
         return sum/orderHistory.size();
     }
+
+    public Double distanceFromStore(Store store){
+        return Math.sqrt(Math.pow(store.getLocation().getX() -location.x,2) +
+                Math.pow(store.getLocation().getY() -location.y,2));
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

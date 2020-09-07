@@ -7,9 +7,10 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.Pane?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="PlaceOrderHomeController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PlaceOrderHomeController">
    <content>
       <Pane prefHeight="394.0" prefWidth="591.0">
          <children>
@@ -17,11 +18,14 @@
             <ComboBox fx:id="CustomerComboBox" layoutX="62.0" layoutY="110.0" onAction="#CustomerComboBoxAction" prefHeight="25.0" prefWidth="182.0" promptText="Choose customer" />
             <DatePicker fx:id="DeliveryDatePicker" layoutX="354.0" layoutY="110.0" onAction="#DeliveryDatePickerAction" />
             <Label layoutX="62.0" layoutY="172.0" text="Order type" />
-            <RadioButton fx:id="StaticRadio" layoutX="153.0" layoutY="172.0" mnemonicParsing="false" onAction="#StaticRadioAction" text="Static" />
-            <RadioButton fx:id="DynamicRadio" layoutX="231.0" layoutY="172.0" mnemonicParsing="false" onAction="#DynamicRadioAction" text="Dynamic" />
+            <RadioButton fx:id="StaticRadio" layoutX="153.0" layoutY="172.0" mnemonicParsing="false" onAction="#StaticRadioAction" text="Static">
+               <toggleGroup>
+                  <ToggleGroup fx:id="OrderType" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="DynamicRadio" layoutX="231.0" layoutY="172.0" mnemonicParsing="false" onAction="#DynamicRadioAction" text="Dynamic" toggleGroup="$OrderType" />
             <Label layoutX="413.0" layoutY="85.0" text="Delivery date:" />
             <ComboBox fx:id="StoreComboBox" layoutX="62.0" layoutY="230.0" onAction="#StoreComboBoxAction" prefWidth="150.0" promptText="Choose store" />
-            <Label layoutX="62.0" layoutY="272.0" text="Delivery price:" />
+            <Label fx:id="deliveryPriceStaticLabel" layoutX="62.0" layoutY="272.0" text="Delivery price:" />
             <Label fx:id="DeliveryPriceLabel" layoutX="151.0" layoutY="272.0" />
             <Button fx:id="NextButton" layoutX="427.0" layoutY="329.0" mnemonicParsing="false" onAction="#NextButtonAction" prefHeight="51.0" prefWidth="142.0" text="Next" />
             <Separator layoutX="-3.0" layoutY="81.0" prefHeight="0.0" prefWidth="600.0" />
