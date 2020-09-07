@@ -1,5 +1,7 @@
 package SDMSale;
 
+import ProductTypes.StoreProduct;
+
 public class IfYouBuy {
     private final double quantity;
     private final int itemID;
@@ -17,4 +19,7 @@ public class IfYouBuy {
         return itemID;
     }
 
+    public boolean isProductInIfYouBuy(StoreProduct product) {
+        return itemID == product.getProductID();
+    }
 }

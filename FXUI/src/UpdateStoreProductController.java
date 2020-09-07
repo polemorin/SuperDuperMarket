@@ -178,12 +178,18 @@ public class UpdateStoreProductController {
     void RemoveProductButtonAction(ActionEvent event) {
         int storeID = ChooseStoreComboBox.getValue().getID();
         int productID = RemoveProductComboBox.getValue().getProductID();
+        StoreProduct chosenStoreProduct = RemoveProductComboBox.getValue();
+        Store store = ChooseStoreComboBox.getValue();
         SDM.removeProductFromStore(productID,storeID);
         ResultLable.setText(RemoveProductComboBox.getValue().getProductName() + " was removed from "
                 + ChooseStoreComboBox.getValue().getName());
         RemoveProductComboBox.setValue(null);
         updateComboBoxes();
         isProductRemoveChosen.setValue(false);
+        if(store.isProductPartOfStoreSale(chosenStoreProduct)){
+            store.removeSaleByStoreProduct(chosenStoreProduct);
+            ResultLable.setText(ResultLable.getText() + ". Sale was removed.");
+        }
     }
 
     @FXML
