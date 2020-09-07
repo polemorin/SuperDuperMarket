@@ -18,7 +18,7 @@ public class UI extends Application {
         URL mainFXML = getClass().getResource("MainWindow.fxml");
         loader.setLocation(mainFXML);
 
-        Parent root = loader.load();
+        ScrollPane root = loader.load();
 
         mainWindowController controller = loader.getController();
         SuperDuperMarket SDM = new SuperDuperMarket();
@@ -30,6 +30,8 @@ public class UI extends Application {
         Scene scene = new Scene(root, 1050, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+
       //primaryStage.setTitle("Super Duper Market");
       //Parent load = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
       //
@@ -39,31 +41,7 @@ public class UI extends Application {
       //primaryStage.show();
 
     }
-   //public void start(Stage primaryStage) throws Exception {
 
-   //    CSSFX.start();
-
-   //    FXMLLoader loader = new FXMLLoader();
-
-   //    // load main fxml
-   //    URL mainFXML = getClass().getResource(HistogramResourcesConstants.MAIN_FXML_RESOURCE_IDENTIFIER);
-   //    loader.setLocation(mainFXML);
-   //    BorderPane root = loader.load();
-
-   //    // wire up controller
-   //    HistogramController histogramController = loader.getController();
-   //    BusinessLogic businessLogic = new BusinessLogic(histogramController);
-   //    histogramController.setPrimaryStage(primaryStage);
-   //    histogramController.setBusinessLogic(businessLogic);
-
-   //    // set stage
-   //    primaryStage.setTitle("HistogramS");
-   //    Scene scene = new Scene(root, 1050, 600);
-   //    primaryStage.setScene(scene);
-   //    primaryStage.show();
-
-
-   //}
 
     public static void main(String[] args) {
         launch(args);

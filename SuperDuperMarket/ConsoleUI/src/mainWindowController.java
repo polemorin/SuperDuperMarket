@@ -116,6 +116,7 @@ public class mainWindowController {
             } catch (IOException e) {
 
             }
+            ComboBox<String> s = new ComboBox<>();
     }
 
     @FXML
