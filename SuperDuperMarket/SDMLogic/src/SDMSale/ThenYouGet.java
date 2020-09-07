@@ -1,5 +1,6 @@
 package SDMSale;
 
+import ProductTypes.StoreProduct;
 import jaxb.generated.SDMOffer;
 
 import java.util.ArrayList;
@@ -26,5 +27,14 @@ public class ThenYouGet {
 
     public List<Offer> getOffers() {
         return offers;
+    }
+
+    public boolean isProductInThenYouGet(StoreProduct product) {
+        for (Offer offer:offers) {
+            if(offer.getItemID() == product.getProductID()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

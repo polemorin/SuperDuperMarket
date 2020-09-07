@@ -151,8 +151,25 @@ public class Store {
         sales = generateSalesFromXml;
     }
 
+    public boolean isProductPartOfStoreSale(StoreProduct product){
+        for (Map.Entry<String,Sale> sale:sales.entrySet()) {
+            if(sale.getValue().isProductPartOfSale(product)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return name;
+    }
+
+    public void removeSaleByStoreProduct(StoreProduct chosenStoreProduct) {
+        for (Map.Entry<String,Sale> sale:sales.entrySet()) {
+            if(sale.getValue().isProductPartOfSale(chosenStoreProduct)){
+                sales.remove(sale.getKey());
+            }
+        }
     }
 }

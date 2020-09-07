@@ -1,5 +1,7 @@
 package SDMSale;
 
+import ProductTypes.StoreProduct;
+
 public class Sale {
     private final String name;
     private final IfYouBuy ifYouBuy;
@@ -11,7 +13,9 @@ public class Sale {
         this.thenYouGet = new ThenYouGet(thenYouGet);
     }
 
-
+    public boolean isProductPartOfSale(StoreProduct product){
+        return ifYouBuy.isProductInIfYouBuy(product)|| thenYouGet.isProductInThenYouGet(product);
+    }
     public String getName() {
         return name;
     }
