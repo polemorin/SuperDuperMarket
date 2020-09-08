@@ -168,20 +168,18 @@ public class PlaceOrderHomeController {
                 placeOrderProductsStage = new Stage();
                 placeOrderProductsStage.setTitle("Place Order");
                 placeOrderProductsStage.setScene(scene);
-                //placeOrderProductsStage.setAlwaysOnTop(true);
                 placeOrderProductsStage.initOwner(mainStage);
                 placeOrderProductsStage.initModality(Modality.WINDOW_MODAL);
                 PlaceOrderProductsController placeOrderProductsController = fxmlLoader.getController();
                 placeOrderProductsController.setData(SDM,mainStage,customer,store,date);
                 placeOrderProductsController.setPreviousWindow((Stage)(NextButton.getScene().getWindow()));
-                placeOrderProductsStage.onShownProperty().setValue(we->placeOrderProductsController.closePreviousWindow());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
-        onClose();
-        placeOrderProductsStage.showAndWait();
+        placeOrderProductsStage.show();
+        Stage s = (Stage)NextButton.getScene().getWindow();
+        s.close();
     }
 
     @FXML

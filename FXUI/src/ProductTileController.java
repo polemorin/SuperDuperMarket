@@ -61,20 +61,12 @@ public class ProductTileController {
     @FXML
     void MinusButtonAction(ActionEvent event) {
         if(amountLabelProperty.get() > 0.0){
-            amountLabelProperty.set(amountLabelProperty.getValue() + changeAmountByButtons);
+            amountLabelProperty.set(amountLabelProperty.getValue() - changeAmountByButtons);
         }
     }
 
     @FXML
     void PlusButtonAction(ActionEvent event) {
-        amountLabelProperty.set(amountLabelProperty.getValue() + changeAmountByButtons);
-    }
-    public void MinusAction(){
-        if(amountLabelProperty.get() > 0.0){
-            amountLabelProperty.set(amountLabelProperty.getValue() + changeAmountByButtons);
-        }
-    }
-    public void PlusAction(){
         amountLabelProperty.set(amountLabelProperty.getValue() + changeAmountByButtons);
     }
 
