@@ -1,6 +1,7 @@
 
 import ProductTypes.Product;
 import ProductTypes.StoreProduct;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -31,14 +32,12 @@ public class PlaceOrderProductsController {
     private User customer;
     private Store store;
     private LocalDate deliveryDate;
-    private Stage previousWindow;
     private Stage mainStage;
     private Stage placeOrderSalesStage;
     private List <ProductTileController> productTileControllerList;
     private boolean firstClick = true;
-
     @FXML
-    private ScrollPane WindowScroller;
+    private Label MessageLabel;
     @FXML
     private ScrollPane ScrollProductPane;
     @FXML
@@ -49,29 +48,33 @@ public class PlaceOrderProductsController {
 
     @FXML
     void ContinueButtonAction(ActionEvent event) {
-
-        if(placeOrderSalesStage == null){
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("PlaceOrderSales.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-                placeOrderSalesStage = new Stage();
-                placeOrderSalesStage.setTitle("Place Order Sales");
-                placeOrderSalesStage.setScene(scene);
-                //placeOrderSalesStage.setAlwaysOnTop(true);
-                placeOrderSalesStage.initOwner(mainStage);
-                placeOrderSalesStage.initModality(Modality.WINDOW_MODAL);
-                PlaceOrderSalesController placeOrderSalesController = fxmlLoader.getController();
-                placeOrderSalesController.setData(SDM,customer,store,deliveryDate,getProductsByIdAndAmount(),mainStage);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if(getProductsByIdAndAmount().size() == 0){
+            MessageLabel.setText("Cart empty, choose items to continue.");
         }
+        else {
+            if (placeOrderSalesStage == null) {
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("PlaceOrderSales.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load());
+                    placeOrderSalesStage = new Stage();
+                    placeOrderSalesStage.setTitle("Place Order Sales");
+                    placeOrderSalesStage.setScene(scene);
+                    placeOrderSalesStage.initOwner(mainStage);
+                    placeOrderSalesStage.initModality(Modality.WINDOW_MODAL);
+                    PlaceOrderSalesController placeOrderSalesController = fxmlLoader.getController();
+                    placeOrderSalesController.setData(SDM, customer, store, deliveryDate, getProductsByIdAndAmount(), mainStage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-        //onClose();
-        placeOrderSalesStage.show();
-         Stage s = (Stage)(ContinueButton.getScene().getWindow());
-         s.close();
+            }
+
+
+            placeOrderSalesStage.show();
+            Stage s = (Stage) (ContinueButton.getScene().getWindow());
+            s.close();
+        }
     }
     public void setData(SuperDuperMarket sdm,Stage mainStage, User customer, Store store, LocalDate date) throws IOException {
         SDM = sdm;
@@ -85,8 +88,7 @@ public class PlaceOrderProductsController {
                ProductsFlowPane.setPrefWidth(newBounds.getWidth());
            }
        });
-
-      setProducts();
+       setProducts();
 
     }
 
@@ -122,14 +124,6 @@ public class PlaceOrderProductsController {
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-    }
-
-    public void setPreviousWindow(Stage window) {
-        previousWindow = window;
-    }
-
-    public void closePreviousWindow(){
-        previousWindow.close();
     }
 
     private Map<Integer,Double> getProductsByIdAndAmount(){

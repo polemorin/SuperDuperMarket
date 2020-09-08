@@ -12,13 +12,6 @@ public class IfYouBuy {
         itemID = ifYouBuy.getItemId();
         this.productName = productName;
     }
-
-    public IfYouBuy(double quantity, int itemID, String productName) {
-        this.quantity = quantity;
-        this.itemID = itemID;
-        this.productName = productName;
-    }
-
     public String getProductName() {
         return productName;
     }

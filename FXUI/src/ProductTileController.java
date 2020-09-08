@@ -35,20 +35,24 @@ public class ProductTileController {
     private Label PriceLabel;
 
 
-    public void setData(Product product, Double price){
+    public void setData(Product product, Double price) {
         this.product = product;
         this.category = product.getProductCategory().toString().equals("Quantity") ? "Units" : "Kilo";
         changeAmountByButtons = category.equals("Units") ? 1 : 0.5;
         NameLabel.setText(product.getProductName());
         SoldByLabel.setText(category);
-        if(price == null){
+        if (price == null) {
             PriceLabel.visibleProperty().setValue(false);
             PriceStaticLabel.visibleProperty().setValue(false);
+        } else {
+            PriceLabel.setText(String.format("%.1f", price));
+        }
+        if (category.compareToIgnoreCase("Units") == 0) {
+            AmountLabel.setText("0");
         }
         else{
-            PriceLabel.setText(String.format("%.1f",price));
+            AmountLabel.setText("0.0");
         }
-
     }
 
     @FXML
