@@ -2,6 +2,7 @@ import com.sun.xml.internal.bind.v2.model.core.ID;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 import ProductTypes.*;
 
@@ -14,7 +15,7 @@ public class CustomerLevelOrder {
     private final int totalProductTypeAmount;
     private final int totalProductPurchased;
     private final double deliveryPrice;
-    private final Date date;
+    private final LocalDate date;
     private static int OrderIDGenerator = 1000;
     private final int OrderID;
 
@@ -41,7 +42,7 @@ public class CustomerLevelOrder {
         }
     }
 
-    public CustomerLevelOrder(double totalProductPrice, int totalProductTypeAmount, int totalProductPurchased, double deliveryPrice, Date date) {
+    public CustomerLevelOrder(double totalProductPrice, int totalProductTypeAmount, int totalProductPurchased, double deliveryPrice, LocalDate date) {
         this.totalProductPrice = totalProductPrice;
         this.totalProductTypeAmount = totalProductTypeAmount;
         this.totalProductPurchased = totalProductPurchased;
@@ -55,7 +56,7 @@ public class CustomerLevelOrder {
     }
     public CustomerLevelOrder(CustomerLevelOrder other){
         this.OrderID = other.OrderID;
-        this.date = (Date) other.date.clone();
+        this.date = other.date;
         this.deliveryPrice = other.deliveryPrice;
         this.totalProductPrice = other.totalProductPrice;
         this.totalProductTypeAmount = other.totalProductTypeAmount;
@@ -146,7 +147,7 @@ public class CustomerLevelOrder {
         return deliveryPrice;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
     public int getOrderID() {

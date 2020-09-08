@@ -6,6 +6,7 @@ import javax.xml.bind.Unmarshaller;
 import java.awt.*;
 import java.io.*;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
 
@@ -172,7 +173,7 @@ public class SuperDuperMarket {
         return orderHistory;
     }
 
-    public CustomerLevelOrder createCheapestOrder(Map<Integer, Double> shoppingList, int customerID, Date date, Point location) {
+    public CustomerLevelOrder createCheapestOrder(Map<Integer, Double> shoppingList, int customerID, LocalDate date, Point location) {
         List<StoreLevelOrder> storeListForOrder = new ArrayList<StoreLevelOrder>();
         int storeID;
         SoldProduct productToAdd;
