@@ -13,7 +13,7 @@
       <Button fx:id="PlusButton" layoutX="127.0" layoutY="84.0" mnemonicParsing="false" onAction="#PlusButtonAction" prefHeight="17.0" prefWidth="38.0" styleClass="RoundButton" text="+" />
       <Button fx:id="MinusButton" layoutX="42.0" layoutY="84.0" maxHeight="34.0" maxWidth="38.0" mnemonicParsing="false" onAction="#MinusButtonAction" prefHeight="34.0" prefWidth="38.0" styleClass="RoundButton" text="-" />
       <Label fx:id="SoldByLabel" layoutX="82.0" layoutY="117.0" />
-      <Label fx:id="AmountLabel" layoutX="81.0" layoutY="91.0" prefHeight="17.0" prefWidth="30.0" />
+      <Label fx:id="AmountLabel" layoutX="76.0" layoutY="91.0" prefHeight="17.0" prefWidth="48.0" />
       <Label fx:id="PriceLabel" layoutX="73.0" layoutY="50.0" />
    </children>
 </Pane>
