@@ -11,6 +11,7 @@ public class StoreLevelOrder {
     private static int OrderIDGenerator = 1000;
     private final Integer OrderID;
     private List<SoldProduct> soldProducts;
+    private List<SaleProduct> productSoldOnSale = null;
     private int amountOfProducts;
     private double totalProductsPrice;
     private final int storeID;
@@ -66,6 +67,14 @@ public class StoreLevelOrder {
         this.storeName = storeName;
         amountOfProductTypes = this.soldProducts.size();
         customerLevelOrderID = customerLevelID;
+    }
+
+    public void setProductSoldOnSale(List<SaleProduct> productSoldOnSale) {
+        this.productSoldOnSale = productSoldOnSale;
+    }
+
+    public List<SaleProduct> getProductSoldOnSale() {
+        return productSoldOnSale;
     }
 
     public List<String> getStoreStringListToFile(){

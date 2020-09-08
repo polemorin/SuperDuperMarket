@@ -1,6 +1,7 @@
 
 import ProductTypes.ProductCategory;
 import ProductTypes.SaleProduct;
+import ProductTypes.SoldProduct;
 import SDMSale.Offer;
 import SDMSale.Sale;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -37,7 +38,7 @@ public class PlaceOrderSalesController
     private List<Sale> sales;
     private SimpleBooleanProperty isSaleOfferAvailable;
     private List<SaleProduct> saleProductsList;
-
+    private CustomerLevelOrder customerLevelOrder;
 
     @FXML
     private ListView<Sale> SalesListView;
@@ -70,22 +71,22 @@ public class PlaceOrderSalesController
     private TableColumn<SaleProduct, String> SaleSaleNameColumn;
 
     @FXML
-    private TableView<?> CartTableView;
+    private TableView<SoldProduct> CartTableView;
 
     @FXML
-    private TableColumn<?, ?> CartNameColumn;
+    private TableColumn<SoldProduct, String> CartNameColumn;
 
     @FXML
-    private TableColumn<?, ?> CartIDColumn;
+    private TableColumn<SoldProduct, Integer> CartIDColumn;
 
     @FXML
-    private TableColumn<?, ?> CartAmountColumn;
+    private TableColumn<SoldProduct, String> CartAmountColumn;
 
     @FXML
-    private TableColumn<?, ?> CartPriceColumn;
+    private TableColumn<SoldProduct, Double> CartPriceColumn;
 
     @FXML
-    private TableColumn<?, ?> CartTotalPriceColumn;
+    private TableColumn<SoldProduct, Double> CartTotalPriceColumn;
 
     @FXML
     private Button GoToCheckOutButton;
@@ -202,6 +203,11 @@ public class PlaceOrderSalesController
         SaleTotalPriceColumn.setCellValueFactory(new PropertyValueFactory<SaleProduct, Double>("totalPrice"));
         SaleSaleNameColumn.setCellValueFactory(new PropertyValueFactory<SaleProduct, String>("saleName"));
 
+        CartNameColumn.setCellValueFactory(new PropertyValueFactory<SoldProduct, String>("productName"));
+        CartIDColumn.setCellValueFactory(new PropertyValueFactory<SoldProduct, Integer>("productID"));
+        CartAmountColumn.setCellValueFactory(new PropertyValueFactory<SoldProduct, String>("amountSoldInOrder"));
+        CartPriceColumn.setCellValueFactory(new PropertyValueFactory<SoldProduct, Double>("price"));
+        CartTotalPriceColumn.setCellValueFactory(new PropertyValueFactory<SoldProduct, Double>("totalPrice"));
     }
     @FXML
     void SalesListViewAction(MouseEvent event) {
@@ -244,6 +250,13 @@ public class PlaceOrderSalesController
     }
 
     private void initCartTable() {
+        List<SoldProduct> productsToAdd = new ArrayList<>();
+        for (StoreLevelOrder storeLevelOrder:customerLevelOrder.getOrders()) {
+            productsToAdd.addAll(storeLevelOrder.getSoldProducts());
+        }
+        final ObservableList<SoldProduct> dataOfItems = FXCollections.observableList(productsToAdd);
+        CartTableView.setItems(dataOfItems);
+        CartTableView.refresh();
 
     }
 
@@ -251,13 +264,14 @@ public class PlaceOrderSalesController
         if(store == null){
             sales = new ArrayList<>();
             Store tempStore;
-            CustomerLevelOrder customerLevelOrder = sdm.createCheapestOrder(productsByIdAndAmount,customer.getID(),deliveryDate,customer.getLocation());
+            customerLevelOrder = sdm.createCheapestOrder(productsByIdAndAmount,customer.getID(),deliveryDate,customer.getLocation());
             for (StoreLevelOrder storeLevelOrder:customerLevelOrder.getOrders()) {
                 tempStore = sdm.getStores().get(storeLevelOrder.getStoreID());
                 sales.addAll(tempStore.getMySales(productsByIdAndAmount));
             }
         }
         else{
+            createCutomerLevelOrder();
             sales = store.getMySales(productsByIdAndAmount);
         }
         for (Sale sale: sales) {
