@@ -101,7 +101,7 @@ public class PlaceOrderSalesController
         int storeID;
         String saleName;
         if(OfferComboBox.getItems().size() == 0){//ALL-OR-NOTHING
-
+           // SalesListView.selectionModelProperty().getValue().getSelectedItems().get(0)
         }
         else{
             category = sdm.getProducts().get(offer.getItemID()).getProductCategory();

@@ -31,7 +31,7 @@
                 <TableColumn fx:id="SaleIDColumn" prefWidth="72.79998779296875" text="ID" />
                   <TableColumn fx:id="SaleAmountColumn" prefWidth="63.4000244140625" text="Amount" />
                   <TableColumn fx:id="SalePriceColumn" prefWidth="66.5999755859375" text="Price" />
-                  <TableColumn fx:id="SaleTotalPriceColumn" prefWidth="75.0" text="Total price" />
+                  <TableColumn fx:id="SaleTotalPriceColumn" prefWidth="66.5999755859375" text="Total Price" />
                   <TableColumn fx:id="SaleSaleNameColumn" prefWidth="143.0" text="Sale name" />
               </columns>
             </TableView>
