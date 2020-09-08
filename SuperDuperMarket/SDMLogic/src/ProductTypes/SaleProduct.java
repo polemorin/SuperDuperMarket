@@ -3,6 +3,7 @@ package ProductTypes;
 public class SaleProduct extends PricedProduct{
 
     private final String saleName;
+
     private double totalPrice;
     private double amountBought;
     private int productID;
@@ -18,8 +19,7 @@ public class SaleProduct extends PricedProduct{
         this.saleName = saleName;
         this.price = price;
         this.amountBought = amountBought;
-        totalPrice = this.amountBought * price;
-        System.out.println(totalPrice);
+        this.totalPrice = price;
         productID = id;
         productName = name;
         this.storeID = storeID;
@@ -35,7 +35,9 @@ public class SaleProduct extends PricedProduct{
     }
     public void setAmountBought(double amountBought) {
         this.amountBought = amountBought;
-        this.totalPrice = this.amountBought * this.price;
-        System.out.println(totalPrice);
+        this.totalPrice += this.price;
+    }
+    public double getTotalPrice() {
+        return totalPrice;
     }
 }
