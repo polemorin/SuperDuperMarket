@@ -10,6 +10,10 @@ import javafx.stage.Stage;
 import java.net.URL;
 
 public class UI extends Application {
+
+    public Stage s;
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -29,6 +33,8 @@ public class UI extends Application {
         primaryStage.setTitle("Super Duper Market");
         Scene scene = new Scene(root, 1050, 600);
         primaryStage.setScene(scene);
+
+         s=primaryStage;
         primaryStage.show();
 
 

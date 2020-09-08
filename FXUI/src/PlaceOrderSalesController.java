@@ -8,9 +8,20 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+
+import java.time.LocalDate;
+import java.util.Map;
 
 public class PlaceOrderSalesController
 {
+
+    SuperDuperMarket sdm;
+    User customer;
+    Store store;
+    LocalDate deliveryDate;
+    Map<Integer,Double> productsByIdAndAmount;
+    Stage mainStage;
 
     @FXML
     private ListView<?> SalesListView;
@@ -86,4 +97,12 @@ public class PlaceOrderSalesController
 
     }
 
+    public void setData(SuperDuperMarket sdm, User customer, Store store,
+                        LocalDate deliveryDate, Map<Integer, Double> productsByIdAndAmount, Stage mainStage) {
+
+
+
+
+
+    }
 }

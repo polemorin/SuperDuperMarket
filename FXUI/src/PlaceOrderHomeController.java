@@ -20,6 +20,8 @@ import java.util.Map;
 
 public class PlaceOrderHomeController {
 
+
+    private Stage mainStage;
     private Stage placeOrderProductsStage;
     private SuperDuperMarket SDM;
     private SimpleBooleanProperty isStaticOrderType;
@@ -81,11 +83,11 @@ public class PlaceOrderHomeController {
        isStoreChosen = false;
        isDynamicOrderTypeChosen = false;
 
-       CustomerComboBox.setValue(null);
-       StoreComboBox.setValue(null);
+       CustomerComboBox.getItems().clear();
+       StoreComboBox.getItems().clear();
        DynamicRadio.scaleShapeProperty().setValue(false);
        StaticRadio.selectedProperty().setValue(false);
-       DeliveryDatePicker.setValue(null);
+      // DeliveryDatePicker.setValue(null);
 
 
    }
@@ -106,7 +108,7 @@ public class PlaceOrderHomeController {
         }
    }
 
-    public void setSDM(SuperDuperMarket sdm) {
+    public void setSDM(SuperDuperMarket sdm,Stage mainStage) {
         SDM = sdm;
         Map<Integer,User> userMap = SDM.getUsers();
         for (Map.Entry<Integer,User> user:userMap.entrySet()) {
@@ -116,7 +118,7 @@ public class PlaceOrderHomeController {
         for (Map.Entry<Integer,Store> store:storeMap.entrySet()) {
             StoreComboBox.getItems().add(store.getValue());
         }
-
+        this.mainStage = mainStage;
     }
 
     @FXML
@@ -166,17 +168,18 @@ public class PlaceOrderHomeController {
                 placeOrderProductsStage = new Stage();
                 placeOrderProductsStage.setTitle("Place Order");
                 placeOrderProductsStage.setScene(scene);
-                placeOrderProductsStage.setAlwaysOnTop(true);
-                //placeOrderProductsStage.initOwner(primaryStage);
-                //placeOrderProductsStage.initModality(Modality.WINDOW_MODAL);
+                //placeOrderProductsStage.setAlwaysOnTop(true);
+                placeOrderProductsStage.initOwner(mainStage);
+                placeOrderProductsStage.initModality(Modality.WINDOW_MODAL);
                 PlaceOrderProductsController placeOrderProductsController = fxmlLoader.getController();
-                placeOrderProductsController.setData(SDM,customer,store,date);
+                placeOrderProductsController.setData(SDM,mainStage,customer,store,date);
+                placeOrderProductsController.setPreviousWindow((Stage)(NextButton.getScene().getWindow()));
+                placeOrderProductsStage.onShownProperty().setValue(we->placeOrderProductsController.closePreviousWindow());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        Stage s = (Stage)(NextButton.getScene().getWindow());
-        s.close();
+
         onClose();
         placeOrderProductsStage.showAndWait();
     }
