@@ -1,7 +1,6 @@
 
 import ProductTypes.ProductCategory;
 import ProductTypes.SaleProduct;
-import ProductTypes.SoldProduct;
 import SDMSale.Offer;
 import SDMSale.Sale;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -33,9 +32,10 @@ public class PlaceOrderSalesController
     private Store store;
     private LocalDate deliveryDate;
     private Map<Integer,Double> productsByIdAndAmount;
+    private Map<Integer,Double> timesLeftToUseSalePerProduct;
     private Stage mainStage;
     private List<Sale> sales;
-    private SimpleBooleanProperty isSaleOfferChosen;
+    private SimpleBooleanProperty isSaleOfferAvailable;
     private List<SaleProduct> saleProductsList;
 
 
@@ -99,9 +99,31 @@ public class PlaceOrderSalesController
         Offer offer = OfferComboBox.getValue();
         ProductCategory category;
         int storeID;
+        boolean found = false;
         String saleName;
+        Sale s = SalesListView.selectionModelProperty().getValue().getSelectedItems().get(0);
+        int productID = s.getIfYouBuy().getItemID();
+        Double salesLeft = timesLeftToUseSalePerProduct.get(productID) - s.getIfYouBuy().getQuantity();
+        timesLeftToUseSalePerProduct.remove(productID);
+        timesLeftToUseSalePerProduct.put(productID,salesLeft);
+
         if(OfferComboBox.getItems().size() == 0){//ALL-OR-NOTHING
-           // SalesListView.selectionModelProperty().getValue().getSelectedItems().get(0)
+           Sale allOrNahSale = SalesListView.selectionModelProperty().getValue().getSelectedItems().get(0);
+            for (Offer offerList:allOrNahSale.getThenYouGet().getOffers()) {
+                category = sdm.getProducts().get(offerList.getItemID()).getProductCategory();
+                storeID = sdm.getStoreIDFromSaleName(SalesListView.selectionModelProperty().getValue().getSelectedItems().get(0).getName());
+                saleName = SalesListView.selectionModelProperty().getValue().getSelectedItems().get(0).getName();
+                saleProduct = new SaleProduct(offerList.getItemID(),offerList.getProductName(),category,offerList.getForAdditional(),storeID,saleName,offerList.getQuantity());
+                for (SaleProduct product:saleProductsList) {
+                    if(saleProduct.getProductID()==product.getProductID() && saleName.compareToIgnoreCase(product.getSaleName())==0){
+                        found = true;
+                        product.setAmountBought(product.getAmountBought() + offerList.getQuantity() );
+                    }
+                }
+                if(!found) {
+                    saleProductsList.add(saleProduct);
+                }
+            }
         }
         else{
             category = sdm.getProducts().get(offer.getItemID()).getProductCategory();
@@ -109,9 +131,9 @@ public class PlaceOrderSalesController
             saleName = SalesListView.selectionModelProperty().getValue().getSelectedItems().get(0).getName();
 
             saleProduct = new SaleProduct(offer.getItemID(),offer.getProductName(),category,offer.getForAdditional(),storeID,saleName,offer.getQuantity());
-            boolean found =false;
+            found =false;
             for (SaleProduct product:saleProductsList) {
-                if(saleProduct.getProductID()==product.getProductID()){
+                if(saleProduct.getProductID()==product.getProductID() && saleName.compareToIgnoreCase(product.getSaleName())==0){
                     found = true;
                     product.setAmountBought(product.getAmountBought() + offer.getQuantity() );
                 }
@@ -121,7 +143,28 @@ public class PlaceOrderSalesController
             }
 
         }
+        if(!isUserAbleToGetDiscountAgain(s,productID)){
+            isSaleOfferAvailable.setValue(false);
+            List<Sale> salesToDelete = new ArrayList<>();
+            for (Sale sale:SalesListView.getItems()) {
+                if(sale.getIfYouBuy().getItemID() == productID){
+                    if(!isUserAbleToGetDiscountAgain(sale,productID)){
+                        salesToDelete.add(sale);
+                    }
+                }
+            }
+            for (Sale saleToRemove: salesToDelete) {
+                SalesListView.getItems().remove(saleToRemove);
+            }
+            SalesListView.refresh();
+            OfferComboBox.getItems().clear();
+        }
+
         setSaleTableView();
+    }
+
+    private boolean isUserAbleToGetDiscountAgain(Sale s, int productID) {
+        return timesLeftToUseSalePerProduct.get(productID) >= s.getIfYouBuy().getQuantity();
     }
 
 
@@ -141,14 +184,14 @@ public class PlaceOrderSalesController
     @FXML
     void OfferComboBoxAction(ActionEvent event) {
         if(OfferComboBox.getValue() != null) {
-            isSaleOfferChosen.setValue(true);
+            isSaleOfferAvailable.setValue(true);
         }
 
     }
     @FXML
     private void initialize(){
-        isSaleOfferChosen = new SimpleBooleanProperty(false);
-        AddOfferButton.disableProperty().bind(isSaleOfferChosen.not());
+        isSaleOfferAvailable = new SimpleBooleanProperty(false);
+        AddOfferButton.disableProperty().bind(isSaleOfferAvailable.not());
         chosenSaleProducts = new HashMap<>();
         saleProductsList = new ArrayList<>();
 
@@ -163,7 +206,7 @@ public class PlaceOrderSalesController
     @FXML
     void SalesListViewAction(MouseEvent event) {
         OfferComboBox.setPromptText("");
-        isSaleOfferChosen.setValue(false);
+        isSaleOfferAvailable.setValue(false);
         OfferComboBox.getItems().clear();
         OfferComboBox.disableProperty().setValue(false);
         Sale sale = SalesListView.selectionModelProperty().getValue().getSelectedItems().get(0);
@@ -171,13 +214,14 @@ public class PlaceOrderSalesController
         if(sale.getThenYouGet().getOperator().compareToIgnoreCase("ALL-OR-NOTHING") == 0){
             OfferComboBox.setPromptText("You get all the items in sale!");
             OfferComboBox.disableProperty().setValue(true);
-            isSaleOfferChosen.setValue(true);
+            isSaleOfferAvailable.setValue(true);
         }
         else {
             for (Offer offer : offers) {
                 OfferComboBox.getItems().add(offer);
             }
         }
+
     }
 
     public void setData(SuperDuperMarket sdm, User customer, Store store, LocalDate deliveryDate, Map<Integer, Double> productsByIdAndAmount, Stage mainStage) {
@@ -187,6 +231,10 @@ public class PlaceOrderSalesController
         this.customer = customer;
         this.productsByIdAndAmount = productsByIdAndAmount;
         this.mainStage = mainStage;
+        timesLeftToUseSalePerProduct = new HashMap<>();
+        for (Map.Entry<Integer,Double> product:productsByIdAndAmount.entrySet()) {
+            timesLeftToUseSalePerProduct.put(product.getKey(),product.getValue());
+        }
         initTableViews();
     }
 
@@ -201,13 +249,22 @@ public class PlaceOrderSalesController
 
     private void initSaleView() {
         if(store == null){
-
+            sales = new ArrayList<>();
+            Store tempStore;
+            CustomerLevelOrder customerLevelOrder = sdm.createCheapestOrder(productsByIdAndAmount,customer.getID(),deliveryDate,customer.getLocation());
+            for (StoreLevelOrder storeLevelOrder:customerLevelOrder.getOrders()) {
+                tempStore = sdm.getStores().get(storeLevelOrder.getStoreID());
+                sales.addAll(tempStore.getMySales(productsByIdAndAmount));
+            }
         }
         else{
             sales = store.getMySales(productsByIdAndAmount);
-            for (Sale sale: sales) {
-                SalesListView.getItems().add(sale);
-            }
+        }
+        for (Sale sale: sales) {
+            SalesListView.getItems().add(sale);
+        }
+        if(sales.isEmpty()){
+            MessegeLabel.setText("No sales this time!");
         }
     }
 }
