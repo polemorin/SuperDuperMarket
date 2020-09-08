@@ -154,7 +154,6 @@ public class PlaceOrderHomeController {
                 placeOrderProductsStage.initModality(Modality.WINDOW_MODAL);
                 PlaceOrderProductsController placeOrderProductsController = fxmlLoader.getController();
                 placeOrderProductsController.setData(SDM,mainStage,customer,store,date);
-                placeOrderProductsController.setPreviousWindow((Stage)(NextButton.getScene().getWindow()));
             } catch (IOException e) {
                 e.printStackTrace();
             }

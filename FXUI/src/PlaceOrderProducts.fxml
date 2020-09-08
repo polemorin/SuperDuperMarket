@@ -40,6 +40,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
+                  <Label fx:id="MessageLabel" layoutX="132.0" layoutY="32.0" prefHeight="24.0" prefWidth="211.0" textFill="#ce0f0f" />
                </children>
             </Pane>
          </bottom>
