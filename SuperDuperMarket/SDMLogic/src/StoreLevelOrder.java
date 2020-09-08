@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
 
@@ -15,12 +16,12 @@ public class StoreLevelOrder {
     private final int storeID;
     private final int customerID;
     private final double deliveryPrice;
-    private final Date date;
+    private final LocalDate date;
     private final String storeName;
     private int amountOfProductTypes;
     private final int customerLevelOrderID;
 
-    public StoreLevelOrder(Store store, int customerID, Date date,  Point customerLocation, int customerLevelID ){
+    public StoreLevelOrder(Store store, int customerID, LocalDate date, Point customerLocation, int customerLevelID ){
         this.storeID = store.getID();
         this.customerID = customerID;
         this.date = date;
@@ -39,7 +40,7 @@ public class StoreLevelOrder {
         this.OrderID = other.OrderID;
         this.totalProductsPrice = other.totalProductsPrice;
         this.storeName = other.storeName;
-        this.date = (Date) other.date.clone();
+        this.date = other.date;
         this.customerID = other.customerID;
         this.storeID = other.storeID;
         this.deliveryPrice = other.deliveryPrice;
@@ -50,7 +51,7 @@ public class StoreLevelOrder {
         this.customerLevelOrderID = other.customerLevelOrderID;
     }
 
-    public StoreLevelOrder(Integer orderID, List<SoldProduct> soldProducts, int amountOfProducts, double totalProductsPrice, int storeID, int customerID, double deliveryPrice, Date date, String storeName,int customerLevelID) {
+    public StoreLevelOrder(Integer orderID, List<SoldProduct> soldProducts, int amountOfProducts, double totalProductsPrice, int storeID, int customerID, double deliveryPrice, LocalDate date, String storeName,int customerLevelID) {
         OrderID = orderID;
         if(OrderIDGenerator < OrderID){
             OrderIDGenerator = OrderID + 1;
@@ -88,32 +89,32 @@ public class StoreLevelOrder {
     }
     public static StoreLevelOrder getStoreLevelOrderFromTxtFile(List<String> storeOrderDetails)throws ParseException {
 
-        int productFieldAmount = SoldProduct.class.getDeclaredFields().length+
-                PricedProduct.class.getDeclaredFields().length+
-                Product.class.getDeclaredFields().length;
-        int amountOfTypes = Integer.parseInt(storeOrderDetails.get(0));
-        int amountOfProducts = Integer.parseInt(storeOrderDetails.get(1));
-        Integer orderID = Integer.parseInt(storeOrderDetails.get(2));
-        double productPrice = Double.parseDouble(storeOrderDetails.get(3));
-        int storeOrderID = Integer.parseInt(storeOrderDetails.get(4));
-        int customerOrderID = Integer.parseInt(storeOrderDetails.get(5));
-        double deliveryCost = Double.parseDouble(storeOrderDetails.get(6));
-        Date orderDate=new SimpleDateFormat("dd/MM-HH:mm").parse(storeOrderDetails.get(7));
-        String storeOrderName = storeOrderDetails.get(8);
-
-        List<SoldProduct> productsSoldInOrder = new ArrayList<SoldProduct>();
-        List<String> productDetails = new ArrayList<String>();
-        int counterNextLineToRead = 9;
-
-        for(int i = 0; i < amountOfTypes; i++){
-            for(int j = 0; j < productFieldAmount; j++){
-                productDetails.add(storeOrderDetails.get(counterNextLineToRead++));
-            }
-            productsSoldInOrder.add(SoldProduct.getSoldProductFromTxtFile(productDetails));
-            productDetails.clear();
-        }
-        return new StoreLevelOrder(orderID,productsSoldInOrder,amountOfProducts,productPrice,storeOrderID,customerOrderID,deliveryCost,orderDate,storeOrderName,customerOrderID);
-
+     //   int productFieldAmount = SoldProduct.class.getDeclaredFields().length+
+     //           PricedProduct.class.getDeclaredFields().length+
+     //           Product.class.getDeclaredFields().length;
+     //   int amountOfTypes = Integer.parseInt(storeOrderDetails.get(0));
+     //   int amountOfProducts = Integer.parseInt(storeOrderDetails.get(1));
+     //   Integer orderID = Integer.parseInt(storeOrderDetails.get(2));
+     //   double productPrice = Double.parseDouble(storeOrderDetails.get(3));
+     //   int storeOrderID = Integer.parseInt(storeOrderDetails.get(4));
+     //   int customerOrderID = Integer.parseInt(storeOrderDetails.get(5));
+     //   double deliveryCost = Double.parseDouble(storeOrderDetails.get(6));
+     //   Date orderDate=new SimpleDateFormat("dd/MM-HH:mm").parse(storeOrderDetails.get(7));
+     //   String storeOrderName = storeOrderDetails.get(8);
+//
+     //   List<SoldProduct> productsSoldInOrder = new ArrayList<SoldProduct>();
+     //   List<String> productDetails = new ArrayList<String>();
+     //   int counterNextLineToRead = 9;
+//
+     //   for(int i = 0; i < amountOfTypes; i++){
+     //       for(int j = 0; j < productFieldAmount; j++){
+     //           productDetails.add(storeOrderDetails.get(counterNextLineToRead++));
+     //       }
+     //       productsSoldInOrder.add(SoldProduct.getSoldProductFromTxtFile(productDetails));
+     //       productDetails.clear();
+     //   }
+     //   return new StoreLevelOrder(orderID,productsSoldInOrder,amountOfProducts,productPrice,storeOrderID,customerOrderID,deliveryCost,orderDate,storeOrderName,customerOrderID);
+        return null;
     }
 
     public double getDistanceFromCustomerToStore(Point store,Point customer){
@@ -181,7 +182,7 @@ public class StoreLevelOrder {
         return deliveryPrice;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
