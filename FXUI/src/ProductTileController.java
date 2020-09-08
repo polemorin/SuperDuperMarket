@@ -78,4 +78,11 @@ public class ProductTileController {
         amountLabelProperty.set(amountLabelProperty.getValue() + changeAmountByButtons);
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public Double getAmount(){
+        return amountLabelProperty.getValue();
+    }
 }
