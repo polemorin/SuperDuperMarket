@@ -353,6 +353,8 @@ public class SuperDuperMarket {
     private Map<String, Sale> generateSalesFromXml(SDMStore store,SuperDuperMarketDescriptor descriptor)throws Exception {
         Map<String,Sale> sales = new HashMap<String, Sale>();
         SDMDiscounts discounts =store.getSDMDiscounts();
+        String ifYouBuyProductName = "";
+        Map<Integer,String> thenYouGetProductName = new HashMap<>();
         Sale saleToAdd;
         if(discounts != null){
             for (SDMDiscount discount: discounts.getSDMDiscount()) {
@@ -360,8 +362,14 @@ public class SuperDuperMarket {
                 doesMarketSellXmlDiscountItems(discount,descriptor);
                 validateSDMDiscountItems(store, discount.getIfYouBuy(), discount.getThenYouGet(),descriptor);
                 validateSDMDiscountName(store, discount.getName());
+                for (SDMItem item:descriptor.getSDMItems().getSDMItem()) {
+                    if(discount.getIfYouBuy().getItemId() == item.getId()){
+                        ifYouBuyProductName =item.getName();
+                    }
+                    thenYouGetProductName.put(item.getId(),item.getName());
+                }
 
-                saleToAdd = new Sale(discount.getName(),discount.getIfYouBuy(),discount.getThenYouGet());
+                saleToAdd = new Sale(discount.getName(),discount.getIfYouBuy(),discount.getThenYouGet(),ifYouBuyProductName,thenYouGetProductName);
                 sales.put(saleToAdd.getName(),saleToAdd);
             }
         }
@@ -553,5 +561,16 @@ public class SuperDuperMarket {
 
     public void addProductToStore(int productID, int storeID, double price) {
         stores.get(storeID).addNewProductToStore(new StoreProduct(products.get(productID),price,storeID));
+    }
+
+    public int getStoreIDFromSaleName(String name) {
+        for (Map.Entry<Integer,Store> store :stores.entrySet()) {
+            for (Map.Entry<String,Sale> sale: store.getValue().getSales().entrySet()) {
+                if(sale.getValue().getName().equals(name)){
+                    return store.getValue().getID();
+                }
+            }
+        }
+        return -1;
     }
 }

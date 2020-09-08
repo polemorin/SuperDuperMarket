@@ -15,6 +15,9 @@ public class Store {
     private List<StoreLevelOrder> storeOrderHistory;
     private final double deliveryPPK;
     private double totalDeliveryPayment;
+
+
+
     private Map<String, Sale> sales;
 
 
@@ -43,7 +46,9 @@ public class Store {
             this.storeOrderHistory.add(new StoreLevelOrder(itr2));
         }
     }
-
+    public Map<String, Sale> getSales() {
+        return sales;
+    }
     public double getProductPrice(Product product){
         //////////////////////////////////////////////////////////EXCEPTION INSTEAD OF RETURN
         double price = -1;
@@ -171,5 +176,21 @@ public class Store {
                 sales.remove(sale.getKey());
             }
         }
+    }
+
+    public List<Sale> getMySales(Map<Integer, Double> productsByIdAndAmount) {
+        List<Sale> userEligibleSales = new ArrayList<>();
+        int ifYouGetItemID;
+        double ifYouGetItemQuantity;
+        for (Map.Entry<String,Sale> sale: sales.entrySet()) {
+            ifYouGetItemID = sale.getValue().getIfYouBuy().getItemID();
+            ifYouGetItemQuantity = sale.getValue().getIfYouBuy().getQuantity();
+            if(productsByIdAndAmount.containsKey(ifYouGetItemID)){
+                if(productsByIdAndAmount.get(ifYouGetItemID)>= ifYouGetItemQuantity){
+                    userEligibleSales.add(sale.getValue());
+                }
+            }
+        }
+        return userEligibleSales;
     }
 }
