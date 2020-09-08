@@ -8,16 +8,26 @@ public class SoldProduct extends PricedProduct{
 
     private double amountSoldInOrder;
     private double totalPrice;
+    private int productID;
+    private String productName;
+    private double price;
 
     public SoldProduct(int id, String name, ProductCategory cat, double price, int storeID, double amountSoldInOrder, double totalPrice){
         super(id,name,cat,price,storeID);
         this.amountSoldInOrder = amountSoldInOrder;
         this.totalPrice = totalPrice;
+        this.productID = id;
+        this.productName = name;
+        this.price = price;
     }
 
     public SoldProduct(PricedProduct pricedProduct, double amount){
         super(pricedProduct);
         this.amountSoldInOrder = amount;
+
+        this.productID = pricedProduct.getProductID();
+        this.productName = pricedProduct.getProductName();
+        this.price = pricedProduct.getPrice();
         totalPrice = amountSoldInOrder * this.getPrice();
     }
 
@@ -104,5 +114,19 @@ public class SoldProduct extends PricedProduct{
         res = 31 * res + this.getProductID();
         res = 31 * res + this.getStoreID();
         return res;
+    }
+    @Override
+    public int getProductID() {
+        return productID;
+    }
+
+    @Override
+    public String getProductName() {
+        return productName;
+    }
+
+    @Override
+    public double getPrice() {
+        return price;
     }
 }
