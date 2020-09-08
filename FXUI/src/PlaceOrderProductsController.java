@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -34,6 +35,10 @@ public class PlaceOrderProductsController {
     private Stage mainStage;
     private Stage placeOrderSalesStage;
     private List <ProductTileController> productTileControllerList;
+    private boolean firstClick = true;
+
+    @FXML
+    private ScrollPane WindowScroller;
     @FXML
     private ScrollPane ScrollProductPane;
     @FXML
@@ -62,12 +67,12 @@ public class PlaceOrderProductsController {
                 e.printStackTrace();
             }
         }
-       // Stage s = (Stage)(ContinueButton.getScene().getWindow());
-       // s.close();
-        //onClose();
-        placeOrderSalesStage.showAndWait();
-    }
 
+        //onClose();
+        placeOrderSalesStage.show();
+         Stage s = (Stage)(ContinueButton.getScene().getWindow());
+         s.close();
+    }
     public void setData(SuperDuperMarket sdm,Stage mainStage, User customer, Store store, LocalDate date) throws IOException {
         SDM = sdm;
         this.customer = customer;
@@ -82,6 +87,7 @@ public class PlaceOrderProductsController {
        });
 
       setProducts();
+
     }
 
 
@@ -123,7 +129,7 @@ public class PlaceOrderProductsController {
     }
 
     public void closePreviousWindow(){
-       // previousWindow.close();
+        previousWindow.close();
     }
 
     private Map<Integer,Double> getProductsByIdAndAmount(){
