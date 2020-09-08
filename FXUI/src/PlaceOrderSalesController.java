@@ -1,6 +1,7 @@
 
 import ProductTypes.ProductCategory;
 import ProductTypes.SaleProduct;
+import ProductTypes.SoldProduct;
 import SDMSale.Offer;
 import SDMSale.Sale;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -19,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +36,9 @@ public class PlaceOrderSalesController
     private Stage mainStage;
     private List<Sale> sales;
     private SimpleBooleanProperty isSaleOfferChosen;
+    private List<SaleProduct> saleProductsList;
+
+
     @FXML
     private ListView<Sale> SalesListView;
     private Map<Integer, SaleProduct> chosenSaleProducts;
@@ -44,25 +49,25 @@ public class PlaceOrderSalesController
     private Button AddOfferButton;
 
     @FXML
-    private TableView<SaleProduct> SaleTableView;
+    private TableView SaleTableView;
 
     @FXML
     private TableColumn<SaleProduct, String> SaleNameColumn;
 
     @FXML
-    private TableColumn<?, ?> SaleIDColumn;
+    private TableColumn<SaleProduct, Integer> SaleIDColumn;
 
     @FXML
-    private TableColumn<?, ?> SaleAmountColumn;
+    private TableColumn<SaleProduct, String> SaleAmountColumn;
 
     @FXML
-    private TableColumn<?, ?> SalePriceColumn;
+    private TableColumn<SaleProduct, Double> SalePriceColumn;
 
     @FXML
-    private TableColumn<?, ?> SaleTotalPriceColumn;
+    private TableColumn<SaleProduct, Double> SaleTotalPriceColumn;
 
     @FXML
-    private TableColumn<?, ?> SaleSaleNameColumn;
+    private TableColumn<SaleProduct, String> SaleSaleNameColumn;
 
     @FXML
     private TableView<?> CartTableView;
@@ -104,18 +109,27 @@ public class PlaceOrderSalesController
             saleName = SalesListView.selectionModelProperty().getValue().getSelectedItems().get(0).getName();
 
             saleProduct = new SaleProduct(offer.getItemID(),offer.getProductName(),category,offer.getForAdditional(),storeID,saleName,offer.getQuantity());
-            if(chosenSaleProducts.containsKey(saleProduct.getStoreID())){
-                chosenSaleProducts.get(saleProduct.getStoreID()).setAmountBought(saleProduct.getAmountBought()+offer.getQuantity());
-                
+            boolean found =false;
+            for (SaleProduct product:saleProductsList) {
+                if(saleProduct.getProductID()==product.getProductID()){
+                    found = true;
+                    product.setAmountBought(product.getAmountBought() + offer.getQuantity() );
+                }
             }
-            else
-            {
-                chosenSaleProducts.put(saleProduct.getProductID(),saleProduct);
-                SaleTableView.getItems().add(saleProduct);
+            if(!found){
+                saleProductsList.add(saleProduct);
             }
-
 
         }
+        setSaleTableView();
+    }
+
+
+    private void setSaleTableView(){
+        SaleTableView.getItems().removeAll();
+        final ObservableList<SaleProduct> dataOfItems = FXCollections.observableList(saleProductsList);
+        SaleTableView.setItems(dataOfItems);
+        SaleTableView.refresh();
 
     }
 
@@ -136,8 +150,15 @@ public class PlaceOrderSalesController
         isSaleOfferChosen = new SimpleBooleanProperty(false);
         AddOfferButton.disableProperty().bind(isSaleOfferChosen.not());
         chosenSaleProducts = new HashMap<>();
-        SaleNameColumn.setCellValueFactory(new PropertyValueFactory<>("saleName"));
-        SaleAmountColumn.setCellValueFactory(new PropertyValueFactory<>("amountBought"));
+        saleProductsList = new ArrayList<>();
+
+        SaleNameColumn.setCellValueFactory(new PropertyValueFactory<SaleProduct, String>("productName"));
+        SaleAmountColumn.setCellValueFactory(new PropertyValueFactory<SaleProduct, String>("amountBought"));
+        SaleIDColumn.setCellValueFactory(new PropertyValueFactory<SaleProduct, Integer>("productID"));
+        SalePriceColumn.setCellValueFactory(new PropertyValueFactory<SaleProduct, Double>("price"));
+        SaleTotalPriceColumn.setCellValueFactory(new PropertyValueFactory<SaleProduct, Double>("totalPrice"));
+        SaleSaleNameColumn.setCellValueFactory(new PropertyValueFactory<SaleProduct, String>("saleName"));
+
     }
     @FXML
     void SalesListViewAction(MouseEvent event) {
