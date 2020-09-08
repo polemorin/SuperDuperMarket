@@ -69,5 +69,13 @@ public class ProductTileController {
     void PlusButtonAction(ActionEvent event) {
         amountLabelProperty.set(amountLabelProperty.getValue() + changeAmountByButtons);
     }
+    public void MinusAction(){
+        if(amountLabelProperty.get() > 0.0){
+            amountLabelProperty.set(amountLabelProperty.getValue() + changeAmountByButtons);
+        }
+    }
+    public void PlusAction(){
+        amountLabelProperty.set(amountLabelProperty.getValue() + changeAmountByButtons);
+    }
 
 }

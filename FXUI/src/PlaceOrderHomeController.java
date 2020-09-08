@@ -83,8 +83,8 @@ public class PlaceOrderHomeController {
 
        CustomerComboBox.setValue(null);
        StoreComboBox.setValue(null);
-       StaticRadio.selectedProperty().setValue(false);
        DynamicRadio.scaleShapeProperty().setValue(false);
+       StaticRadio.selectedProperty().setValue(false);
        DeliveryDatePicker.setValue(null);
 
 
@@ -168,7 +168,7 @@ public class PlaceOrderHomeController {
                 placeOrderProductsStage.setScene(scene);
                 placeOrderProductsStage.setAlwaysOnTop(true);
                 //placeOrderProductsStage.initOwner(primaryStage);
-                placeOrderProductsStage.initModality(Modality.WINDOW_MODAL);
+                //placeOrderProductsStage.initModality(Modality.WINDOW_MODAL);
                 PlaceOrderProductsController placeOrderProductsController = fxmlLoader.getController();
                 placeOrderProductsController.setData(SDM,customer,store,date);
             } catch (IOException e) {
@@ -199,13 +199,13 @@ public class PlaceOrderHomeController {
         CheckAllDataFilled();
     }
 
-    void setDeliveryPriceLabel(){
-        Double userDistanceFromStore;
-        Store chosenStore = StoreComboBox.getValue();
-        User customer = CustomerComboBox.getValue();
-        userDistanceFromStore = customer.distanceFromStore(chosenStore);
+    void setDeliveryPriceLabel() {
+            Double userDistanceFromStore;
+            Store chosenStore = StoreComboBox.getValue();
+            User customer = CustomerComboBox.getValue();
+            userDistanceFromStore = customer.distanceFromStore(chosenStore);
 
-        DeliveryPriceLabel.setText(String.format("%.2f",chosenStore.getDeliveryPPK()*userDistanceFromStore));
-    }
+            DeliveryPriceLabel.setText(String.format("%.2f", chosenStore.getDeliveryPPK() * userDistanceFromStore));
+        }
 
 }
