@@ -74,24 +74,6 @@ public class PlaceOrderHomeController {
 
    }
 
-
-    public void onClose(){
-       isAllDetailsFilled.setValue(false);
-       isStaticOrderType.setValue(false);
-       isDateChosen = false;
-       isCustomerChosen = false;
-       isStoreChosen = false;
-       isDynamicOrderTypeChosen = false;
-
-       CustomerComboBox.getItems().clear();
-       StoreComboBox.getItems().clear();
-       DynamicRadio.scaleShapeProperty().setValue(false);
-       StaticRadio.selectedProperty().setValue(false);
-      // DeliveryDatePicker.setValue(null);
-
-
-   }
-
     private void CheckAllDataFilled(){
         if(isCustomerChosen && isDateChosen ){
             if(isDynamicOrderTypeChosen)
