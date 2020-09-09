@@ -25,7 +25,18 @@ public class StoreProduct extends PricedProduct{
         super(other);
         this.totalAmountSoldInStore = other.totalAmountSoldInStore;
     }
-
+    public String getName(){
+        return getProductName();
+    }
+    public double getProductPrice(){
+        return getPrice();
+    }
+    public int getProductID(){
+        return super.getProductID();
+    }
+    public String getProductCategoryString(){
+        return super.getProductCategoryString();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

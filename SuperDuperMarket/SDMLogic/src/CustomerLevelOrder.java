@@ -76,7 +76,7 @@ public class CustomerLevelOrder {
         this.totalProductPurchased = totalAmountOfProducts;
     }
     public static int getNextOrderID(){
-        return OrderIDGenerator + 1;
+        return OrderIDGenerator;
     }
     public CustomerLevelOrder(CustomerLevelOrder other){
         this.OrderID = other.OrderID;

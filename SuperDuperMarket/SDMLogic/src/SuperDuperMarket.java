@@ -574,4 +574,8 @@ public class SuperDuperMarket {
         }
         return -1;
     }
+
+    public boolean isStoreLevelOrderPartOfDynamicOrder(StoreLevelOrder order) {
+        return orderHistory.get(order.getCustomerLevelOrderID()).getOrders().size() != 1;
+    }
 }

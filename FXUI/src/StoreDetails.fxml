@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="733.0" prefWidth="707.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="733.0" prefWidth="707.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StoreDetailsController">
    <content>
       <Pane prefHeight="730.0" prefWidth="709.0">
          <children>
@@ -23,11 +23,11 @@
             <Separator layoutX="13.0" layoutY="77.0" prefHeight="0.0" prefWidth="668.0" />
             <TableView fx:id="ProductTableView" layoutX="35.0" layoutY="97.0" prefHeight="166.0" prefWidth="652.0">
               <columns>
-                <TableColumn fx:id="ProductsNameColumn" prefWidth="75.0" text="Name" />
-                <TableColumn fx:id="ProductsIDColumn" prefWidth="75.0" text="ID" />
-                  <TableColumn fx:id="ProductsSoldByColumn" prefWidth="75.0" text="Sold by" />
-                  <TableColumn fx:id="ProductsPriceColumn" prefWidth="75.0" text="Price" />
-                  <TableColumn fx:id="ProductsAmountBoughtColumn" prefWidth="117.800048828125" text="Amount bought" />
+                <TableColumn fx:id="ProductsNameColumn" prefWidth="136.33334350585938" text="Name" />
+                <TableColumn fx:id="ProductsIDColumn" prefWidth="71.33334350585938" text="ID" />
+                  <TableColumn fx:id="ProductsSoldByColumn" prefWidth="122.0" text="Sold by" />
+                  <TableColumn fx:id="ProductsPriceColumn" prefWidth="149.0" text="Price" />
+                  <TableColumn fx:id="ProductsAmountBoughtColumn" prefWidth="176.0" text="Amount bought" />
               </columns>
             </TableView>
             <ListView fx:id="SalesListView" layoutX="38.0" layoutY="290.0" prefHeight="111.0" prefWidth="651.0" />
@@ -45,19 +45,20 @@
             </TableView>
             <Button fx:id="BackButton" layoutX="45.0" layoutY="656.0" mnemonicParsing="false" onAction="#BackButtonAction" prefHeight="53.0" prefWidth="144.0" text="Back" />
             <Separator layoutX="13.0" layoutY="409.0" prefHeight="1.0" prefWidth="667.0" />
-            <ComboBox fx:id="OrderComboBox" layoutX="41.0" layoutY="417.0" onMouseReleased="#OrderComboBoxAction" prefWidth="150.0" />
-            <Label layoutX="502.0" layoutY="628.0" text="Total products price:" />
-            <Label layoutX="502.0" layoutY="650.0" prefHeight="17.0" prefWidth="84.0" text="Delivery price:" />
-            <Label layoutX="218.0" layoutY="651.0" text="Delivary date:" />
-            <Label layoutX="502.0" layoutY="674.0" text="Total price paid:" />
-            <Label layoutX="261.0" layoutY="421.0" prefHeight="17.0" prefWidth="378.0" text="dynamic/static order" />
-            <Label layoutX="218.0" layoutY="674.0" text="Total amount of products:" />
-            <ComboBox fx:id="StoreComboBox" layoutX="41.0" layoutY="41.0" onMouseReleased="#StoreComboBoxAction" prefHeight="25.0" prefWidth="174.0" />
-            <Label layoutX="319.0" layoutY="651.0" text="Label" />
-            <Label layoutX="380.0" layoutY="675.0" text="Label" />
-            <Label layoutX="625.0" layoutY="628.0" text="Label" />
-            <Label layoutX="625.0" layoutY="651.0" text="Label" />
-            <Label layoutX="625.0" layoutY="674.0" text="Label" />
+            <ComboBox fx:id="OrderComboBox" layoutX="161.0" layoutY="417.0" onAction="#OrderComboBoxAction" prefHeight="25.0" prefWidth="127.0" />
+            <Label layoutX="219.0" layoutY="628.0" text="Total products price:" />
+            <Label layoutX="219.0" layoutY="651.0" prefHeight="17.0" prefWidth="84.0" text="Delivery price:" />
+            <Label layoutX="439.0" layoutY="631.0" text="Delivary date:" />
+            <Label layoutX="219.0" layoutY="675.0" text="Total price paid:" />
+            <Label fx:id="OrderTypeAndIDLabel" layoutX="304.0" layoutY="421.0" prefHeight="17.0" prefWidth="386.0" />
+            <Label layoutX="439.0" layoutY="654.0" text="Total amount of products:" />
+            <ComboBox fx:id="StoreComboBox" layoutX="41.0" layoutY="41.0" onAction="#StoreComboBoxAction" prefHeight="25.0" prefWidth="174.0" promptText="Choose store" />
+            <Label layoutX="41.0" layoutY="421.0" prefHeight="17.0" prefWidth="107.0" text="Choose order by ID" />
+            <Label fx:id="TotalProductPriceLabel" layoutX="380.0" layoutY="628.0" />
+            <Label fx:id="DeliveryPriceLabel" layoutX="380.0" layoutY="651.0" />
+            <Label fx:id="TotalPriceToPayLabel" layoutX="380.0" layoutY="675.0" />
+            <Label fx:id="AmountOfProductsLabel" layoutX="594.0" layoutY="654.0" />
+            <Label fx:id="DateLabel" layoutX="594.0" layoutY="631.0" />
          </children>
       </Pane>
    </content>
