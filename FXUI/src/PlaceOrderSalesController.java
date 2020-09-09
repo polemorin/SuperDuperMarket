@@ -1,7 +1,5 @@
 
-import ProductTypes.ProductCategory;
-import ProductTypes.SaleProduct;
-import ProductTypes.SoldProduct;
+import ProductTypes.*;
 import SDMSale.Offer;
 import SDMSale.Sale;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -9,6 +7,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -17,8 +17,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +41,7 @@ public class PlaceOrderSalesController
     private SimpleBooleanProperty isSaleOfferAvailable;
     private List<SaleProduct> saleProductsList;
     private CustomerLevelOrder customerLevelOrder;
+
 
     @FXML
     private ListView<Sale> SalesListView;
@@ -179,7 +182,42 @@ public class PlaceOrderSalesController
 
     @FXML
     void GoToCheckOutAction(ActionEvent event) {
+        updateCustomerLevelOrderWithSales();
+        customerLevelOrder.updatePrices();
+        Stage PlaceOrderSummeryStage = null;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("PlaceOrderSummary.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            PlaceOrderSummeryStage = new Stage();
+            PlaceOrderSummeryStage.setTitle("Place Order Summery");
+            PlaceOrderSummeryStage.setScene(scene);
+            PlaceOrderSummeryStage.initOwner(mainStage);
+            PlaceOrderSummeryStage.initModality(Modality.WINDOW_MODAL);
+            PlaceOrderSummaryController placeOrderSummaryController = fxmlLoader.getController();
+            placeOrderSummaryController.setData(sdm, customerLevelOrder);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        PlaceOrderSummeryStage.show();
+        Stage s = (Stage) (GoToCheckOutButton.getScene().getWindow());
+        s.close();
 
+    }
+
+    private void updateCustomerLevelOrderWithSales() {
+        if(store == null){
+            for (SaleProduct saleProduct:saleProductsList) {
+                for (StoreLevelOrder storeLevelOrder:customerLevelOrder.getOrders()) {
+                    if(saleProduct.getStoreID()==storeLevelOrder.getStoreID()){
+                        storeLevelOrder.setProductSoldOnSale(saleProduct);
+                    }
+                }
+            }
+        }
+        else{
+            customerLevelOrder.getOrders().get(0).setProductSoldOnSale(saleProductsList);
+        }
     }
 
     @FXML
@@ -271,7 +309,7 @@ public class PlaceOrderSalesController
             }
         }
         else{
-            createCutomerLevelOrder();
+            createCustomerLevelStaticOrder();
             sales = store.getMySales(productsByIdAndAmount);
         }
         for (Sale sale: sales) {
@@ -280,5 +318,17 @@ public class PlaceOrderSalesController
         if(sales.isEmpty()){
             MessegeLabel.setText("No sales this time!");
         }
+    }
+
+    private void createCustomerLevelStaticOrder() {
+        StoreLevelOrder storeOrder = new StoreLevelOrder(store,customer.getID(),deliveryDate,customer.getLocation(),CustomerLevelOrder.getNextOrderID());
+        StoreProduct storeProduct;
+        for (Map.Entry<Integer,Double> cartProductID:productsByIdAndAmount.entrySet()) {
+            storeProduct = store.getProducts().get(cartProductID.getKey());
+            storeOrder.addProductToOrder(new SoldProduct(storeProduct,cartProductID.getValue()));
+        }
+        List<StoreLevelOrder> storeLevelOrderList = new ArrayList<>();
+        storeLevelOrderList.add(storeOrder);
+        customerLevelOrder = new CustomerLevelOrder(storeLevelOrderList);
     }
 }

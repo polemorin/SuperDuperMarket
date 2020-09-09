@@ -3,8 +3,6 @@ package ProductTypes;
 import java.util.Objects;
 
 public class PricedProduct extends Product{
-
-
     private double price;
     private final int storeID;
 
