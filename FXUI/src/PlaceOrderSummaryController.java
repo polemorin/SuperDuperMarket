@@ -50,7 +50,15 @@ public class PlaceOrderSummaryController {
         SDM = sdm;
         order = customerLevelOrder;
         initStoreLevelOrders();
+        initLabels();
     }
+
+    private void initLabels() {
+        DeliveryPriceLabel.setText(String.format("%.2f",order.getDeliveryPrice()));
+        ProductsPriceLabel.setText(String.format("%.2f",order.getTotalProductPrice()));
+        TotalPriceLabel.setText(String.format("%.2f",order.getDeliveryPrice()+order.getTotalProductPrice()));
+    }
+
     public void initStoreLevelOrders(){
         FXMLLoader fxmlLoader;
         Node storeOrderTile;

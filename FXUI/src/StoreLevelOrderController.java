@@ -39,7 +39,7 @@ public class StoreLevelOrderController  {
     private TableColumn<SoldProduct, Integer> IDColumn;
 
     @FXML
-    private TableColumn<SoldProduct, ProductCategory> SoldByColumn;
+    private TableColumn<SoldProduct, String> SoldByColumn;
 
     @FXML
     private TableColumn<SoldProduct, Double> AmountColumn;
@@ -57,7 +57,7 @@ public class StoreLevelOrderController  {
     private void initialize(){
         NameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
         IDColumn.setCellValueFactory(new PropertyValueFactory<>("productID"));
-        SoldByColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+        SoldByColumn.setCellValueFactory(new PropertyValueFactory<>("categoryString"));
         AmountColumn.setCellValueFactory(new PropertyValueFactory<>("amountSoldInOrder"));
         PriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         TotalColumn.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
@@ -72,9 +72,17 @@ public class StoreLevelOrderController  {
         final ObservableList<SoldProduct> dataOfItems = FXCollections.observableList(productBought);
         ProductsTableView.setItems(dataOfItems);
         ProductsTableView.refresh();
-        DeliveryPriceLabel.setText(Double.toString(storeLevelOrder.getDeliveryPrice()));
+
         Point customerLocation = SDM.getUsers().get(storeLevelOrder.getCustomerID()).getLocation();
-        DistanceLabel.setText(storeLevelOrder.getDistanceFromCustomerToStore();
+        Point storeLocation = SDM.getStores().get(storeLevelOrder.getStoreID()).getLocation();
+        String storeName = SDM.getStores().get(storeLevelOrder.getStoreID()).getName();
+        double ppk = SDM.getStores().get(storeLevelOrder.getStoreID()).getDeliveryPPK();
+
+        DeliveryPriceLabel.setText(String.format("%.2f", storeLevelOrder.getDeliveryPrice()));
+        DistanceLabel.setText(String.format("%.2f",storeLevelOrder.getDistanceFromCustomerToStore(storeLocation,customerLocation)));
+        IDLabel.setText(Integer.toString(storeLevelOrder.getStoreID()));
+        NameLabel.setText(storeName);
+        PPKLabel.setText(Double.toString(ppk));
     }
 
 }

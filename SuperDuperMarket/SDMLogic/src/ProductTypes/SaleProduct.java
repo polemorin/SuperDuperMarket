@@ -13,6 +13,8 @@ public class SaleProduct extends SoldProduct{
 
 
 
+    private String categoryString;
+
     public SaleProduct(int id, String name, ProductCategory cat, double price, int storeID,String saleName,double amountBought) {
         super(id,name,cat,price,storeID,amountBought,price);
         this.saleName = saleName;
@@ -22,6 +24,7 @@ public class SaleProduct extends SoldProduct{
         productID = id;
         productName = name;
         this.storeID = storeID;
+        categoryString = cat.toString();
 
 
     }
@@ -31,6 +34,10 @@ public class SaleProduct extends SoldProduct{
     public double getAmountBought() {
         return amountBought;
 
+    }
+    @Override
+    public String getCategoryString() {
+        return categoryString;
     }
     public void setAmountBought(double amountBought) {
         this.amountBought = amountBought;
