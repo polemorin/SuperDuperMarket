@@ -11,7 +11,7 @@ public class SoldProduct extends PricedProduct{
     private int productID;
     private String productName;
     private double price;
-    private ProductCategory category;
+    private String categoryString;
 
     public SoldProduct(int id, String name, ProductCategory cat, double price, int storeID, double amountSoldInOrder, double totalPrice){
         super(id,name,cat,price,storeID);
@@ -20,7 +20,7 @@ public class SoldProduct extends PricedProduct{
         this.productID = id;
         this.productName = name;
         this.price = price;
-        category = cat;
+        categoryString = cat.toString();
     }
 
     public SoldProduct(PricedProduct pricedProduct, double amount){
@@ -38,9 +38,8 @@ public class SoldProduct extends PricedProduct{
         this.amountSoldInOrder = other.amountSoldInOrder;
         this.totalPrice = other.totalPrice;
     }
-
-    public ProductCategory getCategory() {
-        return category;
+    public String getCategoryString() {
+        return categoryString;
     }
 
     public List<String> getProductStringListToFile(){
