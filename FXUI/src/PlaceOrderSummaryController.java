@@ -61,7 +61,7 @@ public class PlaceOrderSummaryController {
                 fxmlLoader.setLocation(getClass().getResource("StoreLevelOrder.fxml"));
                 storeOrderTile = fxmlLoader.load();
                 storeLevelOrderController = fxmlLoader.getController();
-                storeLevelOrderController.setData(storeLevelOrder);
+                storeLevelOrderController.setData(storeLevelOrder,SDM);
                 StoreLevelOrderVbox.getChildren().add(storeOrderTile);
             } catch (IOException e) {
                 e.printStackTrace();

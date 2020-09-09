@@ -63,9 +63,11 @@ public class CustomerLevelOrder {
                     uniqProductList.put(soldProduct.getProductID(),soldProduct);
                 }
             }
-            for (SaleProduct saleProduct: storeLevelOrder.getProductSoldOnSale()) {
-                if(!uniqProductList.containsKey(saleProduct.getProductID())){
-                    uniqProductList.put(saleProduct.getProductID(),saleProduct);
+            if(storeLevelOrder.getProductSoldOnSale() != null) {
+                for (SaleProduct saleProduct : storeLevelOrder.getProductSoldOnSale()) {
+                    if (!uniqProductList.containsKey(saleProduct.getProductID())) {
+                        uniqProductList.put(saleProduct.getProductID(), saleProduct);
+                    }
                 }
             }
         }
