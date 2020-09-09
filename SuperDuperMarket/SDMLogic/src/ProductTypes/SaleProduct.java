@@ -35,7 +35,6 @@ public class SaleProduct extends SoldProduct{
         return amountBought;
 
     }
-    @Override
     public String getCategoryString() {
         return categoryString;
     }

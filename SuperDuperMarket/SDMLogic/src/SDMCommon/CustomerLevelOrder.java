@@ -190,7 +190,10 @@ public class CustomerLevelOrder {
     public int hashCode() {
         return 31 * 17 + OrderID;
     }
-
+    @Override
+    public String toString(){
+        return Integer.toString(this.OrderID);
+    }
     public double amountOfTimesSoldInOrder(Product product) {
         double sumAmountSoldInOrder = 0;
         for (StoreLevelOrder order:orders) {
@@ -201,4 +204,6 @@ public class CustomerLevelOrder {
         }
         return sumAmountSoldInOrder;
     }
+
+
 }

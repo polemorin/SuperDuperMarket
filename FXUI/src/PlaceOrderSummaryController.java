@@ -35,15 +35,26 @@ public class PlaceOrderSummaryController {
 
     @FXML
     private Button ConfirmOrderButton;
+    @FXML
+    private Label DeliveryDateLabel;
+
+    @FXML
+    private Label CustomerNameLabel;
+
+    @FXML
+    private Label CustomerIDLabel;
 
     @FXML
     void CancelOrderButtonAction(ActionEvent event) {
-
+        Stage s = (Stage)CancelOrderButton.getScene().getWindow();
+        s.close();
     }
 
     @FXML
     void ConfirmOrderButtonAction(ActionEvent event) {
-
+        SDM.placeOrderInSDM(order,order.getOrders().get(0).getCustomerID());
+        Stage s = (Stage)CancelOrderButton.getScene().getWindow();
+        s.close();
     }
 
     public void setData(SuperDuperMarket sdm, CustomerLevelOrder customerLevelOrder) {
@@ -57,6 +68,9 @@ public class PlaceOrderSummaryController {
         DeliveryPriceLabel.setText(String.format("%.2f",order.getDeliveryPrice()));
         ProductsPriceLabel.setText(String.format("%.2f",order.getTotalProductPrice()));
         TotalPriceLabel.setText(String.format("%.2f",order.getDeliveryPrice()+order.getTotalProductPrice()));
+        DeliveryDateLabel.setText(order.getDate().toString());
+        CustomerIDLabel.setText(Integer.toString(order.getOrders().get(0).getCustomerID()));
+        CustomerNameLabel.setText(SDM.getUsers().get(order.getOrders().get(0).getCustomerID()).getName());
     }
 
     public void initStoreLevelOrders(){

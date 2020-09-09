@@ -31,12 +31,14 @@ public class SoldProduct extends PricedProduct{
         this.productName = pricedProduct.getProductName();
         this.price = pricedProduct.getPrice();
         totalPrice = amountSoldInOrder * this.getPrice();
+        categoryString = pricedProduct.getProductCategory().toString();
     }
 
     public SoldProduct(SoldProduct other){
         super(other);
         this.amountSoldInOrder = other.amountSoldInOrder;
         this.totalPrice = other.totalPrice;
+        categoryString = other.categoryString;
     }
     public String getCategoryString() {
         return categoryString;

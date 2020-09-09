@@ -53,11 +53,12 @@ public class StoreLevelOrderController  {
     @FXML
     private TableColumn<SoldProduct, String> PurchasedOnSaleColumn;
 
+
     @FXML
     private void initialize(){
         NameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
         IDColumn.setCellValueFactory(new PropertyValueFactory<>("productID"));
-        SoldByColumn.setCellValueFactory(new PropertyValueFactory<>("categoryString"));
+        SoldByColumn.setCellValueFactory(new PropertyValueFactory<SoldProduct,String>("categoryString"));
         AmountColumn.setCellValueFactory(new PropertyValueFactory<>("amountSoldInOrder"));
         PriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         TotalColumn.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
