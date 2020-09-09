@@ -26,6 +26,7 @@ public class mainWindowController {
     private Stage productDetailsStage;
     private Stage updateProductStage;
     private Stage orderHistoryStage;
+    private Stage storeDetailsStage;
     @FXML
     private Button orderHistoryButton;
 
@@ -210,7 +211,25 @@ public class mainWindowController {
 
     @FXML
     void storeDetailsAction(ActionEvent event) {
-
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("StoreDetails.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            storeDetailsStage = new Stage();
+            storeDetailsStage.setTitle("Store details");
+            storeDetailsStage.setScene(scene);
+            storeDetailsStage.initOwner(primaryStage);
+            storeDetailsStage.initModality(Modality.WINDOW_MODAL);
+            StoreDetailsController storeDetailsController = fxmlLoader.getController();
+            storeDetailsController.setSDM(SDM);
+            //orderHistoryStage.setOnCloseRequest(we -> orderHistoryWindowController.onClose());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        storeDetailsStage.showAndWait();
     }
 
     @FXML

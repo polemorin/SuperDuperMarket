@@ -9,6 +9,11 @@ import ProductTypes.*;
 
 public class StoreLevelOrder {
     private static int OrderIDGenerator = 1000;
+
+    public Integer getOrderID() {
+        return OrderID;
+    }
+
     private final Integer OrderID;
     private List<SoldProduct> soldProducts;
     private List<SaleProduct> productsSoldOnSale = null;
@@ -20,6 +25,11 @@ public class StoreLevelOrder {
     private final LocalDate date;
     private final String storeName;
     private int amountOfProductTypes;
+
+    public int getCustomerLevelOrderID() {
+        return customerLevelOrderID;
+    }
+
     private final int customerLevelOrderID;
 
     public StoreLevelOrder(Store store, int customerID, LocalDate date, Point customerLocation, int customerLevelID ){
@@ -231,7 +241,10 @@ public class StoreLevelOrder {
     public String getStoreName() {
         return storeName;
     }
-
+    @Override
+    public String toString(){
+        return Integer.toString(OrderID);
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

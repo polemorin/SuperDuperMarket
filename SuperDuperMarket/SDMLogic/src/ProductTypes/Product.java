@@ -29,6 +29,9 @@ public class Product {
     {
         return category;
     }
+    public String getProductCategoryString(){
+        return category.toString();
+    }
 
     @Override
     public String toString() {
