@@ -11,7 +11,7 @@ public class StoreLevelOrder {
     private static int OrderIDGenerator = 1000;
     private final Integer OrderID;
     private List<SoldProduct> soldProducts;
-    private List<SaleProduct> productSoldOnSale = null;
+    private List<SaleProduct> productsSoldOnSale = null;
     private int amountOfProducts;
     private double totalProductsPrice;
     private final int storeID;
@@ -69,12 +69,45 @@ public class StoreLevelOrder {
         customerLevelOrderID = customerLevelID;
     }
 
+    public void setProductSoldOnSale(SaleProduct productSoldOnSale){
+        boolean found = false;
+        if(productsSoldOnSale == null){
+            productsSoldOnSale= new ArrayList<SaleProduct>();
+        }
+        productsSoldOnSale.add(productSoldOnSale);
+        for (SoldProduct soldProduct:soldProducts) {
+            if (soldProduct.getProductID() == productSoldOnSale.getProductID()) {
+                found = true;
+                break;
+            }
+        }
+        amountOfProducts += productSoldOnSale.getAmountBought();
+        totalProductsPrice += productSoldOnSale.getTotalPrice();
+        if(!found){
+            amountOfProductTypes++;
+        }
+    }
     public void setProductSoldOnSale(List<SaleProduct> productSoldOnSale) {
-        this.productSoldOnSale = productSoldOnSale;
+        boolean found = false;
+        this.productsSoldOnSale = productSoldOnSale;
+        for (SaleProduct saleProduct: productSoldOnSale) {
+            for (SoldProduct soldProduct:soldProducts) {
+                if (soldProduct.getProductID() == saleProduct.getProductID()) {
+                    found = true;
+                    break;
+                }
+            }
+            amountOfProducts += saleProduct.getAmountBought();
+            totalProductsPrice += saleProduct.getTotalPrice();
+            if(!found){
+                amountOfProductTypes++;
+            }
+            found = false;
+        }
     }
 
     public List<SaleProduct> getProductSoldOnSale() {
-        return productSoldOnSale;
+        return productsSoldOnSale;
     }
 
     public List<String> getStoreStringListToFile(){

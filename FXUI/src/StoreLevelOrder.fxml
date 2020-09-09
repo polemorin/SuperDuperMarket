@@ -15,16 +15,16 @@
       <Label fx:id="IDLabel" layoutX="246.0" layoutY="23.0" />
       <Label layoutX="14.0" layoutY="59.0" text="PPK:" />
       <Label fx:id="PPKLabel" layoutX="92.0" layoutY="60.0" />
-      <Label layoutX="169.0" layoutY="59.0" text="Distance from custome:" />
+      <Label layoutX="169.0" layoutY="59.0" text="Distance from customer:" />
       <Label fx:id="DistanceLabel" layoutX="327.0" layoutY="60.0" />
       <Label layoutX="409.0" layoutY="60.0" text="Delivery price:" />
       <Label fx:id="DeliveryPriceLabel" layoutX="531.0" layoutY="59.0" />
-      <TableView fx:id="ProductsTabelView" layoutX="7.0" layoutY="116.0" prefHeight="118.0" prefWidth="614.0">
+      <TableView fx:id="ProductsTableView" layoutX="7.0" layoutY="116.0" prefHeight="118.0" prefWidth="614.0">
         <columns>
             <TableColumn fx:id="NameColumn" prefWidth="105.79998779296875" text="Name" />
           <TableColumn fx:id="IDColumn" prefWidth="57.0" text="ID" />
           <TableColumn fx:id="SoldByColumn" prefWidth="63.0" text="Sold by" />
-            <TableColumn fx:id="AmountCoulmn" prefWidth="75.0" text="Amount" />
+            <TableColumn fx:id="AmountColumn" prefWidth="75.0" text="Amount" />
             <TableColumn fx:id="PriceColumn" prefWidth="130.5999755859375" text="Price per unit/kilo" />
             <TableColumn fx:id="TotalColumn" prefWidth="71.4000244140625" text="Total" />
             <TableColumn fx:id="PurchasedOnSaleColumn" prefWidth="111.0" text="Purchased on sale" />

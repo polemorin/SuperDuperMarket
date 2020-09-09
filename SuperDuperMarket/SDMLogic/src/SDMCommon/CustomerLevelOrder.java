@@ -11,9 +11,9 @@ public class CustomerLevelOrder {
 
 
     private List<StoreLevelOrder> orders;
-    private final double totalProductPrice;
-    private final int totalProductTypeAmount;
-    private final int totalProductPurchased;
+    private double totalProductPrice;
+    private int totalProductTypeAmount;
+    private int totalProductPurchased;
     private final double deliveryPrice;
     private final LocalDate date;
     private static int OrderIDGenerator = 1000;
@@ -50,6 +50,28 @@ public class CustomerLevelOrder {
         this.date = date;
         OrderID = OrderIDGenerator++;
         orders = new ArrayList<StoreLevelOrder>();
+    }
+    public void updatePrices(){
+        double totalProductPriceFromStore = 0;
+        int totalAmountOfProducts = 0;
+        Map<Integer,Product> uniqProductList = new HashMap<>();
+        for (StoreLevelOrder storeLevelOrder: orders) {
+            totalProductPriceFromStore+= storeLevelOrder.getTotalProductsPrice();
+            totalAmountOfProducts+=storeLevelOrder.getAmountOfProducts();
+            for (SoldProduct soldProduct: storeLevelOrder.getSoldProducts()) {
+                if(!uniqProductList.containsKey(soldProduct.getProductID())){
+                    uniqProductList.put(soldProduct.getProductID(),soldProduct);
+                }
+            }
+            for (SaleProduct saleProduct: storeLevelOrder.getProductSoldOnSale()) {
+                if(!uniqProductList.containsKey(saleProduct.getProductID())){
+                    uniqProductList.put(saleProduct.getProductID(),saleProduct);
+                }
+            }
+        }
+        this.totalProductTypeAmount = uniqProductList.size();
+        this.totalProductPrice = totalProductPriceFromStore;
+        this.totalProductPurchased = totalAmountOfProducts;
     }
     public static int getNextOrderID(){
         return OrderIDGenerator + 1;
