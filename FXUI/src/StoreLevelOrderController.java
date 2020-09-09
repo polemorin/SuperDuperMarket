@@ -8,10 +8,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StoreLevelOrderController  {
-    List<Product> productBought;
+    List<SoldProduct> productBought;
     @FXML
     private Label NameLabel;
 
@@ -28,43 +30,51 @@ public class StoreLevelOrderController  {
     private Label DeliveryPriceLabel;
 
     @FXML
-    private TableView<Product> ProductsTableView;
+    private TableView<SoldProduct> ProductsTableView;
 
     @FXML
-    private TableColumn<Product, String> NameColumn;
+    private TableColumn<SoldProduct, String> NameColumn;
 
     @FXML
-    private TableColumn<Product, Integer> IDColumn;
+    private TableColumn<SoldProduct, Integer> IDColumn;
 
     @FXML
-    private TableColumn<Product, ProductCategory> SoldByColumn;
+    private TableColumn<SoldProduct, ProductCategory> SoldByColumn;
 
     @FXML
-    private TableColumn<Product, Double> AmountColumn;
+    private TableColumn<SoldProduct, Double> AmountColumn;
 
     @FXML
-    private TableColumn<Product, Double> PriceColumn;
+    private TableColumn<SoldProduct, Double> PriceColumn;
 
     @FXML
-    private TableColumn<Product, Double> TotalColumn;
+    private TableColumn<SoldProduct, Double> TotalColumn;
 
     @FXML
-    private TableColumn<Product, String> PurchasedOnSaleColumn;
+    private TableColumn<SoldProduct, String> PurchasedOnSaleColumn;
 
     @FXML
     private void initialize(){
-        NameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        IDColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        NameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        IDColumn.setCellValueFactory(new PropertyValueFactory<>("productID"));
         SoldByColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
-        AmountColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+        AmountColumn.setCellValueFactory(new PropertyValueFactory<>("amountSoldInOrder"));
+        PriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        TotalColumn.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
+        PurchasedOnSaleColumn.setCellValueFactory(new PropertyValueFactory<>("saleName"));
     }
-    public void setData(StoreLevelOrder storeLevelOrder) {
+    public void setData(StoreLevelOrder storeLevelOrder,SuperDuperMarket SDM) {
+        productBought = new ArrayList<>();
         productBought.addAll(storeLevelOrder.getSoldProducts());
-        productBought.addAll(storeLevelOrder.getProductSoldOnSale());
-
-        final ObservableList<Product> dataOfItems = FXCollections.observableList(productBought);
+        if(storeLevelOrder.getProductSoldOnSale() != null) {
+            productBought.addAll(storeLevelOrder.getProductSoldOnSale());
+        }
+        final ObservableList<SoldProduct> dataOfItems = FXCollections.observableList(productBought);
         ProductsTableView.setItems(dataOfItems);
         ProductsTableView.refresh();
+        DeliveryPriceLabel.setText(Double.toString(storeLevelOrder.getDeliveryPrice()));
+        Point customerLocation = SDM.getUsers().get(storeLevelOrder.getCustomerID()).getLocation();
+        DistanceLabel.setText(storeLevelOrder.getDistanceFromCustomerToStore();
     }
 
 }
