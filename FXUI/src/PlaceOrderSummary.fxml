@@ -28,6 +28,12 @@
             <Label fx:id="TotalPriceLabel" layoutX="371.0" layoutY="551.0" />
             <Button fx:id="CancelOrderButton" layoutX="23.0" layoutY="552.0" mnemonicParsing="false" onAction="#CancelOrderButtonAction" prefHeight="31.0" prefWidth="93.0" text="Cancel order" />
             <Button fx:id="ConfirmOrderButton" layoutX="509.0" layoutY="509.0" mnemonicParsing="false" onAction="#ConfirmOrderButtonAction" prefHeight="72.0" prefWidth="180.0" text="Confirm order" />
+            <Label layoutX="481.0" layoutY="475.0" prefHeight="22.0" prefWidth="86.0" text="Delivery date:" />
+            <Label fx:id="DeliveryDateLabel" layoutX="571.0" layoutY="478.0" />
+            <Label layoutX="28.0" layoutY="501.0" text="Customer name:" />
+            <Label fx:id="CustomerNameLabel" layoutX="130.0" layoutY="501.0" />
+            <Label layoutX="28.0" layoutY="528.0" text="Customer ID:" />
+            <Label fx:id="CustomerIDLabel" layoutX="130.0" layoutY="528.0" />
          </children>
       </Pane>
    </content>

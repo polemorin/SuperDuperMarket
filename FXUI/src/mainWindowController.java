@@ -25,7 +25,7 @@ public class mainWindowController {
     private Stage customerDetailsStage;
     private Stage productDetailsStage;
     private Stage updateProductStage;
-    //private Stage placeOrderStage;
+    private Stage orderHistoryStage;
     @FXML
     private Button orderHistoryButton;
 
@@ -65,8 +65,9 @@ public class mainWindowController {
     public mainWindowController() {
         isXmlFileLoaded = new SimpleBooleanProperty(false);
     }
+
     @FXML
-    private void initialize(){
+    private void initialize() {
         orderHistoryButton.disableProperty().bind(isXmlFileLoaded.not());
         storeDetailsButton.disableProperty().bind(isXmlFileLoaded.not());
         addNewProductButton.disableProperty().bind(isXmlFileLoaded.not());
@@ -110,14 +111,13 @@ public class mainWindowController {
     @FXML
     void loadXmlFileAction(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files","*.xml" ));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
-        if(selectedFile != null){
-            try{
+        if (selectedFile != null) {
+            try {
                 SDM.loadXmlFileFromFileChooser(selectedFile);
                 isXmlFileLoaded.set(true);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Invalid XML file.");
                 alert.setHeaderText("File was not loaded.");
@@ -125,8 +125,7 @@ public class mainWindowController {
                 alert.showAndWait();
                 return;
             }
-        }
-        else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Invalid XML file.");
             alert.setHeaderText("File was not loaded.");
@@ -135,10 +134,31 @@ public class mainWindowController {
             return;
         }
     }
-    @FXML
-    void orderHistoryAction(ActionEvent event){
 
+    @FXML
+    void orderHistoryAction(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("OrderHistoryWindow.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            orderHistoryStage = new Stage();
+            orderHistoryStage.setTitle("Order history");
+            orderHistoryStage.setScene(scene);
+            orderHistoryStage.setAlwaysOnTop(true);
+            orderHistoryStage.initOwner(primaryStage);
+            orderHistoryStage.initModality(Modality.WINDOW_MODAL);
+            OrderHistoryWindowController orderHistoryWindowController = fxmlLoader.getController();
+            orderHistoryWindowController.setSDM(SDM);
+            //orderHistoryStage.setOnCloseRequest(we -> orderHistoryWindowController.onClose());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        orderHistoryStage.showAndWait();
     }
+
     @FXML
     void placeAnOrderAction(ActionEvent event) {
         Stage placeOrderStage = null;
