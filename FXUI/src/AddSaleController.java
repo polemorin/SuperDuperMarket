@@ -21,6 +21,14 @@ public class AddSaleController {
     private SimpleBooleanProperty isValidSaleName;
     private SimpleBooleanProperty isOperatorChosen;
     private double PromptAmountDouble;
+
+    private  SimpleBooleanProperty isOfferProductChosen;
+    private  SimpleBooleanProperty isSaleTriggerClicked;
+    private SimpleBooleanProperty isOfferReady;
+    private SimpleBooleanProperty isSaleReady;
+    private double OfferAmount;
+
+
     @FXML
     private ComboBox<Store> StoreComboBox;
 
@@ -49,10 +57,13 @@ public class AddSaleController {
     private Button AddOfferButton;
 
     @FXML
-    private ComboBox<?> OfferItemsComboBox;
+    private ComboBox<StoreProduct> OfferItemsComboBox;
 
     @FXML
-    private Label PromptAmount1;
+    private Label UnitOrKiloLabel;
+
+    @FXML
+    private Label OfferAmountLabel;
 
     @FXML
     private Button OfferAmountMinusButton;
@@ -64,7 +75,7 @@ public class AddSaleController {
     private Label ForAdditionalPriceLabel;
 
     @FXML
-    private Label UnitOrKiloLabel;
+    private Label OfferUnitOrKiloLabel;
 
     @FXML
     private TextField ForAdditionalPriceTextBox;
@@ -98,6 +109,18 @@ public class AddSaleController {
         isStoreProductChosenTrigger = new SimpleBooleanProperty(false);
         isValidSaleName = new SimpleBooleanProperty(false);
         isOperatorChosen = new SimpleBooleanProperty(false);
+
+
+        isOfferProductChosen = new SimpleBooleanProperty(false);
+        isSaleTriggerClicked = new SimpleBooleanProperty(false);
+        isOfferReady = new SimpleBooleanProperty(false);
+        isSaleReady = new SimpleBooleanProperty(false);
+
+        OfferItemsComboBox.disableProperty().bind(isSaleTriggerClicked.not());
+        ForAdditionalPriceTextBox.disableProperty().bind(isOfferProductChosen.not());
+        OfferAmountMinusButton.disableProperty().bind(isOfferProductChosen.not());
+        OfferAmountPlusButton.disableProperty().bind(isOfferProductChosen.not());
+
         TriggerItemComboBox.disableProperty().bind(isStoreChosenTrigger.not());
         OperatorComboBox.disableProperty().bind(isStoreChosenTrigger.not());
         MinusPromptAmountButton.disableProperty().bind(isStoreProductChosenTrigger.not());
@@ -122,7 +145,24 @@ public class AddSaleController {
     }
 
     @FXML
-    void ForAdditionalPriceTextBoxAction(ActionEvent event) {
+    void ForAdditionalPriceTextBoxAction(KeyEvent event) {
+        String price = ForAdditionalPriceTextBox.getText();
+        if(!price.isEmpty()) {
+            try {
+                if (Double.parseDouble(price) < 0) {
+                    ForAdditionalPriceLabel.setText("Price can not be negative number!");
+                    isOfferReady.setValue(false);
+                } else {
+                    isOfferReady.setValue(true);
+                    ForAdditionalPriceLabel.setText("");
+                }
+            } catch (Exception e) {
+                ForAdditionalPriceLabel.setText("Price must be a number");
+                isOfferReady.setValue(false);
+            }
+        }else{
+            ForAdditionalPriceLabel.setText("");
+        }
 
     }
 
@@ -147,12 +187,28 @@ public class AddSaleController {
 
     @FXML
     void OfferAmountPlusButtonAction(ActionEvent event) {
+        StoreProduct product = TriggerItemComboBox.getValue();
+        if(product != null){
+            if(product.getProductCategory().toString().equalsIgnoreCase("Quantity")){
+                OfferAmount++;
+            }
+            else{
+                OfferAmount += 0.5;
+            }
+            OfferAmountLabel.setText(Double.toString(PromptAmountDouble));
+
+
+        }
 
     }
 
     @FXML
     void OfferItemsComboBoxAction(ActionEvent event) {
-
+        if(OfferItemsComboBox.getValue() != null){
+            isOfferProductChosen.setValue(true);
+        }
+        setOfferAmountLabel();
+        setOfferSoldByLabel();
     }
 
     @FXML
@@ -200,9 +256,9 @@ public class AddSaleController {
         isStoreChosenTrigger.setValue(false);
         StoreComboBox.disableProperty().setValue(true);
         SaleNameTextField.disableProperty().setValue(true);
-        MinusPromptAmountButton.disableProperty().setValue(true);
-        //PlusPromptAmountButton.disableProperty().setValue(true);
-
+        isStoreProductChosenTrigger.setValue(false);
+        isSaleTriggerClicked.setValue(true);
+        setOfferProductsComboBox();
     }
 
     @FXML
@@ -249,6 +305,12 @@ public class AddSaleController {
             UnitOrKiloLabel.setText(TriggerItemComboBox.getValue().getProductCategory().toString());
         }
     }
+    private void setOfferSoldByLabel(){
+        if(OfferItemsComboBox.getValue() != null){
+            OfferUnitOrKiloLabel.setText(OfferItemsComboBox.getValue().getProductCategory().toString());
+        }
+    }
+
     private void setPromptAmountLabel(){
         if(TriggerItemComboBox.getValue() != null){
             if(TriggerItemComboBox.getValue().getProductCategory().toString().equalsIgnoreCase("Quantity")){
@@ -260,6 +322,18 @@ public class AddSaleController {
         }
     }
 
+    private void setOfferAmountLabel(){
+        if(OfferItemsComboBox.getValue() != null){
+            if(OfferItemsComboBox.getValue().getProductCategory().toString().equalsIgnoreCase("Quantity")){
+                OfferAmount = 1;
+            }else{
+                OfferAmount = 0.5;
+            }
+            OfferAmountLabel.setText(Double.toString(OfferAmount));
+        }
+    }
+
+
     public void setSDM(SuperDuperMarket sdm) {
         this.SDM = sdm;
         initStoreComboBox();
@@ -270,5 +344,13 @@ public class AddSaleController {
                         isValidSaleName.getValue() &&
                         isStoreProductChosenTrigger.getValue() &&
                         isOperatorChosen.getValue());
+    }
+
+    private void setOfferProductsComboBox(){
+        Store store = StoreComboBox.getValue();
+        OfferItemsComboBox.getItems().clear();
+        for (Map.Entry<Integer, StoreProduct> product:store.getProducts().entrySet()) {
+            OfferItemsComboBox.getItems().add(product.getValue());
+        }
     }
 }
