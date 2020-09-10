@@ -15,9 +15,6 @@ public class Store {
     private List<StoreLevelOrder> storeOrderHistory;
     private final double deliveryPPK;
     private double totalDeliveryPayment;
-
-
-
     private Map<String, Sale> sales;
 
 
