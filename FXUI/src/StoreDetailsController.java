@@ -93,6 +93,11 @@ public class StoreDetailsController {
 
     @FXML
     private Label TotalPriceToPayLabel;
+    @FXML
+    private Label PPKLabel;
+
+    @FXML
+    private Label StoreIDLabel;
 
     @FXML
     void BackButtonAction(ActionEvent event) {
@@ -115,6 +120,8 @@ public class StoreDetailsController {
         DeliveryPriceLabel.setText(String.format("%.2f",order.getDeliveryPrice()));
         TotalPriceToPayLabel.setText(String.format("%.2f",order.getTotalProductsPrice()+order.getDeliveryPrice()));
         TotalProductPriceLabel.setText(String.format("%.2f",order.getTotalProductsPrice()));
+        PPKLabel.setText(Double.toString(SDM.getStores().get(order.getStoreID()).getDeliveryPPK()));
+        StoreIDLabel.setText(Integer.toString(order.getStoreID()));
         if(SDM.isStoreLevelOrderPartOfDynamicOrder(order)){
             OrderTypeAndIDLabel.setText("Order was part of dynamic order, dynamic order ID: "+ order.getCustomerLevelOrderID());
         }

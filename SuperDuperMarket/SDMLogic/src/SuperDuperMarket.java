@@ -1,5 +1,3 @@
-
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -16,6 +14,7 @@ import ProductTypes.ProductCategory;
 import ProductTypes.StoreProduct;
 import SDMExceptions.*;
 import SDMSale.Sale;
+import javafx.beans.property.SimpleDoubleProperty;
 import jaxb.generated.*;
 
 public class SuperDuperMarket {
@@ -24,7 +23,10 @@ public class SuperDuperMarket {
     private Map<Integer, User> users;
     private Map<Integer, Store> stores;
     private Map<Integer, CustomerLevelOrder> orderHistory;
-
+    private int minMapX = 0;
+    private int minMapY = 0;
+    private int maxMapX = 0;
+    private int maxMapY = 0;
     public SuperDuperMarket() {
         xmlLoaded = false;
         this.products = new HashMap<Integer, Product>();
@@ -217,9 +219,9 @@ public class SuperDuperMarket {
         Map<Integer,Store> tempStoreMap;
         Map<Integer,Product> tempProductMap;
         Map<Integer,User> tempUserMap;
+
         if (selectedFile.exists()) {
             if (selectedFile.getPath().endsWith("xml")) {
-
                 tempStoreMap = createStoresMapFromXml(selectedFile.getAbsolutePath());
                 tempProductMap = createProductMapFromXml(selectedFile.getAbsolutePath(),tempStoreMap);
                 tempUserMap = createUserMapFromXML(selectedFile.getAbsolutePath(),tempStoreMap);
@@ -233,6 +235,7 @@ public class SuperDuperMarket {
         orderHistory.clear();
         stores.clear();
         products.clear();
+        users.clear();
 
         stores = tempStoreMap;
         products = tempProductMap;
@@ -280,6 +283,18 @@ public class SuperDuperMarket {
         for (SDMCustomer customer:customersFromXML.getSDMCustomer()) {
             validateSDMCustomers(customer,userMapToAdd,tempStoreMap);
             location = new Point(customer.getLocation().getX(),customer.getLocation().getY());
+            if(location.x<minMapX){
+                minMapX = location.x;
+            }
+            if(location.y<minMapY){
+                minMapY = location.y;
+            }
+            if(location.x>maxMapX){
+                maxMapX = location.x;
+            }
+            if(location.y>maxMapY){
+                maxMapY = location.y;
+            }
             userMapToAdd.put(customer.getId(),new User(customer.getName(),customer.getId(),location));
         }
 
@@ -342,6 +357,18 @@ public class SuperDuperMarket {
             } else if (storesMap.containsKey(store.getId())) {
                 throw new XmlMultipleStoresShareIDException("Multiple Stores with the same ID.", store.getId());
             } else {
+                if(p.x<minMapX){
+                    minMapX = p.x;
+                }
+                if(p.y<minMapY){
+                    minMapY = p.y;
+                }
+                if(p.x>maxMapX){
+                    maxMapX = p.x;
+                }
+                if(p.y>maxMapY){
+                    maxMapY = p.y;
+                }
                 storeToAdd = new Store(store.getName(), p, store.getId(), createStoreProductMap(store, descriptor.getSDMItems()), store.getDeliveryPpk());
                 storeToAdd.initSalesFromXML(generateSalesFromXml(store,descriptor));
                 storesMap.put(storeToAdd.getID(), storeToAdd);
