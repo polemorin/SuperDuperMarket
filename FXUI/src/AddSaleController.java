@@ -1,4 +1,3 @@
-import ProductTypes.Product;
 import ProductTypes.StoreProduct;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
@@ -9,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
 import java.util.Map;
 
@@ -19,6 +19,7 @@ public class AddSaleController {
     private SimpleBooleanProperty isStoreChosenTrigger;
     private SimpleBooleanProperty isStoreProductChosenTrigger;
     private SimpleBooleanProperty isValidSaleName;
+    private SimpleBooleanProperty isOperatorChosen;
     private double PromptAmountDouble;
     @FXML
     private ComboBox<Store> StoreComboBox;
@@ -96,13 +97,14 @@ public class AddSaleController {
         isStoreChosenTrigger = new SimpleBooleanProperty(false);
         isStoreProductChosenTrigger = new SimpleBooleanProperty(false);
         isValidSaleName = new SimpleBooleanProperty(false);
+        isOperatorChosen = new SimpleBooleanProperty(false);
         TriggerItemComboBox.disableProperty().bind(isStoreChosenTrigger.not());
         OperatorComboBox.disableProperty().bind(isStoreChosenTrigger.not());
         MinusPromptAmountButton.disableProperty().bind(isStoreProductChosenTrigger.not());
         PlusPromptAmountButton.disableProperty().bind(isStoreProductChosenTrigger.not());
         SetSaleButton.disableProperty().bind(isSaleTriggerReady.not());
         initOperatorComboBox();
-        initStoreComboBox();
+
     }
     @FXML
     void AddOfferButtonAction(ActionEvent event) {
@@ -155,7 +157,10 @@ public class AddSaleController {
 
     @FXML
     void OperatorComboBoxAction(ActionEvent event) {
-
+        if(OperatorComboBox.getValue() != null){
+            isOperatorChosen.setValue(true);
+        }
+        setIsSaleTriggerReady();
     }
 
     @FXML
@@ -173,23 +178,31 @@ public class AddSaleController {
     }
 
     @FXML
-    void SaleNameTextBoxAction(ActionEvent event) {
+    void SaleNameTextBoxAction(KeyEvent event) {
         String saleName = SaleNameTextField.getText();
         if(!saleName.isEmpty()){
             if(!SDM.isSaleNameAlreadyInMarket(saleName)){
                 isValidSaleName.setValue(true);
+                SaleNameErrorLabel.setText("");
             }else{
                 isValidSaleName.setValue(false);
+                SaleNameErrorLabel.setText("Sale name taken!");
             }
         }else{
             isValidSaleName.setValue(false);
         }
+        setIsSaleTriggerReady();
 
     }
 
     @FXML
     void SetSaleButtonAction(ActionEvent event) {
         isStoreChosenTrigger.setValue(false);
+        StoreComboBox.disableProperty().setValue(true);
+        SaleNameTextField.disableProperty().setValue(true);
+        MinusPromptAmountButton.disableProperty().setValue(true);
+        //PlusPromptAmountButton.disableProperty().setValue(true);
+
     }
 
     @FXML
@@ -197,7 +210,10 @@ public class AddSaleController {
         if(StoreComboBox.getValue() != null){
             isStoreChosenTrigger.setValue(true);
         }
-        initStoreProductsComboBox();
+        PromptAmountLabel.setText("0");
+        UnitOrKiloLabel.setText("");
+        setStoreProductsComboBox();
+        setIsSaleTriggerReady();
     }
 
     @FXML
@@ -207,6 +223,7 @@ public class AddSaleController {
         }
         setSoldByLabel();
         setPromptAmountLabel();
+        setIsSaleTriggerReady();
     }
 
     private void initStoreComboBox(){
@@ -214,9 +231,9 @@ public class AddSaleController {
             StoreComboBox.getItems().add(store.getValue());
         }
     }
-    private void initStoreProductsComboBox(){
+    private void setStoreProductsComboBox(){
         Store store = StoreComboBox.getValue();
-        TriggerItemComboBox.getItems().removeAll();
+        TriggerItemComboBox.getItems().clear();
         for (Map.Entry<Integer, StoreProduct> product:store.getProducts().entrySet()) {
             TriggerItemComboBox.getItems().add(product.getValue());
         }
@@ -245,5 +262,13 @@ public class AddSaleController {
 
     public void setSDM(SuperDuperMarket sdm) {
         this.SDM = sdm;
+        initStoreComboBox();
+    }
+
+    private void setIsSaleTriggerReady(){
+        isSaleTriggerReady.setValue(isStoreChosenTrigger.getValue() &&
+                        isValidSaleName.getValue() &&
+                        isStoreProductChosenTrigger.getValue() &&
+                        isOperatorChosen.getValue());
     }
 }
