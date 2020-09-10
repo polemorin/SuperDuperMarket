@@ -51,6 +51,7 @@ public class OrderHistoryWindowController {
     @FXML
     void OrderIDComboBoxAction(ActionEvent event) {
         if(OrderIDComboBox.getValue() != null){
+            OrderVbox.getChildren().clear();
             initLabels();
             addStoreLevelOrdersToWindow();
         }
