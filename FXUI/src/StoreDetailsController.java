@@ -139,9 +139,9 @@ public class StoreDetailsController {
             setSaleListView();
             setProductTable();
             isStoreChosen.setValue(true);
+            OrderComboBox.getItems().clear();
             setOrderComboBox();
             OrderTableView.getItems().clear();
-            OrderComboBox.getItems().clear();
             resetLabels();
         }
 
