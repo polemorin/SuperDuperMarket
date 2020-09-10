@@ -1,4 +1,3 @@
-
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -9,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -126,7 +124,6 @@ public class mainWindowController {
         if (selectedFile != null) {
             new Thread(taskLoad).start();
 
-            isXmlFileLoaded.set(true);
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Invalid XML file.");

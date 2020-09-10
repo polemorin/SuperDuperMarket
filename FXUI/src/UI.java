@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
 import java.net.URL;
 
 public class UI extends Application {
@@ -22,13 +21,15 @@ public class UI extends Application {
         URL mainFXML = getClass().getResource("MainWindow.fxml");
         loader.setLocation(mainFXML);
 
-        ScrollPane root = loader.load();
+        GridPane root = loader.load();
 
         mainWindowController controller = loader.getController();
         SuperDuperMarket SDM = new SuperDuperMarket();
         controller.setPrimaryStage(primaryStage);
         controller.setSDM(SDM);
 
+        primaryStage.minHeightProperty().setValue(300);
+        primaryStage.minWidthProperty().setValue(600);
 
         primaryStage.setTitle("Super Duper Market");
         Scene scene = new Scene(root, 1050, 600);
