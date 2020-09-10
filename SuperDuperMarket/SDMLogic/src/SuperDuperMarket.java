@@ -605,4 +605,12 @@ public class SuperDuperMarket {
     public boolean isStoreLevelOrderPartOfDynamicOrder(StoreLevelOrder order) {
         return orderHistory.get(order.getCustomerLevelOrderID()).getOrders().size() != 1;
     }
+    public boolean isSaleNameAlreadyInMarket(String saleName){
+        for (Map.Entry<Integer,Store> store:stores.entrySet()) {
+            if(store.getValue().getSales().containsKey(saleName)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
