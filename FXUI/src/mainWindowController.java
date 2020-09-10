@@ -23,6 +23,7 @@ public class mainWindowController {
     private Stage orderHistoryStage;
     private Stage storeDetailsStage;
     private Stage placeOrderStage;
+    private Stage addSaleStage;
     @FXML
     private Button orderHistoryButton;
 
@@ -97,7 +98,24 @@ public class mainWindowController {
 
     @FXML
     void addNewSaleAction(ActionEvent event) {
-
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("AddSale.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            addSaleStage = new Stage();
+            addSaleStage.setTitle("Add sale");
+            addSaleStage.setScene(scene);
+            addSaleStage.initOwner(primaryStage);
+            addSaleStage.initModality(Modality.WINDOW_MODAL);
+            AddSaleController addSaleController = fxmlLoader.getController();
+            addSaleController.setSDM(SDM);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        addSaleStage.showAndWait();
     }
 
     @FXML
