@@ -380,12 +380,13 @@ public class mainWindowController {
             }
         }
         mapTileController.setIsTileOccupied(isTileOccupied);
-       // if(!isTileOccupied){
-       //     Random rand = new Random();
-       //     if(rand.nextInt(100)<2){
-       //         mapTileController.setPrettyTile();
-       //     }
-       // }
+        if(!isTileOccupied){
+            Random rand = new Random();
+            if(rand.nextInt(100)<2){
+                mapTileController.setPrettyTile();
+                isTileOccupied = true;
+            }
+        }
         if(!isTileOccupied){
             mapTileController.removeTile();
         }
