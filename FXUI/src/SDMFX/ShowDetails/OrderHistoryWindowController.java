@@ -68,7 +68,7 @@ public class OrderHistoryWindowController {
         for (StoreLevelOrder storeLevelOrder:order.getOrders()) {
             try{
                 fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("SDMFX/PlaceOrder/StoreLevelOrder.fxml"));
+                fxmlLoader.setLocation(StoreLevelOrderController.class.getResource("StoreLevelOrder.fxml"));
                 storeOrderTile = fxmlLoader.load();
                 storeLevelOrderController = fxmlLoader.getController();
                 storeLevelOrderController.setData(storeLevelOrder,SDM);

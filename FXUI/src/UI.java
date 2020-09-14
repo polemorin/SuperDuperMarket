@@ -1,5 +1,4 @@
 import SDMCommon.*;
-import SDMFX.Main.mainWindowController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,7 +16,7 @@ public class UI extends Application {
 
 
         FXMLLoader loader = new FXMLLoader();
-        URL mainFXML = getClass().getResource("SDMFX/Main/MainWindow.fxml");
+        URL mainFXML = getClass().getResource("MainWindow.fxml");
         loader.setLocation(mainFXML);
 
         GridPane root = loader.load();

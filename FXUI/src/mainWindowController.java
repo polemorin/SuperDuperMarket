@@ -1,4 +1,3 @@
-package SDMFX.Main;
 import SDMCommon.*;
 import SDMFX.Add.AddProduct.AddProductController;
 import SDMFX.Add.AddSale.AddSaleController;
@@ -382,7 +381,7 @@ public class mainWindowController {
         ShowMapButton.visibleProperty().setValue(false);
     }
 
-    private void updateMapTileLocationText(int i, int j, Point bottomLeft, Point topRight, MapTileController mapTileController,Boolean isTileOccupied) {
+    private void updateMapTileLocationText(int i, int j, Point bottomLeft, Point topRight, MapTileController mapTileController, Boolean isTileOccupied) {
         if(!isTileOccupied) {
             if (i == bottomLeft.x - 1) {
                 mapTileController.setCoordinateLabel(Integer.toString(j));

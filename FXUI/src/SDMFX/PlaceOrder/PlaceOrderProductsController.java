@@ -54,7 +54,7 @@ public class PlaceOrderProductsController {
             if (placeOrderSalesStage == null) {
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("SDMFX/PlaceOrder/PlaceOrderSales.fxml"));
+                    fxmlLoader.setLocation(PlaceOrderSalesController.class.getResource("PlaceOrderSales.fxml"));
                     Scene scene = new Scene(fxmlLoader.load());
                     placeOrderSalesStage = new Stage();
                     placeOrderSalesStage.setTitle("Place Order Sales");
@@ -101,7 +101,7 @@ public class PlaceOrderProductsController {
             if (store == null) {
                 for (Map.Entry<Integer, Product> product : SDM.getProducts().entrySet()) {
                     fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("SDMFX/PlaceOrder/ProductTile.fxml"));
+                    fxmlLoader.setLocation(ProductTileController.class.getResource("ProductTile.fxml"));
                     ProductTile = fxmlLoader.load();
                     productTileController = fxmlLoader.getController();
                     productTileController.setData(product.getValue(), null);
@@ -112,7 +112,7 @@ public class PlaceOrderProductsController {
             else{
                 for (Map.Entry<Integer, StoreProduct> product : store.getProducts().entrySet()) {
                     fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(getClass().getResource("SDMFX/PlaceOrder/ProductTile.fxml"));
+                    fxmlLoader.setLocation(ProductTileController.class.getResource("ProductTile.fxml"));
                     ProductTile = fxmlLoader.load();
                     productTileController = fxmlLoader.getController();
                     productTileController.setData(product.getValue(), product.getValue().getPrice());
