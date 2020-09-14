@@ -1,4 +1,4 @@
-import com.sun.xml.internal.bind.v2.model.core.ID;
+package SDMCommon;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +29,7 @@ public class CustomerLevelOrder {
        OrderID = OrderIDGenerator++;
     }
 
-    public CustomerLevelOrder(List<StoreLevelOrder> storeOrders,int orderID){
+    public CustomerLevelOrder(List<StoreLevelOrder> storeOrders, int orderID){
         orders = storeOrders;
         totalProductPrice = storeOrders.stream().mapToDouble(StoreLevelOrder::getTotalProductsPrice).sum();
         totalProductTypeAmount = storeOrders.stream().mapToInt(StoreLevelOrder::getAmountOfProductTypes).sum();

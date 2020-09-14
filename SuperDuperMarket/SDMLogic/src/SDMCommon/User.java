@@ -2,36 +2,37 @@ package SDMCommon;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class User {
-    private  String name;
-    private static int IDGenerator = 0;
-    private  int ID;
-    private BankAccount userBankAccount;
-    private final Object UserCtorLockContext = new Object();
 
-    public User(){}
-
-    public User(String userName){
-        synchronized (UserCtorLockContext) {
-            name = userName;
-            userBankAccount = new BankAccount();
-            ID = ++IDGenerator;
-        }
-    }
+    private List<CustomerLevelOrder> orderHistory;
+    private final String name;
+    private final int ID;
+    private Point location;
 
     public User(String name, int ID,Point location) {
+        this.orderHistory = new ArrayList<CustomerLevelOrder>();
         this.name = name;
         this.ID = ID;
+        this.location = location;
     }
 
     public User(User other){
         this.name = other.name;
         this.ID = other.ID;
+        this.orderHistory = new ArrayList<CustomerLevelOrder>(other.orderHistory.size());
+        for (CustomerLevelOrder itr:other.orderHistory) {
+            this.orderHistory.add(new CustomerLevelOrder(itr));
+        }
     }
 
+    public void addOrderToOrderHistory(CustomerLevelOrder orderToAdd) {
+        orderHistory.add(orderToAdd);
+    }
+    public List<CustomerLevelOrder> getOrderHistory() {
+        return orderHistory;
+    }
     public String getName() {
         return name;
     }
@@ -40,33 +41,41 @@ public class User {
         return ID;
     }
 
+    public Point getLocation() {
+        return location;
+    }
+    public void setLocation(Point location) {
+        this.location = location;
+    }
 
+
+    public int getAmountOfOrders(){
+        return orderHistory.size();
+    }
     public double getAverageProductCostFromOrders(){
-      // if(orderHistory.size() == 0)
-      // {
-      //     return 0;
-      // }
-      // double sum= 0;
-      // for (CustomerLevelOrder order: orderHistory) {
-      //     sum+=order.getTotalProductPrice();
-      // }
-      // return sum/orderHistory.size();
-        return  0;
+        if(orderHistory.size() == 0)
+        {
+            return 0;
+        }
+        double sum= 0;
+        for (CustomerLevelOrder order: orderHistory) {
+            sum+=order.getTotalProductPrice();
+        }
+        return sum/orderHistory.size();
     }
     public double getAverageDeliveryCostFromOrders(){
-      // if(orderHistory.size() == 0)
-      // {
-      //     return 0;
-      // }
-      // double sum= 0;
-      // for (CustomerLevelOrder order: orderHistory) {
-      //     sum+=order.getDeliveryPrice();
-      // }
-      // return sum/orderHistory.size();
-        return 0;
+        if(orderHistory.size() == 0)
+        {
+            return 0;
+        }
+        double sum= 0;
+        for (CustomerLevelOrder order: orderHistory) {
+            sum+=order.getDeliveryPrice();
+        }
+        return sum/orderHistory.size();
     }
 
-    public Double distanceFromStore(Store store, Point location){
+    public Double distanceFromStore(Store store){
         return Math.sqrt(Math.pow(store.getLocation().getX() -location.x,2) +
                 Math.pow(store.getLocation().getY() -location.y,2));
     }
@@ -91,22 +100,4 @@ public class User {
     public String toString() {
         return name;
     }
-
-    public double getFunds(){
-        return userBankAccount.getFunds();
-    }
-    public List<Transaction> getUserTransactions(){
-        return userBankAccount.getTransactionsList();
-    }
-    public void addFuds(double amountToAdd, Date addFundsDate){
-        Transaction addFunds= new Transaction("Add funds",addFundsDate,amountToAdd,userBankAccount.getFunds(),this.getFunds()+amountToAdd);
-        userBankAccount.getTransactionsList().add(addFunds);
-        userBankAccount.addFunds(amountToAdd);
-    }
-    public void takeMoneyOutOfUserBankAccount(double amount){
-        Transaction payment= new Transaction("Payment",new Date(),amount,userBankAccount.getFunds(),this.getFunds() - amount);
-        userBankAccount.getTransactionsList().add(payment);
-        userBankAccount.withdrawMoney(amount);
-    }
-
 }

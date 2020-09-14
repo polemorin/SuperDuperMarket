@@ -1,5 +1,5 @@
 package SDMFX;
-
+import SDMCommon.*;
 import ProductTypes.*;
 import SDMSale.Offer;
 import SDMSale.Sale;

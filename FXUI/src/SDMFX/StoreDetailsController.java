@@ -1,6 +1,9 @@
-
+package SDMFX;
 import ProductTypes.Product;
 import ProductTypes.SoldProduct;
+import SDMCommon.Store;
+import SDMCommon.StoreLevelOrder;
+import SDMCommon.SuperDuperMarket;
 import SDMSale.Sale;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -14,7 +17,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;

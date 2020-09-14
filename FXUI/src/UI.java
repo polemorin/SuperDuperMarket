@@ -1,5 +1,5 @@
-package SDMFX;
-
+import SDMCommon.*;
+import SDMFX.mainWindowController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -37,8 +37,6 @@ public class UI extends Application {
          s=primaryStage;
         primaryStage.show();
         new Thread(()-> System.out.println("hey") ).start();
-
-
 
     }
 

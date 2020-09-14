@@ -1,5 +1,5 @@
 package SDMFX;
-
+import SDMCommon.*;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
