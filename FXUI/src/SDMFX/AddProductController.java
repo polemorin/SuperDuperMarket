@@ -1,3 +1,5 @@
+package SDMFX;
+
 import ProductTypes.Product;
 import ProductTypes.ProductCategory;
 import ProductTypes.StoreProduct;

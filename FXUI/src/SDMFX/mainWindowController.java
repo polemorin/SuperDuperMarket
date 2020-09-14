@@ -1,3 +1,6 @@
+package SDMFX;
+
+import SDMFX.*;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -119,7 +122,7 @@ public class mainWindowController {
     void addNewProductAction(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("AddProduct.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("SDMFX/AddProduct.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             addProductStage = new Stage();
             addProductStage.setTitle("Order history");
@@ -142,7 +145,7 @@ public class mainWindowController {
     void addNewSaleAction(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("AddSale.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("SDMFX/AddSale.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             addSaleStage = new Stage();
             addSaleStage.setTitle("Add sale");
@@ -208,7 +211,7 @@ public class mainWindowController {
     void orderHistoryAction(ActionEvent event) throws IOException {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("OrderHistoryWindow.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("SDMFX/OrderHistoryWindow.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             orderHistoryStage = new Stage();
             orderHistoryStage.setTitle("Order history");
@@ -230,7 +233,7 @@ public class mainWindowController {
     void placeAnOrderAction(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("PlaceOrderHome.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("SDMFX/PlaceOrderHome.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             placeOrderStage = new Stage();
             placeOrderStage.setTitle("Place Order");
@@ -249,7 +252,7 @@ public class mainWindowController {
     void productDetailsAction(ActionEvent event) throws IOException {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("ProductDetails.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("SDMFX/ProductDetails.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             productDetailsStage = new Stage();
             productDetailsStage.setTitle("ProductDetails");
@@ -270,7 +273,7 @@ public class mainWindowController {
     void storeDetailsAction(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("StoreDetails.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("SDMFX/StoreDetails.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             storeDetailsStage = new Stage();
             storeDetailsStage.setTitle("Store details");
@@ -297,7 +300,7 @@ public class mainWindowController {
     void updateStoreProductAction(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("UpdateStoreProduct.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("SDMFX/UpdateStoreProduct.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             updateProductStage = new Stage();
             updateProductStage.setTitle("UpdateStoreProduct");
@@ -330,8 +333,8 @@ public class mainWindowController {
         mapTiles = new ArrayList<>();
         rowList = new ArrayList<>();
 
-        Map<Integer,Store> storeMap = SDM.getStores();
-        Map<Integer,User> userMap = SDM.getUsers();
+        Map<Integer, Store> storeMap = SDM.getStores();
+        Map<Integer, User> userMap = SDM.getUsers();
 
         BackgroundImage images = new BackgroundImage(new Image("images/MapBackground2new.jpg"), BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,false,true));
         MapTilePane.setBackground(new Background(images));
@@ -342,16 +345,16 @@ public class mainWindowController {
             MapRow = new HBox();
             for(int j = bottomLeft.x - 1; j <= topRight.x + 1; j++){
                 fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("MapTileTest.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("SDMFX/MapTileTest.fxml"));
                 MapTile = fxmlLoader.load();
                 mapTileController = fxmlLoader.getController();
-                for (Map.Entry<Integer,User> user:userMap.entrySet()) {
+                for (Map.Entry<Integer, User> user:userMap.entrySet()) {
                     if(user.getValue().getLocation().x == j && user.getValue().getLocation().y == i){
                         mapTileController.setUserImage(user.getValue());
                         isTileOccupied = true;
                     }
                 }
-                for (Map.Entry<Integer,Store> store:storeMap.entrySet()) {
+                for (Map.Entry<Integer, Store> store:storeMap.entrySet()) {
                     if(store.getValue().getLocation().x == j && store.getValue().getLocation().y == i){
                         mapTileController.setStoreImage(store.getValue());
                         isTileOccupied = true;
@@ -414,7 +417,7 @@ public class mainWindowController {
     void userDetailsAction(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("CustomerDetails.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("SDMFX/CustomerDetails.fxml"));
             Scene scene = new Scene(fxmlLoader.load(),600,400);
             customerDetailsStage = new Stage();
             customerDetailsStage.setTitle("CustomerDetails");

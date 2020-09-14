@@ -1,3 +1,5 @@
+package SDMFX;
+
 import ProductTypes.Product;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

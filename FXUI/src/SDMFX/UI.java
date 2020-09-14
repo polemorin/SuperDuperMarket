@@ -1,11 +1,9 @@
+package SDMFX;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import java.net.URL;
 
@@ -19,7 +17,7 @@ public class UI extends Application {
 
 
         FXMLLoader loader = new FXMLLoader();
-        URL mainFXML = getClass().getResource("MainWindow.fxml");
+        URL mainFXML = getClass().getResource("SDMFX/MainWindow.fxml");
         loader.setLocation(mainFXML);
 
         GridPane root = loader.load();
@@ -40,13 +38,7 @@ public class UI extends Application {
         primaryStage.show();
         new Thread(()-> System.out.println("hey") ).start();
 
-      //primaryStage.setTitle("Super Duper Market");
-      //Parent load = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
-      //
-      //Scene scene = new Scene(load, 600,400);
-      // // mainWindowController controller = loader.getController();
-      //primaryStage.setScene(scene);
-      //primaryStage.show();
+
 
     }
 

@@ -1,3 +1,5 @@
+package SDMFX;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,25 +37,19 @@ public class CustomerDetailsController {
     @FXML
     private Label DeliveryCostLable;
 
-    Map<Integer,User> userMap;
+    Map<Integer, User> userMap;
     Stage customerDetailsStage;
 
-    // public CustomerDetailsController(Map<Integer,User> userMap) {
-    //     this.userMap = userMap;
-    //     for (Map.Entry<Integer,User> user: userMap.entrySet()) {
-    //         CustomerComboBox.getItems().add(user.getValue().getName());
-    //     }
-    // }
     public CustomerDetailsController() {
 
     }
-    public void setUserMap(Map<Integer,User> userMap){
+    public void setUserMap(Map<Integer, User> userMap){
         this.userMap = userMap;
         updateCustomerComboBox();
     }
 
     private void updateCustomerComboBox() {
-        for (Map.Entry<Integer,User> user: userMap.entrySet()) {
+        for (Map.Entry<Integer, User> user: userMap.entrySet()) {
             CustomerComboBox.getItems().add(user.getValue());
         }
     }

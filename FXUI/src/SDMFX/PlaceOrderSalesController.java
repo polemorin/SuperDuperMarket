@@ -1,3 +1,4 @@
+package SDMFX;
 
 import ProductTypes.*;
 import SDMSale.Offer;
@@ -187,7 +188,7 @@ public class PlaceOrderSalesController
         Stage PlaceOrderSummeryStage = null;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("PlaceOrderSummary.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("SDMFX/PlaceOrderSummary.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             PlaceOrderSummeryStage = new Stage();
             PlaceOrderSummeryStage.setTitle("Place Order Summery");
@@ -325,7 +326,7 @@ public class PlaceOrderSalesController
     }
 
     private void createCustomerLevelStaticOrder() {
-        StoreLevelOrder storeOrder = new StoreLevelOrder(store,customer.getID(),deliveryDate,customer.getLocation(),CustomerLevelOrder.getNextOrderID());
+        StoreLevelOrder storeOrder = new StoreLevelOrder(store,customer.getID(),deliveryDate,customer.getLocation(), CustomerLevelOrder.getNextOrderID());
         StoreProduct storeProduct;
         for (Map.Entry<Integer,Double> cartProductID:productsByIdAndAmount.entrySet()) {
             storeProduct = store.getProducts().get(cartProductID.getKey());

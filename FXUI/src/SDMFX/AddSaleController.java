@@ -1,3 +1,5 @@
+package SDMFX;
+
 import ProductTypes.SaleProduct;
 import ProductTypes.StoreProduct;
 import SDMSale.Offer;
@@ -359,7 +361,7 @@ public class AddSaleController {
     }
 
     private void initStoreComboBox(){
-        for (Map.Entry<Integer,Store> store:SDM.getStores().entrySet()) {
+        for (Map.Entry<Integer, Store> store:SDM.getStores().entrySet()) {
             StoreComboBox.getItems().add(store.getValue());
         }
     }
