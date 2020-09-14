@@ -64,5 +64,6 @@
             </TilePane>
          </content>
       </ScrollPane>
+      <Button fx:id="ShowMapButton" mnemonicParsing="false" onAction="#ShowMapButtonAction" text="Show map" GridPane.columnIndex="4" />
    </children>
 </GridPane>

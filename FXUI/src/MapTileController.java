@@ -51,20 +51,20 @@ public class MapTileController {
         Tooltip.install(ImageTile,tileToolTip);
     }
     public void setPrettyTile(){
-        Random rand = new Random();
-        int randNum = rand.nextInt(100);
-        if(randNum<25){
-            ImageTile.setImage(new Image("images/tree1.png"));
-        }
-        else if(randNum<50){
-            ImageTile.setImage(new Image("images/tree2.jpg"));
-        }
-        else if(randNum<75){
-            ImageTile.setImage(new Image("images/tree3.png"));
-        }
-        else {
-            ImageTile.setImage(new Image("images/flower2.jpg"));
-        }
+     //   Random rand = new Random();
+     //   int randNum = rand.nextInt(100);
+     //   if(randNum<25){
+     //       ImageTile.setImage(new Image("images/tree1.png"));
+     //   }
+     //   else if(randNum<50){
+     //       ImageTile.setImage(new Image("images/tree2.jpg"));
+     //   }
+     //   else if(randNum<75){
+     //       ImageTile.setImage(new Image("images/tree3.png"));
+     //   }
+     //   else {
+     //       ImageTile.setImage(new Image("images/flower2.jpg"));
+     //   }
     }
     @FXML
     void updateToolTipAction(MouseEvent event) {
