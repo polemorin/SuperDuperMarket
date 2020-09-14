@@ -1,5 +1,6 @@
 package SDMFX;
-
+import SDMCommon.*;
+import SDMCommon.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;

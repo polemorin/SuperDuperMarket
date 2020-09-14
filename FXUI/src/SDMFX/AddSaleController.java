@@ -2,6 +2,8 @@ package SDMFX;
 
 import ProductTypes.SaleProduct;
 import ProductTypes.StoreProduct;
+import SDMCommon.Store;
+import SDMCommon.SuperDuperMarket;
 import SDMSale.Offer;
 import SDMSale.Sale;
 import javafx.beans.property.SimpleBooleanProperty;

@@ -7,7 +7,11 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.*;
 import java.text.SimpleDateFormat;
-import java.util.List;
+
+import SDMCommon.CustomerLevelOrder;
+import SDMCommon.Store;
+import SDMCommon.StoreLevelOrder;
+import SDMCommon.SuperDuperMarket;
 import SDMExceptions.*;
 import ProductTypes.*;
 
@@ -399,7 +403,7 @@ public class ConsoleUI {
         if(SDM.getOrderHistory().size() == 0){
             throw new NoOrdersInSystemException("Option unavailable. No orders were made in system.");
         }
-        for (Map.Entry<Integer,CustomerLevelOrder> order: SDM.getOrderHistory().entrySet()) {
+        for (Map.Entry<Integer, CustomerLevelOrder> order: SDM.getOrderHistory().entrySet()) {
             printCustomerLevelOrder(order.getValue());
         }
     }
@@ -678,44 +682,7 @@ public class ConsoleUI {
     }
 
     private CustomerLevelOrder makeNewStaticOrder(){
-       // Store chosenStore = getChosenStoreFromUser();
-       // Date date = getValidDateFromConsolex();
-       // Point location = getValidDifferentFromStoresLocations();
-       // SDM.getUsers().get(0).setLocation(location);
-       // Scanner scanner = new Scanner(System.in);
-       // Integer productID;
-       // boolean finishedOrder = false;
-       // StoreLevelOrder order = new StoreLevelOrder(chosenStore,1,date,location,0);
-       // Double productAmount = null;
-       // do{
-       //     printProductsForStaticOrder(chosenStore);
-       //     productID = getStoreProductIDOrQ(chosenStore);
-       //     if(productID == null){
-       //         finishedOrder = true;
-       //     }
-       //     else{
-       //         productAmount = getStoreProductAmountFromUser(
-       //                 chosenStore.getProducts().get(productID).getProductCategory());
-       //         if(productAmount == null) {
-       //             finishedOrder = true;
-       //         }
-       //     }
-       //     if(!finishedOrder)
-       //     {
-       //         order.addProductToOrder(new SoldProduct(chosenStore.getProducts().get(productID),productAmount));
-       //         System.out.println("Product was added to order successfully.");
-       //     }
-       // }while(!finishedOrder);
-       // if(order.getAmountOfProducts() == 0)
-       // {
-       //     System.out.println("No products selected, order was not made.");
-       //     return null;
-       // }
-       // else{
-       //     List<StoreLevelOrder> storeOrder = new ArrayList<StoreLevelOrder>();
-       //     storeOrder.add(order);
-       //     return new CustomerLevelOrder(storeOrder);
-       // }
+
         return null;
     }
 

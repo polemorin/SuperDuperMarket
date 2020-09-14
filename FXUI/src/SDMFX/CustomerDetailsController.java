@@ -1,5 +1,6 @@
 package SDMFX;
 
+import SDMCommon.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
