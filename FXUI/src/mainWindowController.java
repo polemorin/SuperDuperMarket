@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,8 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
+import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -84,6 +84,8 @@ public class mainWindowController {
     private TilePane MapTilePane;
     @FXML
     private ImageView BackIMG;
+    @FXML
+    private Button ShowMapButton;
 
 
     public mainWindowController() {
@@ -101,6 +103,7 @@ public class mainWindowController {
         addNewStoreButton.disableProperty().bind(isXmlFileLoaded.not());
         updateStoreProductButton.disableProperty().bind(isXmlFileLoaded.not());
         placeAnOrderButton.disableProperty().bind(isXmlFileLoaded.not());
+        ShowMapButton.visibleProperty().setValue(false);
     }
 
 
@@ -151,6 +154,7 @@ public class mainWindowController {
 
     @FXML
     void loadXmlFileAction(ActionEvent event) throws InterruptedException, IOException {
+        emptyMap();
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
@@ -160,7 +164,8 @@ public class mainWindowController {
         progressString.bind(taskLoad.messageProperty());
         ProgressLabel.textProperty().bind(progressString);
         if (selectedFile != null) {
-           new Thread(taskLoad).start();
+          Thread task =  new Thread(taskLoad);
+          task.start();
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Invalid XML file.");
@@ -169,7 +174,16 @@ public class mainWindowController {
             alert.showAndWait();
             return;
         }
-        new Thread().join();
+        ShowMapButton.visibleProperty().setValue(true);
+    }
+
+    private void emptyMap() {
+        if(mapTiles != null) {
+            mapTiles.clear();
+            rowList.clear();
+            MapTilePane.getChildren().clear();
+            MapTilePane.visibleProperty().setValue(false);
+        }
     }
 
     @FXML
@@ -191,7 +205,6 @@ public class mainWindowController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        createMap();
         orderHistoryStage.showAndWait();
     }
 
@@ -286,6 +299,7 @@ public class mainWindowController {
     }
 
     private void createMap() throws IOException {
+
         Point topRight = SDM.getTopRightMapEdge();
         Point bottomLeft = SDM.getBottomLeftMapEdge();
 
@@ -294,8 +308,6 @@ public class mainWindowController {
         MapTileController mapTileController;
         MapTilePane.getChildren().clear();
 
-        BackIMG.setImage(new Image("images/backMap.jpg"));
-
         HBox MapRow;
         mapTiles = new ArrayList<>();
         rowList = new ArrayList<>();
@@ -303,6 +315,9 @@ public class mainWindowController {
         Map<Integer,Store> storeMap = SDM.getStores();
         Map<Integer,User> userMap = SDM.getUsers();
 
+        BackgroundImage images = new BackgroundImage(new Image("images/MapBackground2new.jpg"), BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,false,true));
+        MapTilePane.setBackground(new Background(images));
+        MapTilePane.visibleProperty().setValue(true);
         Boolean isTileOccupied = false;
         Random rand;
         for(int i = topRight.y + 1;i >= bottomLeft.y - 1; i--){
@@ -335,6 +350,7 @@ public class mainWindowController {
             rowList.add(MapRow);
             MapTilePane.getChildren().add(MapRow);
         }
+        ShowMapButton.visibleProperty().setValue(false);
     }
 
     private void updateMapTileLocationText(int i, int j, Point bottomLeft, Point topRight, MapTileController mapTileController,Boolean isTileOccupied) {
@@ -364,13 +380,12 @@ public class mainWindowController {
             }
         }
         mapTileController.setIsTileOccupied(isTileOccupied);
-        if(!isTileOccupied){
-            Random rand = new Random();
-            if(rand.nextInt(100)<2){
-                mapTileController.setPrettyTile();
-                isTileOccupied = true;
-            }
-        }
+       // if(!isTileOccupied){
+       //     Random rand = new Random();
+       //     if(rand.nextInt(100)<2){
+       //         mapTileController.setPrettyTile();
+       //     }
+       // }
         if(!isTileOccupied){
             mapTileController.removeTile();
         }
@@ -396,5 +411,9 @@ public class mainWindowController {
         }
         customerDetailsStage.showAndWait();
     }
+    @FXML
+    void ShowMapButtonAction(ActionEvent event) throws IOException {
+        createMap();
 
+    }
 }
