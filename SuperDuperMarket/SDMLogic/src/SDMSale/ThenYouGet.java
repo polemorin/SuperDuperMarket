@@ -21,6 +21,11 @@ public class ThenYouGet {
         }
     }
 
+    public ThenYouGet(String operator, List<Offer> offers) {
+        this.operator = operator;
+        this.offers = offers;
+    }
+
     @Override
     public String toString() {
 
