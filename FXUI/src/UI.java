@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import java.net.URL;
 
@@ -37,8 +38,7 @@ public class UI extends Application {
 
          s=primaryStage;
         primaryStage.show();
-
-
+        new Thread(()-> System.out.println("hey") ).start();
 
       //primaryStage.setTitle("Super Duper Market");
       //Parent load = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));

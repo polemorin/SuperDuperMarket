@@ -1,5 +1,3 @@
-import javafx.application.Platform;
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -41,6 +39,8 @@ public class mainWindowController {
     private Stage addSaleStage;
     private List<MapTileController> mapTiles;
     private List<HBox> rowList;
+    private Stage addProductStage;
+
     @FXML
     private Button orderHistoryButton;
 
@@ -117,6 +117,24 @@ public class mainWindowController {
 
     @FXML
     void addNewProductAction(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("AddProduct.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            addProductStage = new Stage();
+            addProductStage.setTitle("Order history");
+            addProductStage.setScene(scene);
+            addProductStage.initOwner(primaryStage);
+            addProductStage.initModality(Modality.WINDOW_MODAL);
+            AddProductController addProductController = fxmlLoader.getController();
+            addProductController.setSDM(SDM);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        addProductStage.showAndWait();
 
     }
 

@@ -31,6 +31,7 @@ public class PlaceOrderHomeController {
     private Boolean isStoreChosen;
     private Boolean isDynamicOrderTypeChosen;
 
+
     @FXML
     private ComboBox<User> CustomerComboBox;
 
@@ -90,14 +91,14 @@ public class PlaceOrderHomeController {
         }
    }
 
-    public void setSDM(SuperDuperMarket sdm,Stage mainStage) {
+    public void setSDM(SuperDuperMarket sdm, Stage mainStage) {
         SDM = sdm;
-        Map<Integer,User> userMap = SDM.getUsers();
-        for (Map.Entry<Integer,User> user:userMap.entrySet()) {
+        Map<Integer, User> userMap = SDM.getUsers();
+        for (Map.Entry<Integer, User> user:userMap.entrySet()) {
             CustomerComboBox.getItems().add(user.getValue());
         }
-        Map<Integer,Store> storeMap = SDM.getStores();
-        for (Map.Entry<Integer,Store> store:storeMap.entrySet()) {
+        Map<Integer, Store> storeMap = SDM.getStores();
+        for (Map.Entry<Integer, Store> store:storeMap.entrySet()) {
             StoreComboBox.getItems().add(store.getValue());
         }
         this.mainStage = mainStage;
