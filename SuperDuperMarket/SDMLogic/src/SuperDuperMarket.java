@@ -23,8 +23,8 @@ public class SuperDuperMarket {
     private Map<Integer, User> users;
     private Map<Integer, Store> stores;
     private Map<Integer, CustomerLevelOrder> orderHistory;
-    private int minMapX = 0;
-    private int minMapY = 0;
+    private int minMapX = 51;
+    private int minMapY = 51;
     private int maxMapX = 0;
     private int maxMapY = 0;
     public SuperDuperMarket() {
@@ -47,7 +47,12 @@ public class SuperDuperMarket {
     public int countHowManyStoresSellProduct(int productID) {
         return countHowManyStoresSellProduct(products.get(productID));
     }
-
+    public Point getTopRightMapEdge(){
+        return new Point(maxMapX,maxMapY);
+    }
+    public Point getBottomLeftMapEdge(){
+        return new Point(minMapX,minMapY);
+    }
     public boolean isXmlLoaded() {
         return xmlLoaded;
     }
@@ -345,6 +350,10 @@ public class SuperDuperMarket {
         SDMStores shops = descriptor.getSDMStores();
         List<SDMStore> listOfStores = shops.getSDMStore();
         Store storeToAdd;
+        minMapX = 51;
+        minMapY = 51;
+        maxMapX = 0;
+        maxMapY = 0;
 
         for (SDMStore store : listOfStores) {
             Location location = store.getLocation();
