@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
@@ -16,7 +17,7 @@ import java.util.Map;
 
 public class UpdateStoreProductController {
 
-    private MarketArea SDM;
+    private SuperDuperMarket SDM;
     private Map<Integer, Store> stores;
     private SimpleBooleanProperty isStoreChosen;
     private SimpleBooleanProperty isProductUpdateChosen;
@@ -94,7 +95,6 @@ public class UpdateStoreProductController {
         isProductAddChosen.setValue(false);
         ResultLable.setText(AddProductComboBox.getValue().getProductName()+" added successfully, price: " + String.format("%.2f",price));
         updateComboBoxes();
-        RemoveProductComboBox.setPromptText("");
     }
 
     @FXML
@@ -228,7 +228,7 @@ public class UpdateStoreProductController {
 
     }
 
-    public void setSDM(MarketArea SDM){
+    public void setSDM(SuperDuperMarket SDM){
         this.SDM = SDM;
         stores = SDM.getStores();
         updateStoreComboBox();

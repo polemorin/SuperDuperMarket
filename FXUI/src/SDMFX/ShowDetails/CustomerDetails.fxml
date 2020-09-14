@@ -11,9 +11,9 @@
   <content>
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
-            <Label layoutX="211.0" layoutY="46.0" prefHeight="52.0" prefWidth="217.0" styleClass="HeaderLabel" text="Customer details">
+            <Label layoutX="211.0" layoutY="46.0" prefHeight="52.0" prefWidth="217.0" text="Customer details">
                <font>
-                  <Font size="24.0" />
+                  <Font size="26.0" />
                </font>
             </Label>
             <Button fx:id="BackButton" layoutX="14.0" layoutY="338.0" mnemonicParsing="false" onAction="#BackButtonAction" prefHeight="48.0" prefWidth="104.0" text="Back" />
@@ -28,9 +28,9 @@
             <Label fx:id="OrderAmountShowLable" layoutX="479.0" layoutY="254.0" prefHeight="32.0" prefWidth="107.0" />
             <Label layoutX="300.0" layoutY="254.0" prefHeight="32.0" prefWidth="107.0" text="Amount of orders" />
             <Label fx:id="ProductCostShowLable" layoutX="479.0" layoutY="286.0" prefHeight="32.0" prefWidth="107.0" />
-            <Label layoutX="300.0" layoutY="286.0" prefHeight="32.0" prefWidth="160.0" text="Average product cost" />
+            <Label layoutX="300.0" layoutY="286.0" prefHeight="32.0" prefWidth="119.0" text="Average product cost" />
             <Label fx:id="DeliveryCostLable" layoutX="479.0" layoutY="318.0" prefHeight="32.0" prefWidth="107.0" />
-            <Label layoutX="300.0" layoutY="318.0" prefHeight="32.0" prefWidth="159.0" text="Average delivery cost" />
+            <Label layoutX="300.0" layoutY="318.0" prefHeight="32.0" prefWidth="119.0" text="Average delivery cost" />
          </children>
       </Pane>
   </content>

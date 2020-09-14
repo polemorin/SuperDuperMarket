@@ -1,10 +1,9 @@
 package SDMFX.ShowDetails;
-
 import ProductTypes.Product;
 import ProductTypes.SoldProduct;
 import SDMCommon.Store;
 import SDMCommon.StoreLevelOrder;
-import SDMCommon.MarketArea;
+import SDMCommon.SuperDuperMarket;
 import SDMSale.Sale;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -26,7 +25,7 @@ import java.util.Map;
 
 public class StoreDetailsController {
 
-    private MarketArea SDM;
+    private SuperDuperMarket SDM;
     private SimpleBooleanProperty isStoreChosen;
     @FXML
     private TableView<Product> ProductTableView;
@@ -115,6 +114,7 @@ public class StoreDetailsController {
             setLabels();
         }
     }
+
     private void setLabels() {
         StoreLevelOrder order = OrderComboBox.getValue();
         DateLabel.setText(order.getDate().toString());
@@ -144,22 +144,16 @@ public class StoreDetailsController {
 
     @FXML
     void StoreComboBoxAction(ActionEvent  event) {
-       if(StoreComboBox.getValue() != null){
-           setSaleListView();
-           setProductTable();
-           isStoreChosen.setValue(true);
-           OrderComboBox.getItems().clear();
-           setOrderComboBox();
-           OrderTableView.getItems().clear();
-           resetLabels();
-           setStoreLabels();
-       }
+        if(StoreComboBox.getValue() != null){
+            setSaleListView();
+            setProductTable();
+            isStoreChosen.setValue(true);
+            OrderComboBox.getItems().clear();
+            setOrderComboBox();
+            OrderTableView.getItems().clear();
+            resetLabels();
+        }
 
-    }
-
-    private void setStoreLabels() {
-        PPKLabel.setText(Double.toString(StoreComboBox.getValue().getDeliveryPPK()));
-        StoreIDLabel.setText(Integer.toString(StoreComboBox.getValue().getID()));
     }
 
     private void resetLabels() {
@@ -172,29 +166,29 @@ public class StoreDetailsController {
     }
 
     private void setOrderComboBox() {
-       Store store = StoreComboBox.getValue();
-       OrderComboBox.getItems().clear();
-       for (StoreLevelOrder storeLevelOrder:store.getStoreOrderHistory()) {
-           OrderComboBox.getItems().add(storeLevelOrder);
-       }
+        Store store = StoreComboBox.getValue();
+        OrderComboBox.getItems().clear();
+        for (StoreLevelOrder storeLevelOrder:store.getStoreOrderHistory()) {
+            OrderComboBox.getItems().add(storeLevelOrder);
+        }
     }
 
     @FXML
     private void initialize(){
-       isStoreChosen = new SimpleBooleanProperty(false);
-       OrderComboBox.disableProperty().bind(isStoreChosen.not());
-       ProductsNameColumn.setCellValueFactory(new PropertyValueFactory<Product,String>("Name"));
-       ProductsPriceColumn.setCellValueFactory(new PropertyValueFactory<>("ProductPrice"));
-       ProductsIDColumn.setCellValueFactory(new PropertyValueFactory<>("ProductID"));
-       ProductsSoldByColumn.setCellValueFactory(new PropertyValueFactory<>("ProductCategoryString"));
-       ProductsAmountBoughtColumn.setCellValueFactory(new PropertyValueFactory<>("totalAmountSoldInStore"));
+        isStoreChosen = new SimpleBooleanProperty(false);
+        OrderComboBox.disableProperty().bind(isStoreChosen.not());
+        ProductsNameColumn.setCellValueFactory(new PropertyValueFactory<Product,String>("Name"));
+        ProductsPriceColumn.setCellValueFactory(new PropertyValueFactory<>("ProductPrice"));
+        ProductsIDColumn.setCellValueFactory(new PropertyValueFactory<>("ProductID"));
+        ProductsSoldByColumn.setCellValueFactory(new PropertyValueFactory<>("ProductCategoryString"));
+        ProductsAmountBoughtColumn.setCellValueFactory(new PropertyValueFactory<>("totalAmountSoldInStore"));
 
-       OrderNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
-       OrderIDColumn.setCellValueFactory(new PropertyValueFactory<>("productID"));
-       OrderAmountSoldColumn.setCellValueFactory(new PropertyValueFactory<>("amountSoldInOrder"));
-       OrderPricePerUnitKiloColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-       OrderTotalColumn.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
-       OrderPurchasedOnSaleColumn.setCellValueFactory(new PropertyValueFactory<>("saleName"));
+        OrderNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        OrderIDColumn.setCellValueFactory(new PropertyValueFactory<>("productID"));
+        OrderAmountSoldColumn.setCellValueFactory(new PropertyValueFactory<>("amountSoldInOrder"));
+        OrderPricePerUnitKiloColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        OrderTotalColumn.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
+        OrderPurchasedOnSaleColumn.setCellValueFactory(new PropertyValueFactory<>("saleName"));
 
 
     }
@@ -212,7 +206,7 @@ public class StoreDetailsController {
         }
     }
 
-    public void setSDM(MarketArea sdm){
+    public void setSDM(SuperDuperMarket sdm){
         SDM = sdm;
         initStoreComboBox();
     }

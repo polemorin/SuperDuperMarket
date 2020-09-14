@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class OrderHistoryWindowController {
 
-    MarketArea SDM;
+    SuperDuperMarket SDM;
 
     @FXML
     private ComboBox<CustomerLevelOrder> OrderIDComboBox;
@@ -68,7 +68,7 @@ public class OrderHistoryWindowController {
         for (StoreLevelOrder storeLevelOrder:order.getOrders()) {
             try{
                 fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(StoreLevelOrderController.class.getResource("StoreLevelOrder.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("SDMFX/PlaceOrder/StoreLevelOrder.fxml"));
                 storeOrderTile = fxmlLoader.load();
                 storeLevelOrderController = fxmlLoader.getController();
                 storeLevelOrderController.setData(storeLevelOrder,SDM);
@@ -95,7 +95,7 @@ public class OrderHistoryWindowController {
 
     }
 
-    public void setSDM(MarketArea sdm) {
+    public void setSDM(SuperDuperMarket sdm) {
         SDM = sdm;
         initOrderComboBox();
     }

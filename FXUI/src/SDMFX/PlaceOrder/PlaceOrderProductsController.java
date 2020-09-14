@@ -27,7 +27,7 @@ import java.util.Map;
 public class PlaceOrderProductsController {
 
 
-    private MarketArea SDM;
+    private SuperDuperMarket SDM;
     private User customer;
     private Store store;
     private LocalDate deliveryDate;
@@ -44,8 +44,6 @@ public class PlaceOrderProductsController {
 
     @FXML
     private Button ContinueButton;
-    private String currentStyle;
-    private boolean doesUserWantAnimation;
 
     @FXML
     void ContinueButtonAction(ActionEvent event) {
@@ -56,11 +54,8 @@ public class PlaceOrderProductsController {
             if (placeOrderSalesStage == null) {
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(PlaceOrderSalesController.class.getResource("PlaceOrderSales.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(),600,600);
-                    if(currentStyle.compareTo("None") != 0){
-                        scene.getStylesheets().add(currentStyle);
-                    }
+                    fxmlLoader.setLocation(getClass().getResource("SDMFX/PlaceOrder/PlaceOrderSales.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load());
                     placeOrderSalesStage = new Stage();
                     placeOrderSalesStage.setTitle("Place Order Sales");
                     placeOrderSalesStage.setScene(scene);
@@ -68,8 +63,6 @@ public class PlaceOrderProductsController {
                     placeOrderSalesStage.initModality(Modality.WINDOW_MODAL);
                     PlaceOrderSalesController placeOrderSalesController = fxmlLoader.getController();
                     placeOrderSalesController.setData(SDM, customer, store, deliveryDate, getProductsByIdAndAmount(), mainStage);
-                    placeOrderSalesController.setStyle(currentStyle);
-                    placeOrderSalesController.doAnimation(doesUserWantAnimation);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -82,7 +75,7 @@ public class PlaceOrderProductsController {
             s.close();
         }
     }
-    public void setData(MarketArea sdm, Stage mainStage, User customer, Store store, LocalDate date) throws IOException {
+    public void setData(SuperDuperMarket sdm, Stage mainStage, User customer, Store store, LocalDate date) throws IOException {
         SDM = sdm;
         this.customer = customer;
         this.store = store;
@@ -108,7 +101,7 @@ public class PlaceOrderProductsController {
             if (store == null) {
                 for (Map.Entry<Integer, Product> product : SDM.getProducts().entrySet()) {
                     fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(ProductTileController.class.getResource("ProductTile.fxml"));
+                    fxmlLoader.setLocation(getClass().getResource("SDMFX/PlaceOrder/ProductTile.fxml"));
                     ProductTile = fxmlLoader.load();
                     productTileController = fxmlLoader.getController();
                     productTileController.setData(product.getValue(), null);
@@ -119,7 +112,7 @@ public class PlaceOrderProductsController {
             else{
                 for (Map.Entry<Integer, StoreProduct> product : store.getProducts().entrySet()) {
                     fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(ProductTileController.class.getResource("ProductTile.fxml"));
+                    fxmlLoader.setLocation(getClass().getResource("SDMFX/PlaceOrder/ProductTile.fxml"));
                     ProductTile = fxmlLoader.load();
                     productTileController = fxmlLoader.getController();
                     productTileController.setData(product.getValue(), product.getValue().getPrice());
@@ -145,13 +138,5 @@ public class PlaceOrderProductsController {
             }
         }
         return products;
-    }
-
-    public void setStyle(String currentStyle) {
-        this.currentStyle = currentStyle;
-    }
-
-    public void doAnimation(boolean doesUserWantAnimation) {
-        this.doesUserWantAnimation = doesUserWantAnimation;
     }
 }

@@ -31,7 +31,7 @@ import java.util.Map;
 public class PlaceOrderSalesController
 {
 
-    private MarketArea sdm;
+    private SuperDuperMarket sdm;
     private User customer;
     private Store store;
     private LocalDate deliveryDate;
@@ -97,8 +97,6 @@ public class PlaceOrderSalesController
 
     @FXML
     private Label MessegeLabel;
-    private String currentStyle;
-    private boolean doesUserWantAnimation;
 
     @FXML
     void AddOfferButtonAction(ActionEvent event) {
@@ -190,11 +188,8 @@ public class PlaceOrderSalesController
         Stage PlaceOrderSummeryStage = null;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(PlaceOrderSummaryController.class.getResource("PlaceOrderSummary.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("SDMFX/PlaceOrder/PlaceOrderSummary.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            if(currentStyle.compareTo("None") != 0){
-                scene.getStylesheets().add(currentStyle);
-            }
             PlaceOrderSummeryStage = new Stage();
             PlaceOrderSummeryStage.setTitle("Place Order Summery");
             PlaceOrderSummeryStage.setScene(scene);
@@ -202,8 +197,6 @@ public class PlaceOrderSalesController
             PlaceOrderSummeryStage.initModality(Modality.WINDOW_MODAL);
             PlaceOrderSummaryController placeOrderSummaryController = fxmlLoader.getController();
             placeOrderSummaryController.setData(sdm, customerLevelOrder);
-            placeOrderSummaryController.setStyle(currentStyle);
-            placeOrderSummaryController.doAnimation(doesUserWantAnimation);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -280,7 +273,7 @@ public class PlaceOrderSalesController
         }
     }
 
-    public void setData(MarketArea sdm, User customer, Store store, LocalDate deliveryDate, Map<Integer, Double> productsByIdAndAmount, Stage mainStage) {
+    public void setData(SuperDuperMarket sdm, User customer, Store store, LocalDate deliveryDate, Map<Integer, Double> productsByIdAndAmount, Stage mainStage) {
         this.sdm = sdm;
         this.store = store;
         this.deliveryDate = deliveryDate;
@@ -342,13 +335,5 @@ public class PlaceOrderSalesController
         List<StoreLevelOrder> storeLevelOrderList = new ArrayList<>();
         storeLevelOrderList.add(storeOrder);
         customerLevelOrder = new CustomerLevelOrder(storeLevelOrderList);
-    }
-
-    public void setStyle(String currentStyle) {
-        this.currentStyle = currentStyle;
-    }
-
-    public void doAnimation(boolean doesUserWantAnimation) {
-        this.doesUserWantAnimation  =doesUserWantAnimation;
     }
 }

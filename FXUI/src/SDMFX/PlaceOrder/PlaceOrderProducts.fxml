@@ -15,7 +15,7 @@
          <top>
             <Pane prefHeight="90.0" prefWidth="609.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="191.0" layoutY="14.0" prefHeight="41.0" prefWidth="422.0" styleClass="HeaderLabel" text="Choose your items" textAlignment="CENTER">
+                  <Label layoutX="191.0" layoutY="14.0" prefHeight="41.0" prefWidth="422.0" text="Choose your items" textAlignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -34,12 +34,13 @@
          <bottom>
             <Pane prefHeight="64.0" prefWidth="734.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button id="ContinueButton" fx:id="ContinueButton" layoutX="372.0" layoutY="22.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ContinueButtonAction" prefHeight="38.0" prefWidth="245.0" text="Continue">
+                  <Separator layoutX="-27.0" layoutY="18.0" prefHeight="0.0" prefWidth="799.0" />
+                  <Button fx:id="ContinueButton" layoutX="373.0" layoutY="31.0" mnemonicParsing="false" onAction="#ContinueButtonAction" prefHeight="27.0" prefWidth="250.0" text="Continue">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="18.0" />
                      </font>
                   </Button>
-                  <Label fx:id="MessageLabel" layoutX="59.0" layoutY="29.0" prefHeight="24.0" prefWidth="304.0" textFill="#ce0f0f" />
+                  <Label fx:id="MessageLabel" layoutX="132.0" layoutY="32.0" prefHeight="24.0" prefWidth="211.0" textFill="#ce0f0f" />
                </children>
             </Pane>
          </bottom>

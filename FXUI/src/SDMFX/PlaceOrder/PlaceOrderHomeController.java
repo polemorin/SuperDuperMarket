@@ -22,14 +22,14 @@ public class PlaceOrderHomeController {
 
     private Stage mainStage;
     private Stage placeOrderProductsStage;
-    private MarketArea SDM;
+    private SuperDuperMarket SDM;
     private SimpleBooleanProperty isStaticOrderType;
     private SimpleBooleanProperty isAllDetailsFilled;
     private Boolean isDateChosen;
     private Boolean isCustomerChosen;
     private Boolean isStoreChosen;
     private Boolean isDynamicOrderTypeChosen;
-    private String currentStyle;
+
 
     @FXML
     private ComboBox<User> CustomerComboBox;
@@ -54,7 +54,6 @@ public class PlaceOrderHomeController {
 
     @FXML
     private Button NextButton;
-    private boolean doesUserWantAnimation;
 
     public PlaceOrderHomeController() {
         isAllDetailsFilled = new SimpleBooleanProperty(false);
@@ -91,7 +90,7 @@ public class PlaceOrderHomeController {
         }
    }
 
-    public void setSDM(MarketArea sdm, Stage mainStage) {
+    public void setSDM(SuperDuperMarket sdm, Stage mainStage) {
         SDM = sdm;
         Map<Integer, User> userMap = SDM.getUsers();
         for (Map.Entry<Integer, User> user:userMap.entrySet()) {
@@ -146,11 +145,8 @@ public class PlaceOrderHomeController {
         if(placeOrderProductsStage == null){
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(PlaceOrderProductsController.class.getResource("PlaceOrderProducts.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("SDMFX/PlaceOrder/PlaceOrderProducts.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
-                if(currentStyle.compareTo("None") != 0){
-                    scene.getStylesheets().add(currentStyle);
-                }
                 placeOrderProductsStage = new Stage();
                 placeOrderProductsStage.setTitle("Place Order");
                 placeOrderProductsStage.setScene(scene);
@@ -158,8 +154,6 @@ public class PlaceOrderHomeController {
                 placeOrderProductsStage.initModality(Modality.WINDOW_MODAL);
                 PlaceOrderProductsController placeOrderProductsController = fxmlLoader.getController();
                 placeOrderProductsController.setData(SDM,mainStage,customer,store,date);
-                placeOrderProductsController.setStyle(currentStyle);
-                placeOrderProductsController.doAnimation(doesUserWantAnimation);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -188,7 +182,6 @@ public class PlaceOrderHomeController {
     }
 
     void setDeliveryPriceLabel() {
-        if (CustomerComboBox.getValue() != null) {
             Double userDistanceFromStore;
             Store chosenStore = StoreComboBox.getValue();
             User customer = CustomerComboBox.getValue();
@@ -196,13 +189,5 @@ public class PlaceOrderHomeController {
 
             DeliveryPriceLabel.setText(String.format("%.2f", chosenStore.getDeliveryPPK() * userDistanceFromStore));
         }
-    }
 
-    public void setStyle(String currentStyle) {
-        this.currentStyle = currentStyle;
-    }
-
-    public void doAnimation(boolean selected) {
-        doesUserWantAnimation = selected;
-    }
 }

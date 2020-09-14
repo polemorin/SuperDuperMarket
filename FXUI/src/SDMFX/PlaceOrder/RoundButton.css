@@ -1,7 +1,7 @@
 .RoundButton{
 
--fx-text-fill: black ;
--fx-background-radius: 5em;
+    -fx-text-fill: black ;
+    -fx-background-radius: 5em;
 -fx-min-width: 30px;
 -fx-min-height: 30px;
 -fx-max-width: 30px;
