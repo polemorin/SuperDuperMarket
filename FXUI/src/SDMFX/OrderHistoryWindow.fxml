@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="701.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="OrderHistoryWindowController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="701.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SDMFX.OrderHistoryWindowController">
    <children>
       <ComboBox fx:id="OrderIDComboBox" layoutX="20.0" layoutY="106.0" onAction="#OrderIDComboBoxAction" prefWidth="150.0" />
       <Label layoutX="20.0" layoutY="67.0" prefHeight="25.0" prefWidth="112.0" text="Choose order by ID" />

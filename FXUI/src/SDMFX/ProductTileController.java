@@ -1,3 +1,4 @@
+package SDMFX;
 
 import ProductTypes.Product;
 import javafx.beans.property.SimpleDoubleProperty;

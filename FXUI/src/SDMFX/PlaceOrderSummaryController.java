@@ -1,6 +1,6 @@
+package SDMFX;
 
-import ProductTypes.Product;
-import ProductTypes.StoreProduct;
+import SDMFX.StoreLevelOrderController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +11,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
 
 public class PlaceOrderSummaryController {
 
@@ -80,7 +78,7 @@ public class PlaceOrderSummaryController {
         for (StoreLevelOrder storeLevelOrder:order.getOrders()) {
             try{
                 fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("StoreLevelOrder.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("SDMFX/StoreLevelOrder.fxml"));
                 storeOrderTile = fxmlLoader.load();
                 storeLevelOrderController = fxmlLoader.getController();
                 storeLevelOrderController.setData(storeLevelOrder,SDM);
