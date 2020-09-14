@@ -1,4 +1,3 @@
-package SDMFX.ShowDetails;
 import ProductTypes.Product;
 import ProductTypes.SoldProduct;
 import SDMCommon.Store;
@@ -115,9 +114,6 @@ public class StoreDetailsController {
             setLabels();
         }
     }
-    public StoreDetailsController(){
-
-    }
     private void setLabels() {
         StoreLevelOrder order = OrderComboBox.getValue();
         DateLabel.setText(order.getDate().toString());
@@ -147,15 +143,15 @@ public class StoreDetailsController {
 
     @FXML
     void StoreComboBoxAction(ActionEvent  event) {
-        if(StoreComboBox.getValue() != null){
-            setSaleListView();
-            setProductTable();
-            isStoreChosen.setValue(true);
-            OrderComboBox.getItems().clear();
-            setOrderComboBox();
-            OrderTableView.getItems().clear();
-            resetLabels();
-        }
+       if(StoreComboBox.getValue() != null){
+           setSaleListView();
+           setProductTable();
+           isStoreChosen.setValue(true);
+           OrderComboBox.getItems().clear();
+           setOrderComboBox();
+           OrderTableView.getItems().clear();
+           resetLabels();
+       }
 
     }
 
@@ -169,29 +165,29 @@ public class StoreDetailsController {
     }
 
     private void setOrderComboBox() {
-        Store store = StoreComboBox.getValue();
-        OrderComboBox.getItems().clear();
-        for (StoreLevelOrder storeLevelOrder:store.getStoreOrderHistory()) {
-            OrderComboBox.getItems().add(storeLevelOrder);
-        }
+       Store store = StoreComboBox.getValue();
+       OrderComboBox.getItems().clear();
+       for (StoreLevelOrder storeLevelOrder:store.getStoreOrderHistory()) {
+           OrderComboBox.getItems().add(storeLevelOrder);
+       }
     }
 
     @FXML
     private void initialize(){
-        isStoreChosen = new SimpleBooleanProperty(false);
-        OrderComboBox.disableProperty().bind(isStoreChosen.not());
-        ProductsNameColumn.setCellValueFactory(new PropertyValueFactory<Product,String>("Name"));
-        ProductsPriceColumn.setCellValueFactory(new PropertyValueFactory<>("ProductPrice"));
-        ProductsIDColumn.setCellValueFactory(new PropertyValueFactory<>("ProductID"));
-        ProductsSoldByColumn.setCellValueFactory(new PropertyValueFactory<>("ProductCategoryString"));
-        ProductsAmountBoughtColumn.setCellValueFactory(new PropertyValueFactory<>("totalAmountSoldInStore"));
+       isStoreChosen = new SimpleBooleanProperty(false);
+       OrderComboBox.disableProperty().bind(isStoreChosen.not());
+       ProductsNameColumn.setCellValueFactory(new PropertyValueFactory<Product,String>("Name"));
+       ProductsPriceColumn.setCellValueFactory(new PropertyValueFactory<>("ProductPrice"));
+       ProductsIDColumn.setCellValueFactory(new PropertyValueFactory<>("ProductID"));
+       ProductsSoldByColumn.setCellValueFactory(new PropertyValueFactory<>("ProductCategoryString"));
+       ProductsAmountBoughtColumn.setCellValueFactory(new PropertyValueFactory<>("totalAmountSoldInStore"));
 
-        OrderNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        OrderIDColumn.setCellValueFactory(new PropertyValueFactory<>("productID"));
-        OrderAmountSoldColumn.setCellValueFactory(new PropertyValueFactory<>("amountSoldInOrder"));
-        OrderPricePerUnitKiloColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        OrderTotalColumn.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
-        OrderPurchasedOnSaleColumn.setCellValueFactory(new PropertyValueFactory<>("saleName"));
+       OrderNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
+       OrderIDColumn.setCellValueFactory(new PropertyValueFactory<>("productID"));
+       OrderAmountSoldColumn.setCellValueFactory(new PropertyValueFactory<>("amountSoldInOrder"));
+       OrderPricePerUnitKiloColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+       OrderTotalColumn.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
+       OrderPurchasedOnSaleColumn.setCellValueFactory(new PropertyValueFactory<>("saleName"));
 
 
     }
