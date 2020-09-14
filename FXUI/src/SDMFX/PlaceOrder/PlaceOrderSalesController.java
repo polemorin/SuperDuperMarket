@@ -188,7 +188,7 @@ public class PlaceOrderSalesController
         Stage PlaceOrderSummeryStage = null;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("SDMFX/PlaceOrder/PlaceOrderSummary.fxml"));
+            fxmlLoader.setLocation(PlaceOrderSummaryController.class.getResource("PlaceOrderSummary.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             PlaceOrderSummeryStage = new Stage();
             PlaceOrderSummeryStage.setTitle("Place Order Summery");
