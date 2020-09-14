@@ -17,6 +17,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.Node;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -114,7 +115,9 @@ public class StoreDetailsController {
             setLabels();
         }
     }
+    public StoreDetailsController(){
 
+    }
     private void setLabels() {
         StoreLevelOrder order = OrderComboBox.getValue();
         DateLabel.setText(order.getDate().toString());

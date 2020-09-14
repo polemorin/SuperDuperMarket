@@ -13,6 +13,7 @@ import javafx.scene.control.RadioButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.print.DocFlavor;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Map;
@@ -145,7 +146,7 @@ public class PlaceOrderHomeController {
         if(placeOrderProductsStage == null){
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("SDMFX/PlaceOrder/PlaceOrderProducts.fxml"));
+                fxmlLoader.setLocation(PlaceOrderProductsController.class.getResource("PlaceOrderProducts.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
                 placeOrderProductsStage = new Stage();
                 placeOrderProductsStage.setTitle("Place Order");
