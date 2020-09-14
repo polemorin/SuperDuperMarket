@@ -1,3 +1,5 @@
+package SDMCommon;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -12,9 +14,9 @@ import ProductTypes.*;
 import ProductTypes.Product;
 import ProductTypes.ProductCategory;
 import ProductTypes.StoreProduct;
+import SDMCommon.CustomerLevelOrder;
 import SDMExceptions.*;
 import SDMSale.Sale;
-import javafx.beans.property.SimpleDoubleProperty;
 import jaxb.generated.*;
 
 public class SuperDuperMarket {
@@ -159,7 +161,7 @@ public class SuperDuperMarket {
     private void clearOrderHistoryFromStoresAndMarket() {
         orderHistory.clear();
 
-        for (Map.Entry<Integer,Store> store:stores.entrySet()) {
+        for (Map.Entry<Integer, Store> store:stores.entrySet()) {
             store.getValue().clearOrderHistory();
         }
     }
@@ -221,9 +223,9 @@ public class SuperDuperMarket {
         return cheapestStoreID;
     }
     public void loadXmlFileFromFileChooser(File selectedFile) throws Exception {
-        Map<Integer,Store> tempStoreMap;
+        Map<Integer, Store> tempStoreMap;
         Map<Integer,Product> tempProductMap;
-        Map<Integer,User> tempUserMap;
+        Map<Integer, User> tempUserMap;
 
         if (selectedFile.exists()) {
             if (selectedFile.getPath().endsWith("xml")) {
@@ -252,9 +254,9 @@ public class SuperDuperMarket {
     public void loadXmlFile() throws Exception{
         Scanner scanner = new Scanner(System.in);
         String xmlPath;
-        Map<Integer,Store> tempStoreMap;
+        Map<Integer, Store> tempStoreMap;
         Map<Integer,Product> tempProductMap;
-        Map<Integer,User> tempUserMap;
+        Map<Integer, User> tempUserMap;
         xmlPath = scanner.nextLine();
         File f = new File(xmlPath);
         if (f.exists()) {
@@ -279,8 +281,8 @@ public class SuperDuperMarket {
         users = tempUserMap;
     }
 
-    private Map<Integer,User> createUserMapFromXML(String xmlName,Map<Integer,Store> tempStoreMap) throws Exception {
-        Map<Integer,User> userMapToAdd = new HashMap<>();
+    private Map<Integer, User> createUserMapFromXML(String xmlName, Map<Integer, Store> tempStoreMap) throws Exception {
+        Map<Integer, User> userMapToAdd = new HashMap<>();
         InputStream inputStream = new FileInputStream(xmlName);
         SuperDuperMarketDescriptor descriptor = deserializeFrom(inputStream);
         SDMCustomers customersFromXML = descriptor.getSDMCustomers();
@@ -306,7 +308,7 @@ public class SuperDuperMarket {
         return userMapToAdd;
     }
 
-    private void validateSDMCustomers(SDMCustomer customer, Map<Integer,User> userMapToAdd, Map<Integer,Store> tempStoreMap) throws Exception{
+    private void validateSDMCustomers(SDMCustomer customer, Map<Integer, User> userMapToAdd, Map<Integer, Store> tempStoreMap) throws Exception{
         if(userMapToAdd.containsKey(customer.getId())){
             throw new Exception("User with this ID: "+customer.getId() + ", already exists");
         }
@@ -317,13 +319,13 @@ public class SuperDuperMarket {
         isLocationAvailableFromXMLInput(location,userMapToAdd,tempStoreMap);
     }
 
-    private void isLocationAvailableFromXMLInput(Point location, Map<Integer,User> userMap, Map<Integer,Store> tempStoreMap)throws Exception {
-        for (Map.Entry<Integer,User> user: userMap.entrySet()) {
+    private void isLocationAvailableFromXMLInput(Point location, Map<Integer, User> userMap, Map<Integer, Store> tempStoreMap)throws Exception {
+        for (Map.Entry<Integer, User> user: userMap.entrySet()) {
             if(user.getValue().getLocation().equals(location)){
                 throw new Exception("More then one user in location, location:" +location.x+","+location.y );
             }
         }
-        for (Map.Entry<Integer,Store> storesToCheck:tempStoreMap.entrySet()) {
+        for (Map.Entry<Integer, Store> storesToCheck:tempStoreMap.entrySet()) {
             if(storesToCheck.getValue().getLocation().equals(location)){
                 throw new Exception("both user and store share this location: "+location.x+","+location.y);
             }
@@ -343,7 +345,7 @@ public class SuperDuperMarket {
         return (SuperDuperMarketDescriptor) u.unmarshal(in);
     }
 
-    public Map<Integer,Store> createStoresMapFromXml(String xmlName) throws JAXBException,XmlStoreSellProductNotInMarketException, XmlStoreSellsMultipleProductsWithSameIDException, XmlProductCategoryNotRecognizedException, XmlLocationOutOfBoundsException, XmlMultipleStoresShareLocationException, XmlMultipleStoresShareIDException,Exception {
+    public Map<Integer, Store> createStoresMapFromXml(String xmlName) throws JAXBException,XmlStoreSellProductNotInMarketException, XmlStoreSellsMultipleProductsWithSameIDException, XmlProductCategoryNotRecognizedException, XmlLocationOutOfBoundsException, XmlMultipleStoresShareLocationException, XmlMultipleStoresShareIDException,Exception {
         InputStream inputStream = new FileInputStream(xmlName);
         Map<Integer, Store> storesMap = new HashMap<Integer, Store>();
         SuperDuperMarketDescriptor descriptor = deserializeFrom(inputStream);
@@ -551,7 +553,7 @@ public class SuperDuperMarket {
         return products;
     }
 
-    private Map<Integer,Product> createProductMapFromXml(String xmlName, Map<Integer,Store> tempStoreMap ) throws JAXBException, XmlProductsShareIDException, XmlProductCategoryNotRecognizedException, XmlProductIsntSoldByStoresException, FileNotFoundException {
+    private Map<Integer,Product> createProductMapFromXml(String xmlName, Map<Integer, Store> tempStoreMap ) throws JAXBException, XmlProductsShareIDException, XmlProductCategoryNotRecognizedException, XmlProductIsntSoldByStoresException, FileNotFoundException {
         InputStream inputStream = new FileInputStream(xmlName);
         Map<Integer, Product> productMap = new HashMap<Integer, Product>();
         SuperDuperMarketDescriptor descriptor = deserializeFrom(inputStream);
@@ -601,7 +603,7 @@ public class SuperDuperMarket {
     }
 
     public int getStoreIDFromSaleName(String name) {
-        for (Map.Entry<Integer,Store> store :stores.entrySet()) {
+        for (Map.Entry<Integer, Store> store :stores.entrySet()) {
             for (Map.Entry<String,Sale> sale: store.getValue().getSales().entrySet()) {
                 if(sale.getValue().getName().equals(name)){
                     return store.getValue().getID();
@@ -615,7 +617,7 @@ public class SuperDuperMarket {
         return orderHistory.get(order.getCustomerLevelOrderID()).getOrders().size() != 1;
     }
     public boolean isSaleNameAlreadyInMarket(String saleName){
-        for (Map.Entry<Integer,Store> store:stores.entrySet()) {
+        for (Map.Entry<Integer, Store> store:stores.entrySet()) {
             if(store.getValue().getSales().containsKey(saleName)){
                 return true;
             }

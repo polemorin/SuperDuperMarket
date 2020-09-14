@@ -1,3 +1,5 @@
+package SDMCommon;
+
 import ProductTypes.*;
 import SDMSale.Sale;
 

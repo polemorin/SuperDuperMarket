@@ -1,8 +1,9 @@
 package SDMFX;
-
 import ProductTypes.Product;
 import ProductTypes.ProductCategory;
 import ProductTypes.StoreProduct;
+import SDMCommon.Store;
+import SDMCommon.SuperDuperMarket;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
