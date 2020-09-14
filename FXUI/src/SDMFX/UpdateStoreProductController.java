@@ -1,3 +1,5 @@
+package SDMFX;
+
 import ProductTypes.Product;
 import ProductTypes.StoreProduct;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -16,7 +18,7 @@ import java.util.Map;
 public class UpdateStoreProductController {
 
     private SuperDuperMarket SDM;
-    private Map<Integer,Store> stores;
+    private Map<Integer, Store> stores;
     private SimpleBooleanProperty isStoreChosen;
     private SimpleBooleanProperty isProductUpdateChosen;
     private SimpleBooleanProperty isProductRemoveChosen;
@@ -254,7 +256,7 @@ public class UpdateStoreProductController {
     }
 
     private void updateStoreComboBox() {
-        for (Map.Entry<Integer,Store> store:stores.entrySet()) {
+        for (Map.Entry<Integer, Store> store:stores.entrySet()) {
             ChooseStoreComboBox.getItems().add(store.getValue());
         }
     }

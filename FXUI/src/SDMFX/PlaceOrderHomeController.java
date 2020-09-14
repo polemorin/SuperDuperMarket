@@ -1,6 +1,7 @@
+package SDMFX;
+
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,11 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Map;
 
 public class PlaceOrderHomeController {
@@ -146,7 +145,7 @@ public class PlaceOrderHomeController {
         if(placeOrderProductsStage == null){
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("PlaceOrderProducts.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("SDMFX/PlaceOrderProducts.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
                 placeOrderProductsStage = new Stage();
                 placeOrderProductsStage.setTitle("Place Order");

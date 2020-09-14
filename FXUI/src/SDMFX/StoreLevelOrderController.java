@@ -1,3 +1,4 @@
+package SDMFX;
 
 import ProductTypes.*;
 import javafx.collections.FXCollections;
@@ -64,7 +65,7 @@ public class StoreLevelOrderController  {
         TotalColumn.setCellValueFactory(new PropertyValueFactory<>("totalPrice"));
         PurchasedOnSaleColumn.setCellValueFactory(new PropertyValueFactory<>("saleName"));
     }
-    public void setData(StoreLevelOrder storeLevelOrder,SuperDuperMarket SDM) {
+    public void setData(StoreLevelOrder storeLevelOrder, SuperDuperMarket SDM) {
         productBought = new ArrayList<>();
         productBought.addAll(storeLevelOrder.getSoldProducts());
         if(storeLevelOrder.getProductSoldOnSale() != null) {

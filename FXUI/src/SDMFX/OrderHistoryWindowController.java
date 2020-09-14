@@ -1,3 +1,5 @@
+package SDMFX;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -65,7 +67,7 @@ public class OrderHistoryWindowController {
         for (StoreLevelOrder storeLevelOrder:order.getOrders()) {
             try{
                 fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("StoreLevelOrder.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("SDMFX/StoreLevelOrder.fxml"));
                 storeOrderTile = fxmlLoader.load();
                 storeLevelOrderController = fxmlLoader.getController();
                 storeLevelOrderController.setData(storeLevelOrder,SDM);
@@ -98,7 +100,7 @@ public class OrderHistoryWindowController {
     }
 
     private void initOrderComboBox() {
-        for (Map.Entry<Integer,CustomerLevelOrder> order:SDM.getOrderHistory().entrySet()) {
+        for (Map.Entry<Integer, CustomerLevelOrder> order:SDM.getOrderHistory().entrySet()) {
             OrderIDComboBox.getItems().add(order.getValue());
         }
     }
