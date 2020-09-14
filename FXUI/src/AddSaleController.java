@@ -1,5 +1,10 @@
+import ProductTypes.SaleProduct;
 import ProductTypes.StoreProduct;
+import SDMSale.Offer;
+import SDMSale.Sale;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,8 +13,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class AddSaleController {
@@ -27,6 +36,8 @@ public class AddSaleController {
     private SimpleBooleanProperty isOfferReady;
     private SimpleBooleanProperty isSaleReady;
     private double OfferAmount;
+
+    private List<Offer> offerList;
 
 
     @FXML
@@ -81,16 +92,16 @@ public class AddSaleController {
     private TextField ForAdditionalPriceTextBox;
 
     @FXML
-    private TableView<?> SaleTableView;
+    private TableView<Offer> SaleTableView;
 
     @FXML
-    private TableColumn<?, ?> ProductNameTableView;
+    private TableColumn<Offer, String> ProductNameTableView;
 
     @FXML
-    private TableColumn<?, ?> ProductAmountTableView;
+    private TableColumn<Offer, Double> ProductAmountTableView;
 
     @FXML
-    private TableColumn<?, ?> ProductPriceTableView;
+    private TableColumn<Offer, Double> ProductPriceTableView;
 
     @FXML
     private Button SetSaleButton;
@@ -100,6 +111,8 @@ public class AddSaleController {
 
     @FXML
     private Button AddSaleButton;
+    @FXML
+    private Label AddOfferMessageLabel;
 
 
     @FXML
@@ -126,35 +139,78 @@ public class AddSaleController {
         MinusPromptAmountButton.disableProperty().bind(isStoreProductChosenTrigger.not());
         PlusPromptAmountButton.disableProperty().bind(isStoreProductChosenTrigger.not());
         SetSaleButton.disableProperty().bind(isSaleTriggerReady.not());
+
+        AddOfferButton.disableProperty().bind(isOfferReady.not());
+        AddSaleButton.disableProperty().bind(isSaleReady.not());
         initOperatorComboBox();
 
+        offerList = new ArrayList<>();
+
+        ProductNameTableView.setCellValueFactory(new PropertyValueFactory<Offer, String>("productName"));
+        ProductAmountTableView.setCellValueFactory(new PropertyValueFactory<Offer, Double>("quantity"));
+        ProductPriceTableView.setCellValueFactory(new PropertyValueFactory<Offer, Double>("forAdditional"));
+//
     }
     @FXML
     void AddOfferButtonAction(ActionEvent event) {
+        Offer offerToAdd = new Offer(Double.parseDouble(OfferAmountLabel.getText()),OfferItemsComboBox.getValue().getProductID(),Double.parseDouble(ForAdditionalPriceTextBox.getText()),OfferItemsComboBox.getValue().getProductName());
+        offerList.add(offerToAdd);
+        UpdateOfferTableView();
+        OfferItemsComboBox.setValue(null);
+        OfferAmountLabel.setText("0.0");
+        OfferUnitOrKiloLabel.setText("");
+        ForAdditionalPriceTextBox.setText("");
+        if(OperatorComboBox.getValue().equals("IRRELEVANT")){
+            isSaleReady.setValue(true);
+        }
+        else if(SaleTableView.getItems().size() > 1){
+            isSaleReady.setValue(true);
+        }
+    }
 
+    private void UpdateOfferTableView() {
+        SaleTableView.getItems().removeAll();
+        final ObservableList<Offer> dataOfItems = FXCollections.observableList(offerList);
+        SaleTableView.setItems(dataOfItems);
+        SaleTableView.refresh();
+        isOfferReady.setValue(false);
     }
 
     @FXML
     void AddSaleButtonAction(ActionEvent event) {
+        Sale saleToAdd = new Sale(SaleNameTextField.getText(), TriggerItemComboBox.getValue(),Double.parseDouble(PromptAmountLabel.getText()),OperatorComboBox.getValue().toUpperCase(),offerList);
+        SDM.getStores().get(StoreComboBox.getValue().getID()).addSale(saleToAdd);
 
+        Stage s  = (Stage)AddSaleButton.getScene().getWindow();
+        s.close();
     }
 
     @FXML
     void BackButtonAction(ActionEvent event) {
-
+        Stage s = (Stage)BackButton.getScene().getWindow();
+        s.close();
     }
 
     @FXML
     void ForAdditionalPriceTextBoxAction(KeyEvent event) {
         String price = ForAdditionalPriceTextBox.getText();
+
         if(!price.isEmpty()) {
             try {
                 if (Double.parseDouble(price) < 0) {
                     ForAdditionalPriceLabel.setText("Price can not be negative number!");
                     isOfferReady.setValue(false);
                 } else {
-                    isOfferReady.setValue(true);
-                    ForAdditionalPriceLabel.setText("");
+                    if(price.endsWith("d") || price.endsWith("f") || price.endsWith("D") || price.endsWith("F")){
+                        throw new Exception("Price must be a number");
+                    }
+                    if(OperatorComboBox.getValue().equals("IRRELEVANT") && SaleTableView.getItems().size() == 1){
+                        isOfferReady.setValue(false);
+                        AddOfferMessageLabel.setText("cant add more then one item with Irrelevant operator.");
+                    }else {
+                        isOfferReady.setValue(true);
+                        ForAdditionalPriceLabel.setText("");
+                    }
                 }
             } catch (Exception e) {
                 ForAdditionalPriceLabel.setText("Price must be a number");
@@ -162,6 +218,7 @@ public class AddSaleController {
             }
         }else{
             ForAdditionalPriceLabel.setText("");
+            isOfferReady.setValue(false);
         }
 
     }
@@ -182,12 +239,21 @@ public class AddSaleController {
 
     @FXML
     void OfferAmountMinusButtonAction(ActionEvent event) {
-
+        StoreProduct product = OfferItemsComboBox.getValue();
+        if(product != null){
+            if(product.getProductCategory().toString().equalsIgnoreCase("Quantity")&& OfferAmount > 1){
+                OfferAmount--;
+            }
+            else if(product.getProductCategory().toString().equalsIgnoreCase("Weight")&& OfferAmount > 0.5){
+                OfferAmount -= 0.5;
+            }
+            OfferAmountLabel.setText(Double.toString(OfferAmount));
+        }
     }
 
     @FXML
     void OfferAmountPlusButtonAction(ActionEvent event) {
-        StoreProduct product = TriggerItemComboBox.getValue();
+        StoreProduct product = OfferItemsComboBox.getValue();
         if(product != null){
             if(product.getProductCategory().toString().equalsIgnoreCase("Quantity")){
                 OfferAmount++;
@@ -195,7 +261,7 @@ public class AddSaleController {
             else{
                 OfferAmount += 0.5;
             }
-            OfferAmountLabel.setText(Double.toString(PromptAmountDouble));
+            OfferAmountLabel.setText(Double.toString(OfferAmount));
 
 
         }
@@ -258,7 +324,17 @@ public class AddSaleController {
         SaleNameTextField.disableProperty().setValue(true);
         isStoreProductChosenTrigger.setValue(false);
         isSaleTriggerClicked.setValue(true);
+        isOfferReady.setValue(false);
+        isSaleReady.setValue(false);
+
         setOfferProductsComboBox();
+
+        OfferUnitOrKiloLabel.setText("");
+        OfferAmountLabel.setText("0.0");
+        ForAdditionalPriceTextBox.setText("");
+        ForAdditionalPriceLabel.setText("");
+        SaleTableView.getItems().clear();
+        offerList.clear();
     }
 
     @FXML
@@ -296,9 +372,9 @@ public class AddSaleController {
     }
 
     private void initOperatorComboBox(){
-        OperatorComboBox.getItems().add("Irrelevant");
-        OperatorComboBox.getItems().add("All or nothing");
-        OperatorComboBox.getItems().add("One of");
+        OperatorComboBox.getItems().add("IRRELEVANT");
+        OperatorComboBox.getItems().add("ALL-OR-NOTHING");
+        OperatorComboBox.getItems().add("ONE-OF");
     }
     private void setSoldByLabel(){
         if(TriggerItemComboBox.getValue() != null){

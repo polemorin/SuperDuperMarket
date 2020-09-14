@@ -190,4 +190,8 @@ public class Store {
         }
         return userEligibleSales;
     }
+
+    public void addSale(Sale saleToAdd) {
+        sales.put(saleToAdd.getName(),saleToAdd);
+    }
 }

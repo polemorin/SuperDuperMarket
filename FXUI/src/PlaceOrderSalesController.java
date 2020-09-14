@@ -249,23 +249,27 @@ public class PlaceOrderSalesController
     }
     @FXML
     void SalesListViewAction(MouseEvent event) {
-        OfferComboBox.setPromptText("");
-        isSaleOfferAvailable.setValue(false);
-        OfferComboBox.getItems().clear();
-        OfferComboBox.disableProperty().setValue(false);
-        Sale sale = SalesListView.selectionModelProperty().getValue().getSelectedItems().get(0);
-        List<Offer> offers = SalesListView.selectionModelProperty().getValue().getSelectedItems().get(0).getThenYouGet().getOffers();
-        if(sale.getThenYouGet().getOperator().compareToIgnoreCase("ALL-OR-NOTHING") == 0){
-            OfferComboBox.setPromptText("You get all the items in sale!");
-            OfferComboBox.disableProperty().setValue(true);
-            isSaleOfferAvailable.setValue(true);
-        }
-        else {
-            for (Offer offer : offers) {
-                OfferComboBox.getItems().add(offer);
+        if(SalesListView.getItems().size() != 0) {
+            if (SalesListView.getItems().get(0) != null) {
+                if (SalesListView.selectionModelProperty().getValue().getSelectedItems().get(0) != null) {
+                    OfferComboBox.setPromptText("");
+                    isSaleOfferAvailable.setValue(false);
+                    OfferComboBox.getItems().clear();
+                    OfferComboBox.disableProperty().setValue(false);
+                    Sale sale = SalesListView.selectionModelProperty().getValue().getSelectedItems().get(0);
+                    List<Offer> offers = SalesListView.selectionModelProperty().getValue().getSelectedItems().get(0).getThenYouGet().getOffers();
+                    if (sale.getThenYouGet().getOperator().compareToIgnoreCase("ALL-OR-NOTHING") == 0) {
+                        OfferComboBox.setPromptText("You get all the items in sale!");
+                        OfferComboBox.disableProperty().setValue(true);
+                        isSaleOfferAvailable.setValue(true);
+                    } else {
+                        for (Offer offer : offers) {
+                            OfferComboBox.getItems().add(offer);
+                        }
+                    }
+                }
             }
         }
-
     }
 
     public void setData(SuperDuperMarket sdm, User customer, Store store, LocalDate deliveryDate, Map<Integer, Double> productsByIdAndAmount, Stage mainStage) {
