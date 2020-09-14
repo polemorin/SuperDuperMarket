@@ -33,38 +33,41 @@ public class MapTileController {
     }
     public void setUserImage(User user) {
         userInTile = user;
-        ImageTile.setImage(new Image("images/cartoon-shopper.jpg"));
+        ImageTile.setImage(new Image("images/cartoon-shopper.png"));
         tileToolTip = new Tooltip();
         tileToolTip.setText("ID: "+ user.getID() +
                 System.lineSeparator()+"Name: "+ user.getName()+
                 System.lineSeparator()+"Order amount: "+user.getOrderHistory().size());
         Tooltip.install(ImageTile,tileToolTip);
+        borderRectangle.setVisible(false);
     }
     public void setStoreImage(Store store) {
         storeInTile = store;
-        ImageTile.setImage(new Image("images/store.jpg"));
+        ImageTile.setImage(new Image("images/store.png"));
         tileToolTip = new Tooltip();
         tileToolTip.setText("ID: "+ store.getID() +
                 System.lineSeparator()+"Name: "+ store.getName()+
                 System.lineSeparator()+"PPK: "+ store.getDeliveryPPK()+
                 System.lineSeparator()+"Order amount: "+store.getStoreOrderHistory().size());
         Tooltip.install(ImageTile,tileToolTip);
+        borderRectangle.setVisible(false);
     }
     public void setPrettyTile(){
-     //   Random rand = new Random();
-     //   int randNum = rand.nextInt(100);
-     //   if(randNum<25){
-     //       ImageTile.setImage(new Image("images/tree1.png"));
-     //   }
-     //   else if(randNum<50){
-     //       ImageTile.setImage(new Image("images/tree2.jpg"));
-     //   }
-     //   else if(randNum<75){
-     //       ImageTile.setImage(new Image("images/tree3.png"));
-     //   }
-     //   else {
-     //       ImageTile.setImage(new Image("images/flower2.jpg"));
-     //   }
+        borderRectangle.setVisible(false);
+        Random rand = new Random();
+        int randNum = rand.nextInt(100);
+        if(randNum<25){
+            ImageTile.setImage(new Image("images/tree1.png"));
+        }
+        else if(randNum<50){
+            ImageTile.setImage(new Image("images/tree2.png"));
+        }
+        else if(randNum<75){
+            ImageTile.setImage(new Image("images/tree3.png"));
+        }
+        else {
+            ImageTile.setImage(new Image("images/flower2.png"));
+        }
     }
     @FXML
     void updateToolTipAction(MouseEvent event) {
