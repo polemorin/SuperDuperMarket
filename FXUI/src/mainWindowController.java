@@ -183,11 +183,19 @@ public class mainWindowController {
             addStoreStage.initOwner(primaryStage);
             addStoreStage.initModality(Modality.WINDOW_MODAL);
             AddStoreController addStoreController = fxmlLoader.getController();
-            //addStoreController.setSDM(SDM);
+            addStoreController.setSDM(SDM);
         } catch (IOException e) {
             e.printStackTrace();
         }
         addStoreStage.showAndWait();
+        try{
+            //createMap();
+            //ShowMapButton.disableProperty().
+        }catch (Exception ignored){
+
+        }
+
+
     }
 
     @FXML
