@@ -1,6 +1,7 @@
 import SDMCommon.*;
 import SDMFX.Add.AddProduct.AddProductController;
 import SDMFX.Add.AddSale.AddSaleController;
+import SDMFX.Add.AddStore.AddStoreController;
 import SDMFX.Main.Map.MapTileController;
 import SDMFX.PlaceOrder.PlaceOrderHomeController;
 import SDMFX.ShowDetails.CustomerDetailsController;
@@ -49,6 +50,7 @@ public class mainWindowController {
     private List<MapTileController> mapTiles;
     private List<HBox> rowList;
     private Stage addProductStage;
+    private Stage addStoreStage;
 
     @FXML
     private Button orderHistoryButton;
@@ -171,7 +173,21 @@ public class mainWindowController {
 
     @FXML
     void addNewStoreAction(ActionEvent event) {
-
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("SDMFX/Add/AddStore/AddStore.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            addStoreStage = new Stage();
+            addStoreStage.setTitle("Add Store");
+            addStoreStage.setScene(scene);
+            addStoreStage.initOwner(primaryStage);
+            addStoreStage.initModality(Modality.WINDOW_MODAL);
+            AddStoreController addStoreController = fxmlLoader.getController();
+            //addStoreController.setSDM(SDM);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        addStoreStage.showAndWait();
     }
 
     @FXML
@@ -263,7 +279,6 @@ public class mainWindowController {
             productDetailsStage = new Stage();
             productDetailsStage.setTitle("ProductDetails");
             productDetailsStage.setScene(scene);
-            productDetailsStage.setAlwaysOnTop(true);
             productDetailsStage.initOwner(primaryStage);
             productDetailsStage.initModality(Modality.WINDOW_MODAL);
             ProductDetailsController productDetailsController = fxmlLoader.getController();
