@@ -7,6 +7,7 @@ import SDMFX.PlaceOrder.PlaceOrderHomeController;
 import SDMFX.ShowDetails.CustomerDetailsController;
 import SDMFX.ShowDetails.OrderHistoryWindowController;
 import SDMFX.ShowDetails.ProductDetailsController;
+import SDMFX.ShowDetails.StoreDetailsController;
 import SDMFX.UpdateStoreProduct.UpdateStoreProductController;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -302,7 +303,7 @@ public class mainWindowController {
     void storeDetailsAction(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("StoreDetails.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("SDMFX/ShowDetails/StoreDetails.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             storeDetailsStage = new Stage();
             storeDetailsStage.setTitle("Store details");

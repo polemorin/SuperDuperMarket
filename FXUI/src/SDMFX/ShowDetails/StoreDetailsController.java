@@ -1,3 +1,5 @@
+package SDMFX.ShowDetails;
+
 import ProductTypes.Product;
 import ProductTypes.SoldProduct;
 import SDMCommon.Store;
