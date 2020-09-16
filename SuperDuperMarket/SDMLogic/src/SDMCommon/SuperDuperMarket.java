@@ -624,4 +624,19 @@ public class SuperDuperMarket {
         }
         return false;
     }
+
+    public boolean isAvailableLocationInSDM(Point location){
+
+        for (Map.Entry<Integer,Store> store:this.stores.entrySet()) {
+            if(store.getValue().getLocation() == location){
+                return false;
+            }
+        }
+        for(Map.Entry<Integer,User> customers: users.entrySet()){
+            if(customers.getValue().getLocation() == location){
+                return false;
+            }
+        }
+        return true;
+    }
 }
