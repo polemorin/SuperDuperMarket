@@ -190,10 +190,11 @@ public class mainWindowController {
         }
         addStoreStage.showAndWait();
         try{
-            //createMap();
-            //ShowMapButton.disableProperty().
+            if(!ShowMapButton.visibleProperty().getValue()){
+                createMap();
+            }
         }catch (Exception ignored){
-
+            System.out.println(ignored.getMessage());
         }
 
 
