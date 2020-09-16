@@ -27,6 +27,7 @@ public class Store {
         deliveryPPK = PPK;
         this.products = productSet;
         storeOrderHistory = new ArrayList<StoreLevelOrder>();
+        sales = new HashMap<>();
         totalDeliveryPayment = 0;
     }
 

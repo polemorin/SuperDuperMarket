@@ -628,12 +628,14 @@ public class SuperDuperMarket {
     public boolean isAvailableLocationInSDM(Point location){
 
         for (Map.Entry<Integer,Store> store:this.stores.entrySet()) {
-            if(store.getValue().getLocation() == location){
+            if(store.getValue().getLocation().x == location.x &&
+                    store.getValue().getLocation().y ==location.y ){
                 return false;
             }
         }
         for(Map.Entry<Integer,User> customers: users.entrySet()){
-            if(customers.getValue().getLocation() == location){
+            if(customers.getValue().getLocation().x == location.x &&
+                    customers.getValue().getLocation().y == location.y){
                 return false;
             }
         }
