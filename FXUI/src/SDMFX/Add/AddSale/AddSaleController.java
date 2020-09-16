@@ -339,6 +339,12 @@ public class AddSaleController {
         ForAdditionalPriceLabel.setText("");
         SaleTableView.getItems().clear();
         offerList.clear();
+        setSaleButtonDisable();
+    }
+
+    private void setSaleButtonDisable() {
+        SetSaleButton.disableProperty().unbind();
+        SetSaleButton.disableProperty().setValue(true);
     }
 
     @FXML
