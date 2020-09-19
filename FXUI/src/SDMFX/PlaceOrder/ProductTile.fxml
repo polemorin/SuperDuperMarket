@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="162.0" prefWidth="191.0" stylesheets="@RoundButton.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SDMFX.PlaceOrder.ProductTileController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="162.0" prefWidth="191.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SDMFX.PlaceOrder.ProductTileController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="153.0" layoutX="6.0" layoutY="1.0" pickOnBounds="true" stroke="BLACK" strokeType="INSIDE" width="180.0" />
+      <Rectangle id="ProductTileRectangle" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="153.0" layoutX="6.0" layoutY="1.0" pickOnBounds="true" stroke="BLACK" strokeType="INSIDE" width="180.0" />
       <Label fx:id="NameLabel" layoutX="75.0" layoutY="14.0" />
       <Label fx:id="PriceStaticLabel" layoutX="14.0" layoutY="50.0" text="Price:" />
       <Button fx:id="PlusButton" layoutX="127.0" layoutY="84.0" mnemonicParsing="false" onAction="#PlusButtonAction" prefHeight="17.0" prefWidth="38.0" styleClass="RoundButton" stylesheets="@RoundButton.css" text="+" />
@@ -16,4 +17,8 @@
       <Label fx:id="AmountLabel" layoutX="87.0" layoutY="91.0" prefHeight="17.0" prefWidth="37.0" textAlignment="JUSTIFY" />
       <Label fx:id="PriceLabel" layoutX="73.0" layoutY="50.0" />
    </children>
+   <stylesheets>
+      <URL value="@RoundButton.css" />
+      <URL value="@../../style.css" />
+   </stylesheets>
 </Pane>

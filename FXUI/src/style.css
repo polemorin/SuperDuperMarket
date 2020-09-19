@@ -10,11 +10,23 @@
 -fx-font-family: Berlin Sans FB;
 }
 
+#ProductTileRectangle{
+    -fx-fill : #cee8e7;
+}
 .scroll-pane > .viewport {
 -fx-background-color: transparent;
 -fx-background-color: #ecf6f5;
 }
 
+#RoundButton{
+
+    -fx-text-fill: black;
+    -fx-background-radius: 5em;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-max-width: 30px;
+    -fx-max-height: 30px;
+}
 .progress-bar > .track {
    // -fx-border-color: darkblue;
   //  -fx-progress-color: #8b003c;
