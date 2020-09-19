@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -399,6 +400,7 @@ public class mainWindowController {
                 mapTiles.add(mapTileController);
 
             }
+
             rowList.add(MapRow);
             MapTilePane.getChildren().add(MapRow);
         }
@@ -467,6 +469,68 @@ public class mainWindowController {
     @FXML
     void ShowMapButtonAction(ActionEvent event) throws IOException {
         createMap();
+        Stage newMapStage = new Stage();
+        TilePane tilePane = new TilePane();
+        ScrollPane root = new ScrollPane(tilePane);
+        Scene scene = new Scene(root);
+        HBox MapRow = new HBox();
+
+
+        FXMLLoader fxmlLoader;
+        Point topRight = SDM.getTopRightMapEdge();
+        Point bottomLeft = SDM.getBottomLeftMapEdge();
+
+        Node MapTile;
+        MapTileController mapTileController;
+        MapTilePane.getChildren().clear();
+
+        mapTiles = new ArrayList<>();
+        rowList = new ArrayList<>();
+
+        Map<Integer, Store> storeMap = SDM.getStores();
+        Map<Integer, User> userMap = SDM.getUsers();
+
+        BackgroundImage images = new BackgroundImage(new Image("images/MapBackground2new.jpg"), BackgroundRepeat.NO_REPEAT,BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,new BackgroundSize(BackgroundSize.AUTO,BackgroundSize.AUTO,false,false,false,true));
+        tilePane.setBackground(new Background(images));
+        tilePane.visibleProperty().setValue(true);
+        Boolean isTileOccupied = false;
+        Random rand;
+        for(int i = topRight.y + 1;i >= bottomLeft.y - 1; i--){
+            MapRow = new HBox();
+            for(int j = bottomLeft.x - 1; j <= topRight.x + 1; j++){
+                fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("SDMFX/Main/Map/MapTileTest.fxml"));
+                MapTile = fxmlLoader.load();
+                mapTileController = fxmlLoader.getController();
+                for (Map.Entry<Integer, User> user:userMap.entrySet()) {
+                    if(user.getValue().getLocation().x == j && user.getValue().getLocation().y == i){
+                        mapTileController.setUserImage(user.getValue());
+                        isTileOccupied = true;
+                    }
+                }
+                for (Map.Entry<Integer, Store> store:storeMap.entrySet()) {
+                    if(store.getValue().getLocation().x == j && store.getValue().getLocation().y == i){
+                        mapTileController.setStoreImage(store.getValue());
+                        isTileOccupied = true;
+                    }
+                }
+                updateMapTileLocationText(i, j, bottomLeft, topRight ,mapTileController,isTileOccupied);
+
+                isTileOccupied = false;
+
+                MapRow.getChildren().add(MapTile);
+             //   mapTiles.add(mapTileController);
+
+            }
+
+          //  rowList.add(MapRow);
+            tilePane.getChildren().add(MapRow);
+        }
+       // ShowMapButton.visibleProperty().setValue(false);
+
+
+        newMapStage.setScene(scene);
+        newMapStage.show();
 
     }
 }
