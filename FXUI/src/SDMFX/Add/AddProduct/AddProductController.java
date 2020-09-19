@@ -93,7 +93,7 @@ public class AddProductController {
         if(sdmNewProduct == null){
             String name = ProductNameTextField.getText();
             ProductCategory category;
-            if(QuantityRadioButton.isArmed()){
+            if(QuantityRadioButton.selectedProperty().getValue()){
                 category = ProductCategory.Quantity;
             }
             else{
