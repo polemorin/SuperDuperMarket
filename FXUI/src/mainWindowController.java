@@ -116,7 +116,7 @@ public class mainWindowController {
         addNewStoreButton.disableProperty().bind(isXmlFileLoaded.not());
         updateStoreProductButton.disableProperty().bind(isXmlFileLoaded.not());
         placeAnOrderButton.disableProperty().bind(isXmlFileLoaded.not());
-        ShowMapButton.visibleProperty().setValue(false);
+        ShowMapButton.disableProperty().bind(isXmlFileLoaded.not());
     }
 
 
@@ -468,12 +468,13 @@ public class mainWindowController {
     }
     @FXML
     void ShowMapButtonAction(ActionEvent event) throws IOException {
-        createMap();
         Stage newMapStage = new Stage();
         TilePane tilePane = new TilePane();
         ScrollPane root = new ScrollPane(tilePane);
-        Scene scene = new Scene(root);
-        HBox MapRow = new HBox();
+        double mapWidth = 1;
+        double mapHeight;
+
+        HBox MapRow;
 
 
         FXMLLoader fxmlLoader;
@@ -482,7 +483,7 @@ public class mainWindowController {
 
         Node MapTile;
         MapTileController mapTileController;
-        MapTilePane.getChildren().clear();
+        tilePane.getChildren().clear();
 
         mapTiles = new ArrayList<>();
         rowList = new ArrayList<>();
@@ -495,6 +496,9 @@ public class mainWindowController {
         tilePane.visibleProperty().setValue(true);
         Boolean isTileOccupied = false;
         Random rand;
+
+        mapWidth = 35 *(topRight.x + 2.5 - bottomLeft.x);
+        mapHeight = 35 * (topRight.y + 2.5 - bottomLeft.y);
         for(int i = topRight.y + 1;i >= bottomLeft.y - 1; i--){
             MapRow = new HBox();
             for(int j = bottomLeft.x - 1; j <= topRight.x + 1; j++){
@@ -515,21 +519,15 @@ public class mainWindowController {
                     }
                 }
                 updateMapTileLocationText(i, j, bottomLeft, topRight ,mapTileController,isTileOccupied);
-
                 isTileOccupied = false;
-
                 MapRow.getChildren().add(MapTile);
-             //   mapTiles.add(mapTileController);
-
             }
-
-          //  rowList.add(MapRow);
+            tilePane.setMaxWidth(MapRow.getWidth());
             tilePane.getChildren().add(MapRow);
         }
-       // ShowMapButton.visibleProperty().setValue(false);
-
-
+        Scene scene = new Scene(root,Math.min(mapWidth,700),Math.min(mapHeight,500));
         newMapStage.setScene(scene);
+        newMapStage.sizeToScene();
         newMapStage.show();
 
     }

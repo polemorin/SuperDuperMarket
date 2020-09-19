@@ -1,10 +1,25 @@
 .button
 {
--fx-background-color : #f8f2ed;
+-fx-background-color : #cee8e7;
 -fx-text-fill : #000100;
-
+-fx-border-color: #c4d5d3;
+-fx-border-insets: 50% ;
+-fx-font-family: Berlin Sans FB;
+}
+#MainSDMLabel{
+-fx-font-family: Berlin Sans FB;
 }
 
+.scroll-pane > .viewport {
+-fx-background-color: transparent;
+-fx-background-color: #ecf6f5;
+}
+
+.progress-bar > .track {
+   // -fx-border-color: darkblue;
+  //  -fx-progress-color: #8b003c;
+    -fx-background-color: #ecf6f5;
+}
 
 .anchor-pane {
 -fx-border-color: #FFFFFF;
@@ -12,12 +27,12 @@
 }
 
 .button:hover{
--fx-background-color : #80CFA9;
+-fx-background-color : #94dedb;
 }
 
 .button:pressed
 {
--fx-background-color : #3EA372
+-fx-background-color : #60bbba
 }
 
 .scroll-pane {
