@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="733.0" prefWidth="707.0" stylesheets="@../../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SDMFX.ShowDetails.StoreDetailsController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="733.0" prefWidth="707.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SDMFX.ShowDetails.StoreDetailsController">
     <content>
-        <Pane prefHeight="730.0" prefWidth="709.0" stylesheets="@../../style.css">
+        <Pane prefHeight="730.0" prefWidth="709.0">
             <children>
-                <Label layoutX="289.0" layoutY="7.0" prefHeight="46.0" prefWidth="134.0" text="Store details">
+                <Label id="HeaderLabel" layoutX="289.0" layoutY="7.0" prefHeight="46.0" prefWidth="150.0" styleClass="HeaderLabel" text="Store details">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="24.0" />
                     </font>
                 </Label>
                 <Separator layoutX="13.0" layoutY="77.0" prefHeight="0.0" prefWidth="668.0" />

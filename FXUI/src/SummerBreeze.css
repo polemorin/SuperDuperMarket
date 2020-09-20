@@ -46,9 +46,7 @@
 }
 .HeaderLabel{
     -fx-font-size: 24;
-    -fx-text-fill: #e2eeae;
 }
-
 
 #ProductTileRectangle{
     -fx-fill : #85d4d4;
@@ -150,6 +148,9 @@
     -fx-background-radius: 5em;
 }
 
+.scroll-pane > .corner {
+
+}
 
 
 

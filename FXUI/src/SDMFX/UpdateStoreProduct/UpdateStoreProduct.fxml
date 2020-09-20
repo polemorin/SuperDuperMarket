@@ -8,12 +8,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="613.0" stylesheets="@../../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SDMFX.UpdateStoreProduct.UpdateStoreProductController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="613.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SDMFX.UpdateStoreProduct.UpdateStoreProductController">
   <content>
       <Pane prefHeight="432.0" prefWidth="607.0">
          <children>
             <Button fx:id="BackButton" layoutX="14.0" layoutY="372.0" mnemonicParsing="false" onAction="#BackButtonAction" prefHeight="46.0" prefWidth="94.0" text="Back" />
-            <Label layoutX="217.0" layoutY="14.0" prefHeight="65.0" prefWidth="173.0" text="Update product details" />
+            <Label layoutX="184.0" layoutY="14.0" prefHeight="65.0" prefWidth="338.0" styleClass="HeaderLabel" text="Update product details" />
             <Label layoutX="14.0" layoutY="86.0" prefHeight="31.0" prefWidth="80.0" text="Choose store" />
             <ComboBox fx:id="ChooseStoreComboBox" layoutX="136.0" layoutY="89.0" onAction="#StoreComboBoxAction" prefWidth="150.0" />
             <Separator layoutY="133.0" prefHeight="2.0" prefWidth="606.0" />

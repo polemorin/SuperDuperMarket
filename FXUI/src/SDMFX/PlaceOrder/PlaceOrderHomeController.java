@@ -30,7 +30,7 @@ public class PlaceOrderHomeController {
     private Boolean isCustomerChosen;
     private Boolean isStoreChosen;
     private Boolean isDynamicOrderTypeChosen;
-
+    private String currentStyle;
 
     @FXML
     private ComboBox<User> CustomerComboBox;
@@ -148,6 +148,9 @@ public class PlaceOrderHomeController {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(PlaceOrderProductsController.class.getResource("PlaceOrderProducts.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
+                if(currentStyle.compareTo("None") != 0){
+                    scene.getStylesheets().add(currentStyle);
+                }
                 placeOrderProductsStage = new Stage();
                 placeOrderProductsStage.setTitle("Place Order");
                 placeOrderProductsStage.setScene(scene);
@@ -155,6 +158,7 @@ public class PlaceOrderHomeController {
                 placeOrderProductsStage.initModality(Modality.WINDOW_MODAL);
                 PlaceOrderProductsController placeOrderProductsController = fxmlLoader.getController();
                 placeOrderProductsController.setData(SDM,mainStage,customer,store,date);
+                placeOrderProductsController.setStyle(currentStyle);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -191,4 +195,7 @@ public class PlaceOrderHomeController {
             DeliveryPriceLabel.setText(String.format("%.2f", chosenStore.getDeliveryPPK() * userDistanceFromStore));
         }
 
+    public void setStyle(String currentStyle) {
+        this.currentStyle = currentStyle;
+    }
 }

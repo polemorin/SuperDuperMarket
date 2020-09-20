@@ -33,14 +33,8 @@
     -fx-background-color : #60bbba
 }
 #MainSDMLable {
-
-}
-#SDMLable {
-    -fx-font-size: 36;
-    -fx-text-fill: #394c4b;
     -fx-font-family: Berlin Sans FB;
     -fx-font-weight: bold;
-
 }
 .HeaderLabel{
     -fx-font-size: 24;

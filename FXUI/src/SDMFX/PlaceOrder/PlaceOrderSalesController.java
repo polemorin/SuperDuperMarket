@@ -97,6 +97,7 @@ public class PlaceOrderSalesController
 
     @FXML
     private Label MessegeLabel;
+    private String currentStyle;
 
     @FXML
     void AddOfferButtonAction(ActionEvent event) {
@@ -190,6 +191,9 @@ public class PlaceOrderSalesController
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(PlaceOrderSummaryController.class.getResource("PlaceOrderSummary.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
+            if(currentStyle.compareTo("None") != 0){
+                scene.getStylesheets().add(currentStyle);
+            }
             PlaceOrderSummeryStage = new Stage();
             PlaceOrderSummeryStage.setTitle("Place Order Summery");
             PlaceOrderSummeryStage.setScene(scene);
@@ -197,6 +201,7 @@ public class PlaceOrderSalesController
             PlaceOrderSummeryStage.initModality(Modality.WINDOW_MODAL);
             PlaceOrderSummaryController placeOrderSummaryController = fxmlLoader.getController();
             placeOrderSummaryController.setData(sdm, customerLevelOrder);
+            placeOrderSummaryController.setStyle(currentStyle);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -335,5 +340,9 @@ public class PlaceOrderSalesController
         List<StoreLevelOrder> storeLevelOrderList = new ArrayList<>();
         storeLevelOrderList.add(storeOrder);
         customerLevelOrder = new CustomerLevelOrder(storeLevelOrderList);
+    }
+
+    public void setStyle(String currentStyle) {
+        this.currentStyle = currentStyle;
     }
 }
