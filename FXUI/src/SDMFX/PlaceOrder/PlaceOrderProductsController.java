@@ -44,6 +44,7 @@ public class PlaceOrderProductsController {
 
     @FXML
     private Button ContinueButton;
+    private String currentStyle;
 
     @FXML
     void ContinueButtonAction(ActionEvent event) {
@@ -56,6 +57,9 @@ public class PlaceOrderProductsController {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(PlaceOrderSalesController.class.getResource("PlaceOrderSales.fxml"));
                     Scene scene = new Scene(fxmlLoader.load(),600,600);
+                    if(currentStyle.compareTo("None") != 0){
+                        scene.getStylesheets().add(currentStyle);
+                    }
                     placeOrderSalesStage = new Stage();
                     placeOrderSalesStage.setTitle("Place Order Sales");
                     placeOrderSalesStage.setScene(scene);
@@ -63,6 +67,7 @@ public class PlaceOrderProductsController {
                     placeOrderSalesStage.initModality(Modality.WINDOW_MODAL);
                     PlaceOrderSalesController placeOrderSalesController = fxmlLoader.getController();
                     placeOrderSalesController.setData(SDM, customer, store, deliveryDate, getProductsByIdAndAmount(), mainStage);
+                    placeOrderSalesController.setStyle(currentStyle);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -138,5 +143,9 @@ public class PlaceOrderProductsController {
             }
         }
         return products;
+    }
+
+    public void setStyle(String currentStyle) {
+        this.currentStyle = currentStyle;
     }
 }

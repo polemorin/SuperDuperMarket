@@ -6,29 +6,39 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="701.0" stylesheets="@../../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SDMFX.ShowDetails.OrderHistoryWindowController">
-   <children>
-      <ComboBox fx:id="OrderIDComboBox" layoutX="20.0" layoutY="106.0" onAction="#OrderIDComboBoxAction" prefWidth="150.0" />
-      <Label layoutX="20.0" layoutY="67.0" prefHeight="25.0" prefWidth="112.0" text="Choose order by ID" />
-      <Label layoutX="255.0" layoutY="14.0" prefHeight="52.0" prefWidth="142.0" text="Order History" />
-      <ScrollPane layoutX="20.0" layoutY="145.0" prefHeight="315.0" prefWidth="675.0">
-        <content>
-            <VBox fx:id="OrderVbox" prefHeight="311.0" prefWidth="671.0" />
-        </content>
-      </ScrollPane>
-      <Button fx:id="BackButton" layoutX="29.0" layoutY="518.0" mnemonicParsing="false" onAction="#BackButtonAction" prefHeight="32.0" prefWidth="95.0" text="Back" />
-      <Label layoutX="216.0" layoutY="472.0" prefHeight="25.0" prefWidth="86.0" text="Products price:" />
-      <Label fx:id="ProductsPriceLabel" layoutX="333.0" layoutY="473.0" prefHeight="25.0" prefWidth="260.0" />
-      <Label layoutX="216.0" layoutY="498.0" prefHeight="25.0" prefWidth="77.0" text="Delivery price:" />
-      <Label fx:id="DeliveryPriceLabel" layoutX="333.0" layoutY="499.0" prefHeight="25.0" prefWidth="260.0" />
-      <Label layoutX="216.0" layoutY="524.0" prefHeight="25.0" prefWidth="77.0" text="Total price:" />
-      <Label fx:id="TotalPriceLabel" layoutX="333.0" layoutY="525.0" prefHeight="25.0" prefWidth="260.0" />
-      <Label layoutX="443.0" layoutY="119.0" prefHeight="25.0" prefWidth="38.0" text="Date:" />
-      <Label fx:id="DateLabel" layoutX="545.0" layoutY="119.0" prefHeight="25.0" prefWidth="142.0" />
-      <Label layoutX="443.0" layoutY="93.0" prefHeight="25.0" prefWidth="86.0" text="Customer ID:" />
-      <Label fx:id="CustomerIDLabel" layoutX="545.0" layoutY="93.0" prefHeight="25.0" prefWidth="142.0" />
-      <Label layoutX="443.0" layoutY="67.0" prefHeight="25.0" prefWidth="95.0" text="Customer name:" />
-      <Label fx:id="CustomerNameLabel" layoutX="545.0" layoutY="67.0" prefHeight="25.0" prefWidth="142.0" />
-   </children>
-</Pane>
+
+<ScrollPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SDMFX.ShowDetails.OrderHistoryWindowController">
+   <content>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="701.0">
+         <children>
+            <ComboBox fx:id="OrderIDComboBox" layoutX="20.0" layoutY="106.0" onAction="#OrderIDComboBoxAction" prefWidth="150.0" />
+            <Label layoutX="20.0" layoutY="67.0" prefHeight="25.0" prefWidth="112.0" text="Choose order by ID" />
+            <Label id="HeaderLabel" layoutX="255.0" layoutY="14.0" prefHeight="52.0" prefWidth="179.0" styleClass="HeaderLabel" text="Order History">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <ScrollPane layoutX="20.0" layoutY="145.0" prefHeight="315.0" prefWidth="675.0">
+              <content>
+                  <VBox fx:id="OrderVbox" prefHeight="311.0" prefWidth="671.0" />
+              </content>
+            </ScrollPane>
+            <Button fx:id="BackButton" layoutX="29.0" layoutY="518.0" mnemonicParsing="false" onAction="#BackButtonAction" prefHeight="32.0" prefWidth="95.0" text="Back" />
+            <Label layoutX="216.0" layoutY="472.0" prefHeight="25.0" prefWidth="86.0" text="Products price:" />
+            <Label fx:id="ProductsPriceLabel" layoutX="333.0" layoutY="473.0" prefHeight="25.0" prefWidth="260.0" />
+            <Label layoutX="216.0" layoutY="498.0" prefHeight="25.0" prefWidth="98.0" text="Delivery price:" />
+            <Label fx:id="DeliveryPriceLabel" layoutX="333.0" layoutY="499.0" prefHeight="25.0" prefWidth="260.0" />
+            <Label layoutX="216.0" layoutY="524.0" prefHeight="25.0" prefWidth="77.0" text="Total price:" />
+            <Label fx:id="TotalPriceLabel" layoutX="333.0" layoutY="525.0" prefHeight="25.0" prefWidth="260.0" />
+            <Label layoutX="443.0" layoutY="119.0" prefHeight="25.0" prefWidth="38.0" text="Date:" />
+            <Label fx:id="DateLabel" layoutX="545.0" layoutY="119.0" prefHeight="25.0" prefWidth="142.0" />
+            <Label layoutX="443.0" layoutY="93.0" prefHeight="25.0" prefWidth="86.0" text="Customer ID:" />
+            <Label fx:id="CustomerIDLabel" layoutX="545.0" layoutY="93.0" prefHeight="25.0" prefWidth="142.0" />
+            <Label layoutX="443.0" layoutY="67.0" prefHeight="25.0" prefWidth="95.0" text="Customer name:" />
+            <Label fx:id="CustomerNameLabel" layoutX="545.0" layoutY="67.0" prefHeight="25.0" prefWidth="142.0" />
+         </children>
+      </Pane>
+   </content>
+</ScrollPane>

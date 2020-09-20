@@ -9,12 +9,16 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SDMFX.PlaceOrder.PlaceOrderHomeController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SDMFX.PlaceOrder.PlaceOrderHomeController">
    <content>
       <Pane prefHeight="394.0" prefWidth="591.0">
          <children>
-            <Label layoutX="253.0" layoutY="14.0" prefHeight="34.0" prefWidth="87.0" text="Place an order" />
+            <Label layoutX="215.0" layoutY="14.0" prefHeight="35.0" prefWidth="298.0" styleClass="HeaderLabel" text="Place an order">
+               <font>
+                  <Font size="24.0" />
+               </font></Label>
             <ComboBox fx:id="CustomerComboBox" layoutX="62.0" layoutY="110.0" onAction="#CustomerComboBoxAction" prefHeight="25.0" prefWidth="182.0" promptText="Choose customer" />
             <DatePicker fx:id="DeliveryDatePicker" layoutX="354.0" layoutY="110.0" onAction="#DeliveryDatePickerAction" />
             <Label layoutX="62.0" layoutY="172.0" text="Order type" />

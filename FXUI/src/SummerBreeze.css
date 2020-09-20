@@ -1,0 +1,161 @@
+.scroll-pane > .viewport {
+    -fx-background-color: #85c9c8;
+}
+.button {
+    -fx-background-color: #e6eecc;
+    -fx-text-fill: #014561;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent;
+    -fx-border-insets: 50%;
+    -fx-font-family: Berlin Sans FB;
+}
+.button:hover {
+    -fx-background-color:#D0D7D9;
+}
+.button:pressed {
+    -fx-background-color: #60bbba
+}
+.RoundButton{
+
+    -fx-text-fill: #014561;
+    -fx-background-color: #e6eecc;
+    -fx-border-color: transparent;
+    -fx-background-radius: 5em;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-max-width: 30px;
+    -fx-max-height: 30px;
+
+}
+.RoundButton:hover{
+    -fx-background-color : #D0D7D9;
+    -fx-background-insets: 0%;
+}
+.RoundButton:pressed
+{
+    -fx-background-color : #60bbba
+}
+.label {
+    -fx-text-fill: #423333;
+
+    -fx-font-weight: bold;
+}
+#SDMLable {
+    -fx-font-size: 36;
+    -fx-text-fill: #00394e;
+}
+.HeaderLabel{
+    -fx-font-size: 24;
+}
+
+#ProductTileRectangle{
+    -fx-fill : #85d4d4;
+}
+
+
+#PlaceOrderButton {
+    -fx-font-size: 29;
+}
+
+#ShowMapButton {
+    -fx-font-size: 14;
+}
+
+
+
+.scroll-pane {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #FFFFFF;
+
+}
+
+#ContinueButton {
+    -fx-font-size: 14;
+}
+
+.combo-box {
+    -fx-background-color: #b6d1d7;
+}
+.combo-box .cell:selected{
+    -fx-background-color: #b6d1d7;
+}
+
+.combo-box .combo-box-popup .list-view, .combo-box .combo-box-popup .list-cell {
+    -fx-background-color: #9fafb4;
+}
+
+.date-picker > .text-field {
+    -fx-background-color: #b6d1d7;
+}
+
+.list-cell:even {
+    -fx-background-color: #bdefef;
+}
+
+.list-cell:odd {
+    -fx-background-color: #cbf1f1;
+}
+
+.list-view .list-cell:filled:selected:focused, .list-view .list-cell:filled:selected {
+    -fx-text-fill: #000100;
+    -fx-background-color: #60bbba;
+}
+
+.list-view {
+    -fx-background-color: #60bbba;
+}
+
+.table-view {
+    -fx-background-color: #60bbba;
+}
+
+.table-row-cell:even {
+    -fx-background-color: #bdefef;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #cbf1f1;
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: #000100;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #60bbba;
+}
+
+
+
+
+.radio-button:selected .radio .dot {
+    -fx-background-color: #60bbba;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-radius: 5em;
+}
+
+.scroll-pane > .corner {
+
+}
+
+
+
+
+
+
+
+
