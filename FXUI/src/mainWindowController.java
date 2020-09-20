@@ -49,8 +49,6 @@ public class mainWindowController {
     private Stage storeDetailsStage;
     private Stage placeOrderStage;
     private Stage addSaleStage;
-    private List<MapTileController> mapTiles;
-    private List<HBox> rowList;
     private Stage addProductStage;
     private Stage addStoreStage;
 
@@ -85,7 +83,7 @@ public class mainWindowController {
     private Button placeAnOrderButton;
 
     @FXML
-    private ComboBox<?> styleComboBox;
+    private ComboBox<String> styleComboBox;
 
     @FXML
     private CheckBox animationCheckBox;
@@ -117,6 +115,9 @@ public class mainWindowController {
         updateStoreProductButton.disableProperty().bind(isXmlFileLoaded.not());
         placeAnOrderButton.disableProperty().bind(isXmlFileLoaded.not());
         ShowMapButton.disableProperty().bind(isXmlFileLoaded.not());
+        styleComboBox.getItems().add("None");
+        styleComboBox.getItems().add("Lime");
+        styleComboBox.getItems().add("Ocean Gold");
     }
 
 
@@ -126,6 +127,20 @@ public class mainWindowController {
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
+    }
+
+    private void setStyle(String style){
+        if(style.equals("None")){
+            Scene scene = styleComboBox.getScene();
+            scene.getStylesheets().clear();
+            Stage s = (Stage)styleComboBox.getScene().getWindow();
+            s.setScene(scene);
+        }
+        if(style.equals("Lime")){
+            styleComboBox.getScene().getStylesheets().clear();
+            styleComboBox.getScene().getStylesheets().add("style.css");
+
+        }
     }
 
     @FXML
@@ -208,7 +223,6 @@ public class mainWindowController {
 
     @FXML
     void loadXmlFileAction(ActionEvent event) throws InterruptedException, IOException {
-        emptyMap();
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
@@ -231,14 +245,6 @@ public class mainWindowController {
         ShowMapButton.visibleProperty().setValue(true);
     }
 
-    private void emptyMap() {
-        if(mapTiles != null) {
-            mapTiles.clear();
-            rowList.clear();
-            MapTilePane.getChildren().clear();
-            MapTilePane.visibleProperty().setValue(false);
-        }
-    }
 
     @FXML
     void orderHistoryAction(ActionEvent event) throws IOException {
@@ -325,7 +331,7 @@ public class mainWindowController {
 
     @FXML
     void styleComboBoxAction(ActionEvent event) {
-
+        setStyle(styleComboBox.getValue());
     }
 
     @FXML
@@ -362,8 +368,6 @@ public class mainWindowController {
         MapTilePane.getChildren().clear();
 
         HBox MapRow;
-        mapTiles = new ArrayList<>();
-        rowList = new ArrayList<>();
 
         Map<Integer, Store> storeMap = SDM.getStores();
         Map<Integer, User> userMap = SDM.getUsers();
@@ -397,11 +401,7 @@ public class mainWindowController {
                 isTileOccupied = false;
 
                 MapRow.getChildren().add(MapTile);
-                mapTiles.add(mapTileController);
-
             }
-
-            rowList.add(MapRow);
             MapTilePane.getChildren().add(MapRow);
         }
         ShowMapButton.visibleProperty().setValue(false);
@@ -484,9 +484,6 @@ public class mainWindowController {
         Node MapTile;
         MapTileController mapTileController;
         tilePane.getChildren().clear();
-
-        mapTiles = new ArrayList<>();
-        rowList = new ArrayList<>();
 
         Map<Integer, Store> storeMap = SDM.getStores();
         Map<Integer, User> userMap = SDM.getUsers();
