@@ -13,7 +13,7 @@
 
 <ScrollPane prefHeight="433.0" prefWidth="645.0" styleClass="Pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainWindowController">
    <content>
-      <Pane prefHeight="432.0" prefWidth="628.0">
+      <Pane id="mainPane" prefHeight="432.0" prefWidth="628.0">
          <children>
             <Button id="OrderHistoryButton" fx:id="orderHistoryButton" layoutX="259.0" layoutY="112.0" mnemonicParsing="false" onAction="#orderHistoryAction" prefHeight="36.0" prefWidth="166.0" stylesheets="@style.css" text="Order History" />
             <Button id="ShowStoreDetailsButton" fx:id="storeDetailsButton" layoutX="448.0" layoutY="112.0" mnemonicParsing="false" onAction="#storeDetailsAction" prefHeight="36.0" prefWidth="166.0" stylesheets="@style.css" text="Store details" />
@@ -37,7 +37,7 @@
             </Label>
             <ProgressBar fx:id="ProgressBarLoader" layoutX="13.0" layoutY="371.0" prefHeight="18.0" prefWidth="187.0" progress="0.0" stylesheets="@style.css" />
             <Label fx:id="ProgressLabel" layoutX="14.0" layoutY="388.0" prefHeight="29.0" prefWidth="81.0" stylesheets="@style.css" />
-            <Button fx:id="ShowMapButton" layoutX="259.0" layoutY="294.0" mnemonicParsing="false" onAction="#ShowMapButtonAction" prefHeight="36.0" prefWidth="357.0" stylesheets="@style.css" text="Show map">
+            <Button id="ShowMapButton" fx:id="ShowMapButton" layoutX="259.0" layoutY="294.0" mnemonicParsing="false" onAction="#ShowMapButtonAction" prefHeight="36.0" prefWidth="357.0" stylesheets="@style.css" text="Show map">
                <font>
                   <Font size="14.0" />
                </font>

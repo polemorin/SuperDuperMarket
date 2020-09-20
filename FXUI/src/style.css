@@ -10,38 +10,15 @@
 -fx-font-family: Berlin Sans FB;
 }
 
-#ProductTileRectangle{
-    -fx-fill : #cee8e7;
-}
-.scroll-pane > .viewport {
--fx-background-color: transparent;
--fx-background-color: #ecf6f5;
-}
-
-#RoundButton{
-
-    -fx-text-fill: black;
-    -fx-background-radius: 5em;
-    -fx-min-width: 30px;
-    -fx-min-height: 30px;
-    -fx-max-width: 30px;
-    -fx-max-height: 30px;
-}
-.progress-bar > .track {
-   // -fx-border-color: darkblue;
-  //  -fx-progress-color: #8b003c;
-    -fx-background-color: #ecf6f5;
-}
-
-.anchor-pane {
--fx-border-color: #FFFFFF;
--fx-background-color: #FFFFFF;
-}
-
 .button:hover{
 -fx-background-color : #94dedb;
 }
-
+#PlaceOrderButton{
+    -fx-font-size: 29;
+}
+#ShowMapButton{
+    -fx-font-size: 14;
+}
 .button:pressed
 {
 -fx-background-color : #60bbba
@@ -52,14 +29,59 @@
     -fx-border-color: #FFFFFF;
 
 }
-
+#ContinueButton{
+    -fx-font-size: 14;
+}
+.combo-box{
+    -fx-background-color: #94dedb;
+}
+.combo-box .combo-box-popup .list-view, .combo-box .combo-box-popup .list-cell{
+    -fx-background-color: #94dedb;
+}
+.date-picker > .text-field{
+    -fx-background-color: #94dedb;
+}
+.list-cell:even{
+    -fx-background-color: #bdefef;
+}
+.list-cell:odd{
+    -fx-background-color: #cbf1f1;
+}
+.list-view .list-cell:filled:selected:focused, .list-view .list-cell:filled:selected {
+    -fx-text-fill: #000100;
+    -fx-background-color: #60bbba;
+}
+.list-view{
+     -fx-background-color: #60bbba;
+ }
+.table-view{
+    -fx-background-color: #60bbba;
+}
+.table-row-cell:even{
+    -fx-background-color: #bdefef;
+}
+.table-row-cell:odd{
+    -fx-background-color: #cbf1f1;
+}
+.table-row-cell:selected .text{
+    -fx-fill: #000100;
+}
+.table-row-cell:selected{
+    -fx-background-color: #60bbba;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+    -fx-background-color: #ecf6f5;
+}
+#gridPane{
+    -fx-background-color: transparent;
+    -fx-background-color: #ecf6f5;
+}
+.radio-button:selected .radio .dot{
+    -fx-background-color: #60bbba;
+}
 .scroll-bar:horizontal, .scroll-bar:vertical{
     -fx-background-color:transparent;
-}
-
-.increment-button, .decrement-button {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
 }
 
 .scroll-bar:horizontal .track,
@@ -82,51 +104,7 @@
     -fx-text-fill : #000100;
 }
 
-.storeCard {
-    -fx-border-radius: 10 10 10 10;
-    -fx-border-width: 2 2 2 2;
-}
-.storeCard:hover{
-    -fx-border-width: 0px 0px 0px 3px;
-    -fx-border-color: #000000;
-    -fx-border-style:solid;
-}
-.storeCard:hover .sidebar-btn-icon{
-    -fx-fill:#000000;
-}
-.storeCard:hover .sidebar-btn-text{
-    -fx-text-fill:#000000;
-}
 
-#amount-text-field {
-    -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
-}
 
-#total-summary-hbox {
-    -fx-border-radius: 10 10 10 10;
-    -fx-border-color: black;
-}
-
-.text-field {
-    -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
-}
-
-.accept-button:hover {
-    -fx-background-color : #4ABF50;
-}
-
-.accept-button:pressed {
-    -fx-background-color : #4ABF50;
-}
-
-.reject-button:hover {
-    -fx-background-color : #E42535;
-}
-
-.reject-button:pressed {
-    -fx-background-color : #E42535;
-}
 
 
