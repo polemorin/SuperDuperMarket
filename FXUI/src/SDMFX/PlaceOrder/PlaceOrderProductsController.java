@@ -55,7 +55,7 @@ public class PlaceOrderProductsController {
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(PlaceOrderSalesController.class.getResource("PlaceOrderSales.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load());
+                    Scene scene = new Scene(fxmlLoader.load(),600,600);
                     placeOrderSalesStage = new Stage();
                     placeOrderSalesStage.setTitle("Place Order Sales");
                     placeOrderSalesStage.setScene(scene);

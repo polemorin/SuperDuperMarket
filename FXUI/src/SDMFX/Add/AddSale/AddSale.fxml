@@ -34,14 +34,14 @@
             <ComboBox fx:id="OperatorComboBox" layoutX="44.0" layoutY="204.0" onAction="#OperatorComboBoxAction" prefWidth="150.0" promptText="Choose operator" />
             <Label layoutX="295.0" layoutY="150.0" text="Amount:" />
             <Label fx:id="PromptAmountLabel" layoutX="405.0" layoutY="150.0" prefHeight="17.0" prefWidth="40.0" text="0.0" />
-            <Button fx:id="MinusPromptAmountButton" layoutX="361.0" layoutY="146.0" mnemonicParsing="false" onAction="#MinusPromptAmountButtonAction" text="-" />
-            <Button fx:id="PlusPromptAmountButton" layoutX="448.0" layoutY="146.0" mnemonicParsing="false" onAction="#PlusPromptAmountButtonAction" text="+" />
+            <Button fx:id="MinusPromptAmountButton" layoutX="361.0" layoutY="146.0" mnemonicParsing="false" onAction="#MinusPromptAmountButtonAction" styleClass="RoundButton" stylesheets="@../../../productTileStyle1.css" text="-" />
+            <Button fx:id="PlusPromptAmountButton" layoutX="448.0" layoutY="146.0" mnemonicParsing="false" onAction="#PlusPromptAmountButtonAction" styleClass="RoundButton" stylesheets="@../../../productTileStyle1.css" text="+" />
             <Button fx:id="AddOfferButton" layoutX="417.0" layoutY="350.0" mnemonicParsing="false" onAction="#AddOfferButtonAction" prefHeight="28.0" prefWidth="91.0" text="Add offer" />
             <ComboBox fx:id="OfferItemsComboBox" layoutX="46.0" layoutY="282.0" onAction="#OfferItemsComboBoxAction" prefWidth="150.0" promptText="Choose offer items" />
             <Label layoutX="295.0" layoutY="286.0" text="Amount:" />
             <Label fx:id="OfferAmountLabel" layoutX="425.0" layoutY="286.0" text="0.0" />
-            <Button fx:id="OfferAmountMinusButton" layoutX="361.0" layoutY="282.0" mnemonicParsing="false" onAction="#OfferAmountMinusButtonAction" text="-" />
-            <Button fx:id="OfferAmountPlusButton" layoutX="456.0" layoutY="282.0" mnemonicParsing="false" onAction="#OfferAmountPlusButtonAction" text="+" />
+            <Button fx:id="OfferAmountMinusButton" layoutX="361.0" layoutY="282.0" mnemonicParsing="false" onAction="#OfferAmountMinusButtonAction" styleClass="RoundButton" stylesheets="@../../../productTileStyle1.css" text="-" />
+            <Button fx:id="OfferAmountPlusButton" layoutX="456.0" layoutY="282.0" mnemonicParsing="false" onAction="#OfferAmountPlusButtonAction" styleClass="RoundButton" stylesheets="@../../../productTileStyle1.css" text="+" />
             <Label layoutX="46.0" layoutY="355.0" text="Enter price" />
             <Label fx:id="ForAdditionalPriceLabel" layoutX="196.0" layoutY="356.0" prefHeight="17.0" prefWidth="215.0" />
             <TextField fx:id="ForAdditionalPriceTextBox" layoutX="122.0" layoutY="351.0" onKeyReleased="#ForAdditionalPriceTextBoxAction" prefHeight="25.0" prefWidth="55.0" />
