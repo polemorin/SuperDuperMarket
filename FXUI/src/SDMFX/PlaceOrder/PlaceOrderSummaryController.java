@@ -40,6 +40,7 @@ public class PlaceOrderSummaryController {
 
     @FXML
     private Label CustomerIDLabel;
+    private String currentStyle;
 
     @FXML
     void CancelOrderButtonAction(ActionEvent event) {
@@ -87,5 +88,9 @@ public class PlaceOrderSummaryController {
             }
 
         }
+    }
+
+    public void setStyle(String currentStyle) {
+        this.currentStyle = currentStyle;
     }
 }

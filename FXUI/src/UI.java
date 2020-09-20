@@ -3,7 +3,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -27,9 +26,10 @@ public class UI extends Application {
         SuperDuperMarket SDM = new SuperDuperMarket();
         controller.setPrimaryStage(primaryStage);
         controller.setSDM(SDM);
-
+        controller.setStyle("Lime.css");
         primaryStage.setTitle("Super Duper Market");
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("Lime.css");
         primaryStage.setScene(scene);
 
          s=primaryStage;

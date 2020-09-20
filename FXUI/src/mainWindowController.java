@@ -51,7 +51,10 @@ public class mainWindowController {
     private Stage addSaleStage;
     private Stage addProductStage;
     private Stage addStoreStage;
+    private String currentStyle;
 
+    @FXML
+    private ScrollPane MainWindowScrollPane;
     @FXML
     private Button orderHistoryButton;
 
@@ -117,7 +120,7 @@ public class mainWindowController {
         ShowMapButton.disableProperty().bind(isXmlFileLoaded.not());
         styleComboBox.getItems().add("None");
         styleComboBox.getItems().add("Lime");
-        styleComboBox.getItems().add("Ocean Gold");
+        styleComboBox.getItems().add("Summer Breeze");
     }
 
 
@@ -129,17 +132,20 @@ public class mainWindowController {
         this.primaryStage = primaryStage;
     }
 
-    private void setStyle(String style){
+    private void updateStyle(String style){
         if(style.equals("None")){
-            Scene scene = styleComboBox.getScene();
-            scene.getStylesheets().clear();
-            Stage s = (Stage)styleComboBox.getScene().getWindow();
-            s.setScene(scene);
+            currentStyle = "None";
+            styleComboBox.getScene().getStylesheets().clear();
         }
         if(style.equals("Lime")){
+            currentStyle = "Lime.css";
             styleComboBox.getScene().getStylesheets().clear();
-            styleComboBox.getScene().getStylesheets().add("style.css");
-
+            styleComboBox.getScene().getStylesheets().add(currentStyle);
+        }
+        if(style.equals("Summer Breeze")){
+            currentStyle = "SummerBreeze.css";
+            styleComboBox.getScene().getStylesheets().clear();
+            styleComboBox.getScene().getStylesheets().add(currentStyle);
         }
     }
 
@@ -149,6 +155,9 @@ public class mainWindowController {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("SDMFX/Add/AddProduct/AddProduct.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
+            if(currentStyle.compareTo("None") != 0){
+                scene.getStylesheets().add(currentStyle);
+            }
             addProductStage = new Stage();
             addProductStage.setTitle("Order history");
             addProductStage.setScene(scene);
@@ -172,8 +181,12 @@ public class mainWindowController {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("SDMFX/Add/AddSale/AddSale.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
+            if(currentStyle.compareTo("None") != 0){
+                scene.getStylesheets().add(currentStyle);
+            }
             addSaleStage = new Stage();
             addSaleStage.setTitle("Add sale");
+
             addSaleStage.setScene(scene);
             addSaleStage.initOwner(primaryStage);
             addSaleStage.initModality(Modality.WINDOW_MODAL);
@@ -194,6 +207,9 @@ public class mainWindowController {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("SDMFX/Add/AddStore/AddStore.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
+            if(currentStyle.compareTo("None") != 0){
+                scene.getStylesheets().add(currentStyle);
+            }
             addStoreStage = new Stage();
             addStoreStage.setTitle("Add Store");
             addStoreStage.setScene(scene);
@@ -252,6 +268,9 @@ public class mainWindowController {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("SDMFX/ShowDetails/OrderHistoryWindow.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
+            if(currentStyle.compareTo("None") != 0){
+                scene.getStylesheets().add(currentStyle);
+            }
             orderHistoryStage = new Stage();
             orderHistoryStage.setTitle("Order history");
             orderHistoryStage.setScene(scene);
@@ -274,6 +293,9 @@ public class mainWindowController {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("SDMFX/PlaceOrder/PlaceOrderHome.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
+            if(currentStyle.compareTo("None") != 0){
+                scene.getStylesheets().add(currentStyle);
+            }
             placeOrderStage = new Stage();
             placeOrderStage.setTitle("Place Order");
             placeOrderStage.setScene(scene);
@@ -281,6 +303,7 @@ public class mainWindowController {
             placeOrderStage.initModality(Modality.WINDOW_MODAL);
             PlaceOrderHomeController placeOrderHomeController = fxmlLoader.getController();
             placeOrderHomeController.setSDM(SDM, primaryStage);
+            placeOrderHomeController.setStyle(currentStyle);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -293,6 +316,9 @@ public class mainWindowController {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("SDMFX/ShowDetails/ProductDetails.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
+            if(currentStyle.compareTo("None") != 0){
+                scene.getStylesheets().add(currentStyle);
+            }
             productDetailsStage = new Stage();
             productDetailsStage.setTitle("ProductDetails");
             productDetailsStage.setScene(scene);
@@ -313,6 +339,9 @@ public class mainWindowController {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("SDMFX/ShowDetails/StoreDetails.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
+            if(currentStyle.compareTo("None") != 0){
+                scene.getStylesheets().add(currentStyle);
+            }
             storeDetailsStage = new Stage();
             storeDetailsStage.setTitle("Store details");
             storeDetailsStage.setScene(scene);
@@ -331,7 +360,7 @@ public class mainWindowController {
 
     @FXML
     void styleComboBoxAction(ActionEvent event) {
-        setStyle(styleComboBox.getValue());
+        updateStyle(styleComboBox.getValue());
     }
 
     @FXML
@@ -340,6 +369,9 @@ public class mainWindowController {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("SDMFX/UpdateStoreProduct/UpdateStoreProduct.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
+            if(currentStyle.compareTo("None") != 0){
+                scene.getStylesheets().add(currentStyle);
+            }
             updateProductStage = new Stage();
             updateProductStage.setTitle("UpdateStoreProduct");
             updateProductStage.setScene(scene);
@@ -452,6 +484,9 @@ public class mainWindowController {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("SDMFX/ShowDetails/CustomerDetails.fxml"));
             Scene scene = new Scene(fxmlLoader.load(),600,400);
+            if(currentStyle.compareTo("None") != 0){
+                scene.getStylesheets().add(currentStyle);
+            }
             customerDetailsStage = new Stage();
             customerDetailsStage.setTitle("CustomerDetails");
             customerDetailsStage.setScene(scene);
@@ -527,5 +562,9 @@ public class mainWindowController {
         newMapStage.sizeToScene();
         newMapStage.show();
 
+    }
+
+    public void setStyle(String s) {
+        this.currentStyle = s;
     }
 }
