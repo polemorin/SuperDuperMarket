@@ -20,7 +20,7 @@ public class SaleProduct extends SoldProduct{
         this.saleName = saleName;
         this.price = price;
         this.amountBought = amountBought;
-        this.totalPrice = price;
+        this.totalPrice = price * amountBought;
         productID = id;
         productName = name;
         this.storeID = storeID;
