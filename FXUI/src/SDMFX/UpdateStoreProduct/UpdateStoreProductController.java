@@ -95,6 +95,7 @@ public class UpdateStoreProductController {
         isProductAddChosen.setValue(false);
         ResultLable.setText(AddProductComboBox.getValue().getProductName()+" added successfully, price: " + String.format("%.2f",price));
         updateComboBoxes();
+        RemoveProductComboBox.setPromptText("");
     }
 
     @FXML

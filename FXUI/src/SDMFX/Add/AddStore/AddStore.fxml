@@ -37,11 +37,11 @@
             <Label layoutX="36.0" layoutY="225.0" text="Add products to the store and set the price" />
             <Button fx:id="AddProductButton" layoutX="476.0" layoutY="265.0" mnemonicParsing="false" onAction="#AddProductButtonAction" prefHeight="22.0" prefWidth="104.0" text="Add product" />
             <Button fx:id="CancelButton" layoutX="21.0" layoutY="323.0" mnemonicParsing="false" onAction="#CancelButtonAction" prefHeight="53.0" prefWidth="129.0" text="Cancel" />
-            <Label fx:id="IDMsgLabel" layoutX="136.0" layoutY="178.0" text="Label" />
-            <Label fx:id="PPKMsgLabel" layoutX="410.0" layoutY="178.0" text="Label" />
-            <Label fx:id="PriceMsgLabel" layoutX="402.0" layoutY="297.0" text="Label" />
-            <Label fx:id="GeneralMsgLabel" layoutX="208.0" layoutY="341.0" text="Label" />
-            <Label fx:id="LocationMsgLabel" layoutX="410.0" layoutY="123.0" text="Label" />
+            <Label fx:id="IDMsgLabel" layoutX="136.0" layoutY="178.0" />
+            <Label fx:id="PPKMsgLabel" layoutX="410.0" layoutY="178.0" />
+            <Label fx:id="PriceMsgLabel" layoutX="402.0" layoutY="297.0" />
+            <Label fx:id="GeneralMsgLabel" layoutX="208.0" layoutY="341.0" />
+            <Label fx:id="LocationMsgLabel" layoutX="410.0" layoutY="123.0" />
          </children>
       </Pane>
    </content>
