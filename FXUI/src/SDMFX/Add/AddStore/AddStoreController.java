@@ -90,20 +90,25 @@ public class AddStoreController {
 
     @FXML
     void AddProductButtonAction(ActionEvent event) {
+
         if(ProductsComboBox.getItems().size() != 0){
             PPKTextField.disableProperty().setValue(true);
             IDTextField.disableProperty().setValue(true);
             NameTextField.disableProperty().setValue(true);
             LocationXcomboBox.disableProperty().setValue(true);
             LocationYcomboBox.disableProperty().setValue(true);
-
+            if(ProductsComboBox.getValue()!=null){
             StoreProduct newStoreProduct = new StoreProduct(ProductsComboBox.getValue(),
                     Double.parseDouble(PriceTextField.getText()),
                     Integer.parseInt(IDTextField.getText()));
             storeProducts.add(newStoreProduct);
-            Product currentProductInComboBox = ProductsComboBox.getValue();
-            ProductsComboBox.getItems().remove(currentProductInComboBox);
-            canStoreBeAddedToSDM.setValue(true);
+
+                Product currentProductInComboBox = ProductsComboBox.getValue();
+                ProductsComboBox.getItems().remove(currentProductInComboBox);
+                ProductsComboBox.setValue(null);
+                canStoreBeAddedToSDM.setValue(true);
+            }
+
         }
 
     }
@@ -172,6 +177,7 @@ public class AddStoreController {
     void LocationYcomboBoxAction(ActionEvent event) {
         isValidLocation = isValidLocation();
         AddProductButton.disableProperty().setValue(!isValidAllStoreDetails());
+
     }
 
     @FXML
