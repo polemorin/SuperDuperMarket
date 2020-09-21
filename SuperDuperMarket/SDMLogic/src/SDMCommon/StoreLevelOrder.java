@@ -184,6 +184,13 @@ public class StoreLevelOrder {
             if(sp.getProductID() == product.getProductID())
                 return true;
         }
+        if(productsSoldOnSale!=null){
+            for(SaleProduct saleProduct : productsSoldOnSale){
+                if(saleProduct.getProductID() == product.getProductID())
+                    return true;
+            }
+        }
+
         return false;
     }
     private void addToTotalProductsPrice(double price)
@@ -275,6 +282,14 @@ public class StoreLevelOrder {
                 return sp.getAmountSoldInOrder();
             }
         }
+        if(productsSoldOnSale!=null) {
+            for (SaleProduct saleProduct : productsSoldOnSale) {
+                if (saleProduct.getProductID() == product.getProductID()) {
+                    return saleProduct.getAmountSoldInOrder();
+                }
+            }
+        }
+
         return 0;
     }
 }
