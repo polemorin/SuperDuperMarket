@@ -153,8 +153,14 @@ public class StoreDetailsController {
            setOrderComboBox();
            OrderTableView.getItems().clear();
            resetLabels();
+           setStoreLabels();
        }
 
+    }
+
+    private void setStoreLabels() {
+        PPKLabel.setText(Double.toString(StoreComboBox.getValue().getDeliveryPPK()));
+        StoreIDLabel.setText(Integer.toString(StoreComboBox.getValue().getID()));
     }
 
     private void resetLabels() {
