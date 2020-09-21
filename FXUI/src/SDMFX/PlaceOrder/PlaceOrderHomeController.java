@@ -55,6 +55,7 @@ public class PlaceOrderHomeController {
 
     @FXML
     private Button NextButton;
+    private boolean doesUserWantAnimation;
 
     public PlaceOrderHomeController() {
         isAllDetailsFilled = new SimpleBooleanProperty(false);
@@ -159,6 +160,7 @@ public class PlaceOrderHomeController {
                 PlaceOrderProductsController placeOrderProductsController = fxmlLoader.getController();
                 placeOrderProductsController.setData(SDM,mainStage,customer,store,date);
                 placeOrderProductsController.setStyle(currentStyle);
+                placeOrderProductsController.doAnimation(doesUserWantAnimation);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -187,6 +189,7 @@ public class PlaceOrderHomeController {
     }
 
     void setDeliveryPriceLabel() {
+        if (CustomerComboBox.getValue() != null) {
             Double userDistanceFromStore;
             Store chosenStore = StoreComboBox.getValue();
             User customer = CustomerComboBox.getValue();
@@ -194,8 +197,13 @@ public class PlaceOrderHomeController {
 
             DeliveryPriceLabel.setText(String.format("%.2f", chosenStore.getDeliveryPPK() * userDistanceFromStore));
         }
+    }
 
     public void setStyle(String currentStyle) {
         this.currentStyle = currentStyle;
+    }
+
+    public void doAnimation(boolean selected) {
+        doesUserWantAnimation = selected;
     }
 }

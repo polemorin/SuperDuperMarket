@@ -45,6 +45,7 @@ public class PlaceOrderProductsController {
     @FXML
     private Button ContinueButton;
     private String currentStyle;
+    private boolean doesUserWantAnimation;
 
     @FXML
     void ContinueButtonAction(ActionEvent event) {
@@ -68,6 +69,7 @@ public class PlaceOrderProductsController {
                     PlaceOrderSalesController placeOrderSalesController = fxmlLoader.getController();
                     placeOrderSalesController.setData(SDM, customer, store, deliveryDate, getProductsByIdAndAmount(), mainStage);
                     placeOrderSalesController.setStyle(currentStyle);
+                    placeOrderSalesController.doAnimation(doesUserWantAnimation);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -147,5 +149,9 @@ public class PlaceOrderProductsController {
 
     public void setStyle(String currentStyle) {
         this.currentStyle = currentStyle;
+    }
+
+    public void doAnimation(boolean doesUserWantAnimation) {
+        this.doesUserWantAnimation = doesUserWantAnimation;
     }
 }

@@ -304,6 +304,7 @@ public class mainWindowController {
             PlaceOrderHomeController placeOrderHomeController = fxmlLoader.getController();
             placeOrderHomeController.setSDM(SDM, primaryStage);
             placeOrderHomeController.setStyle(currentStyle);
+            placeOrderHomeController.doAnimation(animationCheckBox.isSelected());
         } catch (IOException e) {
             e.printStackTrace();
         }
