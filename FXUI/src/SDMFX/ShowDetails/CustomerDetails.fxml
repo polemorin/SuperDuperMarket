@@ -28,9 +28,9 @@
             <Label fx:id="OrderAmountShowLable" layoutX="479.0" layoutY="254.0" prefHeight="32.0" prefWidth="107.0" />
             <Label layoutX="300.0" layoutY="254.0" prefHeight="32.0" prefWidth="107.0" text="Amount of orders" />
             <Label fx:id="ProductCostShowLable" layoutX="479.0" layoutY="286.0" prefHeight="32.0" prefWidth="107.0" />
-            <Label layoutX="300.0" layoutY="286.0" prefHeight="32.0" prefWidth="119.0" text="Average product cost" />
+            <Label layoutX="300.0" layoutY="286.0" prefHeight="32.0" prefWidth="160.0" text="Average product cost" />
             <Label fx:id="DeliveryCostLable" layoutX="479.0" layoutY="318.0" prefHeight="32.0" prefWidth="107.0" />
-            <Label layoutX="300.0" layoutY="318.0" prefHeight="32.0" prefWidth="119.0" text="Average delivery cost" />
+            <Label layoutX="300.0" layoutY="318.0" prefHeight="32.0" prefWidth="159.0" text="Average delivery cost" />
          </children>
       </Pane>
   </content>
