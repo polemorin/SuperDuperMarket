@@ -98,6 +98,7 @@ public class PlaceOrderSalesController
     @FXML
     private Label MessegeLabel;
     private String currentStyle;
+    private boolean doesUserWantAnimation;
 
     @FXML
     void AddOfferButtonAction(ActionEvent event) {
@@ -202,6 +203,7 @@ public class PlaceOrderSalesController
             PlaceOrderSummaryController placeOrderSummaryController = fxmlLoader.getController();
             placeOrderSummaryController.setData(sdm, customerLevelOrder);
             placeOrderSummaryController.setStyle(currentStyle);
+            placeOrderSummaryController.doAnimation(doesUserWantAnimation);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -344,5 +346,9 @@ public class PlaceOrderSalesController
 
     public void setStyle(String currentStyle) {
         this.currentStyle = currentStyle;
+    }
+
+    public void doAnimation(boolean doesUserWantAnimation) {
+        this.doesUserWantAnimation  =doesUserWantAnimation;
     }
 }
