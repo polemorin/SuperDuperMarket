@@ -28,8 +28,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import java.io.File;
 import java.io.IOException;
@@ -121,6 +119,7 @@ public class mainWindowController {
         styleComboBox.getItems().add("None");
         styleComboBox.getItems().add("Lime");
         styleComboBox.getItems().add("Summer Breeze");
+        styleComboBox.getItems().add("Peach");
     }
 
 
@@ -144,6 +143,12 @@ public class mainWindowController {
         }
         if(style.equals("Summer Breeze")){
             currentStyle = "SummerBreeze.css";
+            styleComboBox.getScene().getStylesheets().clear();
+            styleComboBox.getScene().getStylesheets().add(currentStyle);
+        }
+
+        if(style.equals("Peach")){
+            currentStyle = "Peach.css";
             styleComboBox.getScene().getStylesheets().clear();
             styleComboBox.getScene().getStylesheets().add(currentStyle);
         }
