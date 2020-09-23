@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SDMLogic:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SDMLogic_jar</output-path>
+    <root id="archive" name="SDMLogic.jar">
+      <element id="module-output" name="SDMLogic" />
+    </root>
+  </artifact>
+</component>
