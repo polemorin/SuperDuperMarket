@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fx:id="MainWindowScrollPane" prefHeight="433.0" prefWidth="645.0" styleClass="Pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainWindowController">
+   <content>
+      <Pane id="mainPane" prefHeight="432.0" prefWidth="628.0">
+         <children>
+            <Button id="OrderHistoryButton" fx:id="orderHistoryButton" layoutX="259.0" layoutY="112.0" mnemonicParsing="false" onAction="#orderHistoryAction" prefHeight="36.0" prefWidth="166.0" text="Order History" />
+            <Button id="ShowStoreDetailsButton" fx:id="storeDetailsButton" layoutX="448.0" layoutY="112.0" mnemonicParsing="false" onAction="#storeDetailsAction" prefHeight="36.0" prefWidth="166.0" text="Store details" />
+            <Button id="AddNewProduct" fx:id="addNewProductButton" layoutX="448.0" layoutY="158.0" mnemonicParsing="false" onAction="#addNewProductAction" prefHeight="36.0" prefWidth="166.0" text="Add new product" />
+            <Button fx:id="productDetailsButton" layoutX="259.0" layoutY="158.0" mnemonicParsing="false" onAction="#productDetailsAction" prefHeight="36.0" prefWidth="166.0" text="Product details" />
+            <Button id="UserDetailsButton" fx:id="userDetailsButton" layoutX="259.0" layoutY="204.0" mnemonicParsing="false" onAction="#userDetailsAction" prefHeight="36.0" prefWidth="166.0" text="User details" />
+            <Button id="AddNewSaleButton" fx:id="addNewSaleButton" layoutX="448.0" layoutY="204.0" mnemonicParsing="false" onAction="#addNewSaleAction" prefHeight="36.0" prefWidth="166.0" text="Add new sale" />
+            <Button id="UpdateStoreProductButton" fx:id="updateStoreProductButton" layoutX="259.0" layoutY="251.0" mnemonicParsing="false" onAction="#updateStoreProductAction" prefHeight="36.0" prefWidth="166.0" text="  Update store product" />
+            <Button id="PlaceOrderButton" fx:id="placeAnOrderButton" layoutX="257.0" layoutY="339.0" mnemonicParsing="false" onAction="#placeAnOrderAction" prefHeight="57.0" prefWidth="362.0" text="Place an order">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Button>
+            <Label id="StyleLable" layoutX="21.0" layoutY="17.0" text="Style" />
+            <ComboBox id="StyleComboBox" fx:id="styleComboBox" layoutX="79.0" layoutY="12.0" onAction="#styleComboBoxAction" prefHeight="25.0" prefWidth="83.0" />
+            <CheckBox id="AnimationsCheckBox" fx:id="animationCheckBox" layoutX="21.0" layoutY="49.0" mnemonicParsing="false" onAction="#animationChecked" text="Animations" />
+            <Label id="SDMLable" layoutX="14.0" layoutY="229.0" prefHeight="49.0" prefWidth="218.0" text="MARKET">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <ProgressBar fx:id="ProgressBarLoader" layoutX="13.0" layoutY="371.0" prefHeight="18.0" prefWidth="187.0" progress="0.0" />
+            <Label fx:id="ProgressLabel" layoutX="14.0" layoutY="388.0" prefHeight="29.0" prefWidth="81.0" stylesheets="@Lime.css" />
+            <Button id="ShowMapButton" fx:id="ShowMapButton" layoutX="259.0" layoutY="294.0" mnemonicParsing="false" onAction="#ShowMapButtonAction" prefHeight="36.0" prefWidth="357.0" text="Show map">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button id="NewStoreButton" fx:id="addNewStoreButton" layoutX="448.0" layoutY="251.0" mnemonicParsing="false" onAction="#addNewStoreAction" prefHeight="36.0" prefWidth="166.0" text="Add new store" />
+            <Button fx:id="loadXmlFileButton" layoutX="14.0" layoutY="322.0" mnemonicParsing="false" onAction="#loadXmlFileAction" prefHeight="36.0" prefWidth="185.0" text="Load XML" />
+            <Label id="SDMLable" layoutX="14.0" layoutY="169.0" prefHeight="49.0" prefWidth="218.0" text="DUPER">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Label id="SDMLable" layoutX="14.0" layoutY="111.0" prefHeight="49.0" prefWidth="218.0" text="SUPER">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="265.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Small%20Icons/online-shopping.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="454.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Small%20Icons/shop.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="454.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Small%20Icons/grocery.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="265.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Small%20Icons/diet.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="265.0" layoutY="206.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Small%20Icons/user.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="454.0" layoutY="206.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Small%20Icons/sale.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="454.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Small%20Icons/open.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="31.0" fitWidth="72.0" layoutX="299.0" layoutY="355.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Small%20Icons/shopping-cart.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="300.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Small%20Icons/map.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="20.0" layoutY="325.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Small%20Icons/loading.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="263.0" layoutY="253.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Small%20Icons/milk.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="42.0" fitWidth="49.0" layoutX="270.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/milk%20(1).png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="42.0" fitWidth="49.0" layoutX="518.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/ketchup.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="42.0" fitWidth="49.0" layoutX="461.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/eggs.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="42.0" fitWidth="49.0" layoutX="396.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/cheese.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="42.0" fitWidth="49.0" layoutX="330.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/apple.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="42.0" fitWidth="49.0" layoutX="572.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/broccoli%20(1).png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </content>
+</ScrollPane>

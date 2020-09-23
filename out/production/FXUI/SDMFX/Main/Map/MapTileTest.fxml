@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="32.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SDMFX.Main.Map.MapTileController">
+   <children>
+      <Rectangle fx:id="borderRectangle" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="33.0" layoutX="1.0" stroke="BLACK" strokeType="INSIDE" width="32.0" />
+      <Label fx:id="coordinateLabel" layoutX="9.0" layoutY="15.0" />
+      <ImageView fx:id="ImageTile" fitHeight="33.0" fitWidth="32.0" layoutX="2.0" layoutY="1.0" onMouseEntered="#updateToolTipAction" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</Pane>

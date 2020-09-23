@@ -1,0 +1,177 @@
+.root*{
+    -fx-background-color: #60bbba;
+    -fx-text-fill: #000100;
+    -fx-accent: #60bbba;
+    -fx-text-background-color: #000000;
+}
+
+.button {
+    -fx-background-color: #cee8e7;
+    -fx-text-fill: #000100;
+    -fx-border-color: #c4d5d3;
+    -fx-border-insets: 50%;
+    -fx-font-family: Berlin Sans FB;
+}
+.RoundButton{
+
+    -fx-text-fill: black;
+    -fx-background-color: #85c9c8;
+    -fx-border-color: transparent;
+    -fx-background-radius: 5em;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-max-width: 30px;
+    -fx-max-height: 30px;
+
+}
+.RoundButton:hover{
+    -fx-background-color : #94dedb;
+    -fx-background-insets: 0%;
+}
+.RoundButton:pressed
+{
+    -fx-background-color : #60bbba
+}
+#MainSDMLable {
+
+}
+#SDMLable {
+    -fx-font-size: 36;
+    -fx-text-fill: #394c4b;
+    -fx-font-family: Berlin Sans FB;
+    -fx-font-weight: bold;
+
+}
+.HeaderLabel{
+    -fx-font-size: 24;
+}
+#ProductTileRectangle{
+    -fx-fill : #cee8e7;
+}
+.button:hover {
+    -fx-background-color: #94dedb;
+}
+
+#PlaceOrderButton {
+    -fx-font-size: 29;
+}
+#SalesLabel{
+    -fx-font-size: 24;
+}
+#ChooseItemsLabel{
+    -fx-font-size: 24;
+}
+#OrderSummeryLabel{
+    -fx-font-size: 24;
+}
+#AddSaleLabel{
+    -fx-font-size: 24;
+}
+#PlaceOrderLabel{
+    -fx-font-size: 24;
+}
+#ShowMapButton {
+    -fx-font-size: 14;
+}
+
+.button:pressed {
+    -fx-background-color: #60bbba
+}
+
+.scroll-pane {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #FFFFFF;
+
+}
+
+#ContinueButton {
+    -fx-font-size: 14;
+}
+
+.combo-box {
+    -fx-background-color: #94dedb;
+}
+
+.combo-box .combo-box-popup .list-view, .combo-box .combo-box-popup .list-cell {
+    -fx-background-color: #94dedb;
+}
+
+.date-picker > .text-field {
+    -fx-background-color: #94dedb;
+}
+
+.list-cell:even {
+    -fx-background-color: #bdefef;
+}
+
+.list-cell:odd {
+    -fx-background-color: #cbf1f1;
+}
+
+.list-view .list-cell:filled:selected:focused, .list-view .list-cell:filled:selected {
+    -fx-text-fill: #000100;
+    -fx-background-color: #60bbba;
+}
+
+.list-view {
+    -fx-background-color: #60bbba;
+}
+
+.table-view {
+    -fx-background-color: #60bbba;
+}
+
+.table-row-cell:even {
+    -fx-background-color: #bdefef;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #cbf1f1;
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: #000100;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #60bbba;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #ecf6f5;
+}
+
+
+.radio-button:selected .radio .dot {
+    -fx-background-color: #60bbba;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-radius: 5em;
+}
+
+.scroll-pane > .corner {
+
+}
+
+.label {
+    -fx-text-fill: #000100;
+}
+
+
+
+
+
+
