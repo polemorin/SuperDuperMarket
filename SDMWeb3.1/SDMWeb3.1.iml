@@ -20,7 +20,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" scope="PROVIDED" name="Tomcat 8.5.23" level="application_server_libraries" />
-    <orderEntry type="module" module-name="SDMLogic" exported="" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -30,8 +29,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="bootstrap" level="application" />
-    <orderEntry type="library" name="jquery" level="application" />
-    <orderEntry type="library" name="popper.js" level="application" />
   </component>
 </module>
