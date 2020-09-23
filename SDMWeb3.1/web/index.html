@@ -2,8 +2,22 @@
 <html>
   <head>
     <title>$Title$</title>
+
+    <script type="text/javascript" src="common/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="common/context-path-helper.js"></script>
+
+    <script src="testJavaScript.js"></script>
   </head>
   <body>
-  $END$
+  <form method="POST" action="test" class = "role">
+    <label>
+      <input type="text" name="username"/>
+    </label>
+    <input type="submit" value="Login"/><br><br>
+  </form>
+  <div class="input">
+    <ul id="listOfMsg">
+    </ul>
+  </div>
   </body>
 </html>
