@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SuperDuperMarket/ConsoleUI/ConsoleUI.iml" filepath="$PROJECT_DIR$/SuperDuperMarket/ConsoleUI/ConsoleUI.iml" />
       <module fileurl="file://$PROJECT_DIR$/SuperDuperMarket/SDMLogic/SDMLogic.iml" filepath="$PROJECT_DIR$/SuperDuperMarket/SDMLogic/SDMLogic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SDMWeb3.1/SDMWeb3.1.iml" filepath="$PROJECT_DIR$/SDMWeb3.1/SDMWeb3.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/SuperDuperMarket.iml" filepath="$PROJECT_DIR$/.idea/SuperDuperMarket.iml" />
     </modules>
   </component>
