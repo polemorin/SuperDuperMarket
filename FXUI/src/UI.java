@@ -34,8 +34,6 @@ public class UI extends Application {
 
          s=primaryStage;
         primaryStage.show();
-        new Thread(()-> System.out.println("hey") ).start();
-
     }
 
 
