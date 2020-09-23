@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="FXUI:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FXUI_jar</output-path>
+    <root id="archive" name="FXUI.jar">
+      <element id="module-output" name="FXUI" />
+      <element id="module-output" name="SDMLogic" />
+    </root>
+  </artifact>
+</component>
