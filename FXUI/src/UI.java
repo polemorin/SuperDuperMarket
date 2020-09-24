@@ -23,7 +23,7 @@ public class UI extends Application {
         ScrollPane root = loader.load();
 
         mainWindowController controller = loader.getController();
-        SuperDuperMarket SDM = new SuperDuperMarket();
+        MarketArea SDM = new MarketArea();
         controller.setPrimaryStage(primaryStage);
         controller.setSDM(SDM);
         controller.setStyle("Lime.css");

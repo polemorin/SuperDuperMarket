@@ -6,13 +6,15 @@ import java.util.List;
 
 public class User {
 
-    private List<CustomerLevelOrder> orderHistory;
-    private final String name;
-    private final int ID;
-    private Point location;
+
+    private  String name;
+    private  int ID;
+    private Point location; //??
+    private double fundsAccount;
+
+    public User(){}
 
     public User(String name, int ID,Point location) {
-        this.orderHistory = new ArrayList<CustomerLevelOrder>();
         this.name = name;
         this.ID = ID;
         this.location = location;
@@ -21,18 +23,12 @@ public class User {
     public User(User other){
         this.name = other.name;
         this.ID = other.ID;
-        this.orderHistory = new ArrayList<CustomerLevelOrder>(other.orderHistory.size());
-        for (CustomerLevelOrder itr:other.orderHistory) {
-            this.orderHistory.add(new CustomerLevelOrder(itr));
-        }
+        //this.orderHistory = new ArrayList<CustomerLevelOrder>(other.orderHistory.size());
+        //for (CustomerLevelOrder itr:other.orderHistory) {
+        //    this.orderHistory.add(new CustomerLevelOrder(itr));
+        //}
     }
 
-    public void addOrderToOrderHistory(CustomerLevelOrder orderToAdd) {
-        orderHistory.add(orderToAdd);
-    }
-    public List<CustomerLevelOrder> getOrderHistory() {
-        return orderHistory;
-    }
     public String getName() {
         return name;
     }
@@ -48,31 +44,29 @@ public class User {
         this.location = location;
     }
 
-
-    public int getAmountOfOrders(){
-        return orderHistory.size();
-    }
     public double getAverageProductCostFromOrders(){
-        if(orderHistory.size() == 0)
-        {
-            return 0;
-        }
-        double sum= 0;
-        for (CustomerLevelOrder order: orderHistory) {
-            sum+=order.getTotalProductPrice();
-        }
-        return sum/orderHistory.size();
+      // if(orderHistory.size() == 0)
+      // {
+      //     return 0;
+      // }
+      // double sum= 0;
+      // for (CustomerLevelOrder order: orderHistory) {
+      //     sum+=order.getTotalProductPrice();
+      // }
+      // return sum/orderHistory.size();
+        return  0;
     }
     public double getAverageDeliveryCostFromOrders(){
-        if(orderHistory.size() == 0)
-        {
-            return 0;
-        }
-        double sum= 0;
-        for (CustomerLevelOrder order: orderHistory) {
-            sum+=order.getDeliveryPrice();
-        }
-        return sum/orderHistory.size();
+      // if(orderHistory.size() == 0)
+      // {
+      //     return 0;
+      // }
+      // double sum= 0;
+      // for (CustomerLevelOrder order: orderHistory) {
+      //     sum+=order.getDeliveryPrice();
+      // }
+      // return sum/orderHistory.size();
+        return 0;
     }
 
     public Double distanceFromStore(Store store){
@@ -99,5 +93,13 @@ public class User {
     @Override
     public String toString() {
         return name;
+    }
+
+    public double getFundsAccount() {
+        return fundsAccount;
+    }
+
+    public void setFundsAccount(double fundsAccount) {
+        this.fundsAccount = fundsAccount;
     }
 }

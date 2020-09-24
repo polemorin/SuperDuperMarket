@@ -5,6 +5,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.awt.*;
 import java.io.*;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
@@ -13,6 +14,7 @@ import ProductTypes.*;
 import ProductTypes.Product;
 import ProductTypes.ProductCategory;
 import ProductTypes.StoreProduct;
+import SDMCommon.CustomerLevelOrder;
 import SDMExceptions.*;
 import SDMSale.Sale;
 import jaxb.generated.*;
@@ -22,18 +24,11 @@ public class MarketArea {
     private Map<Integer, Store> stores;
     private Map<Integer, CustomerLevelOrder> orderHistory;
     private String zone;
-    private String ownerName;
 
-    public MarketArea(Map<Integer, Product> tempProductMap, Map<Integer, Store> tempStoreMap, String creatorName, String name) {
-        products = tempProductMap;
-        stores = tempStoreMap;
-        ownerName = creatorName;
-        zone = name;
-        orderHistory = new HashMap<>();
-    }
-
-    public String getOwnerName(){
-        return ownerName;
+    public MarketArea() { //change this constructor
+        this.products = new HashMap<Integer, Product>();
+        stores = new HashMap<Integer, Store>();
+        orderHistory = new HashMap<Integer, CustomerLevelOrder>();
     }
 
     public int countHowManyStoresSellProduct(Product productToLookFor) {
@@ -78,23 +73,14 @@ public class MarketArea {
     public boolean isValidProductID(int productID) {
         return products.containsKey(productID);
     }
-    public double getAVGOrderCost(){
-        if(orderHistory.size() == 0){
-            return 0;
-        }
-        double sum = 0.0;
-        for (Map.Entry<Integer,CustomerLevelOrder> order: orderHistory.entrySet()) {
-            sum+=order.getValue().getDeliveryPrice()+order.getValue().getTotalProductPrice();
-        }
-        return sum/orderHistory.size();
-    }
 
-    public void placeOrderInSDM(CustomerLevelOrder orderToAdd) {
-        orderHistory.put(orderToAdd.getOrderID(), orderToAdd);
-        for (StoreLevelOrder storeOrder:orderToAdd.getOrders()) {
-            stores.get(storeOrder.getStoreID()).updateStoreAfterOrder(storeOrder);
-        }
-    }
+   // public void placeOrderInSDM(CustomerLevelOrder orderToAdd, int userID) {
+   //     users.get(userID).addOrderToOrderHistory(orderToAdd);
+   //     orderHistory.put(orderToAdd.getOrderID(), orderToAdd);
+   //     for (StoreLevelOrder storeOrder:orderToAdd.getOrders()) {
+   //         stores.get(storeOrder.getStoreID()).updateStoreAfterOrder(storeOrder);
+   //     }
+   // }
 
 
     public Map<Integer, Product> getProducts() {
@@ -110,7 +96,7 @@ public class MarketArea {
         return orderHistory;
     }
 
-    public CustomerLevelOrder createCheapestOrder(Map<Integer, Double> shoppingList, int customerID, LocalDate date, Point location,String customerName) {
+    public CustomerLevelOrder createCheapestOrder(Map<Integer, Double> shoppingList, int customerID, LocalDate date, Point location) {
         List<StoreLevelOrder> storeListForOrder = new ArrayList<StoreLevelOrder>();
         int storeID;
         SoldProduct productToAdd;
@@ -128,14 +114,13 @@ public class MarketArea {
                 }
             }
             if (!storeAlreadyInList) {
-                storeOrderToAdd = new StoreLevelOrder(stores.get(storeID), customerID, date, location,CustomerLevelOrder.getNextOrderID(),customerName);
+                storeOrderToAdd = new StoreLevelOrder(stores.get(storeID), customerID, date, location,CustomerLevelOrder.getNextOrderID());
                 storeOrderToAdd.addProductToOrder(productToAdd);
                 storeListForOrder.add(storeOrderToAdd);
-                StoreLevelOrder.OrderIDGenerator--;
             }
             storeAlreadyInList = false;
         }
-        return new CustomerLevelOrder(storeListForOrder,location);
+        return new CustomerLevelOrder(storeListForOrder);
     }
 
     public int findCheapestStoreID(int productID) {
@@ -151,8 +136,31 @@ public class MarketArea {
         }
         return cheapestStoreID;
     }
+   //public void loadXmlFileFromFileChooser(File selectedFile) throws Exception {
+   //    Map<Integer, Store> tempStoreMap;
+   //    Map<Integer,Product> tempProductMap;
+   //    Map<Integer, User> tempUserMap;
 
+   //    if (selectedFile.exists()) {
+   //        if (selectedFile.getPath().endsWith("xml")) {
+   //            tempStoreMap = createStoresMapFromXml(selectedFile.getAbsolutePath());
+   //            tempProductMap = createProductMapFromXml(selectedFile.getAbsolutePath(),tempStoreMap);
+   //            tempUserMap = createUserMapFromXML(selectedFile.getAbsolutePath(),tempStoreMap);
+   //        } else {
+   //            throw new Exception("File doesn't end with .xml");
+   //        }
+   //    } else {
+   //        throw new Exception("File doesnt exist.");
+   //    }
+   //    orderHistory.clear();
+   //    stores.clear();
+   //    products.clear();
+   //    users.clear();
 
+   //    stores = tempStoreMap;
+   //    products = tempProductMap;
+   //    users = tempUserMap;
+   //}
 
 
     private final static String JAXB_XML_GAME_PACKAGE_NAME = "jaxb.generated";
@@ -453,39 +461,5 @@ public class MarketArea {
 
     public String getZone() {
         return zone;
-    }
-
-    public List<ProductTableInfo> getProductsDetails() {
-        List<ProductTableInfo> productTableInfos = new ArrayList<>();
-        ProductTableInfo productInfo;
-        Product product;
-        for (Map.Entry<Integer,Product> marketAreaProduct:products.entrySet()) {
-            product = marketAreaProduct.getValue();
-            productInfo = new ProductTableInfo(product.getProductID(),
-                    product.getProductName(),
-                    product.getProductCategory().toString(),
-                    countHowManyStoresSellProduct(product),
-                    getAveragePriceForProduct(product),
-                    totalAmountSoldInMarket(product));
-            productTableInfos.add(productInfo);
-
-        }
-        return productTableInfos;
-    }
-
-    public List<StoreProductInfo> getStoreProductInfo(String storeName) {
-        List<StoreProductInfo> productInfoList = new ArrayList<>();
-        for (Map.Entry<Integer,Store> store:stores.entrySet()) {
-            if(store.getValue().getName().equals(storeName)){
-                for (Map.Entry<Integer,StoreProduct>product:store.getValue().getProducts().entrySet()) {
-                    productInfoList.add(new StoreProductInfo(product.getValue().getProductID(),
-                            product.getValue().getProductName(),
-                            product.getValue().getPrice(),
-                            product.getValue().getProductCategory().toString()));
-                }
-            }
-        }
-
-        return productInfoList;
     }
 }

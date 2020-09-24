@@ -18,6 +18,7 @@ public class Store {
     private final double deliveryPPK;
     private double totalDeliveryPayment;
     private Map<String, Sale> sales;
+    private String ownerName;
 
 
     public Store(String name, Point location, int ID, Map<Integer,StoreProduct> productSet, double PPK){
