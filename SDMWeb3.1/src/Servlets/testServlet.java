@@ -17,29 +17,22 @@ public class testServlet extends HttpServlet {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
             Gson gson = new Gson();
-            String msg = request.getParameter("username");
+            String msg = request.getParameter("username") + " this is post request";
+            System.out.println(msg);
             String json = gson.toJson(msg);
             out.println(json);
             out.flush();
         }
-        //response.setContentType("application/json");
-
-       //String userName = request.getParameter("username");
-       //String test = new String("try");
-
-       //Gson gson = new Gson();
-       //String jsonResponse = gson.toJson(userName);
-
-       //try (PrintWriter out = response.getWriter()) {
-       //    out.print(jsonResponse);
-       //    out.flush();
-       //}
-
     }
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println("TRYGet!");
+        response.setContentType("application/json");
+        try (PrintWriter out = response.getWriter()) {
+            Gson gson = new Gson();
+            String msg = request.getParameter("username") + " this is get request";
+            System.out.println(msg);
+            String json = gson.toJson(msg);
+            out.println(json);
+            out.flush();
+        }
     }
 }

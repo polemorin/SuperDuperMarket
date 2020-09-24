@@ -39,7 +39,7 @@ public class mainWindowController {
 
     private SimpleBooleanProperty isXmlFileLoaded;
     private Stage primaryStage;
-    private SuperDuperMarket SDM;
+    private MarketArea SDM;
     private Stage customerDetailsStage;
     private Stage productDetailsStage;
     private Stage updateProductStage;
@@ -123,7 +123,7 @@ public class mainWindowController {
     }
 
 
-    public void setSDM(SuperDuperMarket SDM) {
+    public void setSDM(MarketArea SDM) {
         this.SDM = SDM;
     }
 

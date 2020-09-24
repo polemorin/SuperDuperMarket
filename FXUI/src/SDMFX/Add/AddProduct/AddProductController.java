@@ -3,7 +3,7 @@ import ProductTypes.Product;
 import ProductTypes.ProductCategory;
 import ProductTypes.StoreProduct;
 import SDMCommon.Store;
-import SDMCommon.SuperDuperMarket;
+import SDMCommon.MarketArea;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class AddProductController {
 
-    private SuperDuperMarket SDM;
+    private MarketArea SDM;
     private SimpleBooleanProperty canProductBeAdded;
     Product sdmNewProduct;
     private boolean isProductIDValid;
@@ -215,7 +215,7 @@ public class AddProductController {
         canProductBeAdded();
     }
 
-    public void setSDM(SuperDuperMarket sdm) {
+    public void setSDM(MarketArea sdm) {
         SDM = sdm;
         for (Map.Entry<Integer, Store> store:SDM.getStores().entrySet()) {
             StoreComboBox.getItems().add(store.getValue());
