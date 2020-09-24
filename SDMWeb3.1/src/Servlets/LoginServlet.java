@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
-       // SDManager manager = ServletUtils.getSDMManager(getServletContext());
+        // SDManager manager = ServletUtils.getSDMManager(getServletContext());
         String usernameFromSession = null; //SessionUtils.getUsername(request);
         if (usernameFromSession == null) {
             //user is not logged in yet
@@ -37,8 +37,8 @@ public class LoginServlet extends HttpServlet {
                 synchronized (this) {
                     if (true) { //!manager.isUsernameAvailable(usernameFromParameter)
                         String errorMessage = "Username " + usernameFromParameter + " already exists. Please enter a different username.";
-                       // request.setAttribute("username error", errorMessage);
-                       // getServletContext().getRequestDispatcher(LOGIN_ERROR_URL).forward(request, response);
+                        // request.setAttribute("username error", errorMessage);
+                        // getServletContext().getRequestDispatcher(LOGIN_ERROR_URL).forward(request, response);
                         Gson gson = new Gson();
                         String jsonResponse = gson.toJson(errorMessage);
                         try (PrintWriter out = response.getWriter()) {
