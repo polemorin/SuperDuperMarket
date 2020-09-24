@@ -8,7 +8,7 @@ $("#loginForm").submit(function() {
             console.error("Failed to submit");
         },
         success: function(r) {
-
+           // $(r).appendTo($("#errorMsg"));
             $("#errorMsg").append(r);
         }
     });
