@@ -13,7 +13,6 @@ import javafx.scene.control.RadioButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.print.DocFlavor;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Map;
@@ -23,7 +22,7 @@ public class PlaceOrderHomeController {
 
     private Stage mainStage;
     private Stage placeOrderProductsStage;
-    private SuperDuperMarket SDM;
+    private MarketArea SDM;
     private SimpleBooleanProperty isStaticOrderType;
     private SimpleBooleanProperty isAllDetailsFilled;
     private Boolean isDateChosen;
@@ -92,7 +91,7 @@ public class PlaceOrderHomeController {
         }
    }
 
-    public void setSDM(SuperDuperMarket sdm, Stage mainStage) {
+    public void setSDM(MarketArea sdm, Stage mainStage) {
         SDM = sdm;
         Map<Integer, User> userMap = SDM.getUsers();
         for (Map.Entry<Integer, User> user:userMap.entrySet()) {

@@ -1,18 +1,21 @@
-function refreshUsersList(users) {
-    //clear all current users
-    $("#listOfMsg").empty();
 
-    // rebuild the list of users: scan all users and add them to the list of users
-    $.each(users || [], function(index, msg) {
-        console.log("Adding user #" + index + ": " + msg);
 
-        $('<li>' + msg + '</li>').appendTo($("#listOfMsg"));
-    });
+function refreshUsersList(msg) {
+    $('<li>' + msg + '</li>').appendTo($("#listOfMsg"));
 }
-
-
+function mouseOver(){
+    document.getElementById("clickMe").style.color = "red";
+}
 $(function() { // onload...do
     //add a function to the submit event
+
+   document.getElementById("clickMe").onmouseover = function ()
+   {mouseOver();};
+
+
+
+
+
     $("#role").submit(function() {
         $.ajax({
             data: $(this).serialize(),
@@ -25,9 +28,6 @@ $(function() { // onload...do
                 refreshUsersList(r);
             }
         });
-
-        $("#userstring").val("");
-        // by default - we'll always return false so it doesn't redirect the user.
         return false;
     });
 });
