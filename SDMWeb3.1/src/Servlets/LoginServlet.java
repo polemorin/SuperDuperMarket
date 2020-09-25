@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
                             manager.addUser(usernameFromParameter, role);
                             request.getSession(true).setAttribute(USERNAME, usernameFromParameter);
 
-                            response.sendRedirect("Pages/mainPage.html");
+                            response.sendRedirect("Pages/mainWindow/mainPage.html");
                             Gson gson = new Gson();
                             String jsonResponse = gson.toJson("");
                             try (PrintWriter out = response.getWriter()) {
@@ -65,7 +65,7 @@ public class LoginServlet extends HttpServlet {
                 }
             }
         } else {
-            response.sendRedirect("Pages/mainPage.html");
+            response.sendRedirect("Pages/mainWindow/mainPage.html");
         }
     }
 }

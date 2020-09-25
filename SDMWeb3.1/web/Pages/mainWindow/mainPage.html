@@ -1,0 +1,108 @@
+<html>
+
+
+    <head>
+    <title>Login Super Duper Market</title>
+
+    <script type="text/javascript" src="common/context-path-helper.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <link rel="stylesheet" href="mainWindow.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- <script src="login.js"></script> -->
+    </head>
+
+ <body>
+ <div class="splitLeft left" >
+     <div class="centeredLeft">
+
+         <h1>Super Duper Market</h1><br><br>
+         <div class = "container-fluid">
+             <div class = "row">
+
+                <div class = "col">
+                   <table class="UserTable">
+                      <thead class = "user-table-head">
+                      <tr>
+                          <th>Username</th>
+                          <th>User type</th>
+                       </tr></thead>
+                       <tbody id="userTableBody">
+                       </tbody>
+                  </table><br>
+                </div>
+
+                <div class = "col">
+                    <form id="uploadXmlFile" action="/transPoolWeb_war_exploded/upload" enctype="multipart/form-data" method="POST" class = "uploadXmlFile">
+                        <label>Select a File:</label><br>
+                                <input type="file" name="file" accept="xml"><br>
+                                <input type="Submit" value="Upload File" class="Button">
+                                <div id = "result"></div>
+                    </form><br><br>
+                </div>
+             </div>
+         </div>
+
+         <div class = "zoneDiv">
+             <table class="ZoneTable">
+                 <thead class = "zone-table-head">
+                 <tr><th>Creator's name</th>
+                     <th>Zone's name</th>
+                     <th>Products amount</th>
+                     <th>Store Amount</th>
+                     <th>Order amount</th>
+                     <th>Order average price</th>
+                     <th>Go to zone</th>
+                 </tr></thead>
+                 <tbody id="zoneTableBody">
+
+                 </tbody>
+             </table>
+         </div>
+
+     </div>
+ </div>
+
+ <div class="splitRight right">
+     <div class="centeredRight">
+         <h1>Account manager</h1><br><br>
+             <div id="balanceLabels">
+                  Credit balance:
+                  <label id="creditBalance">$</label>
+             </div>
+
+         <div>
+             <h3>Transaction:</h3>
+             <div class = "row">
+
+                 <div class = "col">
+                     <table class="TransactionTable">
+                         <thead class = "transaction-table-head">
+                         <tr>
+                             <th>Action type</th>
+                             <th>Date</th>
+                             <th>Amount</th>
+                             <th>Balance before action</th>
+                             <th>Balance after action</th>
+                         </tr>
+
+                         </thead>
+                         <tbody id="TransactionTableBody">
+                         </tbody>
+                     </table><br>
+                 </div>
+         </div>
+
+
+
+
+
+
+     </div>
+
+
+
+ </div>
+ </body>
+ </html>
