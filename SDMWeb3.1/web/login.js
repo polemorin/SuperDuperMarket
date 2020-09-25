@@ -6,13 +6,16 @@ $(function () {
             url: this.action,
             error: function() {
                 console.error("Failed to submit");
+
             },
             success: function(r) {
                 console.log("Success" + r);
-                $("#errorMsg").append(r);
+                $("#errorMsg").empty().append(r);
             }
         });
         return false;
     });
+
 });
+
 
