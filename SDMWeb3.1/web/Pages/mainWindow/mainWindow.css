@@ -1,0 +1,125 @@
+body {font-family: Arial, Helvetica, sans-serif;}
+
+table, th, td {
+    border: 1px solid black;
+    padding: 12px;
+}
+table {
+    border-spacing: 15px;
+}
+
+form {border: 1px solid #b1aea6;}
+
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+        display: block;
+        float: none;
+    }
+
+}
+
+/* Split the screen in half */
+.splitLeft {
+    height: 100%;
+    width: 60%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: auto;
+    padding-top: 20px;
+}
+.splitRight {
+    height: 100%;
+    width: 40%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: auto;
+    padding-top: 20px;
+}
+
+/* Control the left side */
+.left {
+    left: 0;
+//background-color: #fb8d8c;
+    background-image: url("Images/blueBackground.jpg");
+}
+
+/* Control the right side */
+.right {
+    right: 0;
+    background-color: #dbf5fa;
+}
+
+/* If you want the content centered horizontally and vertically */
+.centeredRight {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: left;
+    width: 70%;
+
+}
+.centeredLeft {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 70%;
+
+}
+/* Style the image inside the centered container, if needed */
+.centered img {
+    width: 150px;
+    border-radius: 100%;
+}
+
+.userClass{
+    left: 0;
+}
+

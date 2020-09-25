@@ -1,45 +1,48 @@
 
 <html>
-  <head>
-    <title>Login Super Duper Market</title>
+<head>
+  <title>Login Super Duper Market</title>
 
-   <!--<script type="text/javascript" src="common/jquery-2.0.3.min.js"></script>-->
-    <script type="text/javascript" src="common/context-path-helper.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="login.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="login.js"></script>
-  </head>
+  <!--<script type="text/javascript" src="common/jquery-2.0.3.min.js"></script>-->
+  <script type="text/javascript" src="common/context-path-helper.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="login.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="login.js"></script>
+</head>
 
 </html>
-  <body>
-  <div class="splitLeft left">
-    <div class="centeredLeft">
+<body>
+<div class="splitLeft left">
+  <div class="centeredLeft">
 
-      <h1>Super Duper Market</h1>
-      <p>your online shopping website</p>
-    </div>
+    <h1>Super Duper Market</h1>
+    <p>your online shopping website</p>
   </div>
+</div>
 
-  <div class="splitRight right">
-    <div class="centeredRight">
-      <form id = "loginForm" action="login" method="GET">
-        <div class="imgcontainer">
-          <img src="Images/loginUser.jpg" alt="Avatar" class="avatar">
-        </div>
-        <div class="container">
-          <label ><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" name="username" required>
-          <button class = "loginButton" type="submit">Login</button>
-        </div>
-      </form>
-      <div id = "errorMsg">
-
+<div class="splitRight right">
+  <div class="centeredRight">
+    <form id = "loginForm" action="login" method="GET">
+      <div class="imgcontainer">
+        <img src="Images/loginUser.jpg" alt="Avatar" class="avatar">
       </div>
+      <div class="container">
+        <label ><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+        <div class="radio">
+          <label><input id = "CustomerRadio" type="radio" name="roleName" checked>  Customer&nbsp&nbsp</label>
+          <label><input id = "OwnerRadio" type="radio" name="roleName">  Store Owner</label>
+        </div>
+      </div>
+      <button class = "loginButton" type="submit">Login</button>
+    </form>
+    <div id = "errorMsg">
     </div>
-
   </div>
-  </body>
+
+</div>
+</body>
 </html>
