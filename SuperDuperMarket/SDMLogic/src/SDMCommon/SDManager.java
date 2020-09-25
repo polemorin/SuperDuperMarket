@@ -16,7 +16,7 @@ public class SDManager {
         return !users.containsKey(userName);
     }
 
-    public void addUser(String usernameFromParameter) {
+    public void addUser(String usernameFromParameter, String role) {
 
     }
 }
