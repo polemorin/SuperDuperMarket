@@ -23,7 +23,6 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("application/json");
 
         SDManager manager = ServletUtils.getSDMManager(getServletContext());
-
         String usernameFromSession = SessionUtils.getUsername(request);
 
         if (usernameFromSession == null) {
@@ -37,7 +36,9 @@ public class LoginServlet extends HttpServlet {
                 synchronized (this) {
                     if (!manager.isUsernameAvailable(usernameFromParameter)) {
                         String errorMessage = "Username " + usernameFromParameter + " already exists. Please enter a different username.";
-                        response.sendRedirect(LogInErrorPage);
+                        request.setAttribute("username_error", errorMessage);
+                        getServletContext().getRequestDispatcher(LogInErrorPage).forward(request, response);
+                       // response.sendRedirect(LogInErrorPage);
                         Gson gson = new Gson();
                         String jsonResponse = gson.toJson(errorMessage);
                         try (PrintWriter out = response.getWriter()) {
@@ -48,13 +49,13 @@ public class LoginServlet extends HttpServlet {
                         //add the new user to the users list
                         String role = request.getParameter("roleName");
                         if(role == null) {
-                            response.sendRedirect(LogInErrorPage);
+                            response.sendRedirect("index.html");
                         }
                         else {
                             manager.addUser(usernameFromParameter, role);
                             request.getSession(true).setAttribute(USERNAME, usernameFromParameter);
 
-                            response.sendRedirect(LogInErrorPage);
+                            response.sendRedirect("Pages/mainWindow/mainPage.html");
                             Gson gson = new Gson();
                             String jsonResponse = gson.toJson("");
                             try (PrintWriter out = response.getWriter()) {
@@ -66,7 +67,7 @@ public class LoginServlet extends HttpServlet {
                 }
             }
         } else {
-            response.sendRedirect(LogInErrorPage);
+            response.sendRedirect("/Pages/mainWindow/mainPage.html");
         }
     }
 }
