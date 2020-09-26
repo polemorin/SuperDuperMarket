@@ -9,11 +9,10 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.util.Map;
-import java.util.SimpleTimeZone;
 
 public class ProductDetailsController {
     private Map<Integer, Product> productMap;
-    private SuperDuperMarket SDM;
+    private MarketArea SDM;
     @FXML
     private Button BackButton;
 
@@ -37,7 +36,7 @@ public class ProductDetailsController {
 
     @FXML
     private Label AmountOfTimesSoldLable;
-    public void setSDM(SuperDuperMarket SDM){
+    public void setSDM(MarketArea SDM){
         this.SDM = SDM;
     }
 

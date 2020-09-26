@@ -1,9 +1,8 @@
 package SDMFX.Add.AddSale;
 
-import ProductTypes.SaleProduct;
 import ProductTypes.StoreProduct;
 import SDMCommon.Store;
-import SDMCommon.SuperDuperMarket;
+import SDMCommon.MarketArea;
 import SDMSale.Offer;
 import SDMSale.Sale;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -27,7 +26,7 @@ import java.util.Map;
 
 public class AddSaleController {
 
-    private SuperDuperMarket SDM;
+    private MarketArea SDM;
     private SimpleBooleanProperty isSaleTriggerReady;
     private SimpleBooleanProperty isStoreChosenTrigger;
     private SimpleBooleanProperty isStoreProductChosenTrigger;
@@ -420,7 +419,7 @@ public class AddSaleController {
     }
 
 
-    public void setSDM(SuperDuperMarket sdm) {
+    public void setSDM(MarketArea sdm) {
         this.SDM = sdm;
         initStoreComboBox();
     }

@@ -31,7 +31,7 @@ import java.util.Map;
 public class PlaceOrderSalesController
 {
 
-    private SuperDuperMarket sdm;
+    private MarketArea sdm;
     private User customer;
     private Store store;
     private LocalDate deliveryDate;
@@ -280,7 +280,7 @@ public class PlaceOrderSalesController
         }
     }
 
-    public void setData(SuperDuperMarket sdm, User customer, Store store, LocalDate deliveryDate, Map<Integer, Double> productsByIdAndAmount, Stage mainStage) {
+    public void setData(MarketArea sdm, User customer, Store store, LocalDate deliveryDate, Map<Integer, Double> productsByIdAndAmount, Stage mainStage) {
         this.sdm = sdm;
         this.store = store;
         this.deliveryDate = deliveryDate;
