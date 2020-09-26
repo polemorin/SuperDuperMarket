@@ -27,7 +27,7 @@ import java.util.Map;
 public class PlaceOrderProductsController {
 
 
-    private SuperDuperMarket SDM;
+    private MarketArea SDM;
     private User customer;
     private Store store;
     private LocalDate deliveryDate;
@@ -82,7 +82,7 @@ public class PlaceOrderProductsController {
             s.close();
         }
     }
-    public void setData(SuperDuperMarket sdm, Stage mainStage, User customer, Store store, LocalDate date) throws IOException {
+    public void setData(MarketArea sdm, Stage mainStage, User customer, Store store, LocalDate date) throws IOException {
         SDM = sdm;
         this.customer = customer;
         this.store = store;

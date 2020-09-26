@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.List;
 public class AddStoreController {
 
-    private SuperDuperMarket SDM;
+    private MarketArea SDM;
     private boolean isValidStoreName;
     private boolean isValidStoreID;
     private boolean isValidPPK;
@@ -263,7 +263,7 @@ public class AddStoreController {
     }
 
 
-    public void setSDM(SuperDuperMarket sdm) {
+    public void setSDM(MarketArea sdm) {
         SDM = sdm;
 
         for (Map.Entry<Integer, Product> product:SDM.getProducts().entrySet()) {

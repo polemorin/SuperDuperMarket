@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class OrderHistoryWindowController {
 
-    SuperDuperMarket SDM;
+    MarketArea SDM;
 
     @FXML
     private ComboBox<CustomerLevelOrder> OrderIDComboBox;
@@ -95,7 +95,7 @@ public class OrderHistoryWindowController {
 
     }
 
-    public void setSDM(SuperDuperMarket sdm) {
+    public void setSDM(MarketArea sdm) {
         SDM = sdm;
         initOrderComboBox();
     }

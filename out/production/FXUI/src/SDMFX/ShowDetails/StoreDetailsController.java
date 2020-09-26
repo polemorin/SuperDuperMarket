@@ -4,7 +4,7 @@ import ProductTypes.Product;
 import ProductTypes.SoldProduct;
 import SDMCommon.Store;
 import SDMCommon.StoreLevelOrder;
-import SDMCommon.SuperDuperMarket;
+import SDMCommon.MarketArea;
 import SDMSale.Sale;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -18,7 +18,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.Node;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ import java.util.Map;
 
 public class StoreDetailsController {
 
-    private SuperDuperMarket SDM;
+    private MarketArea SDM;
     private SimpleBooleanProperty isStoreChosen;
     @FXML
     private TableView<Product> ProductTableView;
@@ -213,7 +212,7 @@ public class StoreDetailsController {
         }
     }
 
-    public void setSDM(SuperDuperMarket sdm){
+    public void setSDM(MarketArea sdm){
         SDM = sdm;
         initStoreComboBox();
     }

@@ -1,7 +1,6 @@
 package SDMFX.PlaceOrder;
 import SDMCommon.*;
 import javafx.animation.*;
-import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,11 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Polyline;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextBoundsType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -26,7 +20,7 @@ import java.io.IOException;
 
 public class PlaceOrderSummaryController {
 
-    SuperDuperMarket SDM;
+    MarketArea SDM;
     CustomerLevelOrder order;
     @FXML
     private VBox StoreLevelOrderVbox;
@@ -107,7 +101,7 @@ public class PlaceOrderSummaryController {
         delay.play();
     }
 
-    public void setData(SuperDuperMarket sdm, CustomerLevelOrder customerLevelOrder) {
+    public void setData(MarketArea sdm, CustomerLevelOrder customerLevelOrder) {
         SDM = sdm;
         order = customerLevelOrder;
         initStoreLevelOrders();
