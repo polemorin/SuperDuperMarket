@@ -5,14 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-
-
     private  String name;
+    private static int IDGenerator = 0;
     private  int ID;
     private Point location; //??
     private double fundsAccount;
+    private final Object UserCtorLockContext = new Object();
 
     public User(){}
+
+    public User(String userName){
+        synchronized (UserCtorLockContext) {
+            name = userName;
+            ID = ++IDGenerator;
+        }
+    }
 
     public User(String name, int ID,Point location) {
         this.name = name;
