@@ -6,6 +6,7 @@ import java.util.Map;
 public class SDManager {
     Map<String,MarketArea> marketAreaMap;
     Map<String,User> users;
+    nothing n;
 
     public SDManager(){
         marketAreaMap = new HashMap<>();
