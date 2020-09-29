@@ -1,30 +1,25 @@
 
+//this function is for the tables design
+$(window).on("load resize ", function() {
+    var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+    $('.tbl-header').css({'padding-right':scrollWidth});
+}).resize();
+
+
 $(function() { // onload...do
     //add a function to the submit event
+    $("#amount").keyup(function myFunc() {
+            var x = document.getElementById("amount");
 
-
-
-
-
-
-
-    $("#chatform").submit(function() {
-        $.ajax({
-            data: $(this).serialize(),
-            url: this.action,
-            timeout: 2000,
-            error: function() {
-                console.error("Failed to submit");
-            },
-            success: function(r) {
-                //do not add the user string to the chat area
-                //since it's going to be retrieved from the server
-                //$("#result h1").text(r);
+            if(parseInt(x.value) <= 0){
+                $("#amountMsgLabel").empty().append("enter a positive number.");
             }
-        });
-
-        $("#userstring").val("");
-        // by default - we'll always return false so it doesn't redirect the user.
-        return false;
-    });
+            else{
+                $("#amountMsgLabel").empty();
+            }
+        }
+    )
 });
+
+
+
