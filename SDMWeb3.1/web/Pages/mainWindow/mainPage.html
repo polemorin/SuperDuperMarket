@@ -4,7 +4,7 @@
     <head>
     <title>Login Super Duper Market</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <script type="text/javascript" src="common/context-path-helper.js"></script>
+    <script type="text/javascript" src="../../common/context-path-helper.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
      <link rel="stylesheet" href="mainWindow.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -35,30 +35,14 @@
                         </div>
                         <div class="tbl-content-smaller">
                             <table cellpadding="0" cellspacing="0" border="0">
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Customer</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Store owner</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Customer</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Store owner</td>
-                                </tr>
+                                <tbody id = "UsersTableBody">
                                 </tbody>
                             </table>
                         </div>
                     </selection>
                 </div>
                 <div class = "col">
-                    <form id="uploadXmlFile" action="loadFile"  method="POST" class = "uploadXmlFile">
+                    <form id="uploadXmlFile" action="/SDMWeb3_1_war_exploded/loadFile" enctype="multipart/form-data" method="POST" class = "uploadXmlFile">
                         <label>Select a File:</label><br>
                                 <input type="file" name="file" accept="xml"><br>
                                 <input type="Submit" value="Upload File" class="Button">
@@ -86,96 +70,7 @@
              </div>
              <div class="tbl-content">
                  <table cellpadding="0" cellspacing="0" border="0">
-                     <tr>
-                         <td>Lilach</td>
-                         <td>Ha-Merkaz</td>
-                         <td>5</td>
-                         <td>2</td>
-                         <td>0</td>
-                         <td>0</td>
-                         <td>Go To Zone</td>
-                     </tr>
-                     <tr>
-                         <td>Lilach</td>
-                         <td>Ha-Merkaz</td>
-                         <td>5</td>
-                         <td>2</td>
-                         <td>0</td>
-                         <td>0</td>
-                         <td>Go To Zone</td>
-                     </tr>
-                     <tr>
-                         <td>Lilach</td>
-                         <td>Ha-Merkaz</td>
-                         <td>5</td>
-                         <td>2</td>
-                         <td>0</td>
-                         <td>0</td>
-                         <td>Go To Zone</td>
-                     </tr>
-                     <tr>
-                         <td>Lilach</td>
-                         <td>Ha-Merkaz</td>
-                         <td>5</td>
-                         <td>2</td>
-                         <td>0</td>
-                         <td>0</td>
-                         <td>Go To Zone</td>
-                     </tr>
-                     <tr>
-                         <td>Lilach</td>
-                         <td>Ha-Merkaz</td>
-                         <td>5</td>
-                         <td>2</td>
-                         <td>0</td>
-                         <td>0</td>
-                         <td>Go To Zone</td>
-                     </tr>
-                     <tr>
-                         <td>Lilach</td>
-                         <td>Ha-Merkaz</td>
-                         <td>5</td>
-                         <td>2</td>
-                         <td>0</td>
-                         <td>0</td>
-                         <td>Go To Zone</td>
-                     </tr>
-                     <tr>
-                         <td>Lilach</td>
-                         <td>Ha-Merkaz</td>
-                         <td>5</td>
-                         <td>2</td>
-                         <td>0</td>
-                         <td>0</td>
-                         <td>Go To Zone</td>
-                     </tr>
-                     <tr>
-                         <td>Lilach</td>
-                         <td>Ha-Merkaz</td>
-                         <td>5</td>
-                         <td>2</td>
-                         <td>0</td>
-                         <td>0</td>
-                         <td>Go To Zone</td>
-                     </tr>
-                     <tr>
-                         <td>Lilach</td>
-                         <td>Ha-Merkaz</td>
-                         <td>5</td>
-                         <td>2</td>
-                         <td>0</td>
-                         <td>0</td>
-                         <td>Go To Zone</td>
-                     </tr>
-                     <tr>
-                         <td>Lilach</td>
-                         <td>Ha-Merkaz</td>
-                         <td>5</td>
-                         <td>2</td>
-                         <td>0</td>
-                         <td>0</td>
-                         <td>Go To Zone</td>
-                     </tr>
+
                  </table>
              <tbody id="zoneTableBody">
 
