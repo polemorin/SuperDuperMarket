@@ -1,1 +1,1 @@
-xjc -p examples.jaxb.schema.generated resources/world.xsd
+xjc -p examples.jaxb.schema.generated SDM-V3.xsd
