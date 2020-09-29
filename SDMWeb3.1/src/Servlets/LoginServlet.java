@@ -47,6 +47,7 @@ public class LoginServlet extends HttpServlet {
                         }
                     } else {
                         //add the new user to the users list
+
                         String role = request.getParameter("roleName");
                         if(role == null) {
                             response.sendRedirect("index.html");

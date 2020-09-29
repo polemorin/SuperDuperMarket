@@ -81,6 +81,16 @@ public class MarketArea {
     public boolean isValidProductID(int productID) {
         return products.containsKey(productID);
     }
+    public double getAVGOrderCost(){
+        if(orderHistory.size() == 0){
+            return 0;
+        }
+        double sum = 0.0;
+        for (Map.Entry<Integer,CustomerLevelOrder> order: orderHistory.entrySet()) {
+            sum+=order.getValue().getDeliveryPrice()+order.getValue().getTotalProductPrice();
+        }
+        return sum/orderHistory.size();
+    }
 
    // public void placeOrderInSDM(CustomerLevelOrder orderToAdd, int userID) {
    //     users.get(userID).addOrderToOrderHistory(orderToAdd);

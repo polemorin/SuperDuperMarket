@@ -7,11 +7,13 @@ import SDMExceptions.XmlStoreSellProductNotInMarketException;
 import SDMExceptions.XmlStoreSellsMultipleProductsWithSameIDException;
 import SDMSale.Sale;
 import jaxb.generated.*;
+import sun.util.calendar.ZoneInfo;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.awt.*;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -326,6 +328,14 @@ public class SDManager {
             }
         }
         return userNameAndRoleMap;
+    }
+
+    public List<SDMZoneInfo> getAllZonesInfo() {
+        List<SDMZoneInfo> zoneInfoList = new ArrayList<>();
+        for (Map.Entry<String,MarketArea> zone: marketAreaMap.entrySet()) {
+            zoneInfoList.add(new SDMZoneInfo(zone.getValue()));
+        }
+        return zoneInfoList;
     }
 }
 
