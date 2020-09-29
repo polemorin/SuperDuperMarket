@@ -5,8 +5,6 @@ import Utils.ServletUtils;
 import Utils.SessionUtils;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,14 +15,13 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 import javax.servlet.http.Part;
 
-@WebServlet("/loadFile")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
+
 public class uploadXmlFileServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html");
         Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
         InputStream fileContent = filePart.getInputStream();
@@ -36,7 +33,7 @@ public class uploadXmlFileServlet extends HttpServlet {
 
         try {
             manager.loadInfoFromXML(fileContent,username);
-            response.getOutputStream().print("File load successfully!");
+            response.getOutputStream().println("File load successfully!");
         } catch (Exception e) {
             e.getMessage();
             response.getOutputStream().println(e.getMessage());
@@ -47,22 +44,22 @@ public class uploadXmlFileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html");
         Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
         InputStream fileContent = filePart.getInputStream();
         String username = SessionUtils.getUsername(request);
+        Part name = request.getPart("mapName");
+        String nameValue = readFromInputStream(name.getInputStream());
+
         SDManager manager = ServletUtils.getSDMManager(getServletContext());
-        if(fileName.endsWith("xml")) {
-            try {
-                manager.loadInfoFromXML(fileContent, username);
-                response.getOutputStream().println("File load successfully!");
-            } catch (Exception e) {
-                e.getMessage();
-                response.getOutputStream().println(e.getMessage());
-            }
-        }else{
-            response.getOutputStream().println("file is not xml type.");
+
+        try {
+            manager.loadInfoFromXML(fileContent,username);
+            response.getOutputStream().println("File load successfully!");
+        } catch (Exception e) {
+            e.getMessage();
+            response.getOutputStream().println(e.getMessage());
         }
 
     }

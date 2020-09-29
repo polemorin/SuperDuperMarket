@@ -70,4 +70,6 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("/Pages/mainWindow/mainPage.html");
         }
     }
+
+
 }

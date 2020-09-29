@@ -11,4 +11,12 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>uploadXmlFileServlet</servlet-name>
+        <servlet-class>Servlets.uploadXmlFileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>uploadXmlFileServlet</servlet-name>
+        <url-pattern>/loadFile</url-pattern>
+    </servlet-mapping>
 </web-app>
