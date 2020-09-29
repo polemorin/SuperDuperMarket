@@ -283,7 +283,7 @@ public class SDManager {
 
             }
             if (!productFoundInItems) {
-                throw new XmlStoreSellProductNotInMarketException(item.getItemId());
+                throw new Exception("Store sells an item that was not found in market.");
             }
             productFoundInItems = false;
             product = new StoreProduct(item.getItemId(), sdmitem.getName(), category, item.getPrice(), store.getId());
@@ -309,6 +309,23 @@ public class SDManager {
     private boolean isValidLocationInSDM(Point location) {
         return location.x >= 1 && location.x <= 50 && location.y >= 1 && location.y <= 50;
 
+    }
+
+    public Map<String, User> getUsers() {
+        return users;
+    }
+
+    public Map<String, String> getUserNameAndRoleMap() {
+        Map<String,String> userNameAndRoleMap = new HashMap<>();
+        for (Map.Entry<String,User> user:users.entrySet()) {
+            if(user.getValue() instanceof StoreOwner){
+                userNameAndRoleMap.put(user.getValue().getName(),"Store Owner");
+            }
+            else {
+                userNameAndRoleMap.put(user.getValue().getName(),"Customer");
+            }
+        }
+        return userNameAndRoleMap;
     }
 }
 
