@@ -1,4 +1,5 @@
 var USER_LIST_URL = buildUrlWithContextPath("updateUserTable");
+var Area_List_URL = buildUrlWithContextPath("updateZoneTable");
 //this function is for the tables design
 $(window).on("load resize ", function() {
     var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
@@ -56,6 +57,7 @@ $(function() {
 
     //The users list is refreshed automatically every second
     setInterval(ajaxUsersList, 2000);
+    setInterval(ajaxAreaTable,2000);
 
 });
 function ajaxUsersList() {
@@ -77,6 +79,31 @@ function refreshUsersList(users) {
         //appeand it to the #userslist (div with id=userslist) element
         var userInTable = "<tr><td>" + userName + "</td><td>" + role + "</td></tr>";
         $("#UsersTableBody").append(userInTable);
+    });
+}
+
+
+function ajaxAreaTable() {
+    $.ajax({
+        url: Area_List_URL,
+        success: function (areas) {
+            refreshAreas(areas);
+        }
+    });
+}
+//{username,user}
+function refreshAreas(areas) {
+    //clear all current users
+    $("#zoneTableBody").empty();
+
+    // rebuild the list of users: scan all users and add them to the list of users
+    $.each(areas || [], function(index,area) {
+        //create a new <option> tag with a value in it and
+        //appeand it to the #userslist (div with id=userslist) element
+        var zoneInTable = "<tr><td>" + area.creatorName + "</td><td>" + area.zoneName + "</td>"+ "<td>"
+            + area.productAmount + "</td>"+ "<td>" + area.storeAmount + "</td>"+ "<td>" + area.orderAmount
+            + "</td>"+ "<td>" + area.orderAVGPrice +"</td><td> <input type = 'submit' value = 'goToZone'> </td></tr>" ;
+        $("#zoneTableBody").append(zoneInTable);
     });
 }
 
