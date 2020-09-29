@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- <script src="login.js"></script> -->
+    <script src="mainPage.js"></script>
     </head>
 
  <body>
@@ -22,17 +22,41 @@
              <div class = "row">
 
                 <div class = "col">
-                   <table class="UserTable">
-                      <thead class = "user-table-head">
-                      <tr>
-                          <th>Username</th>
-                          <th>User type</th>
-                       </tr></thead>
-                       <tbody id="userTableBody">
-                       </tbody>
-                  </table><br>
+                    <selection>
+                        <div class="tbl-header">
+                            <table class="UserTable" cellpadding="0" cellspacing="0" border="0">
+                                <thead class = "user-table-head">
+                                <tr>
+                                     <th>Username</th>
+                                     <th>User type</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="tbl-content-smaller">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Customer</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Store owner</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Customer</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Store owner</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </selection>
                 </div>
-
                 <div class = "col">
                     <form id="uploadXmlFile" action="/transPoolWeb_war_exploded/upload" enctype="multipart/form-data" method="POST" class = "uploadXmlFile">
                         <label>Select a File:</label><br>
@@ -43,10 +67,12 @@
                 </div>
              </div>
          </div>
-
+        <selection>
          <div class = "zoneDiv">
-             <table class="ZoneTable">
-                 <thead class = "zone-table-head">
+             <h1>Zone's details</h1>
+             <div class="tbl-header">
+             <table class="ZoneTable" cellpadding="0" cellspacing="0" border="0">
+                 <thead>
                  <tr><th>Creator's name</th>
                      <th>Zone's name</th>
                      <th>Products amount</th>
@@ -54,14 +80,111 @@
                      <th>Order amount</th>
                      <th>Order average price</th>
                      <th>Go to zone</th>
-                 </tr></thead>
-                 <tbody id="zoneTableBody">
-
-                 </tbody>
+                 </tr>
+                 </thead>
              </table>
-         </div>
+             </div>
+             <div class="tbl-content">
+                 <table cellpadding="0" cellspacing="0" border="0">
+                     <tr>
+                         <td>Lilach</td>
+                         <td>Ha-Merkaz</td>
+                         <td>5</td>
+                         <td>2</td>
+                         <td>0</td>
+                         <td>0</td>
+                         <td>Go To Zone</td>
+                     </tr>
+                     <tr>
+                         <td>Lilach</td>
+                         <td>Ha-Merkaz</td>
+                         <td>5</td>
+                         <td>2</td>
+                         <td>0</td>
+                         <td>0</td>
+                         <td>Go To Zone</td>
+                     </tr>
+                     <tr>
+                         <td>Lilach</td>
+                         <td>Ha-Merkaz</td>
+                         <td>5</td>
+                         <td>2</td>
+                         <td>0</td>
+                         <td>0</td>
+                         <td>Go To Zone</td>
+                     </tr>
+                     <tr>
+                         <td>Lilach</td>
+                         <td>Ha-Merkaz</td>
+                         <td>5</td>
+                         <td>2</td>
+                         <td>0</td>
+                         <td>0</td>
+                         <td>Go To Zone</td>
+                     </tr>
+                     <tr>
+                         <td>Lilach</td>
+                         <td>Ha-Merkaz</td>
+                         <td>5</td>
+                         <td>2</td>
+                         <td>0</td>
+                         <td>0</td>
+                         <td>Go To Zone</td>
+                     </tr>
+                     <tr>
+                         <td>Lilach</td>
+                         <td>Ha-Merkaz</td>
+                         <td>5</td>
+                         <td>2</td>
+                         <td>0</td>
+                         <td>0</td>
+                         <td>Go To Zone</td>
+                     </tr>
+                     <tr>
+                         <td>Lilach</td>
+                         <td>Ha-Merkaz</td>
+                         <td>5</td>
+                         <td>2</td>
+                         <td>0</td>
+                         <td>0</td>
+                         <td>Go To Zone</td>
+                     </tr>
+                     <tr>
+                         <td>Lilach</td>
+                         <td>Ha-Merkaz</td>
+                         <td>5</td>
+                         <td>2</td>
+                         <td>0</td>
+                         <td>0</td>
+                         <td>Go To Zone</td>
+                     </tr>
+                     <tr>
+                         <td>Lilach</td>
+                         <td>Ha-Merkaz</td>
+                         <td>5</td>
+                         <td>2</td>
+                         <td>0</td>
+                         <td>0</td>
+                         <td>Go To Zone</td>
+                     </tr>
+                     <tr>
+                         <td>Lilach</td>
+                         <td>Ha-Merkaz</td>
+                         <td>5</td>
+                         <td>2</td>
+                         <td>0</td>
+                         <td>0</td>
+                         <td>Go To Zone</td>
+                     </tr>
+                 </table>
+             <tbody id="zoneTableBody">
 
+             </tbody>
+             </div>
+         </div>
+        </selection>
      </div>
+
  </div>
 
  <div class="splitRight right">
@@ -97,8 +220,8 @@
                      <h4>Add funds:</h4>
                      <form>
                          <label>Amount:</label>
-                         <input type = "text" required>
-                         <label id = amountMsgLabel></label>
+                         <input type = "number" id = "amount" required>
+                         <label id = "amountMsgLabel">54</label>
                          <label>Date:</label>
                          <input type="date" required>
                          <input type="submit" value="Confirm">
