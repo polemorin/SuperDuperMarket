@@ -21,9 +21,13 @@
 	<xs:element name="super-duper-market-descriptor">
 		<xs:complexType>
 			<xs:all>
+				<xs:element name="SDM-Zone">
+					<xs:complexType>
+						<xs:attribute name="name" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
 				<xs:element ref="SDM-items"/>
 				<xs:element ref="SDM-stores"/>
-				<xs:element ref="SDM-customers"/>
 			</xs:all>
 		</xs:complexType>
 	</xs:element>

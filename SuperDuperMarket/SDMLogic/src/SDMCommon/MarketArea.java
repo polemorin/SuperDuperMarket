@@ -1,5 +1,6 @@
 package SDMCommon;
 
+import javax.swing.*;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -24,11 +25,18 @@ public class MarketArea {
     private Map<Integer, Store> stores;
     private Map<Integer, CustomerLevelOrder> orderHistory;
     private String zone;
+    private String ownerName;
 
-    public MarketArea() { //change this constructor
-        this.products = new HashMap<Integer, Product>();
-        stores = new HashMap<Integer, Store>();
-        orderHistory = new HashMap<Integer, CustomerLevelOrder>();
+    public MarketArea(Map<Integer, Product> tempProductMap, Map<Integer, Store> tempStoreMap, String creatorName, String name) {
+        products = tempProductMap;
+        stores = tempStoreMap;
+        ownerName = creatorName;
+        zone = name;
+        orderHistory = new HashMap<>();
+    }
+
+    public String getOwnerName(){
+        return ownerName;
     }
 
     public int countHowManyStoresSellProduct(Product productToLookFor) {
@@ -136,31 +144,8 @@ public class MarketArea {
         }
         return cheapestStoreID;
     }
-   //public void loadXmlFileFromFileChooser(File selectedFile) throws Exception {
-   //    Map<Integer, Store> tempStoreMap;
-   //    Map<Integer,Product> tempProductMap;
-   //    Map<Integer, User> tempUserMap;
 
-   //    if (selectedFile.exists()) {
-   //        if (selectedFile.getPath().endsWith("xml")) {
-   //            tempStoreMap = createStoresMapFromXml(selectedFile.getAbsolutePath());
-   //            tempProductMap = createProductMapFromXml(selectedFile.getAbsolutePath(),tempStoreMap);
-   //            tempUserMap = createUserMapFromXML(selectedFile.getAbsolutePath(),tempStoreMap);
-   //        } else {
-   //            throw new Exception("File doesn't end with .xml");
-   //        }
-   //    } else {
-   //        throw new Exception("File doesnt exist.");
-   //    }
-   //    orderHistory.clear();
-   //    stores.clear();
-   //    products.clear();
-   //    users.clear();
 
-   //    stores = tempStoreMap;
-   //    products = tempProductMap;
-   //    users = tempUserMap;
-   //}
 
 
     private final static String JAXB_XML_GAME_PACKAGE_NAME = "jaxb.generated";
