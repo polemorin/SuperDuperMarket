@@ -2,14 +2,14 @@ package SDMCommon;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class User {
     private  String name;
     private static int IDGenerator = 0;
     private  int ID;
-    private Point location; //??
-    private double fundsAccount;
+    private BankAccount userBankAccount;
     private final Object UserCtorLockContext = new Object();
 
     public User(){}
@@ -17,6 +17,7 @@ public class User {
     public User(String userName){
         synchronized (UserCtorLockContext) {
             name = userName;
+            userBankAccount = new BankAccount();
             ID = ++IDGenerator;
         }
     }
@@ -24,16 +25,11 @@ public class User {
     public User(String name, int ID,Point location) {
         this.name = name;
         this.ID = ID;
-        this.location = location;
     }
 
     public User(User other){
         this.name = other.name;
         this.ID = other.ID;
-        //this.orderHistory = new ArrayList<CustomerLevelOrder>(other.orderHistory.size());
-        //for (CustomerLevelOrder itr:other.orderHistory) {
-        //    this.orderHistory.add(new CustomerLevelOrder(itr));
-        //}
     }
 
     public String getName() {
@@ -44,12 +40,6 @@ public class User {
         return ID;
     }
 
-    public Point getLocation() {
-        return location;
-    }
-    public void setLocation(Point location) {
-        this.location = location;
-    }
 
     public double getAverageProductCostFromOrders(){
       // if(orderHistory.size() == 0)
@@ -76,7 +66,7 @@ public class User {
         return 0;
     }
 
-    public Double distanceFromStore(Store store){
+    public Double distanceFromStore(Store store, Point location){
         return Math.sqrt(Math.pow(store.getLocation().getX() -location.x,2) +
                 Math.pow(store.getLocation().getY() -location.y,2));
     }
@@ -102,11 +92,16 @@ public class User {
         return name;
     }
 
-    public double getFundsAccount() {
-        return fundsAccount;
+    public double getFunds(){
+        return userBankAccount.getFunds();
+    }
+    public List<Transaction> getUserTransactions(){
+        return userBankAccount.getTransactionsList();
+    }
+    public void addFuds(double amountToAdd, Date addFundsDate){
+        Transaction addFunds= new Transaction("Add funds",addFundsDate,amountToAdd,userBankAccount.getFunds(),this.getFunds()+amountToAdd);
+        userBankAccount.getTransactionsList().add(addFunds);
+        userBankAccount.addFunds(amountToAdd);
     }
 
-    public void setFundsAccount(double fundsAccount) {
-        this.fundsAccount = fundsAccount;
-    }
 }
