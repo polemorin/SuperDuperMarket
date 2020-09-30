@@ -110,18 +110,34 @@
                      </table><br>
                  </div>
 
+                 <div class="container">
+                     <form  id = "addFundsForm" name = "addFundsForm" method="POST" action = "/SDMWeb3_1_war_exploded/addFunds">
+                         <h3>Add funds:</h3>
+                         <fieldset>
+                             <input placeholder="Amount" type="number" id = "fundsAmount" name = "fundsAmount" required autofocus>
+                         </fieldset>
+                         <label id = "amountMsgLabel"></label>
+                         <fieldset>
+                             <input placeholder="Action Date" type="date"  id="addFundsDate" name = "addFundsDate" required>
+                         </fieldset>
 
-                 <div>
-                     <h4>Add funds:</h4>
-                     <form id = "addFundsForm" name = "addFundsForm" method="POST" action = "/SDMWeb3_1_war_exploded/addFunds">
-                         <label>Amount:</label>
-                         <input type = "number" id = "fundsAmount" name = "fundsAmount" required>
-                         <label id = "amountMsgLabel">54</label>
-                         <label>Date:</label>
-                         <input type="date" id="addFundsDate" name = "addFundsDate" required>
-                         <input type="Submit" value="Confirm">
+                         <button name="submit" type="submit" id="contact-submit" value="Confirm" data-submit="...Sending">Submit</button>
+                         </fieldset>
                      </form>
+
+
                  </div>
+                <!-- <div>-->
+                <!--     <h4>Add funds:</h4>-->
+                <!--     <form id = "addFundsForm" name = "addFundsForm" method="POST" action = "/SDMWeb3_1_war_exploded/addFunds">-->
+                <!--         <label>Amount:</label>-->
+                <!--         <input type = "number" id = "fundsAmount" name = "fundsAmount" required>-->
+                <!--         <label id = "amountMsgLabel">54</label>-->
+                <!--         <label>Date:</label>-->
+                <!--         <input type="date" id="addFundsDate" name = "addFundsDate" required>-->
+                <!--         <input type="Submit" value="Confirm">-->
+                <!--     </form>-->
+                <!-- </div>
 
 
 
