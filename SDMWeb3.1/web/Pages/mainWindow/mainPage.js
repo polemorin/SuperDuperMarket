@@ -10,8 +10,8 @@ $(window).on("load resize ", function() {
 
 $(function() { // onload...do
    //add a function to the submit event
-   $("#amount").keyup(function myFunc() {
-           var x = document.getElementById("amount");
+   $("#fundsAmount").keyup(function myFunc() {
+           var x = document.getElementById("fundsAmount");
 
            if(parseInt(x.value) <= 0){
                $("#amountMsgLabel").empty().append("enter a positive number.");
