@@ -1,5 +1,6 @@
 var USER_LIST_URL = buildUrlWithContextPath("updateUserTable");
 var Area_List_URL = buildUrlWithContextPath("updateZoneTable");
+var Balance_URL = buildUrlWithContextPath("updateBalance");
 //this function is for the tables design
 $(window).on("load resize ", function() {
     var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
@@ -50,16 +51,19 @@ $(function() { // onload...do
        return false;
    })
 
-
-
 });
+
+
+
 $(function() {
 
     //The users list is refreshed automatically every second
     setInterval(ajaxUsersList, 2000);
     setInterval(ajaxAreaTable,2000);
+    setInterval(ajaxBalance,2000);
 
 });
+//userTable
 function ajaxUsersList() {
     $.ajax({
         url: USER_LIST_URL,
@@ -82,7 +86,7 @@ function refreshUsersList(users) {
     });
 }
 
-
+//AreaTable
 function ajaxAreaTable() {
     $.ajax({
         url: Area_List_URL,
@@ -106,6 +110,42 @@ function refreshAreas(areas) {
         $("#zoneTableBody").append(zoneInTable);
     });
 }
+function ajaxBalance() {
+    $.ajax({
+        url: Balance_URL,
+        success: function (balance) {
+            $("#creditBalance").empty().append(balance + "$");
+        }
+    });
+}
+$(function()
+{
+    $("#addFundsForm").submit(function () {
+
+        var formData = new FormData();
+        formData.append("fundsAmount", fundsAmount);
+        formData.append("addFundsDate", addFundsDate);
+        $.ajax({
+            method: 'POST',
+            data: formData,
+            url: this.action,
+            processData: false,
+            contentType: false,
+            error: function (e) {
+                console.log(e);
+            },
+            success: function (r) {
+                console.log(r);
+                return false;
+            }
+        });
+
+        // return value of the submit operation
+        // by default - we'll always return false so it doesn't redirect the user.
+        return false;
+    });
+});
+
 
 
 

@@ -87,7 +87,7 @@
          <h1>Account manager</h1><br><br>
              <div id="balanceLabels">
                   Credit balance:
-                  <label id="creditBalance">$</label>
+                  <label id="creditBalance" name = "creditBalance">$</label>
              </div>
 
          <div>
@@ -113,13 +113,13 @@
 
                  <div>
                      <h4>Add funds:</h4>
-                     <form>
+                     <form id = "addFundsForm" name = "addFundsForm" method="POST" action = "/SDMWeb3_1_war_exploded/addFunds">
                          <label>Amount:</label>
-                         <input type = "number" id = "amount" required>
+                         <input type = "number" id = "fundsAmount" name = "fundsAmount" required>
                          <label id = "amountMsgLabel">54</label>
                          <label>Date:</label>
-                         <input type="date" required>
-                         <input type="submit" value="Confirm">
+                         <input type="date" id="addFundsDate" name = "addFundsDate" required>
+                         <input type="Submit" value="Confirm">
                      </form>
                  </div>
 

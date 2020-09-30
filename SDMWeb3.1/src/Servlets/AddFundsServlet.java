@@ -60,6 +60,11 @@ public class AddFundsServlet extends HttpServlet {
             transActionDate = new Date();
         }
         sdmManager.getUsers().get(username).addFuds(amountToAdd,transActionDate);
-
+        try (PrintWriter out = resp.getWriter()) {
+            Gson gson = new Gson();;
+            String json = gson.toJson("sdf");
+            out.println(json);
+            out.flush();
+        }
     }
 }
