@@ -3,7 +3,6 @@
 h1{
     font-size: 30px;
     color: #fff;
-    text-transform: uppercase;
     font-weight: 300;
     text-align: center;
     margin-bottom: 15px;
@@ -35,7 +34,6 @@ th{
     font-weight: 500;
     font-size: 12px;
     color: #fff;
-    text-transform: uppercase;
 }
 td{
     padding: 15px;
@@ -103,9 +101,6 @@ img.avatar {
     border-radius: 50%;
 }
 
-.container {
-    padding: 16px;
-}
 
 span.psw {
     float: right;
@@ -165,7 +160,7 @@ span.psw {
 }
 .centeredLeft {
     position: absolute;
-    top: 80%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
@@ -270,20 +265,19 @@ body {
     width:100%;
     margin:0 auto;
     position:relative;
-    background: #00CCFF;
-
 }
 
 #contact {
     background: transparent;
     padding:25px;
     margin:50px 0;
+    border: transparent;
 }
 
 #contact h3 {
-    color: #F96;
+    color: #f8f4f1;
     display: block;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 400;
 }
 
