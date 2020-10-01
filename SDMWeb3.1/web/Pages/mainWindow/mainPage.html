@@ -13,17 +13,19 @@
     <script src="mainPage.js"></script>
     </head>
 
- <body>
+ <body class = "mainBody">
+
  <div class="splitLeft left" >
+
      <div class="centeredLeft">
 
          <h1>Super Duper Market</h1>
          <div class = "container-fluid">
-             <div class = "row">
 
-                <div class = "col">
+             <div class = "row">
+                <div class = "col" id = "userTableCol">
                     <selection><br><br><br>
-                        <div class="tbl-header">
+                        <div class="tbl-header" id = "userTableHeadID">
                             <table class="UserTable" cellpadding="0" cellspacing="0" border="0">
                                 <thead class = "user-table-head">
                                 <tr>
@@ -41,6 +43,7 @@
                         </div>
                     </selection>
                 </div>
+
                 <div class = "col">
                     <div class="container">
                         <form id = "contact" action = "/SDMWeb3_1_war_exploded/loadFile" enctype = "multipart/form-data" method = "POST" class = "uploadXmlFile">
@@ -59,8 +62,10 @@
 
                 </div>
              </div>
+
          </div>
         <selection>
+            <br>
          <div class = "zoneDiv">
              <h1>Zone's details</h1>
              <div class="tbl-header">

@@ -1,36 +1,51 @@
-
-/*------------tables design-----------------------------------------------*/
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600); /*------------tables design-----------------------------------------------*/
 h1{
     font-size: 30px;
     color: #fff;
     font-weight: 300;
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 0;
+
 }
+
 table{
     width:100%;
     table-layout: fixed;
 }
+.row{
+    min-width: 600px;
+}
 .tbl-header{
     background-color: rgba(255,255,255,0.3);
 }
+.zoneDiv{
+    min-width: 600px;
+}
 .tbl-content{
-    height:300px;
+    height:150px;
     overflow-x:auto;
     margin-top: 0px;
     border: 1px solid rgba(255,255,255,0.3);
 }
-
-
+#userTableCol{
+    left:10%;
+}
+#userTableHeadID{
+    max-width: 200px;
+    min-width: 55px;
+}
 .tbl-content-smaller{
     height:100px;
     overflow-x:auto;
     margin-top: 0px;
     border: 1px solid rgba(255,255,255,0.3);
+    max-width: 200px;
+    min-width: 55px;
 }
 th{
-    padding: 20px 15px;
-    text-align: left;
+    padding: 15px 10px;
+    text-align: center;
     font-weight: 500;
     font-size: 12px;
     color: #fff;
@@ -45,8 +60,7 @@ td{
     border-bottom: solid 1px rgba(255,255,255,0.1);
 }
 
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
-body{
+.mainBody{
     background: -webkit-linear-gradient(left, #25c481, #25b7c4);
     background: linear-gradient(to right, #d58c5a, #c4255d);
     font-family: 'Roboto', sans-serif;
@@ -58,10 +72,6 @@ section{
 /*-----------------------------------------------------------------------------------------------*/
 body {font-family: Arial, Helvetica, sans-serif;}
 
-/*table, th, td {
-    border: 1px solid black;
-    padding: 12px;
-}*/
 table {
     border-spacing: 15px;
 }
@@ -91,55 +101,34 @@ button:hover {
     opacity: 0.8;
 }
 
-.imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
-}
-
-img.avatar {
-    width: 40%;
-    border-radius: 50%;
-}
-
-
 span.psw {
     float: right;
     padding-top: 16px;
 }
 
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-    span.psw {
-        display: block;
-        float: none;
-    }
-
-}
-
 /* Split the screen in half */
 .splitLeft {
-    height: 100%;
+    height: 100vh;
     width: 60%;
     position: fixed;
     z-index: 1;
     top: 0;
-    overflow-x: auto;
+    overflow: auto;
     padding-top: 20px;
 }
 .splitRight {
-    height: 100%;
+    height: 100vh;
     width: 40%;
     position: fixed;
     z-index: 1;
     top: 0;
-    overflow-x: auto;
+    overflow: auto;
     padding-top: 20px;
 }
 
 /* Control the left side */
 .left {
     left: 0;
-    /*background-color: #fb8d8c;*/
 }
 
 /* Control the right side */
@@ -151,33 +140,25 @@ span.psw {
 /* If you want the content centered horizontally and vertically */
 .centeredRight {
     position: absolute;
-    top: 60%;
-    left: 50%;
+    top: 60vh;
+    left: 50vh;
     transform: translate(-50%, -50%);
     text-align: left;
-    width: 70%;
+    width: 70vh;
 
 }
 .centeredLeft {
+
     position: absolute;
-    top: 60%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    width: 70%;
-
+    width: 90%;
 }
-/* Style the image inside the centered container, if needed */
-.centered img {
-    width: 150px;
-    border-radius: 100%;
-}
-
 /*----------------------------------------------ADD FUNDS FORM CSS-------------------------------------------*/
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600);
-
-#addFundsForm input[type="text"], #addFundsForm input[type="email"], #addFundsForm input[type="tel"], #addFundsForm input[type="url"], #addFundsForm textarea, #addFundsForm button[type="submit"] { font:400 12px/16px "Open Sans", Helvetica, Arial, sans-serif; }
+#addFundsForm input[type="number"],  #addFundsForm input[type="date"], #addFundsForm button[type="submit"] { font:400 12px/16px "Open Sans", Helvetica, Arial, sans-serif; }
 
 #addFundsForm {
     background:#F9F9F9;
@@ -265,6 +246,7 @@ body {
     width:100%;
     margin:0 auto;
     position:relative;
+    max-height: 200px;
 }
 
 #contact {
