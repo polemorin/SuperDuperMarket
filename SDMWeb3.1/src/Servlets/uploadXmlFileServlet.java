@@ -24,7 +24,7 @@ public class uploadXmlFileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("text/html");
+        response.setContentType("text/html;charset=UTF-8");
         Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
         InputStream fileContent = filePart.getInputStream();
@@ -36,7 +36,7 @@ public class uploadXmlFileServlet extends HttpServlet {
 
         try {
             manager.loadInfoFromXML(fileContent,username);
-            response.getOutputStream().println("File load successfully!");
+            response.getOutputStream().print("File load successfully!");
         } catch (Exception e) {
             e.getMessage();
             response.getOutputStream().println(e.getMessage());
@@ -47,7 +47,7 @@ public class uploadXmlFileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("text/html");
+        response.setContentType("text/html;charset=UTF-8");
         Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
         InputStream fileContent = filePart.getInputStream();
