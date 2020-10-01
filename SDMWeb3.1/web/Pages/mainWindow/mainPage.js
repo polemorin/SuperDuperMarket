@@ -1,6 +1,8 @@
 var USER_LIST_URL = buildUrlWithContextPath("updateUserTable");
 var Area_List_URL = buildUrlWithContextPath("updateZoneTable");
 var Balance_URL = buildUrlWithContextPath("updateBalance");
+var User_Role_URL = buildUrlWithContextPath("userRole");
+
 //this function is for the tables design
 $(window).on("load resize ", function() {
     var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
@@ -10,6 +12,15 @@ $(window).on("load resize ", function() {
 
 $(function() { // onload...do
    //add a function to the submit event
+    $.ajax({
+        url: User_Role_URL,
+        success: function (role) {
+            hideHTMLElementsByRole(role);
+        }
+    });
+    ajaxBalance();
+    ajaxUsersList();
+    ajaxAreaTable();
    $("#fundsAmount").keyup(function myFunc() {
            var x = document.getElementById("fundsAmount");
 
@@ -22,38 +33,42 @@ $(function() { // onload...do
        }
    )
    //-------------upload xml file-----------------------------------------------
-   $("#uploadXmlFile").submit(function() {
+    $("#uploadXmlFile").submit(function() {
+        var file1 = this[0].files[0];
+        var formData = new FormData();
 
-       var file1 = this[0].files[0];
-
-       var formData = new FormData();
-       formData.append("file", file1);
-       //formData.append("mapName", this[1].value);
-
-       $.ajax({
-           method:'POST',
-           data: formData,
-           url: this.action,
-           processData: false, // Don't process the files
-           contentType: false, // Set content type to false as jQuery will tell the server its a query string request
-           timeout: 4000,
-           error: function(e) {
-               console.error("Failed to submit");
-               $("#result").text("Failed to get result from server " + e);
-           },
-           success: function(r) {
-               $("#result").text(r);
-           }
-       });
-
-       // return value of the submit operation
-       // by default - we'll always return false so it doesn't redirect the user.
-       return false;
-   })
+        formData.append("file", file1);
+        //formData.append("mapName", this[1].value);
+        $.ajax({
+            method:'POST',
+            data: formData,
+            url: this.action,
+            processData: false, // Don't process the files
+            contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+            timeout: 4000,
+            error: function(e) {
+                console.error("Failed to submit");
+                $("#result").text("Failed to get result from server " + e);
+            },
+            success: function(r) {
+                $("#result").text(r);
+            }
+        });
+        // return value of the submit operation
+        // by default - we'll always return false so it doesn't redirect the user.
+        return false;
+    })
 
 });
 
-
+function hideHTMLElementsByRole(role){
+    if(role === "StoreOwner"){
+        $("#addFundsForm").hide();
+        document.getElementById("centeredRight").style.top = "40%";
+    }else{
+        $("#contact").hide();
+    }
+}
 
 $(function() {
 
@@ -111,34 +126,31 @@ function refreshAreas(areas) {
     });
 }
 function ajaxBalance() {
-    $.ajax({
-        url: Balance_URL,
-        success: function (balance) {
-            $("#creditBalance").empty().append(balance + "$");
-        }
-    });
+        $.ajax({
+            url: Balance_URL,
+            success: function (balance) {
+                $("#creditBalance").empty().append(balance + "$");
+            }
+        });
 }
 $(function()
 {
     $("#addFundsForm").submit(function () {
+        if (parseInt(document.getElementById("fundsAmount").value) > 0) {
+            var parameters = $(this).serialize();
 
-        var formData = new FormData();
-        formData.append("fundsAmount", fundsAmount);
-        formData.append("addFundsDate", addFundsDate);
-        $.ajax({
-            method: 'POST',
-            data: formData,
-            url: this.action,
-            processData: false,
-            contentType: false,
-            error: function (e) {
-                console.log(e);
-            },
-            success: function (r) {
-                console.log(r);
-                return false;
-            }
-        });
+            $.ajax({
+                data: parameters,
+                url: this.action,
+                error: function (e) {
+                    console.log(e);
+                },
+                success: function (r) {
+                    console.log(r);
+
+                }
+            });
+        }
 
         // return value of the submit operation
         // by default - we'll always return false so it doesn't redirect the user.

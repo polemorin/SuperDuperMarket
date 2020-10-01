@@ -46,16 +46,11 @@
 
                 <div class = "col">
                     <div class="container">
-                        <form id = "contact" action = "/SDMWeb3_1_war_exploded/loadFile" enctype = "multipart/form-data" method = "POST" class = "uploadXmlFile">
+                        <form id = "uploadXmlFile" name = "uploadXmlFile" action = "/SDMWeb3_1_war_exploded/loadFile" enctype = "multipart/form-data" method = "POST" class = "uploadXmlFile">
                             <h3>Load xml file</h3>
                             <h4>Add a new area to Super Duper Market!</h4>
-                            <fieldset>
-
-                                <input type = "file" id="files" name = "file" accept="xml" required>
-                            </fieldset>
-                            <fieldset>
+                                <input type = "file" id="file" name = "file" accept="xml" required>
                                 <button name="Submit" type="submit" id="contact-submit-xml">Upload file</button>
-                            </fieldset>
                             <div id = "result"></div>
                         </form>
                     </div>
@@ -97,17 +92,14 @@
  </div>
 
  <div class="splitRight right">
-     <div class="centeredRight">
-         <h1>Account manager</h1><br><br>
+     <div id="centeredRight">
+         <h1>Account manager</h1><br>
              <div id="balanceLabels">
-                  Credit balance:
-                  <label id="creditBalance" name = "creditBalance">$</label>
+                  <h6>Credit balance:
+                  <label id="creditBalance" name = "creditBalance"></label></h6>
              </div>
-
-
-             <div class = "row">
-
-                 <div class = "col">
+             <div class = "row2">
+                 <div>
                      <selection>
                          <h3>Transaction:</h3>
                          <div class="tbl-header">
@@ -128,11 +120,9 @@
                                         <tbody id="TransactionTableBody"></tbody>
                                 </table>
                          </div>
-                     <selection>
+                     </selection>
 
-                         <br>
                  </div>
-
                  <div class="container">
                      <form  id = "addFundsForm" name = "addFundsForm" method="POST" action = "/SDMWeb3_1_war_exploded/addFunds">
                          <h3>Add funds:</h3>

@@ -31,6 +31,15 @@ public class updateUserBalanceServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html;charset=UTF-8");
+        SDManager sdmManager = ServletUtils.getSDMManager(getServletContext());
+        String username = SessionUtils.getUsername(req);
+        double currentBalance =sdmManager.getUsers().get(username).getFunds();
+        try(PrintWriter out = resp.getWriter()){
+            out.println(currentBalance);
+            out.flush();
+        }catch (Exception ignored){
 
+        }
     }
 }

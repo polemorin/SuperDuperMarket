@@ -12,12 +12,14 @@ h1{
 table{
     width:100%;
     table-layout: fixed;
+
 }
 .row{
     min-width: 600px;
 }
 .tbl-header{
     background-color: rgba(255,255,255,0.3);
+    min-width: 255px;
 }
 .zoneDiv{
     min-width: 600px;
@@ -27,6 +29,7 @@ table{
     overflow-x:auto;
     margin-top: 0px;
     border: 1px solid rgba(255,255,255,0.3);
+    min-width: 255px;
 }
 #userTableCol{
     left:10%;
@@ -61,9 +64,11 @@ td{
 }
 
 .mainBody{
-    background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-    background: linear-gradient(to right, #d58c5a, #c4255d);
+  //  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+  //  background: linear-gradient(to right, #d58c5a, #c4255d);
+    background-color: #ab6eea;
     font-family: 'Roboto', sans-serif;
+    color: black;
 }
 section{
     margin: 50px;
@@ -134,17 +139,17 @@ span.psw {
 /* Control the right side */
 .right {
     right: 0;
-    background-color: #e5a665;
+    background-color: #b888ea;
 }
 
 /* If you want the content centered horizontally and vertically */
-.centeredRight {
+#centeredRight {
     position: absolute;
-    top: 60vh;
-    left: 50vh;
+    top: 60%;
+    left: 50%;
     transform: translate(-50%, -50%);
     text-align: left;
-    width: 70vh;
+    width: 70%;
 
 }
 .centeredLeft {
@@ -161,15 +166,17 @@ span.psw {
 #addFundsForm input[type="number"],  #addFundsForm input[type="date"], #addFundsForm button[type="submit"] { font:400 12px/16px "Open Sans", Helvetica, Arial, sans-serif; }
 
 #addFundsForm {
-    background:#F9F9F9;
+    background:transparent;
     padding:25px;
     margin:50px 0;
+    min-width: 255px;
+    border-color: transparent;
 }
 #amountMsgLabel{
     color: red;
 }
 #addFundsForm h3 {
-    color: #F96;
+    color: #ffffff;
     display: block;
     font-size: 30px;
     font-weight: 400;
@@ -249,26 +256,28 @@ body {
     max-height: 200px;
 }
 
-#contact {
+#uploadXmlFile {
     background: transparent;
     padding:25px;
     margin:50px 0;
     border: transparent;
 }
 
-#contact h3 {
+#uploadXmlFile h3 {
     color: #f8f4f1;
     display: block;
     font-size: 20px;
     font-weight: 400;
 }
 
-#contact h4 {
+#uploadXmlFile h4 {
     margin:5px 0 15px;
     display:block;
     font-size:13px;
 }
-
+#file{
+    margin: 0 0 10px;
+}
 fieldset {
     border: medium none !important;
     margin: 0 0 10px;
@@ -277,7 +286,7 @@ fieldset {
     width: 100%;
 }
 
-#contact button[type="submit"] {
+#uploadXmlFile button[type="submit"] {
     cursor:pointer;
     width:100%;
     border:none;
@@ -288,7 +297,7 @@ fieldset {
     font-size:15px;
 }
 
-#contact button[type="submit"]:hover {
+#uploadXmlFile button[type="submit"]:hover {
     background:#09C;
     -webkit-transition:background 0.3s ease-in-out;
     -moz-transition:background 0.3s ease-in-out;
