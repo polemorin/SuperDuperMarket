@@ -39,7 +39,7 @@ public class uploadXmlFileServlet extends HttpServlet {
             response.getOutputStream().print("File load successfully!");
         } catch (Exception e) {
             e.getMessage();
-            response.getOutputStream().println("uploadXmlFileServlet line 42");
+            response.getOutputStream().println(e.getMessage());
         }
 
     }
@@ -60,7 +60,7 @@ public class uploadXmlFileServlet extends HttpServlet {
             response.getOutputStream().println("File load successfully!");
         } catch (Exception e) {
             e.getMessage();
-            response.getOutputStream().println("uploadXmlFileServlet line 63");
+            response.getOutputStream().println(e.getMessage());
         }
 
     }
