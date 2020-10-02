@@ -337,6 +337,10 @@ public class SDManager {
         }
         return zoneInfoList;
     }
+
+    public List<Transaction> getallTransactions(String username) {
+        return users.get(username).getUserTransactions();
+    }
 }
 
 

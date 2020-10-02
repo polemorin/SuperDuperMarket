@@ -1,19 +1,22 @@
+import ProductTypes.Product;
+import ProductTypes.ProductCategory;
+import ProductTypes.SoldProduct;
+import ProductTypes.StoreProduct;
+import SDMCommon.CustomerLevelOrder;
+import SDMCommon.Store;
+import SDMCommon.StoreLevelOrder;
+import SDMCommon.SuperDuperMarket;
+import SDMExceptions.*;
+
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
-import java.text.SimpleDateFormat;
-
-import SDMCommon.CustomerLevelOrder;
-import SDMCommon.Store;
-import SDMCommon.StoreLevelOrder;
-import SDMCommon.SuperDuperMarket;
-import SDMExceptions.*;
-import ProductTypes.*;
 
 public class ConsoleUI {
     //hello the
