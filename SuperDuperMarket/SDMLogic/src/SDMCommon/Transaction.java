@@ -1,5 +1,6 @@
 package SDMCommon;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Transaction {
@@ -12,6 +13,7 @@ public class Transaction {
 
     public Transaction(String action, Date date, double amount, double balanceBeforeAction, double balanceAfterAction) {
         this.action = action;
+
         this.date = date;
         this.amount = amount;
         this.balanceBeforeAction = balanceBeforeAction;

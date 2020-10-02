@@ -2,6 +2,8 @@ var USER_LIST_URL = buildUrlWithContextPath("updateUserTable");
 var Area_List_URL = buildUrlWithContextPath("updateZoneTable");
 var Balance_URL = buildUrlWithContextPath("updateBalance");
 var User_Role_URL = buildUrlWithContextPath("userRole");
+var Upload_XML_FILE_UTL = buildUrlWithContextPath("loadFile");
+var Transactions_TABLE_URL = buildUrlWithContextPath("updateTransactions");
 
 //this function is for the tables design
 $(window).on("load resize ", function() {
@@ -42,7 +44,7 @@ $(function() { // onload...do
         $.ajax({
             method:'POST',
             data: formData,
-            url: this.action,
+            url: Upload_XML_FILE_UTL,
             processData: false, // Don't process the files
             contentType: false, // Set content type to false as jQuery will tell the server its a query string request
             timeout: 4000,
@@ -66,7 +68,7 @@ function hideHTMLElementsByRole(role){
         $("#addFundsForm").hide();
         document.getElementById("centeredRight").style.top = "40%";
     }else{
-        $("#contact").hide();
+        $("#uploadXmlFile").hide();
     }
 }
 
@@ -76,8 +78,33 @@ $(function() {
     setInterval(ajaxUsersList, 2000);
     setInterval(ajaxAreaTable,2000);
     setInterval(ajaxBalance,2000);
+    setInterval(ajaxTransactionTable,2000);
 
 });
+function ajaxTransactionTable() {
+    $.ajax({
+        url: Transactions_TABLE_URL,
+        success: function (transactions) {
+            refreshTransactions(transactions);
+        }
+    });
+}
+function refreshTransactions(transactions) {
+
+    $("#TransactionTableBody").empty();
+
+
+    $.each(transactions || [], function(index,transaction) {
+        var tDate = Date.parse(transaction.date);
+        var d = new Date(transaction.date);
+        var n = d.toDateString();
+
+        var transactionInTable = "<tr><td>" + transaction.action + "</td><td>" + n + "</td>"+ "<td>"
+            + transaction.amount +'$'+ "</td>"+ "<td>" + transaction.balanceBeforeAction +'$'+ "</td>"+ "<td>" + transaction.balanceAfterAction
+            +'$'+ "</td></tr>" ;
+        $("#TransactionTableBody").append(transactionInTable);
+    });
+}
 //userTable
 function ajaxUsersList() {
     $.ajax({
@@ -137,10 +164,10 @@ $(function()
 {
     $("#addFundsForm").submit(function () {
         if (parseInt(document.getElementById("fundsAmount").value) > 0) {
-            var parameters = $(this).serialize();
+            var formParameters = $(this).serialize();
 
             $.ajax({
-                data: parameters,
+                data: formParameters,
                 url: this.action,
                 error: function (e) {
                     console.log(e);
