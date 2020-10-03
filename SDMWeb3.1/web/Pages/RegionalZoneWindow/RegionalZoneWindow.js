@@ -102,7 +102,7 @@ function refreshStoresInArea(stores) {
 
 }
 function buildStoreProductsTable(store,modalUniqID){
-    $(modalUniqID).append("<div class = \"tbl-header\">\n" +
+    $('#' + modalUniqID).append("<div class = \"tbl-header\">\n" +
         "    <table class=\"StoreTable\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
         "    <thead>\n" +
         "    <tr><th>ID</th>\n" +
@@ -114,7 +114,7 @@ function buildStoreProductsTable(store,modalUniqID){
         "</thead>\n" +
         "</table>\n" +
         "</div>");
-    $(modalUniqID).append("<div class=\"tbl-content\" id =\"tbl-store-content\">\n" +
+    $('#' + modalUniqID).append("<div class=\"tbl-content\" id =\"tbl-store-content\">\n" +
         "    <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" id = \"storeProductsDetailsTable\">\n" +
         "    <tbody id=\"storeProductsDetailsTableBody\">");
     var value = store.ID+"ModalTable";
@@ -133,7 +133,8 @@ function buildStoreProductsTable(store,modalUniqID){
 }
 
 function buildStoreProductsModal(store){
-
+    var storeHeader = store.name + "'s products";
+    var modalUniqID = store.ID + "ModalHeader";
 
     $("#storeProductsModals").append("<div class=\"modal\" id=\"myModal\">\n" +
         "    <div class=\"modal-dialog\">\n" +
@@ -141,16 +142,13 @@ function buildStoreProductsModal(store){
         "\n" +
         "    <!-- Modal Header -->\n" +
         "<div class=\"modal-header\">\n" +
-        "    <h4 class=\"modal-title\">")
-    var storeHeader = store.name + "'s products";
-    var modalUniqID = store.ID + "ModalHeader";
-    $("#storeProductsModals").append(storeHeader);
-    $("#storeProductsModals").append("</h4>\n" +
+        "    <h4 class=\"modal-title\">" +storeHeader+"</h4>\n" +
         "<button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n" +
         "</div>\n" +
         "\n" +
         "<!-- Modal body -->\n" +
-        "<div class=\"modal-body\" id =\"modalUniqID\">");
+        "<div class=\"modal-body\" id =\"modalUniqID\">" )
+
     document.getElementById("modalUniqID").setAttribute("id",modalUniqID);
     buildStoreProductsTable(store,modalUniqID);
     $("#storeProductsModals").append("</div>\n" +
