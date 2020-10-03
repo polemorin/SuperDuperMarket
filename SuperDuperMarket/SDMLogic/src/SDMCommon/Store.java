@@ -23,7 +23,7 @@ public class Store {
     private String ownerName;
 
 
-    public Store(String name, Point location, int ID, Map<Integer,StoreProduct> productSet, double PPK){
+    public Store(String name, Point location, int ID, Map<Integer,StoreProduct> productSet, double PPK,String creatorName){
         this.name= name;
         this.location = location;
         this.ID = ID;
@@ -34,6 +34,7 @@ public class Store {
         totalDeliveryPayment = 0;
         amountOfOrdersFromStore = storeOrderHistory.size();
         totalProductsRevenue = 0;
+        ownerName = creatorName;
     }
 
     public Store(Store other){
@@ -53,6 +54,8 @@ public class Store {
         amountOfOrdersFromStore = storeOrderHistory.size();
         this.totalProductsRevenue = other.totalProductsRevenue;
     }
+
+
     public Map<String, Sale> getSales() {
         return sales;
     }
