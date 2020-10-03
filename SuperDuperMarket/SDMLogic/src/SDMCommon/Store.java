@@ -16,6 +16,8 @@ public class Store {
     private Map<Integer, StoreProduct> products;
     private List<StoreLevelOrder> storeOrderHistory;
     private final double deliveryPPK;
+    private double totalProductsRevenue;
+    private int amountOfOrdersFromStore;
     private double totalDeliveryPayment;
     private Map<String, Sale> sales;
     private String ownerName;
@@ -30,6 +32,8 @@ public class Store {
         storeOrderHistory = new ArrayList<StoreLevelOrder>();
         sales = new HashMap<>();
         totalDeliveryPayment = 0;
+        amountOfOrdersFromStore = storeOrderHistory.size();
+        totalProductsRevenue = 0;
     }
 
     public Store(Store other){
@@ -46,6 +50,8 @@ public class Store {
         for (StoreLevelOrder itr2:other.storeOrderHistory) {
             this.storeOrderHistory.add(new StoreLevelOrder(itr2));
         }
+        amountOfOrdersFromStore = storeOrderHistory.size();
+        this.totalProductsRevenue = other.totalProductsRevenue;
     }
     public Map<String, Sale> getSales() {
         return sales;
@@ -101,7 +107,8 @@ public class Store {
         storeOrderHistory.add(order);
         totalDeliveryPayment += order.getDeliveryPrice();
         order.getSoldProducts().forEach(this::updateProductSoldAmount);
-
+        totalProductsRevenue += order.getTotalProductsPrice();
+        amountOfOrdersFromStore = storeOrderHistory.size();
     }
     private void updateProductSoldAmount(SoldProduct product){
         StoreProduct p = products.get(product.getProductID());
@@ -197,5 +204,17 @@ public class Store {
 
     public void addSale(Sale saleToAdd) {
         sales.put(saleToAdd.getName(),saleToAdd);
+    }
+
+    public double getTotalProductsRevenue() {
+        return totalProductsRevenue;
+    }
+
+    public int getAmountOfOrdersFromStore() {
+        return amountOfOrdersFromStore;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
     }
 }
