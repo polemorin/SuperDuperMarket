@@ -2,7 +2,7 @@ var x = JSON.parse(localStorage.getItem('ZoneDetails'));
 var zoneName = x.zone;
 var interval;
 var Update_Product_Details_Table_URL = buildUrlWithContextPath("updateProductDetailsTable");
-
+var Update_Store_Details_Table_URL = buildUrlWithContextPath("updateStoreDetailsTable");
 
 $(function(){
     $("#UserChosenZoneName").empty().append(zoneName);
@@ -68,7 +68,33 @@ function refreshProductsInArea(products) {
         $("#productDetailsTableBody").append(productInTable);
     });
 }
-function ajaxStoreDetailsTable(){
 
+
+/*------Store details tab---------------------------*/
+function ajaxStoreDetailsTable(){
+    var dataString = "ZoneName="+zoneName;
+    $.ajax({
+        data: dataString,
+        url: Update_Store_Details_Table_URL,
+        success: function (stores) {
+            refreshStoresInArea(stores);
+        }
+    });
 }
 
+function refreshStoresInArea(stores) {
+    $("#storeDetailsTableBody").empty();
+
+    $.each(stores || [], function(index,store) {
+        var totalRevenue = store.totalDeliveryPayment + store.totalProductsRevenue;
+        var storeInTable = "<tr><td>" + store.ID + "</td>+ <td>" + store.name + "</td><td>" + store.ownerName + "</td><td>"
+            + store.location + "</td><td>" +
+            "<input class = 'showStoreProductsButton' name = 'showStoreProductsButton'  type = 'submit' id = store.ID value = 'show products'> </td>"
+            + "<td>" + store.amountOfOrdersFromStore + "</td>"+ "<td>" + store.totalProductsRevenue + "</td>"+
+            "<td>" + store.deliveryPPK+"</td><td>" + store.totalDeliveryPayment + "</td> <td> + totalRevenue + </td></tr>" ;
+
+
+        $("#storeDetailsTableBody").append(storeInTable);
+        document.getElementById("store.ID").setAttribute("id",store.ID);
+    });
+}
