@@ -17,7 +17,7 @@ function openTab(evt, tabName) {
             break;
         case "StoreTabID":
             ajaxStoreDetailsTable();
-            interval = setInterval(ajaxStoreDetailsTable,2000);
+           /* interval = setInterval(ajaxStoreDetailsTable,2000);*/
             break;
         case "PlaceOrderAndFeedBackID":
             break;
@@ -151,7 +151,7 @@ function buildStoreProductsModal(store){
 
     document.getElementById("modalUniqID").setAttribute("id",modalUniqID);
     buildStoreProductsTable(store,modalUniqID);
-    $("#storeProductsModals").append("</div>\n" +
+    $("#" + modalUniqID).append("</div>\n" +
         "\n" +
         "    <!-- Modal footer -->\n" +
         "    <div class=\"modal-footer\">\n" +
