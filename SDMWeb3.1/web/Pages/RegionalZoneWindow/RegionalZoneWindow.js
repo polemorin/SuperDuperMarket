@@ -16,6 +16,7 @@ function openTab(evt, tabName) {
             interval = setInterval(ajaxProductDetailsTable,2000);
             break;
         case "StoreTabID":
+            ajaxStoreDetailsTable();
             interval = setInterval(ajaxStoreDetailsTable,2000);
             break;
         case "PlaceOrderAndFeedBackID":
@@ -88,10 +89,10 @@ function refreshStoresInArea(stores) {
     $.each(stores || [], function(index,store) {
         var totalRevenue = store.totalDeliveryPayment + store.totalProductsRevenue;
         var storeInTable = "<tr><td>" + store.ID + "</td>+ <td>" + store.name + "</td><td>" + store.ownerName + "</td><td>"
-            + store.location + "</td><td>" +
+            + store.location.x+','+ store.location.x+ "</td><td>" +
             "<input class = 'showStoreProductsButton' name = 'showStoreProductsButton'  type = 'submit' id = store.ID value = 'show products'> </td>"
             + "<td>" + store.amountOfOrdersFromStore + "</td>"+ "<td>" + store.totalProductsRevenue + "</td>"+
-            "<td>" + store.deliveryPPK+"</td><td>" + store.totalDeliveryPayment + "</td> <td> + totalRevenue + </td></tr>" ;
+            "<td>" + store.deliveryPPK+"</td><td>" + store.totalDeliveryPayment + "</td> <td>"+ totalRevenue +"</td></tr>" ;
 
 
         $("#storeDetailsTableBody").append(storeInTable);
