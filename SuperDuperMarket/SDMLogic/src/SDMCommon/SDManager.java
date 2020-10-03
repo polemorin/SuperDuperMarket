@@ -64,7 +64,7 @@ public class SDManager {
         Map<Integer, Store> tempStoreMap;
         Map<Integer, Product> tempProductMap;
 
-        tempStoreMap = createStoresMapFromXml(superDuperMarketDescriptor);
+        tempStoreMap = createStoresMapFromXml(superDuperMarketDescriptor,creatorName);
         tempProductMap = createProductMapFromXml(superDuperMarketDescriptor, tempStoreMap);
 
         return new MarketArea(tempProductMap, tempStoreMap, creatorName, superDuperMarketDescriptor.getSDMZone().getName());
@@ -112,7 +112,7 @@ public class SDManager {
 
     }
 
-    private Map<Integer, Store> createStoresMapFromXml(SuperDuperMarketDescriptor superDuperMarketDescriptor) throws Exception {
+    private Map<Integer, Store> createStoresMapFromXml(SuperDuperMarketDescriptor superDuperMarketDescriptor, String creatorName) throws Exception {
 
         Map<Integer, Store> storesMap = new HashMap<Integer, Store>();
 
@@ -134,7 +134,7 @@ public class SDManager {
             } else {
 
                 storeToAdd = new Store(store.getName(), p, store.getId(),
-                        createStoreProductMap(store, superDuperMarketDescriptor.getSDMItems()), store.getDeliveryPpk());
+                        createStoreProductMap(store, superDuperMarketDescriptor.getSDMItems()), store.getDeliveryPpk(),creatorName);
                 storeToAdd.initSalesFromXML(generateSalesFromXml(store, superDuperMarketDescriptor));
                 storesMap.put(storeToAdd.getID(), storeToAdd);
             }
