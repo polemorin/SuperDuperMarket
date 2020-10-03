@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="../../common/context-path-helper.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -12,20 +10,17 @@
     <link rel="stylesheet" href="RegionalZoneWindow.css">
 </head>
 <body>
-<div class  ="row">
-<input type = "button" value = "Back to main page" class = "btn btn-primary" id = "BackToMainPage">
+
 <h2 id = "UserChosenZoneName" style="text-align: center"></h2>
-</div>
+
 <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'ProductTabID')">Product info</button>
     <button class="tablinks" onclick="openTab(event, 'StoreTabID')">Store info</button>
-    <button id="PlaceOrderAndFeedBackButtonID" class="tablinks" onclick="openTab(event, 'PlaceOrderAndFeedBackID')">Place order</button>
-    <button id="CustomerOrderHistoryButtonID" class="tablinks" onclick="openTab(event, 'CustomerOrderHistoryID')">Order History</button>
-    <button id="StoreOwnerOrderHistoryButtonID" class="tablinks" onclick="openTab(event, 'StoreOwnerOrderHistoryID')">Order History</button>
-    <button id="FeedBacksButtonID" class="tablinks" onclick="openTab(event, 'FeedBacksID')">FeedBacks</button>
-    <button id="AddStoreButtonID" class="tablinks" onclick="openTab(event, 'AddStoreID')">Add store</button>
-    <button id="AddProductButtonID" class="tablinks" onclick="openTab(event, 'AddProductID')">Add product</button>
-
+    <button class="tablinks" onclick="openTab(event, 'PlaceOrderAndFeedBackID')">Place order</button>
+    <button class="tablinks" onclick="openTab(event, 'CustomerOrderHistoryID')">Order History</button>
+    <button class="tablinks" onclick="openTab(event, 'StoreOwnerOrderHistoryID')">Order History</button>
+    <button class="tablinks" onclick="openTab(event, 'FeedBacksID')">FeedBacks</button>
+    <button class="tablinks" onclick="openTab(event, 'AddStoreID')">Add store</button>
 </div>
 
 <div id="ProductTabID" class="tabcontent">
@@ -77,129 +72,33 @@
 
             </tbody>
         </table>
-        <div id="storeProductsModals">
-
-        </div>
     </div>
 </div>
 <!--------------------Customer-------------------->
 <div id="PlaceOrderAndFeedBackID" class="tabcontent">
-   <label class = "centeredFeedBackLabel">Rate your shopping experience</label>
-    <input type="number" min="1" max="5">
-    <br>
-    <label class ="centeredFeedBackLabel">Leave FeedBack:</label>
-    <textarea id="userFeedBack" name="feedBack" rows="4" cols="50"></textarea>
-    <input type = "button" value="Submit feedback" id="SubmitFeedBackButton" class = "centeredFeedBackButton">
+    <h3>Place order</h3>
+    <p>Tokyo is the capital of Japan.</p>
 </div>
 
-
 <div id="CustomerOrderHistoryID" class="tabcontent">
-    <h3>Order history</h3>
-    <div class = "tbl-header" id = "orderHistoryHeader">
-        <table class="CustomerOrderHistoryTable" cellpadding="0" cellspacing="0" border="0">
-            <thead>
-            <tr><th>Order id</th>
-                <th>Date</th>
-                <th>Location</th>
-                <th>Amount of stores in order</th>
-                <th>Amount of products</th>
-                <th>Product cost</th>
-                <th>Delivery cost</th>
-                <th>Total cost</th>
-                <th>More details</th>
-            </tr>
-            </thead>
-        </table>
-    </div>
-    <div class="tbl-content" id ="tbl-customer-orderHistory-content">
-        <table cellpadding="0" cellspacing="0" border="0" id = "customerOrderHistoryDetailsTable">
-            <tbody id="customerOrderHistoryDetailsTableBody">
-
-            </tbody>
-        </table>
-        <div id="customerOrderHistoryModals">
-
-        </div>
-    </div>
+    <h3>Order History</h3>
+    <p>Tokyo is the capital of Japan.</p>
 </div>
 <!--------------------STORE OWNER-------------------->
 <div id="StoreOwnerOrderHistoryID" class="tabcontent">
-    <h3 class = "centeredHeader">store.name</h3>
-    <div class = "tbl-header" id = "storeOrderHistoryHeader">
-        <table class="StoreOrderHistoryTable" cellpadding="0" cellspacing="0" border="0">
-            <thead>
-            <tr><th>Order id</th>
-                <th>Date</th>
-                <th>Customer name | Location</th>
-                <th>Amount of products</th>
-                <th>Product cost</th>
-                <th>Delivery cost</th>
-                <th>Order details</th>
-            </tr>
-            </thead>
-        </table>
-    </div>
-    <div class="tbl-content" id ="tbl-store-orderHistory-content">
-        <table cellpadding="0" cellspacing="0" border="0" id = "storeOrderHistoryDetailsTable">
-            <tbody id="storeOrderHistoryDetailsTableBody">
-
-            </tbody>
-        </table>
-        <div id="storeOrderHistoryModals">
-
-        </div>
-    </div>
+    <h3>Order History</h3>
+    <p>Tokyo is the capital of Japan.</p>
 </div>
 
 <div id="FeedBacksID" class="tabcontent">
-    <h3>FeedBacks for my stores</h3>
-    <div class = "tbl-header">
-        <table class="FeedbackTable" cellpadding="0" cellspacing="0" border="0">
-            <thead>
-            <tr><th>Customer name</th>
-                <th>Store name</th>
-                <th>Date</th>
-                <th>Rating</th>
-                <th>Feedback</th>
-            </tr>
-            </thead>
-        </table>
-    </div>
-    <div class="tbl-content" id ="tbl-feedback-content">
-        <table cellpadding="0" cellspacing="0" border="0" id = "feedBackDetailsTable">
-            <tbody id="feedBackDetailsTableBody">
-
-            </tbody>
-        </table>
-    </div>
+    <h3>FeedBacks</h3>
+    <p>Tokyo is the capital of Japan.</p>
 </div>
 
-<div id="AddStoreID" class="tabcontent center">
-    <h3>Add products to your new store</h3>
-    <label for="ProductSelect" class="ProductSelect">Choose a product:</label>
-    <select name="ProductSelect" id="ProductSelect" class = "ProductSelect"></select>
-    <br>
-    <label class="ProductSelect">Set price: </label>
-    <input type ="number" class ="ProductSelect" id="productPrice" min ='1'>
-    <input type ="button" id="AddProductButton" class="btn btn-success ProductSelect" value="Add product"><br><br>
-    <label id="addProductPageLabel"></label><br>
-    <input type ="button" id="CancelAddStoreButton" class="btn btn-danger" value="Cancel">
-    <input type ="button" id="AddStoreButton" class="btn btn-primary" value="AddStore">
+<div id="AddStoreID" class="tabcontent">
+    <h3>Add store</h3>
+    <p>Tokyo is the capital of Japan.</p>
 </div>
 
-<div id="AddProductID" class="tabcontent">
-    <h3 class="AddProductHeader">Choose stores:</h3>
-    <select name="StoreProductSelect" id="StoreProductSelect" class = "StoreProductSelect"></select>
-    <br>
-    <label id="addProductPriceLabel">Price: </label>
-    <input type="number" min="1" id="addProductPriceInput">
-    <label id="addProductPriceErrorLabel"></label>
-    <input type="button" class="btn btn-primary" id="AddProductToStoreButton" value="Add product to store">
-    <br><br>
-    <input type="button" class="btn btn-primary" id="AddProductToMarketButton" value="Confirm">
-
-</div>
-<div class="alertDiv">
-</div>
 </body>
 </html>

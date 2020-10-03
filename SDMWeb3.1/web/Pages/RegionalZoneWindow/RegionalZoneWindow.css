@@ -1,12 +1,10 @@
-body {font-family: Arial;
-    background-color: #cbf1f1;
-}
+body {font-family: Arial;}
 
 /* Style the tab */
 .tab {
     overflow: hidden;
     border: 1px solid #ccc;
-    background-color: #60bbba;
+    background-color: #f1f1f1;
 }
 
 /* Style the buttons inside the tab */
@@ -23,19 +21,14 @@ body {font-family: Arial;
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-    background-color: #33adad;
+    background-color: #ddd;
 }
 
 /* Create an active/current tablink class */
 .tab button.active {
-    background-color: #33adad;
+    background-color: #ccc;
 }
-.modal-body{
-    background-color: #cbf1f1;
-}
-.modal-header{
-    background-color: #97d2d2;
-}
+
 /* Style the tab content */
 .tabcontent {
     display: none;
@@ -81,214 +74,3 @@ td{
 #tbl-product-content{
     height:250px;
 }
-
-/*------------ProductSquare--------*/
-.ProductSquare {
-    height: 150px;
-    width: 150px;
-    background-color: #fff;
-    border: 3px solid lightblue;
-    text-align: center;
-
-}
-.squareText {
-    padding: 10px;
-}
-.row{
-    margin:auto;
-    display: grid;
-    width: 50%;
-    grid-template-columns: auto auto auto auto;
-    grid-gap: 50px;
-    padding: 10px 1000px 10px 10px;
-}
-#chooseProductsHeader{
-    text-align:center;
-    padding-right:800px;
-}
-#PlaceOrderGoToSales{
-    transform: translateX(+1700%);
-}
-#placeOrderGoToSummery{
-    transform: translateX(+1430%);
-}
-#warningProductChoiceLabel{
-    color:red;
-}
-#LocationLabel{
-    color: red;
-}
-.hiddenTableHead{
-    display: none;
-}
-.singleOrder{
-    outline: 2px solid #60bbba
-}
-.OrderSummeryHead{
-    display: none
-}
-.shortTableHead{
-    height: 50px;
-}
-#ConfirmOrder{
-    transform: translateX(+705%);
-}
-#CancelOrder{
-    transform: translateX(+110%);
-}
-#tbl-available-sales-content{
-    width:900px;
-}
-#tbl-chosen-sales-content{
-    width:900px;
-}
-#tbl-cart-content{
-    width:900px;
-}
-.tbl-order-summery-content{
-    border-color: transparent;
-}
-.singleOrder{
-    width:1000px;
-}
-.storeOrderProductsHeader{
-    width:1000px;
-}
-.RoundButton{
-
-    text-fill: black;
-    background-color: #85c9c8;
-    border-color: transparent;
-    border-radius: 50%;
-    min-width: 30px;
-    min-height: 30px;
-    max-width: 30px;
-    max-height: 30px;
-
-}
-.RoundButton:hover{
-    background-color : #94dedb;
-    background-insets: 0%;
-}
-.RoundButton:focus
-{
-    background-color : #60bbba;
-    border-color:transparent!important;
-    outline:none;
-}
-tr { cursor: default; }
-.highlight { background: #60bbca; }
-
-.centeredOrderLabel{
-    transform: translateX(+40%);
-    display: block;
-}
-.salesLabel{
-    transform: translateX(+35%);
-    display: block;
-}
-#BackToMainPage{
-    transform: translateX(-80%);
-}
-#UserChosenZoneName{
-    transform: translateX(+135%);
-}
-.tbl-order-summery-content{
-    width:1000px;
-    height:100px;
-}
-#SingleStoreOrders{
-    transform: translateX(+10%);
-}
-#productsLabel{
-    transform: translateX(+680%);
-}
-#orderHistoryHeader{
-    width:1000px;
-}
-#tbl-customer-orderHistory-content{
-    width:1000px;
-}
-.salesTableHeader{
-    width:900px;
-}
-.storeCol{
-    width:130px;
-    height:100px;
-    text-align:center;
-    outline: 1px solid #60bbba;
-    background-color:#60bbba;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-#AddStoreButton{
-    transform: translateX(+260%);
-    width:110px;
-}
-#addProductPageLabel{
-    color:red;
-    transform: translateX(+97%);
-}
-#AddProductButton{
-    transform: translateX(+76%);
-}
-#productPrice{
-    transform: translateX(+31%);
-}
-.centeredButton{
-    transform: translateX(+205%);
-}
-.feedbackStoreCol{
-    width:160px;
-    height:100px;
-    text-align:center;
-    outline: 1px solid #60bbba;
-    background-color:#60bbba;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-.ErrorLabel{
-    color: red;
-}
-.center {
-    margin: auto;
-    width: 50%;
-    padding: 10px;
-}
-#PlaceOrderDateAndTypeForm{
-    transform: translateX(+36%);
-}
-#placeOrderHeader{
-    text-align: center;
-}
-.ProductSquare{
-    background-color:#cee8e7;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-#AddSalesToOrderForm{
-    transform: translateX(+12%);
-}
-#chooseSalesHeader{
-    text-align: center;
-}
-.customerDetails{
-    transform: translateX(+8.5%);
-}
-#addFeedbackPageDiv{
-    transform: translateX(+30%);
-}
-.alert{
-    position:absolute;
-    height:75px;
-    width:877px;
-    overflow:auto;
-}
-#AddProductID{
-    text-align: center;
-}
-#ProductNameInput{
-    width:100px;
-}
-#addProductPriceInput{
-    width:60px;
-}
-
-
