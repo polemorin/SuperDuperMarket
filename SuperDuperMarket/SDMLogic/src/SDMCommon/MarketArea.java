@@ -457,4 +457,22 @@ public class MarketArea {
     public String getZone() {
         return zone;
     }
+
+    public List<ProductTableInfo> getProductsDetails() {
+        List<ProductTableInfo> productTableInfos = new ArrayList<>();
+        ProductTableInfo productInfo;
+        Product product;
+        for (Map.Entry<Integer,Product> marketAreaProduct:products.entrySet()) {
+            product = marketAreaProduct.getValue();
+            productInfo = new ProductTableInfo(product.getProductID(),
+                    product.getProductName(),
+                    product.getProductCategory().toString(),
+                    countHowManyStoresSellProduct(product),
+                    getAveragePriceForProduct(product),
+                    totalAmountSoldInMarket(product));
+            productTableInfos.add(productInfo);
+
+        }
+        return productTableInfos;
+    }
 }

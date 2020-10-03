@@ -2,6 +2,7 @@ package SDMCommon;
 
 import ProductTypes.Product;
 import ProductTypes.ProductCategory;
+import ProductTypes.ProductTableInfo;
 import ProductTypes.StoreProduct;
 import SDMExceptions.XmlStoreSellProductNotInMarketException;
 import SDMExceptions.XmlStoreSellsMultipleProductsWithSameIDException;
@@ -340,6 +341,22 @@ public class SDManager {
 
     public List<Transaction> getallTransactions(String username) {
         return users.get(username).getUserTransactions();
+    }
+
+    public MarketArea getMarketArea(String zoneName) {
+        MarketArea market = null;
+        if(marketAreaMap.containsKey(zoneName)){
+            return marketAreaMap.get(zoneName);
+        }
+        return null;
+    }
+
+    public List<ProductTableInfo> getAllProductFromZoneInfo(String zoneName) {
+        List<ProductTableInfo> productTableInfos = null;
+        if(marketAreaMap.containsKey(zoneName)){
+            productTableInfos = marketAreaMap.get(zoneName).getProductsDetails();
+        }
+        return productTableInfos;
     }
 }
 
