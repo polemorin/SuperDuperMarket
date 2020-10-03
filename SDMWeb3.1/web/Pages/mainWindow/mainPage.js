@@ -4,7 +4,7 @@ var Balance_URL = buildUrlWithContextPath("updateBalance");
 var User_Role_URL = buildUrlWithContextPath("userRole");
 var Upload_XML_FILE_UTL = buildUrlWithContextPath("loadFile");
 var Transactions_TABLE_URL = buildUrlWithContextPath("updateTransactions");
-
+var GO_TO_ZONE_URL = buildUrlWithContextPath("goToZone");
 //this function is for the tables design
 $(window).on("load resize ", function() {
     var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
@@ -148,8 +148,11 @@ function refreshAreas(areas) {
         //appeand it to the #userslist (div with id=userslist) element
         var zoneInTable = "<tr><td>" + area.creatorName + "</td><td>" + area.zoneName + "</td>"+ "<td>"
             + area.productAmount + "</td>"+ "<td>" + area.storeAmount + "</td>"+ "<td>" + area.orderAmount
-            + "</td>"+ "<td>" + area.orderAVGPrice +"</td><td> <input type = 'submit' value = 'goToZone'> </td></tr>" ;
+            + "</td>"+ "<td>" + area.orderAVGPrice +"</td><td> <input class = 'goToZoneButton' name = 'goToZoneButton'  type = 'submit' id = area.zoneName value = 'goToZone'> </td></tr>" ;
+
         $("#zoneTableBody").append(zoneInTable);
+        document.getElementById("area.zoneName").setAttribute("id",area.zoneName);
+        goToZoneArea();
     });
 }
 function ajaxBalance() {
@@ -160,6 +163,28 @@ function ajaxBalance() {
             }
         });
 }
+function goToZoneArea(){
+    $(".goToZoneButton").click(function () {
+        var dataString = "id="+this.id;
+    $.ajax({
+        data: dataString,
+        dataType: "json",
+        url: GO_TO_ZONE_URL,
+        error: function (e) {
+            console.error(e);
+            return false;
+        },
+        success: function (r) {
+            console.log(r);
+            localStorage.setItem('ZoneDetails',JSON.stringify(r));
+            window.location.replace("../RegionalZoneWindow/RegionalZoneWindow.html");
+            return true;
+        }
+    });
+})}
+
+
+
 $(function()
 {
     $("#addFundsForm").submit(function () {
@@ -184,7 +209,6 @@ $(function()
         return false;
     });
 });
-
 
 
 

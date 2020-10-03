@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="../../common/context-path-helper.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="RegionalZoneWindow.js"></script>
+    <link rel="stylesheet" href="RegionalZoneWindow.css">
+</head>
+<body>
+
+<h2 id = "UserChosenZoneName" style="text-align: center"></h2>
+
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'ProductTabID')">Product info</button>
+    <button class="tablinks" onclick="openTab(event, 'StoreTabID')">Store info</button>
+    <button class="tablinks" onclick="openTab(event, 'PlaceOrderAndFeedBackID')">Place order</button>
+    <button class="tablinks" onclick="openTab(event, 'CustomerOrderHistoryID')">Order History</button>
+    <button class="tablinks" onclick="openTab(event, 'StoreOwnerOrderHistoryID')">Order History</button>
+    <button class="tablinks" onclick="openTab(event, 'FeedBacksID')">FeedBacks</button>
+    <button class="tablinks" onclick="openTab(event, 'AddStoreID')">Add store</button>
+</div>
+
+<div id="ProductTabID" class="tabcontent">
+    <h3>Product info</h3>
+    <div class = "tbl-header">
+    <table class="ProductTable" cellpadding="0" cellspacing="0" border="0">
+        <thead>
+        <tr><th>ID</th>
+            <th>Product name</th>
+            <th>Purchase category</th>
+            <th>Sold by</th>
+            <th>Average price</th>
+            <th>Amount sold</th>
+        </tr>
+        </thead>
+    </table>
+    </div>
+    <div class="tbl-content" id ="tbl-product-content">
+        <table cellpadding="0" cellspacing="0" border="0" id = "productDetailsTable">
+            <tbody id="productDetailsTableBody">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="StoreTabID" class="tabcontent">
+    <h3>Store info</h3>
+    <div class = "tbl-header">
+        <table class="StoreTable" cellpadding="0" cellspacing="0" border="0">
+            <thead>
+            <tr><th>ID</th>
+                <th>Store name</th>
+                <th>Owner name</th>
+                <th>Location</th>
+                <th>Sold items</th>
+                <th>Order Amount</th>
+                <th>Product revenue</th>
+                <th>PPK</th>
+                <th>Delivery revenue</th>
+                <th>Total revenue</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="tbl-content" id ="tbl-store-content">
+        <table cellpadding="0" cellspacing="0" border="0" id = "storeDetailsTable">
+            <tbody id="storeDetailsTableBody">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--------------------Customer-------------------->
+<div id="PlaceOrderAndFeedBackID" class="tabcontent">
+    <h3>Place order</h3>
+    <p>Tokyo is the capital of Japan.</p>
+</div>
+
+<div id="CustomerOrderHistoryID" class="tabcontent">
+    <h3>Order History</h3>
+    <p>Tokyo is the capital of Japan.</p>
+</div>
+<!--------------------STORE OWNER-------------------->
+<div id="StoreOwnerOrderHistoryID" class="tabcontent">
+    <h3>Order History</h3>
+    <p>Tokyo is the capital of Japan.</p>
+</div>
+
+<div id="FeedBacksID" class="tabcontent">
+    <h3>FeedBacks</h3>
+    <p>Tokyo is the capital of Japan.</p>
+</div>
+
+<div id="AddStoreID" class="tabcontent">
+    <h3>Add store</h3>
+    <p>Tokyo is the capital of Japan.</p>
+</div>
+
+</body>
+</html>
