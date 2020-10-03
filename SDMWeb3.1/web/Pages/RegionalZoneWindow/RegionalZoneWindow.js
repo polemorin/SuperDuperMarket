@@ -98,6 +98,7 @@ function refreshStoresInArea(stores) {
         buildStoreProductsModal(store);
         $("#storeDetailsTableBody").append(storeInTable);
         document.getElementById("store.ID").setAttribute("id",store.ID+"Modal");
+        document.getElementById(store.ID+"Modal").setAttribute("data-target",'#'+"myModal"+store.ID);
     });
 
 }
@@ -134,6 +135,7 @@ function buildStoreProductsTable(store,modalUniqID){
 
 function buildStoreProductsModal(store){
     var storeHeader = store.name + "'s products";
+    var modalID = "myModal"+store.ID;
     var modalUniqID = store.ID + "ModalHeader";
 
     $("#storeProductsModals").append("<div class=\"modal\" id=\"myModal\">\n" +
@@ -150,6 +152,7 @@ function buildStoreProductsModal(store){
         "<div class=\"modal-body\" id =\"modalUniqID\">" )
 
     document.getElementById("modalUniqID").setAttribute("id",modalUniqID);
+    document.getElementById("myModal").setAttribute("id",modalID);
     buildStoreProductsTable(store,modalUniqID);
     $("#" + modalUniqID).append("</div>\n" +
         "\n" +
