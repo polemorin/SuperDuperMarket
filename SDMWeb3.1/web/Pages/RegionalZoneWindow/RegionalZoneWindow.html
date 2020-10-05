@@ -86,8 +86,33 @@
 </div>
 
 <div id="CustomerOrderHistoryID" class="tabcontent">
-    <h3>Order History</h3>
-    <p>Tokyo is the capital of Japan.</p>
+    <h3>Order history</h3>
+    <div class = "tbl-header">
+        <table class="CustomerOrderHistoryTable" cellpadding="0" cellspacing="0" border="0">
+            <thead>
+            <tr><th>Order id</th>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Amount of stores in order</th>
+                <th>Amount of products</th>
+                <th>Product cost</th>
+                <th>Delivery cost</th>
+                <th>Total cost</th>
+                <th>More details</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="tbl-content" id ="tbl-customer-orderHistory-content">
+        <table cellpadding="0" cellspacing="0" border="0" id = "customerOrderHistoryDetailsTable">
+            <tbody id="customerOrderHistoryDetailsTableBody">
+
+            </tbody>
+        </table>
+        <div id="customerOrderHistoryModals">
+
+        </div>
+    </div>
 </div>
 <!--------------------STORE OWNER-------------------->
 <div id="StoreOwnerOrderHistoryID" class="tabcontent">

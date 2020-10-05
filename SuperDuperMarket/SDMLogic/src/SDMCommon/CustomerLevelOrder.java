@@ -1,9 +1,12 @@
 package SDMCommon;
 
+import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.List;
+
 import ProductTypes.*;
 
 public class CustomerLevelOrder {
@@ -18,8 +21,9 @@ public class CustomerLevelOrder {
     private final LocalDate date;
     private static int OrderIDGenerator = 1000;
     private final int OrderID;
+    private final Point orderLocation;
 
-    public CustomerLevelOrder(List<StoreLevelOrder> storeOrders){
+    public CustomerLevelOrder(List<StoreLevelOrder> storeOrders,Point orderLocation){
        orders = storeOrders;
        totalProductPrice = storeOrders.stream().mapToDouble(StoreLevelOrder::getTotalProductsPrice).sum();
        totalProductTypeAmount = storeOrders.stream().mapToInt(StoreLevelOrder::getAmountOfProductTypes).sum();
@@ -27,9 +31,10 @@ public class CustomerLevelOrder {
        deliveryPrice = storeOrders.stream().mapToDouble(StoreLevelOrder::getDeliveryPrice).sum();
        date = storeOrders.get(0).getDate();
        OrderID = OrderIDGenerator++;
+       this.orderLocation = orderLocation;
     }
 
-    public CustomerLevelOrder(List<StoreLevelOrder> storeOrders, int orderID){
+    public CustomerLevelOrder(List<StoreLevelOrder> storeOrders, int orderID,Point orderLocation){
         orders = storeOrders;
         totalProductPrice = storeOrders.stream().mapToDouble(StoreLevelOrder::getTotalProductsPrice).sum();
         totalProductTypeAmount = storeOrders.stream().mapToInt(StoreLevelOrder::getAmountOfProductTypes).sum();
@@ -40,17 +45,9 @@ public class CustomerLevelOrder {
         if(OrderIDGenerator <= OrderID){
             OrderIDGenerator = OrderID;
         }
+        this.orderLocation = orderLocation;
     }
 
-    public CustomerLevelOrder(double totalProductPrice, int totalProductTypeAmount, int totalProductPurchased, double deliveryPrice, LocalDate date) {
-        this.totalProductPrice = totalProductPrice;
-        this.totalProductTypeAmount = totalProductTypeAmount;
-        this.totalProductPurchased = totalProductPurchased;
-        this.deliveryPrice = deliveryPrice;
-        this.date = date;
-        OrderID = OrderIDGenerator++;
-        orders = new ArrayList<StoreLevelOrder>();
-    }
     public void updatePrices(){
         double totalProductPriceFromStore = 0;
         int totalAmountOfProducts = 0;
@@ -89,6 +86,7 @@ public class CustomerLevelOrder {
         for (StoreLevelOrder itr:other.orders) {
             this.orders.add(new StoreLevelOrder(itr));
         }
+        this.orderLocation = other.orderLocation;
     }
 
     public List<String> getCustomerLevelOrderStringListToFile(){
@@ -141,7 +139,7 @@ public class CustomerLevelOrder {
             nextStoreAmountOfProducts = Integer.parseInt(orderDetails.get(counterNextLineToRead));
             }
         }
-        return new CustomerLevelOrder(storeOrdersToAdd,orderIDFromFile);
+        return null;
     }
 
     public boolean isProductSoldInCustomerLevelOrder(Product product){

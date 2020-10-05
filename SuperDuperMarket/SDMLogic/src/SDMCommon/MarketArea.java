@@ -138,7 +138,7 @@ public class MarketArea {
             }
             storeAlreadyInList = false;
         }
-        return new CustomerLevelOrder(storeListForOrder);
+        return new CustomerLevelOrder(storeListForOrder,location);
     }
 
     public int findCheapestStoreID(int productID) {
