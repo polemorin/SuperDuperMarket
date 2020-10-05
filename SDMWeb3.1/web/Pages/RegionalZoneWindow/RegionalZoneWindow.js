@@ -3,6 +3,7 @@ var zoneName = x.zone;
 var interval;
 var Update_Product_Details_Table_URL = buildUrlWithContextPath("updateProductDetailsTable");
 var Update_Store_Details_Table_URL = buildUrlWithContextPath("updateStoreDetailsTable");
+var Customer_Order_History_Table_URL = buildUrlWithContextPath("updateCustomerOrderHistoryTable");
 
 $(function(){
     $("#UserChosenZoneName").empty().append(zoneName);
@@ -17,11 +18,12 @@ function openTab(evt, tabName) {
             break;
         case "StoreTabID":
             ajaxStoreDetailsTable();
-           /* interval = setInterval(ajaxStoreDetailsTable,2000);*/
+            interval = setInterval(ajaxStoreDetailsTable,2000)
             break;
         case "PlaceOrderAndFeedBackID":
             break;
         case "CustomerOrderHistoryID":
+            ajaxCustomerOrderDetailsTable();
             break;
         case "StoreOwnerOrderHistoryID":
             break;
@@ -41,6 +43,107 @@ function openTab(evt, tabName) {
     }
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
+}
+function ajaxCustomerOrderDetailsTable() {
+    $.ajax({
+        url: Customer_Order_History_Table_URL,
+        success: function (orders) {
+            refreshCustomerOrderHistoryTable(orders);
+        }
+    });
+}
+function refreshCustomerOrderHistoryTable(orders) {
+    $("#customerOrderHistoryDetailsTableBody").empty();
+    $("#customerOrderHistoryModals").empty();
+    var storesString;
+    $.each(orders || [], function(index,order) {
+        if(order.orders.length === 1){
+            storesString = " store";
+        }else{
+            storesString = " stores";
+        }
+        var orderInTable = "<tr><td>" + order.OrderID + "</td><td>" + order.date.day+'/'+order.date.month+'/'+order.date.year + "</td>"+ "<td>"
+            + order.orderLocation.x+","+order.orderLocation.y+ "</td>"+ "<td>" + order.orders.length +storesString+ "</td>"+ "<td>" +order.totalProductPurchased.toFixed(2)
+            +'$'+ "</td><td>" + order.totalProductPrice.toFixed(2) +'$'+"</td><td>"+order.deliveryPrice.toFixed(2)+'$'+"</td><td>"+order.deliveryPrice+order.totalProductPrice.toFixed(2)+'$'+"</td><td>"+
+            "\<input type='button' class='btn btn-primary btn-sm' data-toggle='modal' data-target = '#myModal' id='order.OrderID'  value = 'Show order'> </td>\"</tr>" ;
+
+        $("#customerOrderHistoryDetailsTableBody").append(orderInTable);
+        buildCustomerOrderModal(order);
+        document.getElementById("order.OrderID").setAttribute("id",order.OrderID+"Modal");
+        document.getElementById(order.OrderID+"Modal").setAttribute("data-target",'#'+"myModal"+order.OrderID+"order");
+    });
+}
+function buildCustomerOrderModal(order) {
+    var orderHeader = "Order ID: " +order.OrderID+ " - details";
+    var modalID = "myModal"+order.OrderID+"order";
+    var modalUniqID = order.OrderID + "ModalCustomerOrderHeader";
+
+    $("#customerOrderHistoryModals").append("<div class=\"modal\" id=\"myModal\">\n" +
+        "    <div class=\"modal-dialog mw-100 w-80\">\n" +
+        "    <div class=\"modal-content\">\n" +
+        "\n" +
+        "    <!-- Modal Header -->\n" +
+        "<div class=\"modal-header\">\n" +
+        "    <h4 class=\"modal-title\">" +orderHeader+"</h4>\n" +
+        "<button type=\"button\" id = \"closeCustomerOrderModalButton\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n" +
+        "</div>\n" +
+        "\n" +
+        "<!-- Modal body -->\n" +
+        "<div class=\"modal-body\" id =\"modalUniqID\">" )
+
+    document.getElementById("modalUniqID").setAttribute("id",modalUniqID);
+    document.getElementById("myModal").setAttribute("id",modalID);
+    buildCustomerOrderDetailsTable(order,modalUniqID);
+    $("#" + modalUniqID).append("</div>\n" +
+        "\n" +
+        "    <!-- Modal footer -->\n" +
+        "    <div class=\"modal-footer\">\n" +
+        "        <button type=\"button\" id = \"closeCustomerOrderModalButton\" class=\"btn btn-danger\" data-dismiss=\"modal\">Close</button>\n" +
+        "        </div>\n" +
+        "\n" +
+        "        </div>\n" +
+        "        </div>");
+
+}
+function buildCustomerOrderDetailsTable(order,modalUniqID) {
+    $('#' + modalUniqID).append("<div class = \"tbl-header\">\n" +
+        "    <table class=\"StoreTable\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
+        "    <thead>\n" +
+        "    <tr><th>ID</th>\n" +
+        "    <th>Name</th>\n" +
+        "<th>Sold by</th>\n" +
+        "<th>Store ID | Store Name</th>\n" +
+        "<th>Total amount</th>\n" +
+        "<th>Price per unit/kilo</th>\n" +
+        "<th>Total price</th>\n" +
+        "<th>Sale</th>\n" +
+        "</tr>\n" +
+        "</thead>\n" +
+        "</table>\n" +
+        "</div>");
+    $('#' + modalUniqID).append("<div class=\"tbl-content\" id =\"tbl-store-content\">\n" +
+        "    <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" id = \"CustomerOrderDetailsTable\">\n" +
+        "    <tbody id=\"CustomerOrderDetailsTableBody\">");
+    var value = order.OrderID+"ModalCustomerOrderTable";
+    document.getElementById("CustomerOrderDetailsTable").setAttribute("id",value);
+
+    var tableIdString= "#" + order.OrderID+"ModalCustomerOrderTable";
+    $.each(order.orders || [], function(index,storeOrder) {
+        $.each(storeOrder.soldProducts || [],function (jndex,soldProduct) {
+            var productInTable = "<tr><td>" + soldProduct.id + "</td><td>" + soldProduct.name + "</td>"+ "<td>"
+                + soldProduct.category + "</td>"+"<td>" + soldProduct.storeID+'|'+storeOrder.storeName + "</td><td>" + soldProduct.amountSoldInOrder
+                + "</td><td>"+soldProduct.price+"</td><td>"+soldProduct.price*soldProduct.amountSoldInOrder+"</td><td>Not part of a sale</td></tr>" ;
+            $(tableIdString).append(productInTable);
+        })
+        $.each(storeOrder.productsSoldOnSale || [],function (jndex,saleProduct) {
+            var productInTable = "<tr><td>" + saleProduct.id + "</td><td>" + saleProduct.name + "</td>"+ "<td>"
+                + saleProduct.category + "</td>"+"<td>" + saleProduct.storeID+'|'+storeOrder.storeName + "</td><td>" + saleProduct.amountSoldInOrder
+                + "</td><td>"+saleProduct.price+"</td><td>"+saleProduct.price*saleProduct.amountSoldInOrder+"</td><td>saleProduct.saleName</td></tr>" ;
+            $(tableIdString).append(productInTable);
+        })
+
+    });
+    $(modalUniqID).append("</tbody></table></div>")
 }
 function ajaxProductDetailsTable() {
     var dataString = "ZoneName="+zoneName;
@@ -67,6 +170,7 @@ function refreshProductsInArea(products) {
             +'$'+ "</td>"+ "<td>" + product.amountSoldInMarket.toFixed(2) +"</td></tr>" ;
 
         $("#productDetailsTableBody").append(productInTable);
+
     });
 }
 
@@ -102,6 +206,12 @@ function refreshStoresInArea(stores) {
     });
 
 }
+$(document).on('click', '.btn', function(){
+    clearInterval(interval);
+});
+$(document).on('click', '#closeModalButton', function(){
+    interval = setInterval(ajaxStoreDetailsTable,2000);
+});
 function buildStoreProductsTable(store,modalUniqID){
     $('#' + modalUniqID).append("<div class = \"tbl-header\">\n" +
         "    <table class=\"StoreTable\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
@@ -139,13 +249,13 @@ function buildStoreProductsModal(store){
     var modalUniqID = store.ID + "ModalHeader";
 
     $("#storeProductsModals").append("<div class=\"modal\" id=\"myModal\">\n" +
-        "    <div class=\"modal-dialog\">\n" +
+        "    <div class=\"modal-dialog mw-100 w-80\">\n" +
         "    <div class=\"modal-content\">\n" +
         "\n" +
         "    <!-- Modal Header -->\n" +
         "<div class=\"modal-header\">\n" +
         "    <h4 class=\"modal-title\">" +storeHeader+"</h4>\n" +
-        "<button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n" +
+        "<button type=\"button\" id = \"closeModalButton\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n" +
         "</div>\n" +
         "\n" +
         "<!-- Modal body -->\n" +
@@ -158,7 +268,7 @@ function buildStoreProductsModal(store){
         "\n" +
         "    <!-- Modal footer -->\n" +
         "    <div class=\"modal-footer\">\n" +
-        "        <button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">Close</button>\n" +
+        "        <button type=\"button\" id = \"closeModalButton\" class=\"btn btn-danger\" data-dismiss=\"modal\">Close</button>\n" +
         "        </div>\n" +
         "\n" +
         "        </div>\n" +
