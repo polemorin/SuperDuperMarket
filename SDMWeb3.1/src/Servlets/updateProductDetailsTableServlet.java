@@ -41,6 +41,21 @@ public class updateProductDetailsTableServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json");
+        try (PrintWriter out = resp.getWriter()) {
+            Gson gson = new Gson();
+            SDManager sdManager = ServletUtils.getSDMManager(getServletContext());
+            String zoneName = req.getParameter("ZoneName");
+            if(zoneName == null){
+                resp.sendError(-1,"Zone name not valid.");
+            }
+            else{
+                List<ProductTableInfo> productTableInfosTableValues = sdManager.getAllProductFromZoneInfo(zoneName);
+                String json = gson.toJson(productTableInfosTableValues);
+                out.println(json);
+                out.flush();
+            }
 
+        }
     }
 }

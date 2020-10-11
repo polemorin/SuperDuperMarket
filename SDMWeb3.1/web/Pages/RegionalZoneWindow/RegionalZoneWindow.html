@@ -82,7 +82,34 @@
 <!--------------------Customer-------------------->
 <div id="PlaceOrderAndFeedBackID" class="tabcontent">
     <h3>Place order</h3>
-    <p>Tokyo is the capital of Japan.</p>
+    <form id="PlaceOrderDateAndTypeForm">
+        <label for="DeliveryDate">Delivery date:</label>
+        <input type="date" id="DeliveryDate" name="DeliveryDate" required>
+        <br><br>
+        <div class = "customerLocationDiv">
+            <label >Delivery location (between 1-50):</label>
+            X</label><input type="number" id="XLocation" name="XLocation" min="1" max="50" required>&nbsp&nbsp
+            Y</label><input type="number" id="YLocation" name="YLocation" min="1" max="50" required>
+            <br>
+            <label id="LocationLabel"></label>
+        </div>
+        <br><br>
+        <h5>Order type</h5>
+        <br>
+        <div class="radio">
+            <input id = "DynamicRadio" type="radio" name="orderType" value = "Dynamic" checked = "checked">  Dynamic&nbsp&nbsp
+            <input id = "StaticRadio" type="radio" name="orderType" value = "Static" >  Static
+        </div>
+        <br><br>
+
+        <label for="StoresSelect" class="StoresSelect">Choose a store:</label>
+        <select name="StoresSelect" id="StoresSelect" class = "StoresSelect">
+
+        </select>
+        <br><br>
+
+        <button id = "placeOrderGoToProducts" type="button">Next</button>
+    </form>
 </div>
 
 <div id="CustomerOrderHistoryID" class="tabcontent">
