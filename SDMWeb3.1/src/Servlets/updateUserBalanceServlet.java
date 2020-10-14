@@ -21,7 +21,7 @@ public class updateUserBalanceServlet extends HttpServlet {
         String username = SessionUtils.getUsername(req);
         double currentBalance =sdmManager.getUsers().get(username).getFunds();
         try(PrintWriter out = resp.getWriter()){
-            out.println(currentBalance);
+            out.print(currentBalance);
             out.flush();
         }catch (Exception ignored){
 

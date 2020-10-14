@@ -2,7 +2,7 @@ package JSObjects;
 
 import java.awt.*;
 
-public class StoreLeverOrderJS {
+public class StoreLevelOrderJS {
     private regProduct[] regProducts;
     private SaleProductJS[] saleProducts;
     private int storeID;
@@ -15,8 +15,7 @@ public class StoreLeverOrderJS {
     private int orderID;
     private Point location;
     private double distanceFromCustomer;
-
-    public StoreLeverOrderJS(regProduct[] regProducts, String storeName) {
+    public StoreLevelOrderJS(regProduct[] regProducts, String storeName) {
         this.regProducts = regProducts;
         this.storeName = storeName;
     }

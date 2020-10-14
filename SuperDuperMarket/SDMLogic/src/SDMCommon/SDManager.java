@@ -1,7 +1,8 @@
 package SDMCommon;
 
-import JSObjects.StoreLeverOrderJS;
-import JSObjects.customerLevelOrderJS;
+import JSObjects.SaleProductJS;
+import JSObjects.StoreLevelOrderJS;
+import JSObjects.CustomerLevelOrderJS;
 import JSObjects.regProduct;
 import ProductTypes.*;
 import SDMExceptions.XmlStoreSellsMultipleProductsWithSameIDException;
@@ -13,10 +14,8 @@ import javax.xml.bind.Unmarshaller;
 import java.awt.*;
 import java.io.InputStream;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class SDManager {
     Map<String, MarketArea> marketAreaMap;
@@ -162,6 +161,7 @@ public class SDManager {
                 }
 
                 saleToAdd = new Sale(discount.getName(), discount.getIfYouBuy(), discount.getThenYouGet(), ifYouBuyProductName, thenYouGetProductName);
+                saleToAdd.setStoreName(store.getName());
                 sales.put(saleToAdd.getName(), saleToAdd);
             }
         }
@@ -369,18 +369,18 @@ public class SDManager {
         return productList;
     }
 
-    public Sale[] getMyStaticSales(StoreLeverOrderJS[] storeLeverOrderJSArray, String zoneName) {
+    public Sale[] getMyStaticSales(StoreLevelOrderJS[] storeLevelOrderJSArray, String zoneName) {
         Map<Integer, Double> productsByIdAndAmount = new HashMap<>();
         List<Sale> mySalesList = new ArrayList<>();
         Store store = null;
         MarketArea area = marketAreaMap.get(zoneName);
-        for (StoreLeverOrderJS storeLeverOrderJS:storeLeverOrderJSArray) {
+        for (StoreLevelOrderJS storeLevelOrderJS : storeLevelOrderJSArray) {
             for (Map.Entry<Integer,Store> marketStore:area.getStores().entrySet()) {
-                if(marketStore.getValue().getName().equals(storeLeverOrderJS.getStoreName())){
+                if(marketStore.getValue().getName().equals(storeLevelOrderJS.getStoreName())){
                     store = marketStore.getValue();
                 }
             }
-            for (regProduct regProd:storeLeverOrderJS.getRegProducts()) {
+            for (regProduct regProd: storeLevelOrderJS.getRegProducts()) {
                 productsByIdAndAmount.put(regProd.getProductID(),regProd.getAmount());
             }
             if(store != null) {
@@ -391,7 +391,7 @@ public class SDManager {
         return mySalesList.toArray(mySalesListArray);
     }
 
-    public Sale[] getMyDynamicSales(StoreLeverOrderJS[] storeOrderJS, String zoneName) {
+    public Sale[] getMyDynamicSales(StoreLevelOrderJS[] storeOrderJS, String zoneName) {
         Store store = null;
         Map<Integer, Double> productsByIdAndAmount = new HashMap<>();
         List<Sale> mySalesList = new ArrayList<>();
@@ -408,9 +408,9 @@ public class SDManager {
         return mySalesList.toArray(mySalesListArray);
     }
 
-    public customerLevelOrderJS createBasicStaticCustomerOrder(customerLevelOrderJS customerOrderJS,String storeName,String zoneName) {
+    public CustomerLevelOrderJS createBasicStaticCustomerOrder(CustomerLevelOrderJS customerOrderJS, String storeName, String zoneName) {
         Store store = null;
-        StoreLeverOrderJS myOrder = customerOrderJS.getStoreOrders()[0];
+        StoreLevelOrderJS myOrder = customerOrderJS.getStoreOrders()[0];
         double productAmount;
         double totalPrice = 0;
         int productTypeAmount = 0;
@@ -425,6 +425,8 @@ public class SDManager {
                 product = myOrder.getRegProducts()[i];
                 productAmount = product.getAmount();
                 product.setTotalProductPrice(productAmount*store.getProducts().get(product.getProductID()).getProductPrice());
+                product.setProductName(marketAreaMap.get(zoneName).getProducts().get(product.getProductID()).getProductName());
+                product.setCategory(marketAreaMap.get(zoneName).getProducts().get(product.getProductID()).getProductCategory().toString());
                 totalPrice += product.getTotalProductPrice();
                 productTypeAmount++;
             }
@@ -435,7 +437,7 @@ public class SDManager {
         return customerOrderJS;
     }
 
-    private void initStoreJSOrder(StoreLeverOrderJS myOrder, Point customerLocation, Point storeLocation, double storePPK, int storeID, double totalPrice, int productTypeAmount) {
+    private void initStoreJSOrder(StoreLevelOrderJS myOrder, Point customerLocation, Point storeLocation, double storePPK, int storeID, double totalPrice, int productTypeAmount) {
         myOrder.setCustomerLocation(customerLocation);
         myOrder.setPPK(storePPK);
         myOrder.setLocation(storeLocation);
@@ -447,11 +449,11 @@ public class SDManager {
         myOrder.setProductTypeAmount(productTypeAmount);
     }
 
-    public customerLevelOrderJS createBasicDynamicCustomerOrder(customerLevelOrderJS customerOrderJS, String zoneName, int customerID, LocalDate date,Point location) {
+    public CustomerLevelOrderJS createBasicDynamicCustomerOrder(CustomerLevelOrderJS customerOrderJS, String zoneName, int customerID, LocalDate date, Point location) {
         MarketArea area = marketAreaMap.get(zoneName);
         Map<Integer, Double> productsByIdAndAmount = new HashMap<>();
-        for (StoreLeverOrderJS storeLeverOrderJS:customerOrderJS.getStoreOrders()) {
-            for (regProduct regProd:storeLeverOrderJS.getRegProducts()) {
+        for (StoreLevelOrderJS storeLevelOrderJS :customerOrderJS.getStoreOrders()) {
+            for (regProduct regProd: storeLevelOrderJS.getRegProducts()) {
                 productsByIdAndAmount.put(regProd.getProductID(),regProd.getAmount());
             }
         }
@@ -461,8 +463,8 @@ public class SDManager {
         return convertJavaCustomerOrderToJSCustomerOrder(myJavaOrder,customerOrderJS,customerOrderJS.getOrderType(),zoneName);
     }
 
-    private customerLevelOrderJS convertJavaCustomerOrderToJSCustomerOrder(CustomerLevelOrder myJavaOrder,customerLevelOrderJS myJSOrder,String orderType,String zoneName) {
-        StoreLeverOrderJS[] storeOrdersJS = new StoreLeverOrderJS[myJavaOrder.getOrders().size()];
+    private CustomerLevelOrderJS convertJavaCustomerOrderToJSCustomerOrder(CustomerLevelOrder myJavaOrder, CustomerLevelOrderJS myJSOrder, String orderType, String zoneName) {
+        StoreLevelOrderJS[] storeOrdersJS = new StoreLevelOrderJS[myJavaOrder.getOrders().size()];
         StoreLevelOrder storeOrder;
         SoldProduct soldProduct;
         Store store;
@@ -476,13 +478,79 @@ public class SDManager {
                 soldProduct = storeOrder.getSoldProducts().get(j);
                 regProd[j] = new regProduct(soldProduct.getProductID(),soldProduct.getAmountSoldInOrder());
                 regProd[j].setTotalProductPrice(soldProduct.getTotalPrice());
+                regProd[j].setProductName(marketAreaMap.get(zoneName).getProducts().get(regProd[j].getProductID()).getProductName());
+                regProd[j].setCategory(marketAreaMap.get(zoneName).getProducts().get(regProd[j].getProductID()).getProductCategory().toString());
                 totalPrice += soldProduct.getTotalPrice();
                 totalTypeAmount++;
             }
-            storeOrdersJS[i] = new StoreLeverOrderJS(regProd,storeOrder.getStoreName());
+            storeOrdersJS[i] = new StoreLevelOrderJS(regProd,storeOrder.getStoreName());
             initStoreJSOrder(storeOrdersJS[i],myJSOrder.getLocation(),store.getLocation(),store.getDeliveryPPK(),store.getID(),totalPrice,totalTypeAmount);
         }
-        return new customerLevelOrderJS(orderType,storeOrdersJS,myJSOrder.getLocation(),myJSOrder.getDate());
+        return new CustomerLevelOrderJS(orderType,storeOrdersJS,myJSOrder.getLocation(),myJSOrder.getDate());
+    }
+
+    public void placeOrderInMarket(CustomerLevelOrderJS customerLevelOrderJS, String zoneName, String userName) {
+        MarketArea area = marketAreaMap.get(zoneName);
+        CustomerLevelOrder myCustomerOrder= convertFullJavaCustomerOrderToJSCustomerOrder(customerLevelOrderJS);
+        area.placeOrderInSDM(myCustomerOrder);
+        Customer customer = (SDMCommon.Customer)(users.get(userName));
+        customer.getOrderHistory().add(myCustomerOrder);
+        PaymentHandleFunc(myCustomerOrder,area,customer);
+    }
+
+    private void PaymentHandleFunc(CustomerLevelOrder myCustomerOrder, MarketArea area, Customer customer) {
+        customer.takeMoneyOutOfUserBankAccount(myCustomerOrder.getDeliveryPrice()+myCustomerOrder.getTotalProductPrice());
+        Store store;
+        StoreOwner storeOwner;
+        for (StoreLevelOrder storeLevelOrder: myCustomerOrder.getOrders()) {
+            store = area.getStores().get(storeLevelOrder.getStoreID());
+            storeOwner = (StoreOwner)users.get(store.getOwnerName());
+            storeOwner.addFuds(storeLevelOrder.getTotalProductsPrice()+storeLevelOrder.getDeliveryPrice(), new Date());
+        }
+    }
+
+    private CustomerLevelOrder convertFullJavaCustomerOrderToJSCustomerOrder(CustomerLevelOrderJS customerLevelOrderJS) {
+        List<StoreLevelOrder> storeLevelOrderList = new ArrayList<>();
+        List<SoldProduct> soldProductsList = new ArrayList<>();
+        List<SaleProduct> saleProductList = new ArrayList<>();
+        ProductCategory category;
+        StoreLevelOrder storeLevelOrderToAdd;
+        for (StoreLevelOrderJS storeOrder: customerLevelOrderJS.getStoreOrders()) {
+            for (regProduct regProd:storeOrder.getRegProducts()) {
+                if(regProd.getCategory().equals("Quantity")){
+                    category = ProductCategory.Quantity;
+                }
+                else{
+                    category = ProductCategory.Weight;
+                }
+                soldProductsList.add(new SoldProduct(regProd.getProductID(),regProd.getProductName(),
+                        category, regProd.getTotalProductPrice()/regProd.getAmount(),storeOrder.getStoreID(),
+                        regProd.getAmount(),regProd.getTotalProductPrice()));
+            }
+            if(storeOrder.getSaleProducts() != null) {
+                for (SaleProductJS saleProductJS : storeOrder.getSaleProducts()) {
+                    if (saleProductJS.getCategory().equals("Quantity")) {
+                        category = ProductCategory.Quantity;
+                    } else {
+                        category = ProductCategory.Weight;
+                    }
+                    saleProductList.add(new SaleProduct(saleProductJS.getProductID(), saleProductJS.getProductName(), category, saleProductJS.getTotalProductPrice() / saleProductJS.getAmount(),
+                            storeOrder.getStoreID(), saleProductJS.getSaleName(), saleProductJS.getAmount()));
+                }
+            }
+            storeLevelOrderToAdd = new StoreLevelOrder(storeOrder.getOrderID(),soldProductsList,
+                    (storeOrder.getSaleProducts()!=null?storeOrder.getSaleProducts().length : 0)+storeOrder.getRegProducts().length,
+                    storeOrder.getTotalPrice(),storeOrder.getStoreID(),customerLevelOrderJS.getCustomerID(),
+                    storeOrder.getDeliveryPrice(),LocalDate.parse(customerLevelOrderJS.getDate()),storeOrder.getStoreName(),
+                    CustomerLevelOrder.getNextOrderID());
+            if(saleProductList.size()>0) {
+                storeLevelOrderToAdd.setProductSoldOnSale(saleProductList);
+            }
+            storeLevelOrderList.add(storeLevelOrderToAdd);
+            soldProductsList = new ArrayList<>();
+            saleProductList = new ArrayList<>();
+        }
+        return new CustomerLevelOrder(storeLevelOrderList,customerLevelOrderJS.getLocation());
     }
 }
 
