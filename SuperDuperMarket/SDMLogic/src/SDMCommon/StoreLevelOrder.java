@@ -10,7 +10,7 @@ import java.util.List;
 import ProductTypes.*;
 
 public class StoreLevelOrder {
-    private static int OrderIDGenerator = 1000;
+    public static int OrderIDGenerator = 1000;
 
     public Integer getOrderID() {
         return OrderID;

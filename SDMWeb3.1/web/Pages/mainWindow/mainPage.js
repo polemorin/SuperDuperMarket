@@ -100,7 +100,7 @@ function refreshTransactions(transactions) {
         var n = d.toDateString();
 
         var transactionInTable = "<tr><td>" + transaction.action + "</td><td>" + n + "</td>"+ "<td>"
-            + transaction.amount +'$'+ "</td>"+ "<td>" + transaction.balanceBeforeAction +'$'+ "</td>"+ "<td>" + transaction.balanceAfterAction
+            + transaction.amount.toFixed(2) +'$'+ "</td>"+ "<td>" + transaction.balanceBeforeAction.toFixed(2) +'$'+ "</td>"+ "<td>" + transaction.balanceAfterAction.toFixed(2)
             +'$'+ "</td></tr>" ;
         $("#TransactionTableBody").append(transactionInTable);
     });
@@ -148,7 +148,7 @@ function refreshAreas(areas) {
         //appeand it to the #userslist (div with id=userslist) element
         var zoneInTable = "<tr><td>" + area.creatorName + "</td><td>" + area.zoneName + "</td>"+ "<td>"
             + area.productAmount + "</td>"+ "<td>" + area.storeAmount + "</td>"+ "<td>" + area.orderAmount
-            + "</td>"+ "<td>" + area.orderAVGPrice +"</td><td> <input class = 'goToZoneButton' name = 'goToZoneButton'  type = 'submit' id = area.zoneName value = 'goToZone'> </td></tr>" ;
+            + "</td>"+ "<td>" + area.orderAVGPrice.toFixed(2) +"</td><td> <input class = 'goToZoneButton' name = 'goToZoneButton'  type = 'submit' id = area.zoneName value = 'goToZone'> </td></tr>" ;
 
         $("#zoneTableBody").append(zoneInTable);
         document.getElementById("area.zoneName").setAttribute("id",area.zoneName);
@@ -159,7 +159,7 @@ function ajaxBalance() {
         $.ajax({
             url: Balance_URL,
             success: function (balance) {
-                $("#creditBalance").empty().append(balance + "$");
+                $("#creditBalance").empty().append(parseFloat(balance).toFixed(2) + "$");
             }
         });
 }

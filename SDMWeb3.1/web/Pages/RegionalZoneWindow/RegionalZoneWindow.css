@@ -102,11 +102,35 @@ td{
 #PlaceOrderGoToSales{
     transform: translateX(+1700%);
 }
+#placeOrderGoToSummery{
+    transform: translateX(+2000%);
+}
 #warningProductChoiceLabel{
     color:red;
 }
 #LocationLabel{
     color: red;
+}
+.hiddenTableHead{
+    display: none;
+}
+.singleOrder{
+    outline: 2px solid #60bbba
+}
+.OrderSummeryHead{
+    display: none
+}
+.shortTableHead{
+    height: 50px;
+}
+#ConfirmOrder{
+    transform: translateX(+730%);
+}
+#CancelOrder{
+    transform: translateX(+70%);
+}
+.tbl-order-summery-content{
+    border-color: transparent;
 }
 .RoundButton{
 
@@ -129,4 +153,20 @@ td{
     background-color : #60bbba;
     border-color:transparent!important;
     outline:none;
+}
+tr { cursor: default; }
+.highlight { background: #cbf1f1; }
+.centeredOrderLabel{
+    text-align: center;
+    display: block;
+}
+.salesLabel{
+    text-align: center;
+    display: block;
+}
+#BackToMainPage{
+    transform: translateX(-80%);
+}
+#UserChosenZoneName{
+    transform: translateX(+135%);
 }

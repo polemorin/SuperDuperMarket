@@ -10,17 +10,24 @@ public class Sale {
     private final String name;
     private final IfYouBuy ifYouBuy;
     private final ThenYouGet thenYouGet;
-
+    String saleString;
+    String storeName;
 
     public Sale(String name, jaxb.generated.IfYouBuy ifYouBuy, jaxb.generated.ThenYouGet thenYouGet, String ifYouBuyProductName, Map<Integer,String> thenYouGetProductNames) {
         this.name = name;
         this.ifYouBuy = new IfYouBuy(ifYouBuy,ifYouBuyProductName);
         this.thenYouGet = new ThenYouGet(thenYouGet,thenYouGetProductNames);
+        saleString = this.toString();
     }
     public Sale(String saleName,Product ifYouBuyProduct,double ifYouBuyAmount, String operator, List<Offer> offerList){
         name = saleName;
         ifYouBuy = new IfYouBuy(ifYouBuyAmount, ifYouBuyProduct.getProductID(),ifYouBuyProduct.getProductName());
         thenYouGet = new ThenYouGet(operator,offerList);
+        saleString = this.toString();
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public boolean isProductPartOfSale(StoreProduct product){

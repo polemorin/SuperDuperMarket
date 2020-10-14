@@ -10,9 +10,6 @@ import java.util.List;
 import ProductTypes.*;
 
 public class CustomerLevelOrder {
-
-
-
     private List<StoreLevelOrder> orders;
     private double totalProductPrice;
     private int totalProductTypeAmount;

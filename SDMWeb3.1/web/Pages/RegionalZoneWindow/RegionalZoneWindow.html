@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="RegionalZoneWindow.css">
 </head>
 <body>
-
+<div class  ="row">
+<input type = "button" value = "Back to main page" class = "btn btn-primary" id = "BackToMainPage">
 <h2 id = "UserChosenZoneName" style="text-align: center"></h2>
-
+</div>
 <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'ProductTabID')">Product info</button>
     <button class="tablinks" onclick="openTab(event, 'StoreTabID')">Store info</button>
@@ -81,34 +82,117 @@
 </div>
 <!--------------------Customer-------------------->
 <div id="PlaceOrderAndFeedBackID" class="tabcontent">
-    <h3>Place order</h3>
-    <form id="PlaceOrderDateAndTypeForm">
-        <label for="DeliveryDate">Delivery date:</label>
-        <input type="date" id="DeliveryDate" name="DeliveryDate" required>
-        <br><br>
-        <div class = "customerLocationDiv">
-            <label >Delivery location (between 1-50):</label>
-            X</label><input type="number" id="XLocation" name="XLocation" min="1" max="50" required>&nbsp&nbsp
-            Y</label><input type="number" id="YLocation" name="YLocation" min="1" max="50" required>
+    <h3>Summery</h3>
+    <form id="SummeryForm">
+        <div id = "SingleStoreOrders">
+            <div class = "singleOrder">
+            <div class = "tbl-header">
+                <table class="StoreOrderSummeryHead" cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                    <tr><th>Store name</th>
+                        <th>Store ID</th>
+                        <th>PPK</th>
+                        <th>Distance from customer</th>
+                        <th>Delivery price</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="tbl-content tbl-order-summery-content shortTableHead">
+                <table cellpadding="0" cellspacing="0" border="0" id = "storeOrderSummery1">
+                    <tbody id="storeOrderSummery1TableBody">
+                    <tr>
+                        <td>storeOrder.storeName</td>
+                        <td>storeOrder.storeID</td>
+                        <td>storeOrder.PPK</td>
+                        <td>storeOrder.distanceFromCustomer.toFixed(2)</td>
+                        <td>storeOrder.deliveryPrice.toFixed(2)</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+            </div>
             <br>
-            <label id="LocationLabel"></label>
+            <label class="centeredOrderLabel">Products:</label>
+            <div class = "tbl-header">
+                <table class="StoreOrderProductsSummeryHead" cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                    <tr><th>Product name</th>
+                        <th>Product ID</th>
+                        <th>Sold By</th>
+                        <th>Amount</th>
+                        <th>Price per unit/kilo</th>
+                        <th>Total</th>
+                        <th>Purchased  on sale</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="tbl-content tbl-order-summery-content">
+                <table cellpadding="0" cellspacing="0" border="0" id = "storeOrderProductSummery">
+                    <tbody id="storeOrderProductSummeryTableBody">
+                    <tr>
+                        $.each(storeOrder.regProducts || [] ,function (index,regProd) {
+                        createProductString(regProd);
+                        })+$.each(storeOrder.saleProducts || [] ,function (index,saleProd) {
+                        createProductString(saleProd);
+                        })
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
         </div>
-        <br><br>
-        <h5>Order type</h5>
-        <br>
-        <div class="radio">
-            <input id = "DynamicRadio" type="radio" name="orderType" value = "Dynamic" checked = "checked">  Dynamic&nbsp&nbsp
-            <input id = "StaticRadio" type="radio" name="orderType" value = "Static" >  Static
+
+
+        <label class="centeredOrderLabel">Total Order Summery</label>
+        <div id="TotalOrderSummery">
+            <div class = "tbl-header hiddenTableHead">
+                <table class="OrderSummeryHead" cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                    <tr><th>Customer name</th>
+                        <th>Customer ID</th>
+                        <th>Product price</th>
+                    </tr>
+                    </thead>
+                </table>
         </div>
-        <br><br>
-
-        <label for="StoresSelect" class="StoresSelect">Choose a store:</label>
-        <select name="StoresSelect" id="StoresSelect" class = "StoresSelect">
-
-        </select>
-        <br><br>
-
-        <button id = "placeOrderGoToProducts" type="button">Next</button>
+            <div class="tbl-content tbl-order-summery-content">
+                <table cellpadding="0" cellspacing="0" border="0" id = "orderSummery1">
+                    <tbody id="orderSummery1TableBody">
+                    <tr>
+                        <td id="CustomerNameRow">Customer name: </td>
+                        <td id="CustomerIDRow">Customer ID: </td>
+                        <td id="ProductPriceRow">Product price: </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class = "tbl-header hiddenTableHead">
+                <table class="OrderSummeryHead" cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                    <tr>
+                        <th>Delivery price</th>
+                        <th>Total price</th>
+                        <th>Delivery date</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="tbl-content tbl-order-summery-content">
+                <table cellpadding="0" cellspacing="0" border="0" id = "orderSummery2">
+                    <tbody id="orderSummery2TableBody">
+                    <tr>
+                        <td id="DeliveryPriceRow">Delivery price: </td>
+                        <td id="TotalPriceRow">Total price: </td>
+                        <td id="DeliveryDateRow">Delivery date: </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        <button id = "CancelOrder" type="button" class = "btn btn-danger">Cancel order</button>
+        <button id = "ConfirmOrder" type="button" class = "btn btn-primary">Confirm order</button>
+        </div>
     </form>
 </div>
 

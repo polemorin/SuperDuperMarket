@@ -1,11 +1,10 @@
 package Servlets;
 
-import JSObjects.StoreLeverOrderJS;
+import JSObjects.StoreLevelOrderJS;
 import SDMCommon.SDManager;
 import SDMSale.Sale;
 import Utils.ServletUtils;
 import com.google.gson.Gson;
-import com.sun.org.apache.xpath.internal.operations.Or;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,11 +23,11 @@ public class GetMySalesServlet extends HttpServlet {
             Gson gson = new Gson();
             SDManager sdManager = ServletUtils.getSDMManager(getServletContext());
             String storeOrderJSON = req.getParameter("StoreOrders");
-            StoreLeverOrderJS[] storeOrderJS ;
+            StoreLevelOrderJS[] storeOrderJS ;
             String OrderType = req.getParameter("OrderType");
             String storeName = req.getParameter("StoreName");
             String zoneName = req.getParameter("ZoneName");
-            storeOrderJS = gson.fromJson(storeOrderJSON,StoreLeverOrderJS[].class);
+            storeOrderJS = gson.fromJson(storeOrderJSON, StoreLevelOrderJS[].class);
             if (storeOrderJS == null) {
                 resp.sendError(-1, "Order not valid.");
             } else {//Synchronize????????
