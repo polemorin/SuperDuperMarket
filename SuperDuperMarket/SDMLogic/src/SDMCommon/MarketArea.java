@@ -110,7 +110,7 @@ public class MarketArea {
         return orderHistory;
     }
 
-    public CustomerLevelOrder createCheapestOrder(Map<Integer, Double> shoppingList, int customerID, LocalDate date, Point location) {
+    public CustomerLevelOrder createCheapestOrder(Map<Integer, Double> shoppingList, int customerID, LocalDate date, Point location,String customerName) {
         List<StoreLevelOrder> storeListForOrder = new ArrayList<StoreLevelOrder>();
         int storeID;
         SoldProduct productToAdd;
@@ -128,7 +128,7 @@ public class MarketArea {
                 }
             }
             if (!storeAlreadyInList) {
-                storeOrderToAdd = new StoreLevelOrder(stores.get(storeID), customerID, date, location,CustomerLevelOrder.getNextOrderID());
+                storeOrderToAdd = new StoreLevelOrder(stores.get(storeID), customerID, date, location,CustomerLevelOrder.getNextOrderID(),customerName);
                 storeOrderToAdd.addProductToOrder(productToAdd);
                 storeListForOrder.add(storeOrderToAdd);
                 StoreLevelOrder.OrderIDGenerator--;

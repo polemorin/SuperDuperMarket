@@ -8,6 +8,7 @@ var GET_PRODUCTS_FROM_STORE_URL = buildUrlWithContextPath("getStoreProducts");
 var Get_Sales_URL = buildUrlWithContextPath("getSales");
 var CREATE_BASIC_ORDER_URL = buildUrlWithContextPath("createBasicOrder");
 var PLACE_ORDER_IN_MARKET_URL = buildUrlWithContextPath("placeOrderInMarket");
+var GET_STORES_BY_OWNER_URL = buildUrlWithContextPath("getStoresByOwner");
 
 let customerLevelOrderJS;
 let myAvailableSales;
@@ -102,6 +103,7 @@ function openTab(evt, tabName) {
             ajaxCustomerOrderDetailsTable();
             break;
         case "StoreOwnerOrderHistoryID":
+            buildStoreOwnerOrderHistoryLandingPage();
             break;
         case "FeedBacksID":
             break;
@@ -124,6 +126,154 @@ function openTab(evt, tabName) {
 $(function(){// area name init
     $("#UserChosenZoneName").empty().append(zoneName);
 });
+function buildStoreOwnerOrderHistoryLandingPage() {
+    $("#StoreOwnerOrderHistoryID").empty().append("    <h3>Order History</h3>\n" +
+        "    <div id = \"OwnerStores\">\n" +
+        "\n" +
+        "    </div>");
+    buildStoreOwnerOrders();
+
+
+}
+function buildStoreOwnerOrders() {
+    //GET STORES BY OWNER
+    var dataString = "ZoneName="+zoneName;
+    var storesByOwner;
+    $.ajax({
+        data: dataString,
+        url: GET_STORES_BY_OWNER_URL,
+        success: function (stores) {
+            storesByOwner = stores;
+            createStoreSquares(stores);
+        }
+    });
+}
+function createStoreSquares(stores) {
+    $("#OwnerStores").append("<div id='rowNum' class='row'></div>")
+    $.each(stores || [],function (index,store) {
+        createStoreSquare(store);
+    })
+}
+function createStoreSquare(store) {
+    $("#rowNum").append("<div id = 'colCount' class='storeCol'></div>");
+    document.getElementById("colCount").setAttribute("id","Square"+store.ID);
+
+    $("#Square"+store.ID).append("<label class = \"StoreName\">"+store.name+"</label><br><br>\n" +
+        "<input type = \"button\" class = \"btn btn-primary\" id=\"StoreButton\" value = \"Orders\">\n"
+        );
+    document.getElementById("StoreButton").setAttribute("id","button"+store.ID);
+    showOrdersFunc(store);
+}
+function showOrdersFunc(store) {
+    $("#button"+store.ID).click(function () {
+        $("#StoreOwnerOrderHistoryID").empty().append(" <h3 class = \"centeredHeader\">"+store.name+"</h3>\n" +
+            "    <div class = \"tbl-header\" id = \"storeOrderHistoryHeader\">\n" +
+            "        <table class=\"StoreOrderHistoryTable\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
+            "            <thead>\n" +
+            "            <tr><th>Order id</th>\n" +
+            "                <th>Date</th>\n" +
+            "                <th>Customer name | Location</th>\n" +
+            "                <th>Amount of products</th>\n" +
+            "                <th>Product cost</th>\n" +
+            "                <th>Delivery cost</th>\n" +
+            "                <th>Order details</th>\n" +
+            "            </tr>\n" +
+            "            </thead>\n" +
+            "        </table>\n" +
+            "    </div>\n" +
+            "    <div class=\"tbl-content\" id =\"tbl-store-orderHistory-content\">\n" +
+            "        <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" id = \"storeOrderHistoryDetailsTable\">\n" +
+            "            <tbody id=\"storeOrderHistoryDetailsTableBody\">\n" +
+            "\n" +
+            "            </tbody>\n" +
+            "        </table>\n" +
+            "        <div id=\"storeOrderHistoryModals\">\n" +
+            "\n" +
+            "        </div>\n" +
+            "    </div>");
+            $.each(store.storeOrderHistory || [],function (index,order) {
+                addStoreOrderToTable(order);
+            })
+    })
+}
+function addStoreOrderToTable(order) {
+    $("#storeOrderHistoryDetailsTableBody").append("<tr><td>"+order.OrderID+"</td><td>"+ order.date.day+'/'+order.date.month+'/'+order.date.year +"</td><td>"+order.customerName+"|"+order.customerLocation.x+","+order.customerLocation.y+"</td>" +
+        "<td>"+order.amountOfProducts+"</td><td>"+order.totalProductsPrice.toFixed(2)+'$'+"</td>" +
+        "<td>"+order.deliveryPrice.toFixed(2)+'$'+"</td><td><input data-toggle='modal' id='orderID' data-target = '#myModal' class='btn btn-primary' type = 'button' value='Details' ></td></tr>");
+        buildStoreOrderModal(order);
+    document.getElementById("orderID").setAttribute("id",order.OrderID+"Modal");
+    document.getElementById(order.OrderID+"Modal").setAttribute("data-target",'#'+"myModal"+order.OrderID+"order");
+}
+function buildStoreOrderModal(order) {
+    var orderHeader = "Order ID: " +order.OrderID+ " - details";
+    var modalID = "myModal"+order.OrderID+"order";
+    var modalUniqID = order.OrderID + "ModalCustomerOrderHeader";
+
+    $("#storeOrderHistoryModals").append("<div class=\"modal\" id=\"myModal\">\n" +
+        "    <div class=\"modal-dialog mw-100 w-80\">\n" +
+        "    <div class=\"modal-content\">\n" +
+        "\n" +
+        "    <!-- Modal Header -->\n" +
+        "<div class=\"modal-header\">\n" +
+        "    <h4 class=\"modal-title\">" +orderHeader+"</h4>\n" +
+        "<button type=\"button\" id = \"closeCustomerOrderModalButton\" class=\"close\" data-dismiss=\"modal\">&times;</button>\n" +
+        "</div>\n" +
+        "\n" +
+        "<!-- Modal body -->\n" +
+        "<div class=\"modal-body\" id =\"modalUniqID\">" )
+
+    document.getElementById("modalUniqID").setAttribute("id",modalUniqID);
+    document.getElementById("myModal").setAttribute("id",modalID);
+    buildStoreOrderDetailsTable(order,modalUniqID);
+    $("#" + modalUniqID).append("</div>\n" +
+        "\n" +
+        "    <!-- Modal footer -->\n" +
+        "    <div class=\"modal-footer\">\n" +
+        "        <button type=\"button\" id = \"closeCustomerOrderModalButton\" class=\"btn btn-danger\" data-dismiss=\"modal\">Close</button>\n" +
+        "        </div>\n" +
+        "\n" +
+        "        </div>\n" +
+        "        </div>");
+
+
+}
+function buildStoreOrderDetailsTable(order, modalUniqID){
+    $('#' + modalUniqID).append("<div class = \"tbl-header\">\n" +
+        "    <table class=\"StoreTable\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
+        "    <thead>\n" +
+        "    <tr><th>ID</th>\n" +
+        "    <th>Name</th>\n" +
+        "<th>Sold by</th>\n" +
+        "<th>Total amount</th>\n" +
+        "<th>Price per unit/kilo</th>\n" +
+        "<th>Total price</th>\n" +
+        "<th>Sale</th>\n" +
+        "</tr>\n" +
+        "</thead>\n" +
+        "</table>\n" +
+        "</div>");
+    $('#' + modalUniqID).append("<div class=\"tbl-content\" id =\"tbl-store-content\">\n" +
+        "    <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" id = \"CustomerOrderDetailsTable\">\n" +
+        "    <tbody id=\"CustomerOrderDetailsTableBody\">");
+    var value = order.OrderID+"ModalCustomerOrderTable";
+    document.getElementById("CustomerOrderDetailsTable").setAttribute("id",value);
+
+    var tableIdString= "#" + order.OrderID+"ModalCustomerOrderTable";
+        $.each(order.soldProducts || [],function (jndex,soldProduct) {
+            var productInTable = "<tr><td>" + soldProduct.id + "</td><td>" + soldProduct.name + "</td>"+ "<td>"
+                + soldProduct.category + "</td><td>" + soldProduct.amountSoldInOrder
+                + "</td><td>"+soldProduct.price+"</td><td>"+soldProduct.price*soldProduct.amountSoldInOrder+"</td><td>Not part of a sale</td></tr>" ;
+            $(tableIdString).append(productInTable);
+        })
+        $.each(order.productsSoldOnSale || [],function (jndex,saleProduct) {
+            var productInTable = "<tr><td>" + saleProduct.id + "</td><td>" + saleProduct.name + "</td>"+ "<td>"
+                + saleProduct.category + "</td><td>" + saleProduct.amountSoldInOrder
+                + "</td><td>"+saleProduct.price+'$'+"</td><td>"+saleProduct.price*saleProduct.amountSoldInOrder+'$'+"</td><td>"+saleProduct.saleName+"</td></tr>" ;
+            $(tableIdString).append(productInTable);
+        })
+
+    $(modalUniqID).append("</tbody></table></div>")
+}
 function isThereStoreInChosenLocation(Xlocation,Ylocation) {
     var dataString = "ZoneName="+zoneName;
     $.ajax({
@@ -453,7 +603,7 @@ function createStoreOrderString(storeOrder) {
         "                    </thead>\n" +
         "                </table>\n" +
         "            </div>\n" +
-        "            <div class=\"tbl-content tbl-order-summery-content shortTableHead\">\n" +
+        "            <div class=\"tbl-content shortTableHead\">\n" +
         "                <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" id = \"storeOrderSummery1\">\n" +
         "                    <tbody id=\"storeOrderSummery1TableBody\">\n" +
         "                    <tr>\n" +
@@ -467,8 +617,8 @@ function createStoreOrderString(storeOrder) {
         "                </table>\n" +
         "            </div>\n" +
         "            <br>\n" +
-        "            <label class=\"centeredOrderLabel\">Products:</label>\n" +
-        "            <div class = \"tbl-header\">\n" +
+        "            <label id=\"productsLabel\">Products:</label>\n" +
+        "            <div class = \"tbl-header storeOrderProductsHeader\">\n" +
         "                <table class=\"StoreOrderProductsSummeryHead\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
         "                    <thead>\n" +
         "                    <tr><th>Product name</th>\n" +
@@ -577,7 +727,7 @@ function calcTotalProductPrice() {
 function buildSalesPages() {
     $("#PlaceOrderAndFeedBackID").empty().append("    <h3>Choose sales:</h3>\n" +
         "    <form id=\"AddSalesToOrderForm\">\n" +
-        "        <div class = \"tbl-header\">\n" +
+        "        <div class = \"tbl-header salesTableHeader\">\n" +
         "            <table class=\"AvailableSales\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
         "                <thead>\n" +
         "                <tr><th>Sale Details</th>\n" +
@@ -592,7 +742,7 @@ function buildSalesPages() {
         "                </tbody>\n" +
         "            </table>\n" +
         "        </div>\n" +
-        "        <br><br>\n" +
+        "        \n" +
         "        <label for=\"SaleSelect\" class=\"SaleSelect SaleSelectToHide\">Choose offer:</label>\n" +
         "        <select name=\"SaleSelect\" id=\"SaleSelect\" class = \"SaleSelect SaleSelectToHide\">\n" +
         "\n" +
@@ -600,7 +750,7 @@ function buildSalesPages() {
         "        <input type = \"button\" value = \"Add sale\" class = \"SaleSelect SaleSelectToHide\" id=\"AddSaleButton\">\n" +
         "        <br><br>\n" +
         "        <label class=\"SaleSelect salesLabel\">Sales added</label>\n" +
-        "        <div class = \"tbl-header SaleSelect\">\n" +
+        "        <div class = \"tbl-header SaleSelect salesTableHeader\">\n" +
         "            <table class=\"SaleSelect\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
         "                <thead>\n" +
         "                <tr><th>Product name</th>\n" +
@@ -622,7 +772,7 @@ function buildSalesPages() {
         "        </div>\n" +
         "        <br><br>\n" +
         "        <label class = \"salesLabel\">Cart</label>\n" +
-        "        <div class = \"tbl-header\">\n" +
+        "        <div class = \"tbl-header salesTableHeader\">\n" +
         "            <table  cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
         "                <thead>\n" +
         "                <tr><th>Product name</th>\n" +
