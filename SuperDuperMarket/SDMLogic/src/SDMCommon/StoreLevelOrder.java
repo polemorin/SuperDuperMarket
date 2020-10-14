@@ -27,6 +27,8 @@ public class StoreLevelOrder {
     private final LocalDate date;
     private final String storeName;
     private int amountOfProductTypes;
+    private String customerName;
+    private Point customerLocation;
 
     public int getCustomerLevelOrderID() {
         return customerLevelOrderID;
@@ -34,7 +36,7 @@ public class StoreLevelOrder {
 
     private final int customerLevelOrderID;
 
-    public StoreLevelOrder(Store store, int customerID, LocalDate date, Point customerLocation, int customerLevelID ){
+    public StoreLevelOrder(Store store, int customerID, LocalDate date, Point customerLocation, int customerLevelID,String customerName){
         this.storeID = store.getID();
         this.customerID = customerID;
         this.date = date;
@@ -46,6 +48,8 @@ public class StoreLevelOrder {
         amountOfProducts = 0;
         amountOfProductTypes = 0;
         customerLevelOrderID = customerLevelID;
+        this.customerName = customerName;
+        this.customerLocation = customerLocation;
     }
 
 
@@ -64,7 +68,7 @@ public class StoreLevelOrder {
         this.customerLevelOrderID = other.customerLevelOrderID;
     }
 
-    public StoreLevelOrder(Integer orderID, List<SoldProduct> soldProducts, int amountOfProducts, double totalProductsPrice, int storeID, int customerID, double deliveryPrice, LocalDate date, String storeName,int customerLevelID) {
+    public StoreLevelOrder(Integer orderID, List<SoldProduct> soldProducts, int amountOfProducts, double totalProductsPrice, int storeID, int customerID, double deliveryPrice, LocalDate date, String storeName,int customerLevelID,String customerName, Point customerLocation) {
         OrderID = orderID;
         if(OrderIDGenerator < OrderID){
             OrderIDGenerator = OrderID + 1;
@@ -79,6 +83,16 @@ public class StoreLevelOrder {
         this.storeName = storeName;
         amountOfProductTypes = this.soldProducts.size();
         customerLevelOrderID = customerLevelID;
+        this.customerName = customerName;
+        this.customerLocation = customerLocation;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public Point getCustomerLocation() {
+        return customerLocation;
     }
 
     public void setProductSoldOnSale(SaleProduct productSoldOnSale){

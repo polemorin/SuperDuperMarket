@@ -103,7 +103,7 @@ td{
     transform: translateX(+1700%);
 }
 #placeOrderGoToSummery{
-    transform: translateX(+2000%);
+    transform: translateX(+1430%);
 }
 #warningProductChoiceLabel{
     color:red;
@@ -124,13 +124,28 @@ td{
     height: 50px;
 }
 #ConfirmOrder{
-    transform: translateX(+730%);
+    transform: translateX(+660%);
 }
 #CancelOrder{
     transform: translateX(+70%);
 }
+#tbl-available-sales-content{
+    width:900px;
+}
+#tbl-chosen-sales-content{
+    width:900px;
+}
+#tbl-cart-content{
+    width:900px;
+}
 .tbl-order-summery-content{
     border-color: transparent;
+}
+.singleOrder{
+    width:1000px;
+}
+.storeOrderProductsHeader{
+    width:1000px;
 }
 .RoundButton{
 
@@ -156,12 +171,13 @@ td{
 }
 tr { cursor: default; }
 .highlight { background: #cbf1f1; }
+
 .centeredOrderLabel{
-    text-align: center;
+    transform: translateX(+40%);
     display: block;
 }
 .salesLabel{
-    text-align: center;
+    transform: translateX(+35%);
     display: block;
 }
 #BackToMainPage{
@@ -169,4 +185,30 @@ tr { cursor: default; }
 }
 #UserChosenZoneName{
     transform: translateX(+135%);
+}
+.tbl-order-summery-content{
+    width:1000px;
+    height:100px;
+}
+#SingleStoreOrders{
+    transform: translateX(+5%);
+}
+#productsLabel{
+    transform: translateX(+680%);
+}
+#orderHistoryHeader{
+    width:1000px;
+}
+#tbl-customer-orderHistory-content{
+    width:1000px;
+}
+.salesTableHeader{
+    width:900px;
+}
+.storeCol{
+    width:130px;
+    height:100px;
+    text-align:center;
+    outline: 1px solid #60bbba;
+    background-color:#c8def5;
 }

@@ -458,7 +458,7 @@ public class SDManager {
             }
         }
 
-        CustomerLevelOrder myJavaOrder = area.createCheapestOrder(productsByIdAndAmount,customerID,date,location);
+        CustomerLevelOrder myJavaOrder = area.createCheapestOrder(productsByIdAndAmount,customerID,date,location,customerOrderJS.getCustomerName());
         CustomerLevelOrder.OrderIDGenerator--;
         return convertJavaCustomerOrderToJSCustomerOrder(myJavaOrder,customerOrderJS,customerOrderJS.getOrderType(),zoneName);
     }
@@ -524,7 +524,7 @@ public class SDManager {
                     category = ProductCategory.Weight;
                 }
                 soldProductsList.add(new SoldProduct(regProd.getProductID(),regProd.getProductName(),
-                        category, regProd.getTotalProductPrice()/regProd.getAmount(),storeOrder.getStoreID(),
+                        category, (regProd.getTotalProductPrice()/regProd.getAmount()),storeOrder.getStoreID(),
                         regProd.getAmount(),regProd.getTotalProductPrice()));
             }
             if(storeOrder.getSaleProducts() != null) {
@@ -538,11 +538,12 @@ public class SDManager {
                             storeOrder.getStoreID(), saleProductJS.getSaleName(), saleProductJS.getAmount()));
                 }
             }
+
             storeLevelOrderToAdd = new StoreLevelOrder(storeOrder.getOrderID(),soldProductsList,
-                    (storeOrder.getSaleProducts()!=null?storeOrder.getSaleProducts().length : 0)+storeOrder.getRegProducts().length,
+                    storeOrder.getRegProducts().length,
                     storeOrder.getTotalPrice(),storeOrder.getStoreID(),customerLevelOrderJS.getCustomerID(),
                     storeOrder.getDeliveryPrice(),LocalDate.parse(customerLevelOrderJS.getDate()),storeOrder.getStoreName(),
-                    CustomerLevelOrder.getNextOrderID());
+                    CustomerLevelOrder.getNextOrderID(),customerLevelOrderJS.getCustomerName(),customerLevelOrderJS.getLocation());
             if(saleProductList.size()>0) {
                 storeLevelOrderToAdd.setProductSoldOnSale(saleProductList);
             }
@@ -551,6 +552,17 @@ public class SDManager {
             saleProductList = new ArrayList<>();
         }
         return new CustomerLevelOrder(storeLevelOrderList,customerLevelOrderJS.getLocation());
+    }
+
+    public List<Store> getStoreByOwner(String ownerName, String zoneName) {
+        List<Store> storesByOwner = new ArrayList<>();
+        MarketArea area = marketAreaMap.get(zoneName);
+        for (Map.Entry<Integer,Store> store:area.getStores().entrySet()) {
+            if(store.getValue().getOwnerName().equals(ownerName)){
+                storesByOwner.add(store.getValue());
+            }
+        }
+        return storesByOwner;
     }
 }
 

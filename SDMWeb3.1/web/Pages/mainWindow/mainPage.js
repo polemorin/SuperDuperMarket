@@ -5,6 +5,8 @@ var User_Role_URL = buildUrlWithContextPath("userRole");
 var Upload_XML_FILE_UTL = buildUrlWithContextPath("loadFile");
 var Transactions_TABLE_URL = buildUrlWithContextPath("updateTransactions");
 var GO_TO_ZONE_URL = buildUrlWithContextPath("goToZone");
+var ADD_FUNDS_URL = buildUrlWithContextPath("addFunds");
+
 //this function is for the tables design
 $(window).on("load resize ", function() {
     var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
@@ -187,13 +189,13 @@ function goToZoneArea(){
 
 $(function()
 {
-    $("#addFundsForm").submit(function () {
+    $("#contact-submit").click(function () {
         if (parseInt(document.getElementById("fundsAmount").value) > 0) {
-            var formParameters = $(this).serialize();
+            var formParameters = $("#addFundsForm").serialize();
 
             $.ajax({
                 data: formParameters,
-                url: this.action,
+                url: ADD_FUNDS_URL,
                 error: function (e) {
                     console.log(e);
                 },
