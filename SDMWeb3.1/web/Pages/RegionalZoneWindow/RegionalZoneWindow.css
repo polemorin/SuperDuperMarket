@@ -74,3 +74,99 @@ td{
 #tbl-product-content{
     height:250px;
 }
+
+/*------------ProductSquare--------*/
+.ProductSquare {
+    height: 150px;
+    width: 150px;
+    background-color: #fff;
+    border: 3px solid lightblue;
+    text-align: center;
+
+}
+.squareText {
+    padding: 10px;
+}
+.row{
+    margin:auto;
+    display: grid;
+    width: 50%;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 50px;
+    padding: 10px 1000px 10px 10px;
+}
+#chooseProductsHeader{
+    text-align:center;
+    padding-right:800px;
+}
+#PlaceOrderGoToSales{
+    transform: translateX(+1700%);
+}
+#placeOrderGoToSummery{
+    transform: translateX(+2000%);
+}
+#warningProductChoiceLabel{
+    color:red;
+}
+#LocationLabel{
+    color: red;
+}
+.hiddenTableHead{
+    display: none;
+}
+.singleOrder{
+    outline: 2px solid #60bbba
+}
+.OrderSummeryHead{
+    display: none
+}
+.shortTableHead{
+    height: 50px;
+}
+#ConfirmOrder{
+    transform: translateX(+730%);
+}
+#CancelOrder{
+    transform: translateX(+70%);
+}
+.tbl-order-summery-content{
+    border-color: transparent;
+}
+.RoundButton{
+
+    text-fill: black;
+    background-color: #85c9c8;
+    border-color: transparent;
+    border-radius: 50%;
+    min-width: 30px;
+    min-height: 30px;
+    max-width: 30px;
+    max-height: 30px;
+
+}
+.RoundButton:hover{
+    background-color : #94dedb;
+    background-insets: 0%;
+}
+.RoundButton:focus
+{
+    background-color : #60bbba;
+    border-color:transparent!important;
+    outline:none;
+}
+tr { cursor: default; }
+.highlight { background: #cbf1f1; }
+.centeredOrderLabel{
+    text-align: center;
+    display: block;
+}
+.salesLabel{
+    text-align: center;
+    display: block;
+}
+#BackToMainPage{
+    transform: translateX(-80%);
+}
+#UserChosenZoneName{
+    transform: translateX(+135%);
+}

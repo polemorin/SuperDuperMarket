@@ -1,12 +1,10 @@
 package SDMCommon;
 
-import javax.swing.*;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.awt.*;
 import java.io.*;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
@@ -15,7 +13,6 @@ import ProductTypes.*;
 import ProductTypes.Product;
 import ProductTypes.ProductCategory;
 import ProductTypes.StoreProduct;
-import SDMCommon.CustomerLevelOrder;
 import SDMExceptions.*;
 import SDMSale.Sale;
 import jaxb.generated.*;
@@ -92,13 +89,12 @@ public class MarketArea {
         return sum/orderHistory.size();
     }
 
-   // public void placeOrderInSDM(CustomerLevelOrder orderToAdd, int userID) {
-   //     users.get(userID).addOrderToOrderHistory(orderToAdd);
-   //     orderHistory.put(orderToAdd.getOrderID(), orderToAdd);
-   //     for (StoreLevelOrder storeOrder:orderToAdd.getOrders()) {
-   //         stores.get(storeOrder.getStoreID()).updateStoreAfterOrder(storeOrder);
-   //     }
-   // }
+    public void placeOrderInSDM(CustomerLevelOrder orderToAdd) {
+        orderHistory.put(orderToAdd.getOrderID(), orderToAdd);
+        for (StoreLevelOrder storeOrder:orderToAdd.getOrders()) {
+            stores.get(storeOrder.getStoreID()).updateStoreAfterOrder(storeOrder);
+        }
+    }
 
 
     public Map<Integer, Product> getProducts() {
@@ -135,6 +131,7 @@ public class MarketArea {
                 storeOrderToAdd = new StoreLevelOrder(stores.get(storeID), customerID, date, location,CustomerLevelOrder.getNextOrderID());
                 storeOrderToAdd.addProductToOrder(productToAdd);
                 storeListForOrder.add(storeOrderToAdd);
+                StoreLevelOrder.OrderIDGenerator--;
             }
             storeAlreadyInList = false;
         }

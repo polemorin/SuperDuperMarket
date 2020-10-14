@@ -15,7 +15,6 @@ public class StoreLevelOrderJS {
     private int orderID;
     private Point location;
     private double distanceFromCustomer;
-
     public StoreLevelOrderJS(regProduct[] regProducts, String storeName) {
         this.regProducts = regProducts;
         this.storeName = storeName;
