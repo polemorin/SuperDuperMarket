@@ -104,6 +104,8 @@ public class User {
         userBankAccount.addFunds(amountToAdd);
     }
     public void takeMoneyOutOfUserBankAccount(double amount){
+        Transaction payment= new Transaction("Payment",new Date(),amount,userBankAccount.getFunds(),this.getFunds() - amount);
+        userBankAccount.getTransactionsList().add(payment);
         userBankAccount.withdrawMoney(amount);
     }
 
