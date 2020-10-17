@@ -1,5 +1,9 @@
 package SDMCommon;
 
+import Alerts.FeedBackAlert;
+import Alerts.IUserAlert;
+import Alerts.NewStoreAlert;
+import Alerts.OrderAlert;
 import JSObjects.*;
 import ProductTypes.*;
 import SDMExceptions.XmlStoreSellsMultipleProductsWithSameIDException;
@@ -578,6 +582,44 @@ public class SDManager {
         Point storeLocation = new Point(Integer.parseInt(storeJS.getLocationX()), Integer.parseInt(storeJS.getLocationY()));
         Store storeToAdd = new Store(storeJS.getStoreName(), storeLocation, Integer.parseInt(storeJS.getStoreID()), storeProductMap, Double.parseDouble(storeJS.getPPK()), userName);
         area.getStores().put(storeToAdd.getID(),storeToAdd);
+    }
+
+    public void addOrderAlertToUser(StoreLevelOrderJS storeLevelOrderJS, String zoneName, String userName) {
+        OrderAlert orderAlert;
+        StoreLevelOrder myOrder = null;
+        List<StoreLevelOrder> storeOrders = marketAreaMap.get(zoneName).getStores().get(storeLevelOrderJS.getStoreID()).getStoreOrderHistory();
+        for (StoreLevelOrder storeOrder: storeOrders) {
+            if(storeOrder.getOrderID() == storeLevelOrderJS.getOrderID()){
+                myOrder = storeOrder;
+            }
+        }
+        User userStoreOwner = users.get(marketAreaMap.get(zoneName).getStores().get(storeLevelOrderJS.getStoreID()).getOwnerName());
+        StoreOwner storeOwner = (StoreOwner)(userStoreOwner);
+        orderAlert = new OrderAlert(storeLevelOrderJS.getOrderID(),myOrder.getCustomerName(),myOrder.getStoreName(),myOrder.getAmountOfProducts(),myOrder.getTotalProductsPrice(),myOrder.getDeliveryPrice());
+        storeOwner.addAlert(orderAlert);
+    }
+
+    public List<IUserAlert> AlertsForUser(StoreOwner storeOwner) {
+        return storeOwner.getAlertList();
+    }
+
+    public void addFeedbackAlertToUser(Feedback customerFeedBack,String zoneName,String storeID) {
+        FeedBackAlert feedbackToAdd;
+        Store storeToAddFeedBackTo = marketAreaMap.get(zoneName).getStores().get(Integer.parseInt(storeID));
+        feedbackToAdd = new FeedBackAlert(customerFeedBack.getRating(),storeToAddFeedBackTo.getName(),customerFeedBack.getFeedbackText());
+        User userStoreOwner = users.get(storeToAddFeedBackTo.getOwnerName());
+        StoreOwner storeOwner = (StoreOwner)(userStoreOwner);
+        storeOwner.addAlert(feedbackToAdd);
+    }
+
+    public void addNewStoreAlertToUser(StoreJS storeJS, String zoneName, String areaManagerUserName,String storeOwnerName) {
+        NewStoreAlert storeAlertToAdd;
+        Point newStoreLocation = new Point(Integer.parseInt(storeJS.getLocationX()),Integer.parseInt(storeJS.getLocationY()));
+        int amountOfProductsInArea = marketAreaMap.get(zoneName).getProducts().size();
+        storeAlertToAdd = new NewStoreAlert(storeOwnerName,storeJS.getStoreName(),newStoreLocation,Integer.toString(storeJS.getStoreProducts().length),Integer.toString(amountOfProductsInArea));
+        User userStoreOwner = users.get(areaManagerUserName);
+        StoreOwner storeOwner = (StoreOwner)(userStoreOwner);
+        storeOwner.addAlert(storeAlertToAdd);
     }
 }
 
