@@ -8,7 +8,6 @@ public class NewStoreAlert  implements IUserAlert{
     Point storeLocation;
     String productAmount;
     String totalProductInArea;
-    String alertText;
 
     public NewStoreAlert(String storeOwnerName, String storeName, Point storeLocation, String productAmount,String totalProductInArea) {
         this.storeOwnerName = storeOwnerName;
@@ -16,13 +15,12 @@ public class NewStoreAlert  implements IUserAlert{
         this.storeLocation = storeLocation;
         this.productAmount = productAmount;
         this.totalProductInArea = totalProductInArea;
-        alertText = this.toString();
     }
 
     @Override
-    public String toString() {
+    public String AlertText() {
         String text;
-        text = "A new store opened in an area you are the owner of! - " +
+        text = "A new store opened in an area you are the owner of!/n" +
                 "Owner name:"+storeOwnerName+" store name: "+storeName+" location: "+storeLocation.x+","+storeLocation.y+" with "+productAmount+ " products out of "+totalProductInArea+" choices";
         return text;
     }

@@ -7,7 +7,6 @@ public class OrderAlert implements IUserAlert{
     int amountOfProductsInOrder;
     double totalProductCost;
     double DeliveryCost;
-    String alertText;
 
     public OrderAlert(int orderID, String customerName,String storeName, int amountOfProductsInOrder, double totalProductCost, double deliveryCost) {
         this.orderID = orderID;
@@ -16,7 +15,6 @@ public class OrderAlert implements IUserAlert{
         this.totalProductCost = totalProductCost;
         DeliveryCost = deliveryCost;
         this.storeName = storeName;
-        alertText = this.toString();
     }
 
     public int getOrderID() {
@@ -40,10 +38,10 @@ public class OrderAlert implements IUserAlert{
     }
 
     @Override
-    public String toString() {
+    public String AlertText() {
         String text;
-        text = "Store "+storeName+" just received an order by "+customerName+" order ID: "+orderID+" " +
-                "amount of products: " + amountOfProductsInOrder+" product cost:" +String.format("%.2f",totalProductCost)+ "$ delivery cost: "+String.format("%.2f",DeliveryCost)+"$";
+        text = "Store "+storeName+"just received an order by "+customerName+" order ID: "+orderID+"/n" +
+                "amount of products: " + amountOfProductsInOrder+" product cost:" +totalProductCost+ "delivery cost: "+DeliveryCost;
         return text;
     }
 }

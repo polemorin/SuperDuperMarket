@@ -19,11 +19,11 @@
 <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'ProductTabID')">Product info</button>
     <button class="tablinks" onclick="openTab(event, 'StoreTabID')">Store info</button>
-    <button class="tablinks" onclick="openTab(event, 'PlaceOrderAndFeedBackID')">Place order</button>
-    <button class="tablinks" onclick="openTab(event, 'CustomerOrderHistoryID')">Order History</button>
-    <button class="tablinks" onclick="openTab(event, 'StoreOwnerOrderHistoryID')">Order History</button>
-    <button class="tablinks" onclick="openTab(event, 'FeedBacksID')">FeedBacks</button>
-    <button class="tablinks" onclick="openTab(event, 'AddStoreID')">Add store</button>
+    <button id="PlaceOrderAndFeedBackButtonID" class="tablinks" onclick="openTab(event, 'PlaceOrderAndFeedBackID')">Place order</button>
+    <button id="CustomerOrderHistoryButtonID" class="tablinks" onclick="openTab(event, 'CustomerOrderHistoryID')">Order History</button>
+    <button id="StoreOwnerOrderHistoryButtonID" class="tablinks" onclick="openTab(event, 'StoreOwnerOrderHistoryID')">Order History</button>
+    <button id="FeedBacksButtonID" class="tablinks" onclick="openTab(event, 'FeedBacksID')">FeedBacks</button>
+    <button id="AddStoreButtonID" class="tablinks" onclick="openTab(event, 'AddStoreID')">Add store</button>
 </div>
 
 <div id="ProductTabID" class="tabcontent">
@@ -82,119 +82,14 @@
 </div>
 <!--------------------Customer-------------------->
 <div id="PlaceOrderAndFeedBackID" class="tabcontent">
-    <h3>Summery</h3>
-    <form id="SummeryForm">
-        <div id = "SingleStoreOrders">
-            <div class = "singleOrder">
-            <div class = "tbl-header">
-                <table class="StoreOrderSummeryHead" cellpadding="0" cellspacing="0" border="0">
-                    <thead>
-                    <tr><th>Store name</th>
-                        <th>Store ID</th>
-                        <th>PPK</th>
-                        <th>Distance from customer</th>
-                        <th>Delivery price</th>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-            <div class="tbl-content tbl-order-summery-content shortTableHead">
-                <table cellpadding="0" cellspacing="0" border="0" id = "storeOrderSummery1">
-                    <tbody id="storeOrderSummery1TableBody">
-                    <tr>
-                        <td>storeOrder.storeName</td>
-                        <td>storeOrder.storeID</td>
-                        <td>storeOrder.PPK</td>
-                        <td>storeOrder.distanceFromCustomer.toFixed(2)</td>
-                        <td>storeOrder.deliveryPrice.toFixed(2)</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <br>
-            </div>
-            <br>
-            <label class="centeredOrderLabel">Products:</label>
-            <div class = "tbl-header">
-                <table class="StoreOrderProductsSummeryHead" cellpadding="0" cellspacing="0" border="0">
-                    <thead>
-                    <tr><th>Product name</th>
-                        <th>Product ID</th>
-                        <th>Sold By</th>
-                        <th>Amount</th>
-                        <th>Price per unit/kilo</th>
-                        <th>Total</th>
-                        <th>Purchased  on sale</th>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-            <div class="tbl-content tbl-order-summery-content">
-                <table cellpadding="0" cellspacing="0" border="0" id = "storeOrderProductSummery">
-                    <tbody id="storeOrderProductSummeryTableBody">
-                    <tr>
-                        $.each(storeOrder.regProducts || [] ,function (index,regProd) {
-                        createProductString(regProd);
-                        })+$.each(storeOrder.saleProducts || [] ,function (index,saleProd) {
-                        createProductString(saleProd);
-                        })
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            </div>
-        </div>
-
-
-        <label class="centeredOrderLabel">Total Order Summery</label>
-        <div id="TotalOrderSummery">
-            <div class = "tbl-header hiddenTableHead">
-                <table class="OrderSummeryHead" cellpadding="0" cellspacing="0" border="0">
-                    <thead>
-                    <tr><th>Customer name</th>
-                        <th>Customer ID</th>
-                        <th>Product price</th>
-                    </tr>
-                    </thead>
-                </table>
-        </div>
-            <div class="tbl-content tbl-order-summery-content">
-                <table cellpadding="0" cellspacing="0" border="0" id = "orderSummery1">
-                    <tbody id="orderSummery1TableBody">
-                    <tr>
-                        <td id="CustomerNameRow">Customer name: </td>
-                        <td id="CustomerIDRow">Customer ID: </td>
-                        <td id="ProductPriceRow">Product price: </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class = "tbl-header hiddenTableHead">
-                <table class="OrderSummeryHead" cellpadding="0" cellspacing="0" border="0">
-                    <thead>
-                    <tr>
-                        <th>Delivery price</th>
-                        <th>Total price</th>
-                        <th>Delivery date</th>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-            <div class="tbl-content tbl-order-summery-content">
-                <table cellpadding="0" cellspacing="0" border="0" id = "orderSummery2">
-                    <tbody id="orderSummery2TableBody">
-                    <tr>
-                        <td id="DeliveryPriceRow">Delivery price: </td>
-                        <td id="TotalPriceRow">Total price: </td>
-                        <td id="DeliveryDateRow">Delivery date: </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        <button id = "CancelOrder" type="button" class = "btn btn-danger">Cancel order</button>
-        <button id = "ConfirmOrder" type="button" class = "btn btn-primary">Confirm order</button>
-        </div>
-    </form>
+   <label class = "centeredFeedBackLabel">Rate your shopping experience</label>
+    <input type="number" min="1" max="5">
+    <br>
+    <label class ="centeredFeedBackLabel">Leave FeedBack:</label>
+    <textarea id="userFeedBack" name="feedBack" rows="4" cols="50"></textarea>
+    <input type = "button" value="Submit feedback" id="SubmitFeedBackButton" class = "centeredFeedBackButton">
 </div>
+
 
 <div id="CustomerOrderHistoryID" class="tabcontent">
     <h3>Order history</h3>
@@ -255,13 +150,39 @@
 </div>
 
 <div id="FeedBacksID" class="tabcontent">
-    <h3>FeedBacks</h3>
-    <p>Tokyo is the capital of Japan.</p>
+    <h3>FeedBacks for my stores</h3>
+    <div class = "tbl-header">
+        <table class="FeedbackTable" cellpadding="0" cellspacing="0" border="0">
+            <thead>
+            <tr><th>Customer name</th>
+                <th>Store name</th>
+                <th>Date</th>
+                <th>Rating</th>
+                <th>Feedback</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="tbl-content" id ="tbl-feedback-content">
+        <table cellpadding="0" cellspacing="0" border="0" id = "feedBackDetailsTable">
+            <tbody id="feedBackDetailsTableBody">
+
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<div id="AddStoreID" class="tabcontent">
-    <h3>Add store</h3>
-    <p>Tokyo is the capital of Japan.</p>
+<div id="AddStoreID" class="tabcontent center">
+    <h3>Add products to your new store</h3>
+    <label for="ProductSelect" class="ProductSelect">Choose a product:</label>
+    <select name="ProductSelect" id="ProductSelect" class = "ProductSelect"></select>
+    <br>
+    <label class="ProductSelect">Set price: </label>
+    <input type ="number" class ="ProductSelect" id="productPrice" min ='1'>
+    <input type ="button" id="AddProductButton" class="btn btn-success ProductSelect" value="Add product"><br><br>
+    <label id="addProductPageLabel"></label><br>
+    <input type ="button" id="CancelAddStoreButton" class="btn btn-danger" value="Cancel">
+    <input type ="button" id="AddStoreButton" class="btn btn-primary" value="AddStore">
 </div>
 
 </body>

@@ -212,3 +212,25 @@ tr { cursor: default; }
     outline: 1px solid #60bbba;
     background-color:#c8def5;
 }
+.centeredButton{
+    transform: translateX(+205%);
+}
+.feedbackStoreCol{
+    width:160px;
+    height:100px;
+    text-align:center;
+    outline: 1px solid #60bbba;
+    background-color:#c8def5;
+}
+.ErrorLabel{
+    color: red;
+}
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+
+
+
