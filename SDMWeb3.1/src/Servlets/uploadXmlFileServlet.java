@@ -52,15 +52,17 @@ public class uploadXmlFileServlet extends HttpServlet {
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
         InputStream fileContent = filePart.getInputStream();
         String username = SessionUtils.getUsername(request);
-
         SDManager manager = ServletUtils.getSDMManager(getServletContext());
-
-        try {
-            manager.loadInfoFromXML(fileContent,username);
-            response.getOutputStream().println("File load successfully!");
-        } catch (Exception e) {
-            e.getMessage();
-            response.getOutputStream().println(e.getMessage());
+        if(fileName.endsWith("xml")) {
+            try {
+                manager.loadInfoFromXML(fileContent, username);
+                response.getOutputStream().println("File load successfully!");
+            } catch (Exception e) {
+                e.getMessage();
+                response.getOutputStream().println(e.getMessage());
+            }
+        }else{
+            response.getOutputStream().println("file is not xml type.");
         }
 
     }
