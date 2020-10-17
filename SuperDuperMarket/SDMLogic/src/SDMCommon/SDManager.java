@@ -1,9 +1,6 @@
 package SDMCommon;
 
-import JSObjects.SaleProductJS;
-import JSObjects.StoreLevelOrderJS;
-import JSObjects.CustomerLevelOrderJS;
-import JSObjects.regProduct;
+import JSObjects.*;
 import ProductTypes.*;
 import SDMExceptions.XmlStoreSellsMultipleProductsWithSameIDException;
 import SDMSale.Sale;
@@ -62,13 +59,13 @@ public class SDManager {
         Map<Integer, Store> tempStoreMap;
         Map<Integer, Product> tempProductMap;
 
-        tempStoreMap = createStoresMapFromXml(superDuperMarketDescriptor,creatorName);
+        tempStoreMap = createStoresMapFromXml(superDuperMarketDescriptor, creatorName);
         tempProductMap = createProductMapFromXml(superDuperMarketDescriptor, tempStoreMap);
 
         return new MarketArea(tempProductMap, tempStoreMap, creatorName, superDuperMarketDescriptor.getSDMZone().getName());
     }
 
-    private Map<Integer, Product> createProductMapFromXml(SuperDuperMarketDescriptor superDuperMarketDescriptor, Map<Integer, Store> tempStoreMap) throws Exception{
+    private Map<Integer, Product> createProductMapFromXml(SuperDuperMarketDescriptor superDuperMarketDescriptor, Map<Integer, Store> tempStoreMap) throws Exception {
 
         Map<Integer, Product> productMap = new HashMap<Integer, Product>();
         SDMItems items = superDuperMarketDescriptor.getSDMItems();
@@ -100,7 +97,7 @@ public class SDManager {
                 }
             }
             if (!itemSold) {
-                throw new Exception("product with id: "  + productToCheck.getValue().getProductID() + "is not sold by any store.");
+                throw new Exception("product with id: " + productToCheck.getValue().getProductID() + "is not sold by any store.");
             }
             itemSold = false;
         }
@@ -133,7 +130,7 @@ public class SDManager {
             } else {
 
                 storeToAdd = new Store(store.getName(), p, store.getId(),
-                        createStoreProductMap(store, superDuperMarketDescriptor.getSDMItems()), store.getDeliveryPpk(),creatorName);
+                        createStoreProductMap(store, superDuperMarketDescriptor.getSDMItems()), store.getDeliveryPpk(), creatorName);
                 storeToAdd.initSalesFromXML(generateSalesFromXml(store, superDuperMarketDescriptor));
                 storesMap.put(storeToAdd.getID(), storeToAdd);
             }
@@ -169,16 +166,15 @@ public class SDManager {
     }
 
 
-    private void validateMarketAreaDiscountName(SDMStore store, String name) throws Exception{
+    private void validateMarketAreaDiscountName(SDMStore store, String name) throws Exception {
         String trimedSaleName = name.trim();
         int counter = 0;
         for (SDMDiscount discount : store.getSDMDiscounts().getSDMDiscount()) {
-            if(discount.getName().trim().compareToIgnoreCase(trimedSaleName) == 0){
+            if (discount.getName().trim().compareToIgnoreCase(trimedSaleName) == 0) {
                 counter++;
             }
         }
-        if(counter != 1)
-        {
+        if (counter != 1) {
             throw new Exception("Sale already exists in store.");
         }
     }
@@ -319,13 +315,12 @@ public class SDManager {
     }
 
     public Map<String, String> getUserNameAndRoleMap() {
-        Map<String,String> userNameAndRoleMap = new HashMap<>();
-        for (Map.Entry<String,User> user:users.entrySet()) {
-            if(user.getValue() instanceof StoreOwner){
-                userNameAndRoleMap.put(user.getValue().getName(),"Store Owner");
-            }
-            else {
-                userNameAndRoleMap.put(user.getValue().getName(),"Customer");
+        Map<String, String> userNameAndRoleMap = new HashMap<>();
+        for (Map.Entry<String, User> user : users.entrySet()) {
+            if (user.getValue() instanceof StoreOwner) {
+                userNameAndRoleMap.put(user.getValue().getName(), "Store Owner");
+            } else {
+                userNameAndRoleMap.put(user.getValue().getName(), "Customer");
             }
         }
         return userNameAndRoleMap;
@@ -333,7 +328,7 @@ public class SDManager {
 
     public List<SDMZoneInfo> getAllZonesInfo() {
         List<SDMZoneInfo> zoneInfoList = new ArrayList<>();
-        for (Map.Entry<String,MarketArea> zone: marketAreaMap.entrySet()) {
+        for (Map.Entry<String, MarketArea> zone : marketAreaMap.entrySet()) {
             zoneInfoList.add(new SDMZoneInfo(zone.getValue()));
         }
         return zoneInfoList;
@@ -345,7 +340,7 @@ public class SDManager {
 
     public MarketArea getMarketArea(String zoneName) {
         MarketArea market = null;
-        if(marketAreaMap.containsKey(zoneName)){
+        if (marketAreaMap.containsKey(zoneName)) {
             return marketAreaMap.get(zoneName);
         }
         return null;
@@ -353,7 +348,7 @@ public class SDManager {
 
     public List<ProductTableInfo> getAllProductFromZoneInfo(String zoneName) {
         List<ProductTableInfo> productTableInfos = null;
-        if(marketAreaMap.containsKey(zoneName)){
+        if (marketAreaMap.containsKey(zoneName)) {
             productTableInfos = marketAreaMap.get(zoneName).getProductsDetails();
         }
         return productTableInfos;
@@ -363,7 +358,7 @@ public class SDManager {
         List<StoreProductInfo> productList;
         try {
             productList = getMarketArea(zoneName).getStoreProductInfo(storeName);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("Store doesnt exist in area.");
         }
         return productList;
@@ -375,19 +370,19 @@ public class SDManager {
         Store store = null;
         MarketArea area = marketAreaMap.get(zoneName);
         for (StoreLevelOrderJS storeLevelOrderJS : storeLevelOrderJSArray) {
-            for (Map.Entry<Integer,Store> marketStore:area.getStores().entrySet()) {
-                if(marketStore.getValue().getName().equals(storeLevelOrderJS.getStoreName())){
+            for (Map.Entry<Integer, Store> marketStore : area.getStores().entrySet()) {
+                if (marketStore.getValue().getName().equals(storeLevelOrderJS.getStoreName())) {
                     store = marketStore.getValue();
                 }
             }
-            for (regProduct regProd: storeLevelOrderJS.getRegProducts()) {
-                productsByIdAndAmount.put(regProd.getProductID(),regProd.getAmount());
+            for (regProduct regProd : storeLevelOrderJS.getRegProducts()) {
+                productsByIdAndAmount.put(regProd.getProductID(), regProd.getAmount());
             }
-            if(store != null) {
+            if (store != null) {
                 mySalesList = store.getMySales(productsByIdAndAmount);
             }
         }
-                Sale[] mySalesListArray = new Sale[mySalesList.size()];
+        Sale[] mySalesListArray = new Sale[mySalesList.size()];
         return mySalesList.toArray(mySalesListArray);
     }
 
@@ -395,12 +390,12 @@ public class SDManager {
         Store store = null;
         Map<Integer, Double> productsByIdAndAmount = new HashMap<>();
         List<Sale> mySalesList = new ArrayList<>();
-        for (int i = 0; i<storeOrderJS.length ;i++) {
+        for (int i = 0; i < storeOrderJS.length; i++) {
             store = marketAreaMap.get(zoneName).getStores().get(storeOrderJS[i].getStoreID());
-            for (regProduct regProd:storeOrderJS[i].getRegProducts()) {
-                productsByIdAndAmount.put(regProd.getProductID(),regProd.getAmount());
+            for (regProduct regProd : storeOrderJS[i].getRegProducts()) {
+                productsByIdAndAmount.put(regProd.getProductID(), regProd.getAmount());
             }
-            if(store != null) {
+            if (store != null) {
                 mySalesList.addAll(store.getMySales(productsByIdAndAmount));
             }
         }
@@ -415,22 +410,22 @@ public class SDManager {
         double totalPrice = 0;
         int productTypeAmount = 0;
         regProduct product;
-        for (Map.Entry<Integer,Store> storeToCheck:marketAreaMap.get(zoneName).getStores().entrySet()) {
-            if(storeToCheck.getValue().getName().equals(storeName)){
+        for (Map.Entry<Integer, Store> storeToCheck : marketAreaMap.get(zoneName).getStores().entrySet()) {
+            if (storeToCheck.getValue().getName().equals(storeName)) {
                 store = storeToCheck.getValue();
             }
         }
-        if(store!=null) {
-            for(int i=0;i<myOrder.getRegProducts().length;i++){
+        if (store != null) {
+            for (int i = 0; i < myOrder.getRegProducts().length; i++) {
                 product = myOrder.getRegProducts()[i];
                 productAmount = product.getAmount();
-                product.setTotalProductPrice(productAmount*store.getProducts().get(product.getProductID()).getProductPrice());
+                product.setTotalProductPrice(productAmount * store.getProducts().get(product.getProductID()).getProductPrice());
                 product.setProductName(marketAreaMap.get(zoneName).getProducts().get(product.getProductID()).getProductName());
                 product.setCategory(marketAreaMap.get(zoneName).getProducts().get(product.getProductID()).getProductCategory().toString());
                 totalPrice += product.getTotalProductPrice();
                 productTypeAmount++;
             }
-            initStoreJSOrder(myOrder,customerOrderJS.getLocation(),store.getLocation(),store.getDeliveryPPK(),store.getID(),totalPrice,productTypeAmount);
+            initStoreJSOrder(myOrder, customerOrderJS.getLocation(), store.getLocation(), store.getDeliveryPPK(), store.getID(), totalPrice, productTypeAmount);
         }
 
 
@@ -442,8 +437,8 @@ public class SDManager {
         myOrder.setPPK(storePPK);
         myOrder.setLocation(storeLocation);
         myOrder.setOrderID(CustomerLevelOrder.getNextOrderID());
-        myOrder.setDistanceFromCustomer(StoreLevelOrder.getDistanceFromCustomerToStore(customerLocation,storeLocation));
-        myOrder.setDeliveryPrice(myOrder.getDistanceFromCustomer()*myOrder.getPPK());
+        myOrder.setDistanceFromCustomer(StoreLevelOrder.getDistanceFromCustomerToStore(customerLocation, storeLocation));
+        myOrder.setDeliveryPrice(myOrder.getDistanceFromCustomer() * myOrder.getPPK());
         myOrder.setStoreID(storeID);
         myOrder.setTotalPrice(totalPrice);
         myOrder.setProductTypeAmount(productTypeAmount);
@@ -452,15 +447,15 @@ public class SDManager {
     public CustomerLevelOrderJS createBasicDynamicCustomerOrder(CustomerLevelOrderJS customerOrderJS, String zoneName, int customerID, LocalDate date, Point location) {
         MarketArea area = marketAreaMap.get(zoneName);
         Map<Integer, Double> productsByIdAndAmount = new HashMap<>();
-        for (StoreLevelOrderJS storeLevelOrderJS :customerOrderJS.getStoreOrders()) {
-            for (regProduct regProd: storeLevelOrderJS.getRegProducts()) {
-                productsByIdAndAmount.put(regProd.getProductID(),regProd.getAmount());
+        for (StoreLevelOrderJS storeLevelOrderJS : customerOrderJS.getStoreOrders()) {
+            for (regProduct regProd : storeLevelOrderJS.getRegProducts()) {
+                productsByIdAndAmount.put(regProd.getProductID(), regProd.getAmount());
             }
         }
 
-        CustomerLevelOrder myJavaOrder = area.createCheapestOrder(productsByIdAndAmount,customerID,date,location,customerOrderJS.getCustomerName());
+        CustomerLevelOrder myJavaOrder = area.createCheapestOrder(productsByIdAndAmount, customerID, date, location, customerOrderJS.getCustomerName());
         CustomerLevelOrder.OrderIDGenerator--;
-        return convertJavaCustomerOrderToJSCustomerOrder(myJavaOrder,customerOrderJS,customerOrderJS.getOrderType(),zoneName);
+        return convertJavaCustomerOrderToJSCustomerOrder(myJavaOrder, customerOrderJS, customerOrderJS.getOrderType(), zoneName);
     }
 
     private CustomerLevelOrderJS convertJavaCustomerOrderToJSCustomerOrder(CustomerLevelOrder myJavaOrder, CustomerLevelOrderJS myJSOrder, String orderType, String zoneName) {
@@ -470,42 +465,42 @@ public class SDManager {
         Store store;
         double totalPrice = 0;
         int totalTypeAmount = 0;
-        for(int i = 0; i<myJavaOrder.getOrders().size();i++){
+        for (int i = 0; i < myJavaOrder.getOrders().size(); i++) {
             storeOrder = myJavaOrder.getOrders().get(i);
             store = marketAreaMap.get(zoneName).getStores().get(storeOrder.getStoreID());
             regProduct[] regProd = new regProduct[storeOrder.getSoldProducts().size()];
-            for (int j = 0;j <storeOrder.getSoldProducts().size();j++) {
+            for (int j = 0; j < storeOrder.getSoldProducts().size(); j++) {
                 soldProduct = storeOrder.getSoldProducts().get(j);
-                regProd[j] = new regProduct(soldProduct.getProductID(),soldProduct.getAmountSoldInOrder());
+                regProd[j] = new regProduct(soldProduct.getProductID(), soldProduct.getAmountSoldInOrder());
                 regProd[j].setTotalProductPrice(soldProduct.getTotalPrice());
                 regProd[j].setProductName(marketAreaMap.get(zoneName).getProducts().get(regProd[j].getProductID()).getProductName());
                 regProd[j].setCategory(marketAreaMap.get(zoneName).getProducts().get(regProd[j].getProductID()).getProductCategory().toString());
                 totalPrice += soldProduct.getTotalPrice();
                 totalTypeAmount++;
             }
-            storeOrdersJS[i] = new StoreLevelOrderJS(regProd,storeOrder.getStoreName());
-            initStoreJSOrder(storeOrdersJS[i],myJSOrder.getLocation(),store.getLocation(),store.getDeliveryPPK(),store.getID(),totalPrice,totalTypeAmount);
+            storeOrdersJS[i] = new StoreLevelOrderJS(regProd, storeOrder.getStoreName());
+            initStoreJSOrder(storeOrdersJS[i], myJSOrder.getLocation(), store.getLocation(), store.getDeliveryPPK(), store.getID(), totalPrice, totalTypeAmount);
         }
-        return new CustomerLevelOrderJS(orderType,storeOrdersJS,myJSOrder.getLocation(),myJSOrder.getDate());
+        return new CustomerLevelOrderJS(orderType, storeOrdersJS, myJSOrder.getLocation(), myJSOrder.getDate());
     }
 
     public void placeOrderInMarket(CustomerLevelOrderJS customerLevelOrderJS, String zoneName, String userName) {
         MarketArea area = marketAreaMap.get(zoneName);
-        CustomerLevelOrder myCustomerOrder= convertFullJavaCustomerOrderToJSCustomerOrder(customerLevelOrderJS);
+        CustomerLevelOrder myCustomerOrder = convertFullJavaCustomerOrderToJSCustomerOrder(customerLevelOrderJS);
         area.placeOrderInSDM(myCustomerOrder);
-        Customer customer = (SDMCommon.Customer)(users.get(userName));
+        Customer customer = (SDMCommon.Customer) (users.get(userName));
         customer.getOrderHistory().add(myCustomerOrder);
-        PaymentHandleFunc(myCustomerOrder,area,customer);
+        PaymentHandleFunc(myCustomerOrder, area, customer);
     }
 
     private void PaymentHandleFunc(CustomerLevelOrder myCustomerOrder, MarketArea area, Customer customer) {
-        customer.takeMoneyOutOfUserBankAccount(myCustomerOrder.getDeliveryPrice()+myCustomerOrder.getTotalProductPrice());
+        customer.takeMoneyOutOfUserBankAccount(myCustomerOrder.getDeliveryPrice() + myCustomerOrder.getTotalProductPrice());
         Store store;
         StoreOwner storeOwner;
-        for (StoreLevelOrder storeLevelOrder: myCustomerOrder.getOrders()) {
+        for (StoreLevelOrder storeLevelOrder : myCustomerOrder.getOrders()) {
             store = area.getStores().get(storeLevelOrder.getStoreID());
-            storeOwner = (StoreOwner)users.get(store.getOwnerName());
-            storeOwner.addFuds(storeLevelOrder.getTotalProductsPrice()+storeLevelOrder.getDeliveryPrice(), new Date());
+            storeOwner = (StoreOwner) users.get(store.getOwnerName());
+            storeOwner.addFuds(storeLevelOrder.getTotalProductsPrice() + storeLevelOrder.getDeliveryPrice(), new Date());
         }
     }
 
@@ -515,19 +510,18 @@ public class SDManager {
         List<SaleProduct> saleProductList = new ArrayList<>();
         ProductCategory category;
         StoreLevelOrder storeLevelOrderToAdd;
-        for (StoreLevelOrderJS storeOrder: customerLevelOrderJS.getStoreOrders()) {
-            for (regProduct regProd:storeOrder.getRegProducts()) {
-                if(regProd.getCategory().equals("Quantity")){
+        for (StoreLevelOrderJS storeOrder : customerLevelOrderJS.getStoreOrders()) {
+            for (regProduct regProd : storeOrder.getRegProducts()) {
+                if (regProd.getCategory().equals("Quantity")) {
                     category = ProductCategory.Quantity;
-                }
-                else{
+                } else {
                     category = ProductCategory.Weight;
                 }
-                soldProductsList.add(new SoldProduct(regProd.getProductID(),regProd.getProductName(),
-                        category, (regProd.getTotalProductPrice()/regProd.getAmount()),storeOrder.getStoreID(),
-                        regProd.getAmount(),regProd.getTotalProductPrice()));
+                soldProductsList.add(new SoldProduct(regProd.getProductID(), regProd.getProductName(),
+                        category, (regProd.getTotalProductPrice() / regProd.getAmount()), storeOrder.getStoreID(),
+                        regProd.getAmount(), regProd.getTotalProductPrice()));
             }
-            if(storeOrder.getSaleProducts() != null) {
+            if (storeOrder.getSaleProducts() != null) {
                 for (SaleProductJS saleProductJS : storeOrder.getSaleProducts()) {
                     if (saleProductJS.getCategory().equals("Quantity")) {
                         category = ProductCategory.Quantity;
@@ -539,30 +533,51 @@ public class SDManager {
                 }
             }
 
-            storeLevelOrderToAdd = new StoreLevelOrder(storeOrder.getOrderID(),soldProductsList,
+            storeLevelOrderToAdd = new StoreLevelOrder(storeOrder.getOrderID(), soldProductsList,
                     storeOrder.getRegProducts().length,
-                    storeOrder.getTotalPrice(),storeOrder.getStoreID(),customerLevelOrderJS.getCustomerID(),
-                    storeOrder.getDeliveryPrice(),LocalDate.parse(customerLevelOrderJS.getDate()),storeOrder.getStoreName(),
-                    CustomerLevelOrder.getNextOrderID(),customerLevelOrderJS.getCustomerName(),customerLevelOrderJS.getLocation());
-            if(saleProductList.size()>0) {
+                    storeOrder.getTotalPrice(), storeOrder.getStoreID(), customerLevelOrderJS.getCustomerID(),
+                    storeOrder.getDeliveryPrice(), LocalDate.parse(customerLevelOrderJS.getDate()), storeOrder.getStoreName(),
+                    CustomerLevelOrder.getNextOrderID(), customerLevelOrderJS.getCustomerName(), customerLevelOrderJS.getLocation());
+            if (saleProductList.size() > 0) {
                 storeLevelOrderToAdd.setProductSoldOnSale(saleProductList);
             }
             storeLevelOrderList.add(storeLevelOrderToAdd);
             soldProductsList = new ArrayList<>();
             saleProductList = new ArrayList<>();
         }
-        return new CustomerLevelOrder(storeLevelOrderList,customerLevelOrderJS.getLocation());
+        return new CustomerLevelOrder(storeLevelOrderList, customerLevelOrderJS.getLocation());
     }
 
     public List<Store> getStoreByOwner(String ownerName, String zoneName) {
         List<Store> storesByOwner = new ArrayList<>();
         MarketArea area = marketAreaMap.get(zoneName);
-        for (Map.Entry<Integer,Store> store:area.getStores().entrySet()) {
-            if(store.getValue().getOwnerName().equals(ownerName)){
+        for (Map.Entry<Integer, Store> store : area.getStores().entrySet()) {
+            if (store.getValue().getOwnerName().equals(ownerName)) {
                 storesByOwner.add(store.getValue());
             }
         }
         return storesByOwner;
+    }
+
+    public void placeFeedBackInMarket(Feedback customerFeedBack, String zoneName, String StoreID) {
+        MarketArea area = marketAreaMap.get(zoneName);
+        Store store = area.getStores().get(Integer.parseInt(StoreID));
+        store.addFeedBackToStore(customerFeedBack);
+    }
+
+    public void addStoreToMarket(StoreJS storeJS, String zoneName, String userName) {
+        Map<Integer, StoreProduct> storeProductMap = new HashMap<>();
+        Product product;
+        StoreProduct storeProduct;
+        MarketArea area = marketAreaMap.get(zoneName);
+        for (StoreProductJS productToAdd : storeJS.getStoreProducts()) {
+            product = area.getProducts().get(Integer.parseInt(productToAdd.getProductID()));
+            storeProduct = new StoreProduct(product, Double.parseDouble(productToAdd.getPrice()), Integer.parseInt(storeJS.getStoreID()));
+            storeProductMap.put(storeProduct.getProductID(), storeProduct);
+        }
+        Point storeLocation = new Point(Integer.parseInt(storeJS.getLocationX()), Integer.parseInt(storeJS.getLocationY()));
+        Store storeToAdd = new Store(storeJS.getStoreName(), storeLocation, Integer.parseInt(storeJS.getStoreID()), storeProductMap, Double.parseDouble(storeJS.getPPK()), userName);
+        area.getStores().put(storeToAdd.getID(),storeToAdd);
     }
 }
 
