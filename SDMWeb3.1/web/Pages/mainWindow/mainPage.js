@@ -6,6 +6,7 @@ var Upload_XML_FILE_UTL = buildUrlWithContextPath("loadFile");
 var Transactions_TABLE_URL = buildUrlWithContextPath("updateTransactions");
 var GO_TO_ZONE_URL = buildUrlWithContextPath("goToZone");
 var ADD_FUNDS_URL = buildUrlWithContextPath("addFunds");
+var GET_ALERTS_URL = buildUrlWithContextPath("getAlerts");
 
 //this function is for the tables design
 $(window).on("load resize ", function() {
@@ -20,6 +21,9 @@ $(function() { // onload...do
         url: User_Role_URL,
         success: function (role) {
             hideHTMLElementsByRole(role);
+            if(role !=="Customer"){
+                setInterval(getAlerts,3000);
+            }
         }
     });
     ajaxBalance();
@@ -64,7 +68,21 @@ $(function() { // onload...do
     })
 
 });
-
+function getAlerts() {
+    $.ajax({
+        url: GET_ALERTS_URL,
+        success: function (alerts) {
+            if(alerts!=="no alerts") {
+                $.each(JSON.parse(alerts) || [], function (index, alert) {
+                    $(".alertDiv").append("<div class=\"alert alert-success alert-dismissible\">\n" +
+                        "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>" +
+                        alert.alertText+
+                        "</div>")
+                })
+            }
+        }
+    });
+}
 function hideHTMLElementsByRole(role){
     if(role === "StoreOwner"){
         $("#addFundsForm").hide();

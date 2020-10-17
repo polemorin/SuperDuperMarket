@@ -1,5 +1,5 @@
-var x = JSON.parse(localStorage.getItem('ZoneDetails'));
-var zoneName = x.zone;
+var zoneDetails = JSON.parse(localStorage.getItem('ZoneDetails'));
+var zoneName = zoneDetails.zone;
 var interval;
 var Update_Product_Details_Table_URL = buildUrlWithContextPath("updateProductDetailsTable");
 var Update_Store_Details_Table_URL = buildUrlWithContextPath("updateStoreDetailsTable");
@@ -12,6 +12,11 @@ var GET_STORES_BY_OWNER_URL = buildUrlWithContextPath("getStoresByOwner");
 var GIVE_FEEDBACK_TO_STORE_URL = buildUrlWithContextPath("giveFeedBackToStore");
 var User_Role_URL = buildUrlWithContextPath("userRole");
 var ADD_STORE_URL = buildUrlWithContextPath("addStore");
+var SEND_ORDER_ALERT_URL = buildUrlWithContextPath("sendOrderAlert");
+var SEND_FEEDBACK_ALERT_URL = buildUrlWithContextPath("sendFeedbackAlert");
+var SEND_NEW_STORE_ALERT_URL = buildUrlWithContextPath("sendNewStoreAlert");
+var GET_ALERTS_URL = buildUrlWithContextPath("getAlerts");
+
 
 let customerLevelOrderJS;
 let myAvailableSales;
@@ -108,9 +113,27 @@ $(function() { // onload...do
         url: User_Role_URL,
         success: function (role) {
             hideHTMLTabsByRole(role);
+            if(role !=="Customer"){
+                setInterval(getAlerts,3000);
+            }
         }
     });
 })
+function getAlerts() {
+    $.ajax({
+        url: GET_ALERTS_URL,
+        success: function (alerts) {
+            if(alerts!=="no alerts") {
+                $.each(JSON.parse(alerts) || [], function (index, alert) {
+                    $(".alertDiv").append("<div class=\"alert alert-success alert-dismissible\">\n" +
+                        "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>" +
+                        alert.alertText+
+                        "</div>")
+                })
+            }
+        }
+    });
+}
 function hideHTMLTabsByRole(role) {
     if(role === "Customer"){
         $("#StoreOwnerOrderHistoryButtonID").hide();
@@ -304,6 +327,12 @@ function addStoreButtonFunc(storeToAdd) {
             url: ADD_STORE_URL,
             success: function (response) {
                 $("#AddStoreID").empty().append(response);
+            }
+        });
+        $.ajax({
+            data:{Store: JSON.stringify(storeToAdd), ZoneName: zoneName,AreaManagerUserName:zoneDetails.ownerName},
+            url: SEND_NEW_STORE_ALERT_URL,
+            success: function (response) {
             }
         });
 
@@ -813,6 +842,7 @@ function cancelOrderButtonFunc() {
 }
 function confirmOrderButtonFunc() {
     $("#ConfirmOrder").click(function () {
+
         $.ajax({
             data: {CustomerOrder: JSON.stringify(customerLevelOrderJS),ZoneName: zoneName},
             url: PLACE_ORDER_IN_MARKET_URL,
@@ -821,6 +851,15 @@ function confirmOrderButtonFunc() {
                     "<br><br><input type = 'button' value  = 'Click here to leave feedback' class = 'centeredButton btn btn-success' id = 'goToLeaveFeedBackPage'>");
                 $("#goToLeaveFeedBackPage").click(function () {
                     showStoresToFeedBackTo();
+                })
+                $.each(customerLevelOrderJS.storeOrders || [] ,function (index, storeOrder) {
+                    $.ajax({
+                        data: {StoreOrder: JSON.stringify(storeOrder),ZoneName: zoneName},
+                        url: SEND_ORDER_ALERT_URL,
+                        success: function (result) {
+                            console.log(result);
+                        }
+                    })
                 })
             }
 
@@ -884,6 +923,13 @@ function LeaveFeedBackToStoreFunc(store) {
                         console.log(response);
                     }
                 });
+            $.ajax({
+                data: {FeedBack: JSON.stringify(myFeedBack), StoreID: store.storeID, ZoneName: zoneName},
+                url: SEND_FEEDBACK_ALERT_URL,
+                success: function (response) {
+                    console.log(response);
+                }
+            });
                 showStoresToFeedBackTo();
 
         }else{

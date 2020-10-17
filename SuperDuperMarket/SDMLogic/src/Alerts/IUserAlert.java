@@ -1,5 +1,5 @@
 package Alerts;
 
 public interface IUserAlert {
-    public String AlertText();
+    public String toString();
 }
