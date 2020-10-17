@@ -15,6 +15,7 @@ public class Store {
     private final int ID;
     private Map<Integer, StoreProduct> products;
     private List<StoreLevelOrder> storeOrderHistory;
+    private List<Feedback> storeFeedBacks = new ArrayList<>();
     private final double deliveryPPK;
     private double totalProductsRevenue;
     private int amountOfOrdersFromStore;
@@ -66,6 +67,9 @@ public class Store {
             return products.get(product.getProductID()).getPrice();
         }
         return price;
+    }
+    public void addFeedBackToStore(Feedback feedbackToAdd){
+        storeFeedBacks.add(feedbackToAdd);
     }
     public void addOrderToOrderHistory(StoreLevelOrder orderToAdd){
         storeOrderHistory.add(orderToAdd);

@@ -9,6 +9,9 @@ var Get_Sales_URL = buildUrlWithContextPath("getSales");
 var CREATE_BASIC_ORDER_URL = buildUrlWithContextPath("createBasicOrder");
 var PLACE_ORDER_IN_MARKET_URL = buildUrlWithContextPath("placeOrderInMarket");
 var GET_STORES_BY_OWNER_URL = buildUrlWithContextPath("getStoresByOwner");
+var GIVE_FEEDBACK_TO_STORE_URL = buildUrlWithContextPath("giveFeedBackToStore");
+var User_Role_URL = buildUrlWithContextPath("userRole");
+var ADD_STORE_URL = buildUrlWithContextPath("addStore");
 
 let customerLevelOrderJS;
 let myAvailableSales;
@@ -17,6 +20,20 @@ var chosenSale;
 var productsInArea;
 
 //JAVA SCRIPT OBJECT
+function Store(){
+    this.storeName;
+    this.storeID;
+    this.PPK;
+    this.storeProducts;
+    this.locationX;
+    this.locationY;
+}
+function FeedBack() {
+    this.customerName;
+    this.orderDate;
+    this.rating;
+    this.feedbackText;
+}
 function SaleHandler(){
     var mySales = [];
     var productMapIDAmount;
@@ -66,6 +83,10 @@ function StoreLevelOrderJS(){
     this.productTypeAmount;
 
 }
+function StoreProduct(){
+    this.productID;
+    this.price;
+}
 function RegProduct(){
     this.productID;
     this.totalProductPrice;
@@ -81,7 +102,26 @@ function saleProduct(){
     this.saleName;
     this.category;
 }
+$(function() { // onload...do
+    //add a function to the submit event
+    $.ajax({
+        url: User_Role_URL,
+        success: function (role) {
+            hideHTMLTabsByRole(role);
+        }
+    });
+})
+function hideHTMLTabsByRole(role) {
+    if(role === "Customer"){
+        $("#StoreOwnerOrderHistoryButtonID").hide();
+        $("#FeedBacksButtonID").hide();
+        $("#AddStoreButtonID").hide();
+    }else{
+        $("#PlaceOrderAndFeedBackButtonID").hide();
+        $("#CustomerOrderHistoryButtonID").hide();
 
+    }
+}
 function openTab(evt, tabName) {
     clearInterval(interval);
     switch(tabName){
@@ -106,8 +146,10 @@ function openTab(evt, tabName) {
             buildStoreOwnerOrderHistoryLandingPage();
             break;
         case "FeedBacksID":
+            buildFeedBackTable();
             break;
         case "AddStoreID":
+            getStoresAndBuildAddStoreLandingPage();
             break;
     }
     var i, tabcontent, tablinks;
@@ -122,7 +164,211 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 }
+function getStoresAndBuildAddStoreLandingPage(){
+    var dataString = "ZoneName="+zoneName;
+    $.ajax({
+        data: dataString,
+        url: Update_Store_Details_Table_URL,
+        success: function (stores) {
+            buildAddStoreLandingPage(stores);
 
+        }
+    });
+}
+function buildAddStoreLandingPage(stores) {
+    $("#AddStoreID").empty().append(" <h3>Add new store</h3>\n" +
+        "    <label class=\"addStoreCentered\">Store name: &nbsp</label>\n" +
+        "    <input type=\"text\" placeholder=\"Store name\" name=\"storeName\" id='StoreNameTextBox' required><br> " +
+        "    <label id='StoreNameEmptyLabel'></label><br><br>\n" +
+        "    <label >PPK:</label>\n" +
+        "    <input type=\"number\" id=\"PPK\" placeholder=\"PPK\" name=\"PPKText\" min=\"0\" required><br>\n" +
+        "    <label id=\"PPKErrorLabel\"></label><br>\n" +
+        "    <label >Store ID:</label>\n" +
+        "    <input type=\"number\" id=\"StoreID\" placeholder=\"Store ID\" name=\"StoreIDNum\" min=\"1\" required><br>\n" +
+        "    <label id=\"StoreIDErrorLabel\"></label><br>\n" +
+        "    <label >Store location (between 1-50):</label>X\n" +
+        "    <input type=\"number\" id=\"XLocation\" name=\"XLocation\" min=\"1\" max=\"50\" required>&nbsp&nbsp Y\n" +
+        "    <input type=\"number\" id=\"YLocation\" name=\"YLocation\" min=\"1\" max=\"50\" required><br>\n" +
+        "    <label id=\"StoreLocationTakenLabel\"></label><br>\n" +
+        "    <input type = \"button\" value=\"Cancel\" id=\"CancelStoreButton\" class=\"btn btn-danger\">\n" +
+        "    <input type = \"button\" value=\"Add product to store\" id=\"GoToAddProductToStoreButton\" class=\"btn btn-primary\">\n");
+    $("#CancelStoreButton").click(function () {
+        CancelAddStore();
+    })
+    $("#GoToAddProductToStoreButton").click(function () {
+        var storeToAdd;
+        var Xlocation = document.getElementById("XLocation").value;
+        var Ylocation = document.getElementById("YLocation").value;
+        if(document.getElementById("StoreNameTextBox").value ===""){
+            $("#StoreNameEmptyLabel").empty().append("Enter your store's name.");
+        }else {
+            $("#StoreNameEmptyLabel").empty();
+            if(document.getElementById("PPK").value ===""){
+                $("#PPKErrorLabel").empty().append("Enter PPK.");
+            }else {
+                $("#PPKErrorLabel").empty();
+                if(document.getElementById("StoreID").value ==="") {
+                    $("#StoreIDErrorLabel").empty().append("Enter ID.");
+                }else {
+                    if (!checkIfStoreIDIsTaken(stores, document.getElementById("StoreID").value)) {
+                        $("#StoreIDErrorLabel").empty();
+                        if (parseInt(Xlocation) <= 50 && parseInt(Xlocation) >= 1 && parseInt(Ylocation) <= 50 && parseInt(Ylocation) >= 1) {
+                            if (!checkIfStoreInLocationAddStore(stores, Xlocation, Ylocation)) {
+                                storeToAdd = new Store();
+                                storeToAdd.storeName = StoreNameTextBox.value;
+                                storeToAdd.storeID = StoreID.value;
+                                storeToAdd.locationX = parseInt(Xlocation);
+                                storeToAdd.locationY = parseInt(Ylocation);
+                                storeToAdd.PPK = PPK.value;
+                                buildAddProductsToStorePage(storeToAdd);
+                            }
+                        } else {
+                            $("#StoreLocationTakenLabel").empty().append("Location coordinates must be between 1-50.");
+                        }
+                    }
+                }
+            }
+        }
+    })
+
+
+}
+function checkIfStoreIDIsTaken(stores,MyStoreID) {
+    var storeIDTaken = false;
+    $.each(stores || [], function (index, store) {
+        if(store.ID === parseInt(StoreID.value)){
+            storeIDTaken = true;
+        }
+    })
+    if(storeIDTaken){
+        $("#StoreIDErrorLabel").empty().append("There is a store with your chosen ID, please choose another.");
+    }
+    return storeIDTaken;
+}
+function checkIfStoreInLocationAddStore(stores,Xlocation,Ylocation) {
+    var storeInLocation = false;
+    var storeIDTaken = false;
+    $.each(stores || [], function (index, store) {
+        if (parseInt(Xlocation) === store.location.x && parseInt(Ylocation) === store.location.y) {
+            storeInLocation = true;
+        }
+    })
+    if (!storeInLocation && !storeIDTaken) {
+       return false;
+    }
+    if(storeInLocation){
+        $("#StoreLocationTakenLabel").empty().append("There is a store in your chosen location, please choose different location. ");
+    }
+
+    return true;
+}
+function buildAddProductsToStorePage(storeToAdd) {
+    storeToAdd.storeProducts = [];
+    $("#AddStoreID").empty().append("    <h3>Add products to your new store</h3>\n" +
+        "    <label for=\"ProductSelect\" class=\"ProductSelect\">Choose a product:</label>\n" +
+        "    <select name=\"ProductSelect\" id=\"ProductSelect\" class = \"ProductSelect\"></select>\n" +
+        "    <br>\n" +
+        "    <label class=\"ProductSelect\">Set price: </label>\n" +
+        "    <input type =\"number\" class =\"ProductSelect\" id=\"productPrice\" min ='1'>\n" +
+        "    <input type =\"button\" id=\"AddProductButton\" class=\"btn btn-success ProductSelect\" value=\"Add product\"><br><br>\n" +
+        "    <label id=\"addProductPageLabel\"></label><br>\n" +
+        "    <input type =\"button\" id=\"CancelAddStoreButton\" class=\"btn btn-danger\" value=\"Cancel\">\n" +
+        "    <input type =\"button\" id=\"AddStoreButton\" class=\"btn btn-primary\" value=\"AddStore\">");
+        var dataString = "ZoneName="+zoneName;
+        $.ajax({
+            data: dataString,
+            url: Update_Product_Details_Table_URL,
+            success: function (products) {
+                updateProductComboBox(products);
+                $("#AddProductButton").click(function () {
+                    addProductButtonFunc(storeToAdd);
+                })
+                $("#CancelAddStoreButton").click(function () {
+                    CancelAddStore();
+                })
+                $("#AddStoreButton").click(function () {
+                    addStoreButtonFunc(storeToAdd);
+                })
+
+
+            }
+        });
+
+}
+function addStoreButtonFunc(storeToAdd) {
+    if(storeToAdd.storeProducts === null){
+        $("#addProductPageLabel").empty().append("Add product to store.")
+    }else{
+        $.ajax({
+            data:{StoreToAdd: JSON.stringify(storeToAdd), ZoneName: zoneName},
+            url: ADD_STORE_URL,
+            success: function (response) {
+                $("#AddStoreID").empty().append(response);
+            }
+        });
+
+    }
+
+}
+function addProductButtonFunc(storeToAdd) {
+    var productOptions = document.getElementById('ProductSelect');
+    var productToAddToStore;
+    if (document.getElementById("productPrice").value === "") {
+        $("#addProductPageLabel").empty().append("Enter product price.")
+    } else {
+        $("#addProductPageLabel").empty();
+        var allOptions = document.getElementsByClassName("productOption");
+        var optionToRemove;
+        $.each(allOptions || [],function (index,option) {
+            if(option.id === productOptions.options[productOptions.selectedIndex].id){
+                productToAddToStore = new StoreProduct();
+                productToAddToStore.productID = option.id;
+                productToAddToStore.price = document.getElementById("productPrice").value;
+                storeToAdd.storeProducts.push(productToAddToStore)
+                optionToRemove = option;
+            }
+        })
+        optionToRemove.parentNode.removeChild(optionToRemove);
+        if(productOptions.options[productOptions.selectedIndex] === undefined){
+            $(".ProductSelect").hide();
+        }
+    }
+}
+function updateProductComboBox(products) {
+    $("#ProductSelect").empty();
+    $.each(products || [],function (index,product) {
+        var productName = "<option value='myValue' class='productOption' id = 'op'>"+product.productName+"</option>";
+        $("#ProductSelect").append(productName);
+        document.getElementById("op").setAttribute("id",product.productID);
+        document.getElementById(product.productID).setAttribute("value",product.productName);
+    })
+}
+function CancelAddStore() {
+    $("#AddStoreID").empty().append("<h3>Store was not added</h3>")
+}
+function buildFeedBackTable(){
+    var dataString = "ZoneName="+zoneName;
+    $.ajax({
+        data: dataString,
+        url: GET_STORES_BY_OWNER_URL,
+        success: function (stores) {
+            putFeedBacksInTable(stores);
+        }
+    });
+}
+function putFeedBacksInTable(stores){
+    $("#feedBackDetailsTableBody").empty();
+    $.each(stores || [] ,function (index,store) {
+        $.each(store.storeFeedBacks || [] ,function (index,feedBack) {
+            var d = new Date(feedBack.orderDate);
+            var n = d.toDateString();
+
+            $("#feedBackDetailsTableBody").append("<tr><td>"+feedBack.customerName+"</td><td>"+
+                store.name+"</td><td>"+ n +"</td><td>"+
+                feedBack.rating+"</td><td>"+feedBack.feedbackText+"</td></tr>")
+        })
+    })
+}
 $(function(){// area name init
     $("#UserChosenZoneName").empty().append(zoneName);
 });
@@ -571,9 +817,78 @@ function confirmOrderButtonFunc() {
             data: {CustomerOrder: JSON.stringify(customerLevelOrderJS),ZoneName: zoneName},
             url: PLACE_ORDER_IN_MARKET_URL,
             success: function (result) {
-                $("#PlaceOrderAndFeedBackID").empty().append("<label class = 'centeredOrderLabel'>"+result+"</label>");
+                $("#PlaceOrderAndFeedBackID").empty().append("<label class = 'centeredOrderLabel'>"+result+"</label>" +
+                    "<br><br><input type = 'button' value  = 'Click here to leave feedback' class = 'centeredButton btn btn-success' id = 'goToLeaveFeedBackPage'>");
+                $("#goToLeaveFeedBackPage").click(function () {
+                    showStoresToFeedBackTo();
+                })
             }
+
         });
+
+    })
+}
+function showStoresToFeedBackTo() {
+    $("#PlaceOrderAndFeedBackID").empty().append("<h3 id='chooseStoreToFeedback'>Choose store</h3><br><br>" +
+        "<div id ='StoreFeedBackSquares'> " +
+        "</div>"+"<br><br>"
+        );
+    createStoreFeedbackSquares();
+
+}
+function createStoreFeedbackSquares() {
+    $("#StoreFeedBackSquares").append("<div id='rowNum' class='row'></div>")
+    if(customerLevelOrderJS.storeOrders.length === 0){
+        $("#StoreFeedBackSquares").empty().append("<h3 class='centeredLabel'>You left feedback to all of the stores in your order!</h3>")
+    }else{
+        $.each(customerLevelOrderJS.storeOrders || [],function (index,store) {
+        createFeedbackStoreSquare(store);
+    })
+    }
+}
+function createFeedbackStoreSquare(store) {
+    $("#rowNum").append("<div id = 'colCount' class='feedbackStoreCol'></div>");
+    document.getElementById("colCount").setAttribute("id","Square"+store.storeID);
+
+    $("#Square"+store.storeID).append("<label class = \"StoreName\">"+store.storeName+"</label><br><br>\n" +
+        "<input type = \"button\" class = \"btn btn-primary\" id=\"StoreButton\" value = \"Leave Feedback\">\n"
+    );
+    document.getElementById("StoreButton").setAttribute("id","button"+store.storeID);
+    $("#button"+store.storeID).click(function () {
+        LeaveFeedBackToStoreFunc(store);
+    });
+}
+function LeaveFeedBackToStoreFunc(store) {
+    $("#PlaceOrderAndFeedBackID").empty().append("<label class = \"centeredFeedBackLabel\">Rate your shopping experience</label>\n" +
+        "    <input type=\"number\" min=\"1\" max=\"5\" required id='userRating'>\n" +
+        "    <br><label id='ratingErrorLabel' class ='ErrorLabel'></label><br>\n" +
+        "    <label class =\"centeredFeedBackLabel\">Leave FeedBack:</label><br>\n" +
+        "    <textarea id=\"userFeedBack\" name=\"feedBack\" rows=\"4\" cols=\"50\" required></textarea><br>" +
+        "    <input type = \"button\" value=\"Submit feedback\" id=\"SubmitFeedBackButton\" class = \"centeredFeedBackButton\">");
+    $("#SubmitFeedBackButton").click(function () {
+        if(parseInt(document.getElementById("userRating").value)<=5 && parseInt(document.getElementById("userRating").value)>=1) {
+                const index = customerLevelOrderJS.storeOrders.indexOf(store);
+                if (index > -1) {
+                    customerLevelOrderJS.storeOrders.splice(index, 1);
+                }
+                var myFeedBack = new FeedBack();
+                myFeedBack.customerName = customerLevelOrderJS.customerName;
+                myFeedBack.orderDate = customerLevelOrderJS.date;
+                myFeedBack.rating = userRating.value;
+                myFeedBack.feedbackText = userFeedBack.value;
+
+                $.ajax({
+                    data: {FeedBack: JSON.stringify(myFeedBack), StoreID: store.storeID, ZoneName: zoneName},
+                    url: GIVE_FEEDBACK_TO_STORE_URL,
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+                showStoresToFeedBackTo();
+
+        }else{
+            $("#ratingErrorLabel").empty().append("Please leave a rating between 1-5.");
+        }
     })
 }
 function buildOrderSummeryPerStore() {
