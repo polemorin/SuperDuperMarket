@@ -7,6 +7,9 @@ var Transactions_TABLE_URL = buildUrlWithContextPath("updateTransactions");
 var GO_TO_ZONE_URL = buildUrlWithContextPath("goToZone");
 var ADD_FUNDS_URL = buildUrlWithContextPath("addFunds");
 var GET_ALERTS_URL = buildUrlWithContextPath("getAlerts");
+var CHAT_LIST_URL = buildUrlWithContextPath("chat");
+
+var chatVersion = 0;
 
 //this function is for the tables design
 $(window).on("load resize ", function() {
@@ -202,33 +205,6 @@ function goToZoneArea(){
         }
     });
 })}
-
-
-
-$(function()
-{
-    $("#contact-submit").click(function () {
-        if (parseInt(document.getElementById("fundsAmount").value) > 0) {
-            var formParameters = $("#addFundsForm").serialize();
-
-            $.ajax({
-                data: formParameters,
-                url: ADD_FUNDS_URL,
-                error: function (e) {
-                    console.log(e);
-                },
-                success: function (r) {
-                    console.log(r);
-
-                }
-            });
-        }
-
-        // return value of the submit operation
-        // by default - we'll always return false so it doesn't redirect the user.
-        return false;
-    });
-});
 
 
 
