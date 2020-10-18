@@ -202,7 +202,7 @@ function buildAddStoreLandingPage(stores) {
     $("#AddStoreID").empty().append(" <h3>Add new store</h3>\n" +
         "    <label class=\"addStoreCentered\">Store name: &nbsp</label>\n" +
         "    <input type=\"text\" placeholder=\"Store name\" name=\"storeName\" id='StoreNameTextBox' required><br> " +
-        "    <label id='StoreNameEmptyLabel'></label><br><br>\n" +
+        "    <label id='StoreNameEmptyLabel'></label><br>\n" +
         "    <label >PPK:</label>\n" +
         "    <input type=\"number\" id=\"PPK\" placeholder=\"PPK\" name=\"PPKText\" min=\"0\" required><br>\n" +
         "    <label id=\"PPKErrorLabel\"></label><br>\n" +
@@ -898,12 +898,12 @@ function createFeedbackStoreSquare(store) {
     });
 }
 function LeaveFeedBackToStoreFunc(store) {
-    $("#PlaceOrderAndFeedBackID").empty().append("<label class = \"centeredFeedBackLabel\">Rate your shopping experience</label>\n" +
+    $("#PlaceOrderAndFeedBackID").empty().append("<div id='addFeedbackPageDiv'><label class = \"centeredFeedBackLabel\">Rate your shopping experience</label>\n" +
         "    <input type=\"number\" min=\"1\" max=\"5\" required id='userRating'>\n" +
         "    <br><label id='ratingErrorLabel' class ='ErrorLabel'></label><br>\n" +
         "    <label class =\"centeredFeedBackLabel\">Leave FeedBack:</label><br>\n" +
         "    <textarea id=\"userFeedBack\" name=\"feedBack\" rows=\"4\" cols=\"50\" required></textarea><br>" +
-        "    <input type = \"button\" value=\"Submit feedback\" id=\"SubmitFeedBackButton\" class = \"centeredFeedBackButton\">");
+        "    <input type = \"button\" value=\"Submit feedback\" id=\"SubmitFeedBackButton\" class = \"btn btn-primary centeredFeedBackButton\"></div>");
     $("#SubmitFeedBackButton").click(function () {
         if(parseInt(document.getElementById("userRating").value)<=5 && parseInt(document.getElementById("userRating").value)>=1) {
                 const index = customerLevelOrderJS.storeOrders.indexOf(store);
@@ -964,7 +964,7 @@ function createStoreOrderString(storeOrder) {
         "                    </thead>\n" +
         "                </table>\n" +
         "            </div>\n" +
-        "            <div class=\"tbl-content shortTableHead\">\n" +
+        "            <div class=\"tbl-content shortTableHead\" '>\n" +
         "                <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" id = \"storeOrderSummery1\">\n" +
         "                    <tbody id=\"storeOrderSummery1TableBody\">\n" +
         "                    <tr>\n" +
@@ -1022,9 +1022,9 @@ function buildOrderSummeryLabels() {
         "                    </thead>\n" +
         "                </table>\n" +
         "        </div>\n" +
-        "            <div class=\"tbl-content tbl-order-summery-content\">\n" +
-        "                <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" id = \"orderSummery1\">\n" +
-        "                    <tbody id=\"orderSummery1TableBody\">\n" +
+        "            <div class=\"tbl-content tbl-order-summery-content customerDetails\">\n" +
+        "                <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" id = \"orderSummery1\" >\n" +
+        "                    <tbody id=\"orderSummery1TableBody\" >\n" +
         "                    <tr>\n" +
         "                        <td id=\"CustomerNameRow\">Customer name: </td>\n" +
         "                        <td id=\"CustomerIDRow\">Customer ID: </td>\n" +
@@ -1033,8 +1033,8 @@ function buildOrderSummeryLabels() {
         "                    </tbody>\n" +
         "                </table>\n" +
         "            </div>\n" +
-        "            <div class = \"tbl-header hiddenTableHead\">\n" +
-        "                <table class=\"OrderSummeryHead\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
+        "            <div class = \"tbl-header hiddenTableHead \">\n" +
+        "                <table class=\"OrderSummeryHead \" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
         "                    <thead>\n" +
         "                    <tr>\n" +
         "                        <th>Delivery price</th>\n" +
@@ -1044,7 +1044,7 @@ function buildOrderSummeryLabels() {
         "                    </thead>\n" +
         "                </table>\n" +
         "            </div>\n" +
-        "            <div class=\"tbl-content tbl-order-summery-content\">\n" +
+        "            <div class=\"tbl-content tbl-order-summery-content customerDetails\">\n" +
         "                <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" id = \"orderSummery2\">\n" +
         "                    <tbody id=\"orderSummery2TableBody\">\n" +
         "                    <tr>\n" +
@@ -1086,7 +1086,7 @@ function calcTotalProductPrice() {
     return totalPrice;
 }
 function buildSalesPages() {
-    $("#PlaceOrderAndFeedBackID").empty().append("    <h3>Choose sales:</h3>\n" +
+    $("#PlaceOrderAndFeedBackID").empty().append("    <h3 id='chooseSalesHeader'>Choose sales:</h3>\n" +
         "    <form id=\"AddSalesToOrderForm\">\n" +
         "        <div class = \"tbl-header salesTableHeader\">\n" +
         "            <table class=\"AvailableSales\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n" +
@@ -1313,7 +1313,7 @@ function addAvailableSalesToTable() {
     chooseRows();
 }
 function buildPlaceOrderLandingPage() {
-    $("#PlaceOrderAndFeedBackID").empty().append("<h3>Place order</h3>\n" +
+    $("#PlaceOrderAndFeedBackID").empty().append("<h3 id ='placeOrderHeader'>Place order</h3>\n" +
         "    <form id=\"PlaceOrderDateAndTypeForm\">\n" +
         "        <label for=\"DeliveryDate\">Delivery date:</label>\n" +
         "        <input type=\"date\" id=\"DeliveryDate\" name=\"DeliveryDate\" required>\n" +
@@ -1325,14 +1325,14 @@ function buildPlaceOrderLandingPage() {
         "            <br>\n" +
         "            <label id=\"LocationLabel\"></label>\n" +
         "        </div>\n" +
-        "        <br><br>\n" +
+        "        <br>\n" +
         "        <h5>Order type</h5>\n" +
         "        <br>\n" +
         "        <div class=\"radio\">\n" +
         "            <input id = \"DynamicRadio\" type=\"radio\" name=\"orderType\" value = \"Dynamic\" checked = \"checked\">  Dynamic&nbsp&nbsp\n" +
         "            <input id = \"StaticRadio\" type=\"radio\" name=\"orderType\" value = \"Static\" >  Static\n" +
         "        </div>\n" +
-        "        <br><br>\n" +
+        "        <br>\n" +
         "\n" +
         "        <label for=\"StoresSelect\" class=\"StoresSelect\">Choose a store:</label>\n" +
         "        <select name=\"StoresSelect\" id=\"StoresSelect\" class = \"StoresSelect\">\n" +
