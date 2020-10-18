@@ -310,7 +310,16 @@ fieldset {
     width:677px;
     overflow:auto;
 }
-
-
-
+#chatarea{
+    height:60px;
+    overflow:auto;
+}
+#chatwindow{
+    width:265px;
+    outline: 2px solid #60bbba;
+    transform: translateX(+15%);
+}
+#chatform{
+    border-color:transparent;
+}
 
