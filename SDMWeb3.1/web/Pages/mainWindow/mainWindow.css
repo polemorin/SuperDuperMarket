@@ -304,7 +304,12 @@ fieldset {
     -moz-transition:background 0.3s ease-in-out;
     transition:background-color 0.3s ease-in-out;
 }
-
+.alert{
+    position:absolute;
+    height:90px;
+    width:677px;
+    overflow:auto;
+}
 
 
 
