@@ -275,4 +275,10 @@ tr { cursor: default; }
 #addFeedbackPageDiv{
     transform: translateX(+30%);
 }
+.alert{
+    position:absolute;
+    height:75px;
+    width:877px;
+    overflow:auto;
+}
 
