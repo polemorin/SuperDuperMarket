@@ -1,10 +1,12 @@
-body {font-family: Arial;}
+body {font-family: Arial;
+    background-color: #cbf1f1;
+}
 
 /* Style the tab */
 .tab {
     overflow: hidden;
     border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    background-color: #60bbba;
 }
 
 /* Style the buttons inside the tab */
@@ -21,14 +23,19 @@ body {font-family: Arial;}
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-    background-color: #ddd;
+    background-color: #33adad;
 }
 
 /* Create an active/current tablink class */
 .tab button.active {
-    background-color: #ccc;
+    background-color: #33adad;
 }
-
+.modal-body{
+    background-color: #cbf1f1;
+}
+.modal-header{
+    background-color: #97d2d2;
+}
 /* Style the tab content */
 .tabcontent {
     display: none;
@@ -124,10 +131,10 @@ td{
     height: 50px;
 }
 #ConfirmOrder{
-    transform: translateX(+660%);
+    transform: translateX(+705%);
 }
 #CancelOrder{
-    transform: translateX(+70%);
+    transform: translateX(+110%);
 }
 #tbl-available-sales-content{
     width:900px;
@@ -170,7 +177,7 @@ td{
     outline:none;
 }
 tr { cursor: default; }
-.highlight { background: #cbf1f1; }
+.highlight { background: #60bbca; }
 
 .centeredOrderLabel{
     transform: translateX(+40%);
@@ -191,7 +198,7 @@ tr { cursor: default; }
     height:100px;
 }
 #SingleStoreOrders{
-    transform: translateX(+5%);
+    transform: translateX(+10%);
 }
 #productsLabel{
     transform: translateX(+680%);
@@ -210,7 +217,22 @@ tr { cursor: default; }
     height:100px;
     text-align:center;
     outline: 1px solid #60bbba;
-    background-color:#c8def5;
+    background-color:#60bbba;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#AddStoreButton{
+    transform: translateX(+260%);
+    width:110px;
+}
+#addProductPageLabel{
+    color:red;
+    transform: translateX(+97%);
+}
+#AddProductButton{
+    transform: translateX(+76%);
+}
+#productPrice{
+    transform: translateX(+31%);
 }
 .centeredButton{
     transform: translateX(+205%);
@@ -220,7 +242,8 @@ tr { cursor: default; }
     height:100px;
     text-align:center;
     outline: 1px solid #60bbba;
-    background-color:#c8def5;
+    background-color:#60bbba;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .ErrorLabel{
     color: red;
@@ -230,7 +253,26 @@ tr { cursor: default; }
     width: 50%;
     padding: 10px;
 }
-
-
-
+#PlaceOrderDateAndTypeForm{
+    transform: translateX(+36%);
+}
+#placeOrderHeader{
+    text-align: center;
+}
+.ProductSquare{
+    background-color:#cee8e7;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#AddSalesToOrderForm{
+    transform: translateX(+12%);
+}
+#chooseSalesHeader{
+    text-align: center;
+}
+.customerDetails{
+    transform: translateX(+8.5%);
+}
+#addFeedbackPageDiv{
+    transform: translateX(+30%);
+}
 
