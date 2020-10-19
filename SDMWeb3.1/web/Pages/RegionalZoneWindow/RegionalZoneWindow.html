@@ -24,6 +24,8 @@
     <button id="StoreOwnerOrderHistoryButtonID" class="tablinks" onclick="openTab(event, 'StoreOwnerOrderHistoryID')">Order History</button>
     <button id="FeedBacksButtonID" class="tablinks" onclick="openTab(event, 'FeedBacksID')">FeedBacks</button>
     <button id="AddStoreButtonID" class="tablinks" onclick="openTab(event, 'AddStoreID')">Add store</button>
+    <button id="AddProductButtonID" class="tablinks" onclick="openTab(event, 'AddProductID')">Add product</button>
+
 </div>
 
 <div id="ProductTabID" class="tabcontent">
@@ -183,6 +185,19 @@
     <label id="addProductPageLabel"></label><br>
     <input type ="button" id="CancelAddStoreButton" class="btn btn-danger" value="Cancel">
     <input type ="button" id="AddStoreButton" class="btn btn-primary" value="AddStore">
+</div>
+
+<div id="AddProductID" class="tabcontent">
+    <h3 class="AddProductHeader">Choose stores:</h3>
+    <select name="StoreProductSelect" id="StoreProductSelect" class = "StoreProductSelect"></select>
+    <br>
+    <label id="addProductPriceLabel">Price: </label>
+    <input type="number" min="1" id="addProductPriceInput">
+    <label id="addProductPriceErrorLabel"></label>
+    <input type="button" class="btn btn-primary" id="AddProductToStoreButton" value="Add product to store">
+    <br><br>
+    <input type="button" class="btn btn-primary" id="AddProductToMarketButton" value="Confirm">
+
 </div>
 <div class="alertDiv">
 </div>

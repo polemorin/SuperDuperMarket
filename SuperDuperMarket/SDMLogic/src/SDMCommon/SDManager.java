@@ -621,6 +621,34 @@ public class SDManager {
         StoreOwner storeOwner = (StoreOwner)(userStoreOwner);
         storeOwner.addAlert(storeAlertToAdd);
     }
+
+    public void addProductToMarket(Map<Integer,Double> storeMap,String productName, String productCategory, String zoneName) {
+        Product productToAdd;
+        MarketArea area = marketAreaMap.get(zoneName);
+        int productID = 1;
+        boolean productIDExists = true;
+        while(productIDExists){
+            if(!area.getProducts().containsKey(productID)){
+                productIDExists = false;
+            }else{
+                productID++;
+            }
+        }
+        ProductCategory cat;
+        if(productCategory.equals("quantity")){
+            cat = ProductCategory.Quantity;
+        }
+        else{
+            cat = ProductCategory.Weight;
+        }
+        productToAdd = new Product(productID,productName,cat);
+        area.getProducts().put(productID,productToAdd);
+        Store store;
+        for (Map.Entry<Integer,Double> storeIDProductPrice:storeMap.entrySet()) {
+            store = area.getStores().get(storeIDProductPrice.getKey());
+            store.addNewProductToStore(new StoreProduct(productToAdd,storeIDProductPrice.getValue(),store.getID()));
+        }
+    }
 }
 
 

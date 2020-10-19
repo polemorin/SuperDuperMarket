@@ -16,7 +16,7 @@ var SEND_ORDER_ALERT_URL = buildUrlWithContextPath("sendOrderAlert");
 var SEND_FEEDBACK_ALERT_URL = buildUrlWithContextPath("sendFeedbackAlert");
 var SEND_NEW_STORE_ALERT_URL = buildUrlWithContextPath("sendNewStoreAlert");
 var GET_ALERTS_URL = buildUrlWithContextPath("getAlerts");
-
+var ADD_PRODUCT_TO_STORES_URL = buildUrlWithContextPath("addProductToStore");
 
 let customerLevelOrderJS;
 let myAvailableSales;
@@ -139,6 +139,7 @@ function hideHTMLTabsByRole(role) {
         $("#StoreOwnerOrderHistoryButtonID").hide();
         $("#FeedBacksButtonID").hide();
         $("#AddStoreButtonID").hide();
+        $("#AddProductButtonID").hide();
     }else{
         $("#PlaceOrderAndFeedBackButtonID").hide();
         $("#CustomerOrderHistoryButtonID").hide();
@@ -174,6 +175,9 @@ function openTab(evt, tabName) {
         case "AddStoreID":
             getStoresAndBuildAddStoreLandingPage();
             break;
+        case "AddProductID":
+            buildAddProductLandingPage();
+            break;
     }
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -197,6 +201,117 @@ function getStoresAndBuildAddStoreLandingPage(){
 
         }
     });
+}
+function buildAddProductLandingPage() {
+    $("#AddProductID").empty().append(" <h3 id = \"AddProductHeader\">Add Product</h3>\n" +
+        "    <label id=\"EnterProductNameLabel\">Product name: </label>\n" +
+        "    <input type=\"text\" id=\"ProductNameInput\">\n" +
+        "    <br>\n" +
+        "    <label id=\"ProductNameErrorLabel\"></label>\n" +
+        "    <br>\n" +
+        "    <label id=\"categoryLabel\">Product Category:</label>\n" +
+        "    <div class=\"radio\">\n" +
+        "        <label for=\"QuantityRadio\"></label><input id = \"QuantityRadio\" type=\"radio\" name=\"categoryType\" value = \"Quantity\" checked = \"checked\">  Quantity&nbsp&nbsp\n" +
+        "        <label for=\"WeightRadio\"></label><input id = \"WeightRadio\" type=\"radio\" name=\"categoryType\" value = \"Weight\">  Weight\n" +
+        "    </div>\n" +
+        "    <br>\n" +
+        "   <input type=\"button\" class='btn btn-primary' value=\"next\" id=\"goToChooseStoreButton\">")
+    $("#goToChooseStoreButton").click(function () {
+        var productName;
+        var productCategory;
+        if(document.getElementById("ProductNameInput").value === ""){
+            $("#ProductNameErrorLabel").empty().append("Enter product name.")
+        }else{
+            productName = document.getElementById("ProductNameInput").value;
+
+            const rbs = document.querySelectorAll('input[name="categoryType"]');
+            let selectedValue;
+            for (const rb of rbs) {
+                if (rb.checked) {
+                    selectedValue = rb.value;
+                    break;
+                }
+            }
+            if(selectedValue === "Quantity"){
+                productCategory = "Quantity";
+            }else{
+                productCategory = "Weight";
+            }
+            var dataString = "ZoneName="+zoneName;
+            $.ajax({
+                data: dataString,
+                url: GET_STORES_BY_OWNER_URL,
+                success: function (stores) {
+                    if(stores.length === 0){
+                        $("#AddProductID").empty().append("<h3 class='header'>You dont have any stores in this area! open a store in order to add product.</h3>")
+                    }else {
+                        buildChooseStoreToAddProductToPage(stores, productName, productCategory);
+                    }
+                }
+            });
+
+        }
+    })
+}
+function buildChooseStoreToAddProductToPage(stores,productName, productCategory){
+    const IDPriceMap = new Map()
+    var price;
+    $("#AddProductID").empty().append(" <h3 class=\"AddProductHeader\">Choose stores:</h3>\n" +
+        "    <select name=\"StoreProductSelect\" id=\"StoreProductSelect\" class = \"StoreProductSelect\"></select>\n" +
+        "    <br>\n" +
+        "    <label id=\"addProductPriceLabel\" class='StoreProductSelect'>Price: </label>\n" +
+        "    <input type=\"number\" min=\"1\" class='StoreProductSelect' id=\"addProductPriceInput\">\n" +
+        "    <label id=\"addProductPriceErrorLabel\" class='StoreProductSelect ErrorLabel'></label>\n" +
+        "    <input type=\"button\" class=\"btn btn-primary StoreProductSelect\" id=\"AddProductToStoreButton\" value=\"Add product to store\">\n" +
+        "    <br><br>\n" +
+        "    <label id='ChooseStoreErrorLabel' class='ErrorLabel'></label> "+
+        "    <input type=\"button\" class=\"btn btn-primary\" id=\"AddProductToMarketButton\" value=\"Confirm\">");
+    $.each(stores||[],function (index,store) {
+        var storeName = "<option value='myValue' class='storeOption' id = 'op'>"+store.name+"</option>";
+        $("#StoreProductSelect").append(storeName);
+        document.getElementById("op").setAttribute("id",store.ID);
+    })
+    var productOptions = document.getElementById('StoreProductSelect');
+    $("#AddProductToStoreButton").click(function () {
+        if(document.getElementById("addProductPriceInput").value === ""){
+            $("#addProductPriceErrorLabel").empty().append("Enter price.");
+        }else{
+            if(parseInt(document.getElementById("addProductPriceInput").value) < 1){
+                $("#addProductPriceErrorLabel").empty().append("Enter a positive price.");
+            }else {
+                $("#addProductPriceErrorLabel").empty();
+                price = document.getElementById("addProductPriceInput").value;
+                var allOptions = document.getElementsByClassName("storeOption");
+                var optionToRemove;
+                $.each(allOptions || [], function (index, option) {
+                    if (option.id === productOptions.options[productOptions.selectedIndex].id) {
+                        IDPriceMap.set(option.id, price);
+                        optionToRemove = option;
+                    }
+                })
+                optionToRemove.parentNode.removeChild(optionToRemove);
+                if (productOptions.options[productOptions.selectedIndex] === undefined) {
+                    $(".StoreProductSelect").hide();
+                    $("#AddProductID").append("No more stores to add to.");
+                }
+            }
+        }
+
+    })
+    $("#AddProductToMarketButton").click(function () {
+        if(IDPriceMap.size === 0){
+            $("#addProductPriceErrorLabel").empty().append("Choose at least one store.")
+        }else{
+            $.ajax({
+                data: {ProductName:productName,Category:productCategory,ZoneName:zoneName,StoreMap:JSON.stringify(Array.from(IDPriceMap.entries()))},
+                url: ADD_PRODUCT_TO_STORES_URL,
+                success: function (response) {
+                   $("#AddProductID").empty().append(response);
+
+                }
+            });
+        }
+    })
 }
 function buildAddStoreLandingPage(stores) {
     $("#AddStoreID").empty().append(" <h3>Add new store</h3>\n" +
@@ -319,7 +434,7 @@ function buildAddProductsToStorePage(storeToAdd) {
 
 }
 function addStoreButtonFunc(storeToAdd) {
-    if(storeToAdd.storeProducts === null){
+    if(storeToAdd.storeProducts.length === 0){
         $("#addProductPageLabel").empty().append("Add product to store.")
     }else{
         $.ajax({
@@ -1340,7 +1455,7 @@ function buildPlaceOrderLandingPage() {
         "        </select>\n" +
         "        <br><br>\n" +
         "\n" +
-        "        <button id = \"placeOrderGoToProducts\" type=\"button\">Next</button>\n" +
+        "        <button id = \"placeOrderGoToProducts\" class='btn btn-primary' type=\"button\">Next</button>\n" +
         "    </form>");
     customerLevelOrderJS = new CustomerLevelOrderJS();
     var dataString = "ZoneName="+zoneName;

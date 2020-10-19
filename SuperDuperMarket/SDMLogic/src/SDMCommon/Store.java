@@ -61,7 +61,6 @@ public class Store {
         return sales;
     }
     public double getProductPrice(Product product){
-        //////////////////////////////////////////////////////////EXCEPTION INSTEAD OF RETURN
         double price = -1;
         if(products.containsKey(product.getProductID())){
             return products.get(product.getProductID()).getPrice();
