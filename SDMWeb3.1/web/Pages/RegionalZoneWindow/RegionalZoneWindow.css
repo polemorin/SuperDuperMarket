@@ -281,4 +281,13 @@ tr { cursor: default; }
     width:877px;
     overflow:auto;
 }
+#AddProductID{
+    text-align: center;
+}
+#ProductNameInput{
+    width:100px;
+}
+#addProductPriceInput{
+    width:60px;
+}
 
