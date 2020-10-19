@@ -203,7 +203,7 @@ function getStoresAndBuildAddStoreLandingPage(){
     });
 }
 function buildAddProductLandingPage() {
-    $("#AddProductID").empty().append(" <h3 id = \"AddProductHeader\">Add Product</h3>\n" +
+    $("#AddProductID").empty().append(" <h3 id = \"AddProductHeader\">Add Product</h3><br>\n" +
         "    <label id=\"EnterProductNameLabel\">Product name: </label>\n" +
         "    <input type=\"text\" id=\"ProductNameInput\">\n" +
         "    <br>\n" +
@@ -260,8 +260,8 @@ function buildChooseStoreToAddProductToPage(stores,productName, productCategory)
         "    <select name=\"StoreProductSelect\" id=\"StoreProductSelect\" class = \"StoreProductSelect\"></select>\n" +
         "    <br>\n" +
         "    <label id=\"addProductPriceLabel\" class='StoreProductSelect'>Price: </label>\n" +
-        "    <input type=\"number\" min=\"1\" class='StoreProductSelect' id=\"addProductPriceInput\">\n" +
-        "    <label id=\"addProductPriceErrorLabel\" class='StoreProductSelect ErrorLabel'></label>\n" +
+        "    <input type=\"number\" min=\"1\" class='StoreProductSelect' id=\"addProductPriceInput\"><br>\n" +
+        "    <label id=\"addProductPriceErrorLabel\" class='StoreProductSelect ErrorLabel'></label>\n<br>" +
         "    <input type=\"button\" class=\"btn btn-primary StoreProductSelect\" id=\"AddProductToStoreButton\" value=\"Add product to store\">\n" +
         "    <br><br>\n" +
         "    <label id='ChooseStoreErrorLabel' class='ErrorLabel'></label> "+
@@ -402,7 +402,7 @@ function checkIfStoreInLocationAddStore(stores,Xlocation,Ylocation) {
 }
 function buildAddProductsToStorePage(storeToAdd) {
     storeToAdd.storeProducts = [];
-    $("#AddStoreID").empty().append("    <h3>Add products to your new store</h3>\n" +
+    $("#AddStoreID").empty().append("<h3>Add products to your new store</h3>\n" +
         "    <label for=\"ProductSelect\" class=\"ProductSelect\">Choose a product:</label>\n" +
         "    <select name=\"ProductSelect\" id=\"ProductSelect\" class = \"ProductSelect\"></select>\n" +
         "    <br>\n" +
