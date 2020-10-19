@@ -322,4 +322,7 @@ fieldset {
 #chatform{
     border-color:transparent;
 }
-
+#chatarea{
+    height:50px;
+    overflow: auto;
+}
