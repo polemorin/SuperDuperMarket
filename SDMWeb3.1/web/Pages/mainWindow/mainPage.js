@@ -43,6 +43,17 @@ $(function() { // onload...do
            }
        }
    )
+    $("#contact-submit").click(function () {
+        if(document.getElementById("fundsAmount").value !== "" && document.getElementById("fundsAmount").value > 0 ){
+            $.ajax({
+                data:{fundsAmount:document.getElementById("fundsAmount").value},
+                url: ADD_FUNDS_URL,
+                success: function (result) {
+                    console.log("success");
+                }
+            });
+        }
+    })
    //-------------upload xml file-----------------------------------------------
     $("#uploadXmlFile").submit(function() {
         var file1 = this[0].files[0];
