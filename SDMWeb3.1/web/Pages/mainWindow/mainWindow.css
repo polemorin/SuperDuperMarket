@@ -299,13 +299,13 @@ fieldset {
 }
 
 #uploadXmlFile button[type="submit"]:hover {
-    background:#53a1a0;
+    background: #53a1a0;
     -webkit-transition:background 0.3s ease-in-out;
     -moz-transition:background 0.3s ease-in-out;
     transition:background-color 0.3s ease-in-out;
 }
 .alert{
-    position:absolute;
+    position:absolute !important;
     height:90px;
     width:677px;
     overflow:auto;

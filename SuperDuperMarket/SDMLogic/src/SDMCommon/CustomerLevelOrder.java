@@ -16,7 +16,7 @@ public class CustomerLevelOrder {
     private int totalProductPurchased;
     private final double deliveryPrice;
     private final LocalDate date;
-    private static int OrderIDGenerator = 1000;
+    protected static int OrderIDGenerator = 1000;
     private final int OrderID;
     private final Point orderLocation;
 

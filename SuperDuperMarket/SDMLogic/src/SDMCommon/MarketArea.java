@@ -472,4 +472,20 @@ public class MarketArea {
         }
         return productTableInfos;
     }
+
+    public List<StoreProductInfo> getStoreProductInfo(String storeName) {
+        List<StoreProductInfo> productInfoList = new ArrayList<>();
+        for (Map.Entry<Integer,Store> store:stores.entrySet()) {
+            if(store.getValue().getName().equals(storeName)){
+                for (Map.Entry<Integer,StoreProduct>product:store.getValue().getProducts().entrySet()) {
+                    productInfoList.add(new StoreProductInfo(product.getValue().getProductID(),
+                            product.getValue().getProductName(),
+                            product.getValue().getPrice(),
+                            product.getValue().getProductCategory().toString()));
+                }
+            }
+        }
+
+        return productInfoList;
+    }
 }

@@ -185,7 +185,7 @@ public class StoreLevelOrder {
         return null;
     }
 
-    public double getDistanceFromCustomerToStore(Point store,Point customer){
+    public static double getDistanceFromCustomerToStore(Point store,Point customer){
         double a,b;
         a = store.x - customer.x;
         b= store.y - customer.y;
