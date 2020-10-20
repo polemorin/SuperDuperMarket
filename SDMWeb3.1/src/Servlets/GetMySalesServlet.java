@@ -30,7 +30,7 @@ public class GetMySalesServlet extends HttpServlet {
             storeOrderJS = gson.fromJson(storeOrderJSON, StoreLevelOrderJS[].class);
             if (storeOrderJS == null) {
                 resp.sendError(-1, "Order not valid.");
-            } else {//Synchronize????????
+            } else {
                 Sale[] saleProductJSArray = null;
                 if(OrderType.equals("Static")) {
                     saleProductJSArray = sdManager.getMyStaticSales(storeOrderJS, zoneName);

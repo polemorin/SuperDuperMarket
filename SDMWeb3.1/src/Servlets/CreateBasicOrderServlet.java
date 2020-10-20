@@ -40,7 +40,7 @@ public class CreateBasicOrderServlet extends HttpServlet {
             customerLevelOrderJS.setCustomerLocation(customerLocation);
             if (customerLevelOrderJS == null) {
                 resp.sendError(-1, "Order not valid.");
-            } else {//Synchronize????????
+            } else {
                 if(OrderType.equals("Static")){
                     customerLevelOrderJS = sdManager.createBasicStaticCustomerOrder(customerLevelOrderJS,storeName,zoneName);
                 }else {
