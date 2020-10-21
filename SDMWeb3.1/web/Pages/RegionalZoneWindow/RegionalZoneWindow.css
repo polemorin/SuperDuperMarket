@@ -290,5 +290,11 @@ tr { cursor: default; }
 #addProductPriceInput{
     width:60px;
 }
+.storeOwnerButton{
+    width: 16.6%;
+}
+.customerButton{
+    width: 25%;
+}
 
 

@@ -17,14 +17,14 @@
 <h2 id = "UserChosenZoneName" style="text-align: center"></h2>
 </div>
 <div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'ProductTabID')">Product info</button>
-    <button class="tablinks" onclick="openTab(event, 'StoreTabID')">Store info</button>
-    <button id="PlaceOrderAndFeedBackButtonID" class="tablinks" onclick="openTab(event, 'PlaceOrderAndFeedBackID')">Place order</button>
-    <button id="CustomerOrderHistoryButtonID" class="tablinks" onclick="openTab(event, 'CustomerOrderHistoryID')">Order History</button>
-    <button id="StoreOwnerOrderHistoryButtonID" class="tablinks" onclick="openTab(event, 'StoreOwnerOrderHistoryID')">Order History</button>
-    <button id="FeedBacksButtonID" class="tablinks" onclick="openTab(event, 'FeedBacksID')">FeedBacks</button>
-    <button id="AddStoreButtonID" class="tablinks" onclick="openTab(event, 'AddStoreID')">Add store</button>
-    <button id="AddProductButtonID" class="tablinks" onclick="openTab(event, 'AddProductID')">Add product</button>
+    <button class="tablinks" id="changeMeProductButton"  onclick="openTab(event, 'ProductTabID')">Product info</button>
+    <button class="tablinks" id="changeMeStoreInfoButton" onclick="openTab(event, 'StoreTabID')">Store info</button>
+    <button id="PlaceOrderAndFeedBackButtonID" class="tablinks customerButton" onclick="openTab(event, 'PlaceOrderAndFeedBackID')">Place order</button>
+    <button id="CustomerOrderHistoryButtonID" class="tablinks customerButton" onclick="openTab(event, 'CustomerOrderHistoryID')">Order History</button>
+    <button id="StoreOwnerOrderHistoryButtonID" class="tablinks storeOwnerButton" onclick="openTab(event, 'StoreOwnerOrderHistoryID')">Order History</button>
+    <button id="FeedBacksButtonID" class="tablinks storeOwnerButton" onclick="openTab(event, 'FeedBacksID')">FeedBacks</button>
+    <button id="AddStoreButtonID" class="tablinks storeOwnerButton" onclick="openTab(event, 'AddStoreID')">Add store</button>
+    <button id="AddProductButtonID" class="tablinks storeOwnerButton" onclick="openTab(event, 'AddProductID')">Add product</button>
 
 </div>
 

@@ -116,6 +116,14 @@ $(function() { // onload...do
             if(role !=="Customer"){
                 setInterval(getAlerts,3000);
             }
+            if(role === "Customer"){
+                document.getElementById("changeMeProductButton").setAttribute("class","tablinks customerButton")
+                document.getElementById("changeMeStoreInfoButton").setAttribute("class","tablinks customerButton")
+            }else{
+                document.getElementById("changeMeProductButton").setAttribute("class","tablinks storeOwnerButton")
+                document.getElementById("changeMeStoreInfoButton").setAttribute("class","tablinks storeOwnerButton")
+            }
+
         }
     });
 })
