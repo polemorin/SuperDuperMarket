@@ -1,4 +1,7 @@
 # SuperDuperMarket
+
+Smart shopping Web application developed using Java, JavaScript, CSS and Html.
+
 Instructions:
 
 1)Run Apache tomcat.
